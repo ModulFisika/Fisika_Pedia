@@ -1118,8 +1118,93 @@
             </div>
         </section>
 
+         <!-- ================================== -->
+        <!-- HALAMAN EVALUASI (DESAIN BARU)     -->
         <!-- ================================== -->
-        <!-- HALAMAN EVALUASI                   -->
+        <section id="evaluasi" class="page-section">
+            <div class="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 sm:p-12 max-w-5xl mx-auto relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-full h-3 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600"></div>
+                <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-emerald-50 rounded-full opacity-50 blur-3xl -z-10"></div>
+                
+                <!-- LAYAR START -->
+                <div id="eval-start-area" class="relative z-10 text-center py-16">
+                    <div class="w-32 h-32 bg-emerald-100 text-emerald-600 rounded-[2.5rem] flex items-center justify-center text-6xl mx-auto mb-8 shadow-inner transform rotate-6 hover:rotate-12 transition-transform">🎓</div>
+                    <h2 class="text-4xl sm:text-5xl font-black text-slate-800 mb-6 tracking-tight">Evaluasi Akhir Modul</h2>
+                    <p class="text-slate-500 font-medium text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
+                        Uji pemahaman komprehensifmu setelah mempelajari seluruh materi Suhu, Kalor, dan penerapannya pada Kopi. Tersedia <strong class="text-emerald-600">20 soal pilihan ganda</strong> dengan evaluasi pembahasan di akhir.
+                    </p>
+                    <button onclick="startEvaluasi()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-black py-5 px-14 rounded-2xl text-xl shadow-lg shadow-emerald-600/40 transform transition-all hover:-translate-y-2 hover:scale-105 active:scale-95">
+                        Mulai Ujian Sekarang <i class="fas fa-play ml-2"></i>
+                    </button>
+                </div>
+
+                <!-- LAYAR AKTIF MENGERJAKAN SOAL -->
+                <div id="eval-active-area" class="hidden relative z-10">
+                    
+                    <!-- Sticky Header Progress -->
+                    <div class="sticky-eval-header bg-white/90 p-4 sm:p-6 rounded-2xl shadow-sm border border-slate-200 mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <div>
+                            <h3 class="text-2xl font-black text-slate-800"><i class="fas fa-file-alt text-emerald-500 mr-2"></i> Lembar Jawaban</h3>
+                            <p class="text-sm font-bold text-slate-500 mt-1">Selesaikan 20 soal berikut</p>
+                        </div>
+                        <div class="w-full sm:w-1/2 flex flex-col gap-2">
+                            <div class="flex justify-between text-sm font-black text-slate-600">
+                                <span>Progress</span>
+                                <span><span id="eval-progress-text" class="text-emerald-600 text-lg">0</span> / 20 Terjawab</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden border border-slate-200">
+                                <div id="eval-progress-bar" class="bg-emerald-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Container Soal -->
+                    <div id="eval-questions-container" class="space-y-10 mb-12">
+                        <!-- Soal akan diinject via JavaScript -->
+                    </div>
+
+                    <!-- Tombol Kumpul & Kembali -->
+                    <div id="eval-submit-container" class="bg-emerald-50 border-2 border-emerald-100 rounded-3xl p-8 text-center flex flex-col items-center justify-center">
+                        <p id="eval-submit-msg" class="text-emerald-800 font-bold mb-6 text-lg">Pastikan semua soal telah terjawab sebelum mengumpulkan.</p>
+                        <button id="eval-submit-btn" onclick="submitEvaluasi()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-black py-4 px-12 rounded-2xl shadow-lg shadow-emerald-500/30 transition transform hover:-translate-y-1 w-full sm:w-auto text-xl">
+                            <i class="fas fa-paper-plane mr-2"></i> Kumpulkan Jawaban
+                        </button>
+                        <!-- Tombol ini muncul ketika mode REVIU -->
+                        <button id="eval-back-to-score-btn" onclick="backToEvalResult()" class="hidden bg-slate-800 hover:bg-slate-900 text-white font-black py-4 px-12 rounded-2xl shadow-lg transition transform hover:-translate-y-1 w-full sm:w-auto text-xl">
+                            <i class="fas fa-arrow-left mr-2"></i> Kembali ke Nilai Akhir
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LAYAR HASIL AKHIR -->
+                <div id="eval-result-area" class="hidden relative z-10 text-center py-12 anim-pop">
+                    <div id="eval-status-icon" class="text-[6rem] mb-6 drop-shadow-lg">🏆</div>
+                    <h2 id="eval-status-title" class="text-4xl sm:text-5xl font-black text-slate-800 mb-4 tracking-tight">Evaluasi Selesai!</h2>
+                    <p class="text-slate-500 font-bold text-lg mb-8">Kerja bagus telah menyelesaikan seluruh modul.</p>
+                    
+                    <div class="bg-white border-[6px] border-slate-100 rounded-[3rem] p-10 max-w-md mx-auto shadow-2xl relative mb-12 transform transition-transform hover:scale-105">
+                        <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white font-black px-6 py-2 rounded-full shadow-md tracking-widest text-sm uppercase">
+                            Skor Akhir
+                        </div>
+                        <div id="eval-final-score" class="text-[6rem] font-black text-slate-800 leading-none my-4">0</div>
+                        <p id="eval-score-text" class="text-base font-bold text-slate-500 bg-slate-100 py-2 rounded-xl">Menjawab benar 0 dari 20 soal</p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row justify-center gap-5">
+                        <button onclick="showEvalReview()" class="bg-white border-2 border-slate-300 hover:bg-slate-50 hover:border-blue-400 text-slate-700 font-black py-4 px-10 rounded-2xl shadow-sm transition text-lg flex items-center justify-center gap-3">
+                            <i class="fas fa-search text-blue-500"></i> Reviu Jawaban
+                        </button>
+                        <button onclick="retryEvaluasi()" class="bg-slate-800 hover:bg-slate-900 text-white font-black py-4 px-10 rounded-2xl shadow-lg transition transform hover:-translate-y-1 text-lg flex items-center justify-center gap-3">
+                            <i class="fas fa-redo"></i> Ulangi Ujian
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================================== -->
+        <!-- HALAMAN REFERENSI                   -->
         <!-- ================================== -->
         <section id="referensi" class="page-section">
             <div class="bg-gradient-to-br from-slate-50 to-white rounded-3xl shadow-sm border border-slate-200 p-6 sm:p-10 max-w-4xl mx-auto relative overflow-hidden">
@@ -1230,7 +1315,7 @@
                 <div class="relative -mt-16 mb-4">
                     <div class="w-32 h-32 rounded-full border-4 border-white shadow-xl overflow-hidden bg-slate-100 relative z-10">
                         <!-- Menggunakan object-cover dan object-top untuk memfokuskan ke bagian atas foto -->
-                        <img src="foto1.png" alt="Foto Profile" width="700">
+                        <img src="img/foto1.png" alt="Foto Profile" width="700">
                     </div>
                     <!-- Indikator Status Aktif (Titik Hijau) -->
                     <div class="absolute bottom-1 right-2 w-6 h-6 bg-emerald-500 border-[3px] border-white rounded-full z-20" title="Penulis Modul"></div>
@@ -1716,68 +1801,138 @@
             }
         }
 
-        // --- 4. LOGIKA EVALUASI AKHIR ---
+         // --- 4. LOGIKA EVALUASI AKHIR (20 SOAL & DESAIN BARU) ---
         const evalData = [
-            { q: "Suhu benda secara mikroskopis menunjukkan...", opts: ["Massa partikel", "Warna partikel", "Energi Kinetik partikel", "Ukuran partikel"], ans: 2, exp: "Suhu merepresentasikan energi kinetik rata-rata partikel." },
-            { q: "Kalor berpindah dari benda...", opts: ["Besar ke kecil", "Suhu tinggi ke rendah", "Suhu rendah ke tinggi", "Padat ke cair"], ans: 1, exp: "Secara alami kalor mengalir dari suhu tinggi ke suhu rendah." },
-            { q: "Pemuaian panjang dirumuskan dengan...", opts: ["Q = m.c.ΔT", "ΔL = L₀.α.ΔT", "Q = m.L", "P = F/A"], ans: 1, exp: "ΔL = L₀.α.ΔT adalah rumus pemuaian panjang." },
-            { q: "Penjemuran kopi di bawah matahari adalah contoh perpindahan panas secara...", opts: ["Konduksi", "Radiasi", "Konveksi", "Sublimasi"], ans: 1, exp: "Panas matahari berpindah secara radiasi (pancaran tanpa perantara medium)." },
-            { q: "Jika Q = m.c.ΔT, c merujuk pada...", opts: ["Kalor Jenis", "Kalor Lebur", "Suhu", "Kapasitas Kalor"], ans: 0, exp: "c adalah lambang untuk kalor jenis benda." }
+            // Bab 1: Suhu
+            { q: "Suhu benda secara mikroskopis menunjukkan...", opts: ["Massa total partikel", "Warna dan ukuran partikel", "Energi Kinetik rata-rata partikel", "Kerapatan antar partikel"], ans: 2, exp: "Suhu merepresentasikan energi kinetik rata-rata partikel benda." },
+            { q: "Titik didih air pada tekanan 1 atm untuk skala Celcius dan Reamur secara berturut-turut adalah...", opts: ["100°C dan 80°R", "80°C dan 100°R", "100°C dan 212°R", "0°C dan 32°R"], ans: 0, exp: "Titik didih air normal adalah 100°C. Dalam Reamur nilainya adalah (4/5) x 100 = 80°R." },
+            { q: "Termometer Celcius menunjukkan suhu 50°C. Jika diukur menggunakan Fahrenheit, nilainya adalah...", opts: ["90°F", "122°F", "158°F", "212°F"], ans: 1, exp: "Rumus: F = (9/5 x C) + 32 = (9/5 x 50) + 32 = 90 + 32 = 122°F." },
+            { q: "Satuan suhu dalam Sistem Internasional (SI) adalah...", opts: ["Celcius", "Fahrenheit", "Kelvin", "Reamur"], ans: 2, exp: "Kelvin ditetapkan sebagai standar SI karena memiliki titik nol mutlak." },
+            { q: "Suhu tubuh manusia normal sekitar 37°C. Dalam skala Kelvin, suhu tersebut setara dengan...", opts: ["300 K", "310 K", "236 K", "273 K"], ans: 1, exp: "K = C + 273 = 37 + 273 = 310 K." },
+            { q: "Keuntungan utama menggunakan raksa sebagai pengisi termometer adalah...", opts: ["Harganya sangat murah", "Warnanya bening dan aman", "Memuai secara teratur dan tidak membasahi dinding kaca", "Memiliki titik didih yang sangat rendah"], ans: 2, exp: "Raksa memuai teratur thd kenaikan suhu, mudah dilihat (mengkilap), dan tidak membasahi dinding." },
+            { q: "Sifat zat yang berubah secara teratur ketika suhunya berubah disebut...", opts: ["Sifat mekanik", "Sifat termometrik", "Sifat anomali", "Sifat konduktivitas"], ans: 1, exp: "Sifat termometrik adalah dasar kerja pembuatan termometer." },
+            // Bab 2: Kalor
+            { q: "Kalor berpindah secara alami dari...", opts: ["Benda cair ke benda padat", "Benda bersuhu rendah ke suhu tinggi", "Benda bermassa besar ke kecil", "Benda bersuhu tinggi ke suhu rendah"], ans: 3, exp: "Hukum alam menyatakan energi panas (kalor) mengalir dari sistem bersuhu tinggi ke sistem bersuhu rendah." },
+            { q: "Perpindahan kalor yang disertai dengan perpindahan partikel-partikel zat perantaranya disebut...", opts: ["Radiasi", "Konveksi", "Konduksi", "Evaporasi"], ans: 1, exp: "Konveksi terjadi pada fluida (cair/gas) dimana partikel ikut bergerak memindahkan panas." },
+            { q: "Saat menjemur pakaian di bawah terik matahari, panas sampai ke pakaian melalui proses...", opts: ["Konduksi", "Konveksi", "Radiasi", "Kondensasi"], ans: 2, exp: "Panas matahari merambat melalui ruang hampa ke bumi secara radiasi (pancaran tanpa medium)." },
+            { q: "Besi yang dipanaskan salah satu ujungnya akan membuat ujung lain ikut panas. Ini adalah contoh...", opts: ["Konduksi", "Konveksi", "Radiasi", "Isolasi"], ans: 0, exp: "Konduksi adalah rambatan panas pada zat padat tanpa disertai perpindahan partikel zatnya." },
+            { q: "Banyaknya kalor yang diperlukan untuk menaikkan suhu 1 kg zat sebesar 1°C disebut...", opts: ["Kapasitas Kalor", "Kalor Lebur", "Kalor Jenis", "Kalor Uap"], ans: 2, exp: "Ini adalah definisi dari Kalor Jenis (c) dengan satuan J/kg°C." },
+            { q: "Berapa energi (kalor) yang diserap untuk memanaskan 1 kg air (c = 4200 J/kg°C) dari 20°C menjadi 30°C?", opts: ["4.200 J", "42.000 J", "84.000 J", "126.000 J"], ans: 1, exp: "Q = m.c.ΔT = 1 kg x 4200 x (30-20) = 42.000 Joule." },
+            { q: "Menurut Asas Black, jika air panas dicampur dengan air dingin dalam wadah kedap panas, maka...", opts: ["Kalor yang dilepas benda panas = kalor yang diserap benda dingin", "Suhu campuran akan sama dengan suhu awal panas", "Benda dingin melepaskan kalor ke benda panas", "Massa total akan berkurang"], ans: 0, exp: "Asas Black: Jumlah kalor yang dilepas benda bersuhu tinggi sama dengan kalor yang diserap benda bersuhu rendah." },
+            { q: "Pemasangan kabel listrik PLN dibuat agak kendur agar...", opts: ["Tidak putus saat menyusut di malam hari", "Tidak putus saat memuai di siang hari", "Terlihat lebih rapi", "Arus listrik mengalir lancar"], ans: 0, exp: "Di malam hari yang dingin, kabel menyusut (bertambah pendek). Jika dipasang tegang, kabel akan putus." },
+            // Bab 3: Kasus Kopi (Aplikasi Termodinamika)
+            { q: "Pada proses pengolahan kopi, mengapa biji kopi segar harus segera dijemur (dikeringkan)?", opts: ["Untuk mengubah warnanya menjadi hitam", "Untuk menurunkan kadar air agar tidak membusuk/berjamur", "Untuk menaikkan kadar kafeinnya", "Untuk membuatnya langsung meleleh"], ans: 1, exp: "Pengeringan berfungsi menguapkan kandungan air berlebih (dari ~60% menjadi ~11%) agar panen awet disimpan." },
+            { q: "Saat hasil panen dihamparkan di atas terpal panas, panas merambat dari terpal ke kulit biji secara...", opts: ["Evaporasi", "Radiasi", "Konduksi", "Konveksi"], ans: 2, exp: "Terjadi sentuhan langsung antara biji kopi dan terpal panas, sehingga merambat secara Konduksi." },
+            { q: "Angin yang berhembus membawa udara panas di sekitar area penjemuran akan mempercepat pengeringan. Proses ini memanfaatkan perpindahan panas secara...", opts: ["Konduksi murni", "Radiasi murni", "Konveksi", "Isolasi"], ans: 2, exp: "Aliran udara (angin) adalah pergerakan fluida yang membawa energi panas, yang merupakan peristiwa konveksi." },
+            { q: "Proses berubahnya air di dalam biji hasil panen basah menjadi uap air ke udara lepas disebut...", opts: ["Mengembun", "Membeku", "Menyublim", "Menguap (Evaporasi)"], ans: 3, exp: "Air menerima kalor untuk berubah wujud dari cair menjadi gas (uap), proses ini disebut evaporasi." },
+            { q: "Petani sering meratakan (membolak-balik) hamparan panen saat dijemur. Secara prinsip fisika, tujuannya untuk...", opts: ["Memperkecil luas permukaan muai", "Memperluas area paparan radiasi dan konveksi agar air menguap lebih cepat", "Menaikkan titik didih biji", "Menurunkan massa jenis"], ans: 1, exp: "Semakin luas area yang terpapar sinar matahari dan angin, semakin cepat proses transfer kalor dan penguapan terjadi." }
         ];
-        let evalAns = new Array(5).fill(null);
+        
+        let evalAnswers = new Array(20).fill(null); // Array untuk simpan jawaban user
+
+        function initQuiz() {
+            const container = document.getElementById('eval-questions-container');
+            container.innerHTML = '';
+            
+            evalData.forEach((item, idx) => {
+                let html = `
+                    <div class="bg-white p-6 sm:p-10 rounded-3xl border-2 border-slate-100 shadow-md mb-8 eval-card transition-all duration-300 relative overflow-hidden" id="eval-card-${idx}">
+                        
+                        <!-- Garis indikator pinggir (untuk review nanti) -->
+                        <div class="indicator-line absolute top-0 left-0 w-2 h-full bg-slate-200"></div>
+                        
+                        <div class="flex items-start gap-4 mb-6">
+                            <span class="bg-blue-100 text-blue-700 font-black px-4 py-2 rounded-xl text-sm shrink-0">No. ${idx+1}</span>
+                            <h4 class="font-bold text-slate-800 text-lg leading-relaxed mt-1">${item.q}</h4>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                `;
+                
+                let letters = ['A','B','C','D'];
+                item.opts.forEach((opt, oIdx) => {
+                    html += `
+                        <label class="relative cursor-pointer group">
+                            <input type="radio" name="e${idx}" value="${oIdx}" onchange="markEval(${idx})" class="peer sr-only">
+                            <div class="eval-opt-wrapper p-4 sm:p-5 rounded-2xl border-2 border-slate-200 bg-white group-hover:border-blue-300 peer-checked:border-blue-500 peer-checked:bg-blue-50 transition-all flex items-center h-full">
+                                <div class="eval-opt-letter w-10 h-10 rounded-xl border-2 border-slate-300 text-slate-500 font-black flex items-center justify-center mr-4 group-hover:border-blue-400 peer-checked:border-blue-500 peer-checked:bg-blue-500 peer-checked:text-white transition-all shrink-0">
+                                    ${letters[oIdx]}
+                                </div>
+                                <span class="text-slate-700 font-medium leading-snug">${opt}</span>
+                            </div>
+                        </label>
+                    `;
+                });
+                
+                html += `
+                        </div>
+                        
+                        <!-- Box Review / Pembahasan -->
+                        <div id="eval-rev-${idx}" class="hidden mt-8 p-6 bg-slate-50 rounded-2xl border-2 border-slate-100">
+                            <div class="flex items-center gap-3 mb-3">
+                                <span class="eval-status-badge"></span>
+                                <span class="font-black text-slate-800 text-lg">Pembahasan:</span>
+                            </div>
+                            <p class="text-slate-600 leading-relaxed font-medium bg-white p-4 rounded-xl border border-slate-200 shadow-sm">${item.exp}</p>
+                        </div>
+
+                    </div>
+                `;
+                container.innerHTML += html;
+            });
+            updateProgressUI();
+        }
+
+        function markEval(idx) {
+            evalAnswers[idx] = parseInt(document.querySelector(`input[name="e${idx}"]:checked`).value);
+            updateProgressUI();
+        }
+
+        function updateProgressUI() {
+            let answered = evalAnswers.filter(a => a !== null).length;
+            let total = evalData.length;
+            let pct = (answered / total) * 100;
+            
+            document.getElementById('eval-progress-text').innerText = answered;
+            document.getElementById('eval-progress-bar').style.width = `${pct}%`;
+
+            if(pct === 100) {
+                document.getElementById('eval-progress-bar').classList.remove('bg-emerald-500');
+                document.getElementById('eval-progress-bar').classList.add('bg-blue-600');
+            }
+        }
 
         function startEvaluasi() {
             document.getElementById('eval-start-area').classList.add('hidden');
             document.getElementById('eval-result-area').classList.add('hidden');
             document.getElementById('eval-active-area').classList.remove('hidden');
             
-            const container = document.getElementById('eval-questions-container');
-            container.innerHTML = '';
+            // Atur Tombol pada Kontainer Bawah
+            document.getElementById('eval-submit-btn').classList.remove('hidden');
+            document.getElementById('eval-submit-msg').classList.remove('hidden');
+            document.getElementById('eval-back-to-score-btn').classList.add('hidden');
             
-            evalData.forEach((item, idx) => {
-                let html = `<div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm mb-6 eval-card" id="eval-card-${idx}">
-                    <h4 class="font-bold text-slate-800 text-lg mb-4 leading-relaxed"><span class="bg-emerald-100 text-emerald-800 px-2 py-1 rounded-md text-sm mr-2">${idx+1}.</span> ${item.q}</h4>
-                    <div class="space-y-3">`;
-                
-                let letters = ['A','B','C','D'];
-                item.opts.forEach((opt, oIdx) => {
-                    html += `
-                        <label class="flex items-center p-4 border border-slate-200 rounded-xl cursor-pointer hover:bg-emerald-50 transition-colors group">
-                            <input type="radio" name="e${idx}" value="${oIdx}" onchange="markEval(${idx})" class="w-5 h-5 mr-4 text-emerald-600 focus:ring-emerald-500 border-gray-300">
-                            <span class="font-bold text-slate-500 mr-2 group-hover:text-emerald-700">${letters[oIdx]}.</span>
-                            <span class="text-slate-700">${opt}</span>
-                        </label>`;
-                });
-                
-                html += `</div>
-                    <div id="eval-rev-${idx}" class="hidden mt-6 p-5 bg-slate-50 rounded-xl text-sm border border-slate-200">
-                        <div class="flex items-center gap-2 mb-2 font-bold text-slate-800">
-                            <span class="eval-status-badge text-lg"></span> Pembahasan:
-                        </div>
-                        <p class="text-slate-600 leading-relaxed">${item.exp}</p>
-                    </div>
-                </div>`;
-                container.innerHTML += html;
-            });
-            document.getElementById('eval-progress-text').innerText = '0';
-        }
-
-        function markEval(idx) {
-            evalAns[idx] = parseInt(document.querySelector(`input[name="e${idx}"]:checked`).value);
-            document.getElementById('eval-progress-text').innerText = evalAns.filter(a => a !== null).length;
+            // Reset state
+            evalAnswers.fill(null);
+            document.getElementById('eval-progress-bar').classList.remove('bg-blue-600');
+            document.getElementById('eval-progress-bar').classList.add('bg-emerald-500');
+            
+            // Re-render fresh form
+            initQuiz();
+            window.scrollTo(0,0);
         }
 
         function submitEvaluasi() {
-            let totalSoal = evalData.length;
-            let answered = evalAns.filter(a => a !== null).length;
+            let totalSoal = evalData.length; // 20
+            let answered = evalAnswers.filter(a => a !== null).length;
             
             if(answered < totalSoal) { 
-                alert(`Anda baru menjawab ${answered} dari ${totalSoal} soal. Silakan lengkapi dulu!`); 
+                alert(`Kamu baru menjawab ${answered} dari ${totalSoal} soal. Silakan lengkapi dulu ya!`); 
                 return; 
             }
             
             let s = 0; 
-            evalAns.forEach((a,i) => { if(a === evalData[i].ans) s++; });
+            evalAnswers.forEach((a,i) => { if(a === evalData[i].ans) s++; });
             
             let finalScore = Math.round((s / totalSoal) * 100);
 
@@ -1793,14 +1948,14 @@
 
             if(finalScore >= 80) {
                 iconEl.innerText = "🌟"; titleEl.innerText = "Luar Biasa!";
-                scoreEl.className = "text-7xl font-black text-emerald-600 mb-4";
-                if(typeof confetti === 'function') confetti({ particleCount: 200, spread: 90, origin: {y:0.4} });
+                scoreEl.className = "text-[6rem] font-black text-emerald-500 leading-none my-4";
+                if(typeof confetti === 'function') confetti({ particleCount: 300, spread: 120, origin: {y:0.3} });
             } else if(finalScore >= 60) {
                 iconEl.innerText = "👍"; titleEl.innerText = "Cukup Baik!";
-                scoreEl.className = "text-7xl font-black text-amber-500 mb-4";
+                scoreEl.className = "text-[6rem] font-black text-amber-500 leading-none my-4";
             } else {
                 iconEl.innerText = "💪"; titleEl.innerText = "Tetap Semangat!";
-                scoreEl.className = "text-7xl font-black text-red-500 mb-4";
+                scoreEl.className = "text-[6rem] font-black text-red-500 leading-none my-4";
             }
             window.scrollTo(0,0);
         }
@@ -1808,46 +1963,74 @@
         function showEvalReview() {
             document.getElementById('eval-result-area').classList.add('hidden');
             document.getElementById('eval-active-area').classList.remove('hidden');
-            document.querySelector('#eval-active-area .bg-emerald-50').classList.add('hidden');
+            
+            // Sembunyikan pesan dan tombol submit, Munculkan tombol Kembali ke Nilai
+            document.getElementById('eval-submit-btn').classList.add('hidden');
+            document.getElementById('eval-submit-msg').classList.add('hidden');
+            document.getElementById('eval-back-to-score-btn').classList.remove('hidden');
 
             evalData.forEach((item, idx) => {
-                let isCorrect = evalAns[idx] === item.ans;
+                let isCorrect = evalAnswers[idx] === item.ans;
                 let card = document.getElementById(`eval-card-${idx}`);
                 let revBox = document.getElementById(`eval-rev-${idx}`);
                 let badge = revBox.querySelector('.eval-status-badge');
+                let line = card.querySelector('.indicator-line');
 
-                card.classList.remove('border-slate-200');
-                card.classList.add('border-2');
+                // Garis indikator card
+                line.className = `absolute top-0 left-0 w-2 h-full ${isCorrect ? 'bg-emerald-500' : 'bg-red-500'}`;
                 
+                // Badge Teks
                 if(isCorrect) {
-                    card.classList.add('border-emerald-500');
-                    badge.innerText = "✅ Benar."; badge.className = "text-emerald-600 eval-status-badge text-lg";
+                    badge.innerHTML = "<span class='bg-emerald-100 text-emerald-700 px-4 py-2 rounded-xl text-sm font-black tracking-wide'><i class='fas fa-check-circle mr-1'></i> BENAR</span>";
                 } else {
-                    card.classList.add('border-red-500');
-                    badge.innerText = "❌ Salah."; badge.className = "text-red-600 eval-status-badge text-lg";
+                    badge.innerHTML = "<span class='bg-red-100 text-red-700 px-4 py-2 rounded-xl text-sm font-black tracking-wide'><i class='fas fa-times-circle mr-1'></i> SALAH</span>";
                 }
 
+                // Styling UI Options
                 let radios = document.querySelectorAll(`input[name="e${idx}"]`);
                 radios.forEach((r, oIdx) => {
                     r.disabled = true;
-                    let label = r.closest('label');
+                    let wrapper = r.nextElementSibling; // div.eval-opt-wrapper
+                    let letter = wrapper.querySelector('.eval-opt-letter');
+                    
+                    // Bersihkan class hover/peer
+                    wrapper.classList.remove('group-hover:border-blue-300', 'peer-checked:border-blue-500', 'peer-checked:bg-blue-50');
+                    letter.classList.remove('group-hover:border-blue-400', 'peer-checked:border-blue-500', 'peer-checked:bg-blue-500', 'peer-checked:text-white');
+
                     if(oIdx === item.ans) {
-                        label.classList.add('bg-emerald-100', 'border-emerald-400');
-                    } else if(oIdx === evalAns[idx] && !isCorrect) {
-                        label.classList.add('bg-red-100', 'border-red-400');
+                        // Ini jawaban yang BENAR (Kunci)
+                        wrapper.classList.add('border-emerald-500', 'bg-emerald-50', 'ring-2', 'ring-emerald-200');
+                        letter.classList.add('bg-emerald-500', 'border-emerald-500', 'text-white');
+                    } else if(oIdx === evalAnswers[idx] && !isCorrect) {
+                        // Ini jawaban yang SALAH DIPILIH USER
+                        wrapper.classList.add('border-red-400', 'bg-red-50');
+                        letter.classList.add('bg-red-500', 'border-red-500', 'text-white');
+                    } else {
+                        // Jawaban lain di-redupkan
+                        wrapper.classList.add('opacity-40');
                     }
                 });
 
                 revBox.classList.remove('hidden');
+                revBox.classList.add('anim-pop');
             });
             window.scrollTo(0,0);
         }
 
+        function backToEvalResult() {
+            document.getElementById('eval-active-area').classList.add('hidden');
+            document.getElementById('eval-result-area').classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
         function retryEvaluasi() { 
-            evalAns.fill(null); 
-            document.querySelector('#eval-active-area .bg-emerald-50').classList.remove('hidden');
             startEvaluasi(); 
         }
+
+        // Init UI saat web dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+        });
     </script>
 </body>
 </html>
