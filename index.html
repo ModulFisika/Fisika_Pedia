@@ -974,7 +974,6 @@
                 <!-- 1. MENU GAME -->
                 <div id="game-menu-screen" class="w-full max-w-4xl flex flex-col items-center z-10 anim-pop">
                     <div class="text-center mb-10">
-                        <div class="text-7xl mb-4 animate-bounce">🏭☕</div>
                         <h1 class="text-4xl md:text-5xl font-black text-white drop-shadow-lg tracking-tight mb-4">
                             FISIKA PABRIK KOPI
                         </h1>
@@ -1112,6 +1111,27 @@
                         </div>
 
                         <div id="modal-buttons" class="flex flex-col gap-3"></div>
+                    </div>
+                </div>
+
+                <!-- 4. LAYAR SKOR AKHIR GAME (BARU) -->
+                <div id="game-result-screen" class="hidden w-full max-w-2xl bg-white/95 backdrop-blur-xl rounded-[2.5rem] p-10 text-center shadow-2xl border-8 border-slate-100 anim-pop z-10 relative">
+                    <div id="game-result-icon" class="text-[6rem] mb-4 drop-shadow-lg leading-none">🏆</div>
+                    <h2 class="text-4xl sm:text-5xl font-black text-slate-800 mb-2 tracking-tight">Misi Selesai!</h2>
+                    <p id="game-result-msg" class="text-slate-500 font-bold text-lg mb-8">Kerja bagus telah menyelesaikan seluruh level!</p>
+                    
+                    <div class="bg-gradient-to-b from-blue-50 to-blue-100 border-4 border-blue-200 rounded-3xl p-8 mb-8 inline-block w-full max-w-sm transform transition-transform hover:scale-105 shadow-inner">
+                        <span class="block text-sm font-black text-blue-500 uppercase tracking-widest mb-2">Total Skor Anda</span>
+                        <div id="game-final-score" class="text-[6rem] font-black text-blue-700 leading-none drop-shadow-md">500</div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button onclick="startGame(activeGame.id)" class="bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-8 rounded-2xl shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-1 text-lg flex items-center justify-center gap-3">
+                            <i class="fas fa-redo"></i> Ulangi Misi
+                        </button>
+                        <button onclick="showGameMenu()" class="bg-slate-800 hover:bg-slate-900 text-white font-black py-4 px-8 rounded-2xl shadow-lg transition transform hover:-translate-y-1 text-lg flex items-center justify-center gap-3">
+                            <i class="fas fa-bars"></i> Menu Utama
+                        </button>
                     </div>
                 </div>
 
@@ -1313,9 +1333,8 @@
                 
                 <!-- Foto Profil (Disesuaikan fokus ke wajah/badan atas) -->
                 <div class="relative -mt-16 mb-4">
-                    <div class="w-32 h-32 rounded-full border-4 border-white shadow-xl overflow-hidden bg-slate-100 relative z-10">
-                        <!-- Menggunakan object-cover dan object-top untuk memfokuskan ke bagian atas foto -->
-                        <img src="foto1.png" alt="Foto Profile" width="700">
+                    <div class="w-32 h-32 rounded-full border-4 border-white shadow-xl overflow-hidden bg-slate-100 relative z-10 flex items-center justify-center text-4xl">
+                        👩‍🏫
                     </div>
                     <!-- Indikator Status Aktif (Titik Hijau) -->
                     <div class="absolute bottom-1 right-2 w-6 h-6 bg-emerald-500 border-[3px] border-white rounded-full z-20" title="Penulis Modul"></div>
@@ -1343,10 +1362,15 @@
                     </p>
                 </div>
                 
-                <!-- Tombol Aksi -->
-                <div class="flex gap-3 w-full">
+                <!-- Tombol Aksi (Alert diganti menjadi notifikasi custom agar berjalan di iframe) -->
+                <div class="flex gap-3 w-full relative">
                     <button onclick="closeProfilePopup()" class="flex-1 bg-white border-2 border-slate-200 hover:bg-slate-50 text-slate-700 font-bold py-3.5 rounded-xl transition-colors">Tutup</button>
-                    <button onclick="alert('Halo! Anda sedang melihat profil pengembang modul ini.')" class="flex-[1.5] bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-[0_4px_14px_rgba(37,99,235,0.3)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.4)] hover:-translate-y-0.5">Sapa Penulis 👋</button>
+                    <button onclick="showCustomAlert()" class="flex-[1.5] bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-xl transition-all shadow-[0_4px_14px_rgba(37,99,235,0.3)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.4)] hover:-translate-y-0.5">Sapa Penulis 👋</button>
+                    
+                    <!-- Pesan Custom Notifikasi -->
+                    <div id="custom-alert-profile" class="hidden absolute -top-12 left-0 w-full bg-slate-800 text-white text-sm font-bold px-4 py-2 rounded-xl shadow-lg z-50 transition-opacity text-center">
+                        Halo! Salam kenal dari pengembang modul 😊
+                    </div>
                 </div>
             </div>
         </div>
@@ -1392,6 +1416,11 @@
         function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
         function openProfilePopup() { document.getElementById('profile-popup').classList.remove('hidden'); }
         function closeProfilePopup() { document.getElementById('profile-popup').classList.add('hidden'); }
+        function showCustomAlert() {
+            const alertBox = document.getElementById('custom-alert-profile');
+            alertBox.classList.remove('hidden');
+            setTimeout(() => { alertBox.classList.add('hidden'); }, 3000);
+        }
 
         // --- 2. LOGIKA LATIHAN SOAL (DARI SUB HALAMAN) ---
         const latihanSoalDB = {
@@ -1603,23 +1632,37 @@
                       dialog: "\"Bantu aku hitung energi untuk menjemur kopi basah ini!\"",
                       theoryTitle: "RADIASI", theoryIcon: "☀️", theoryDesc: "Panas berpindah langsung dari matahari.",
                       cLabel: "Kalor Jenis Basah (c)", cValue: 2, cUnit: "kJ/kg°C",
-                      v1Key: 'm', v1Range: [2,6], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '🧺',
-                      v2Key: 'dt', v2Range: [10,20], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '🌡️',
+                      v1Key: 'm', v1Range: [2,6], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '🧺', v1Bg: 'from-orange-200 to-amber-400',
+                      v2Key: 'dt', v2Range: [10,20], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '☀️', v2Bg: 'from-yellow-200 to-orange-400',
                       btnColor: "bg-orange-400 border-orange-600", btnText: "PROSES JEMUR!" },
                     { titleText: "Mesin Pengering", titleIcon: "💨", themeClass: "level-2", panelColor: "bg-blue-100",
                       dialog: "\"Kita keringkan lebih cepat pakai mesin. Hitung kalor konveksi!\"",
                       theoryTitle: "KONVEKSI", theoryIcon: "💨", theoryDesc: "Kalor dihantarkan udara panas.",
                       cLabel: "Kalor Jenis (c)", cValue: 2, cUnit: "kJ/kg°C",
-                      v1Key: 'm', v1Range: [10,20], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '⚙️',
-                      v2Key: 'dt', v2Range: [30,50], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '🌡️',
+                      v1Key: 'm', v1Range: [10,20], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '🫘', v1Bg: 'from-amber-300 to-orange-500',
+                      v2Key: 'dt', v2Range: [30,50], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '♨️', v2Bg: 'from-red-200 to-red-400',
                       btnColor: "bg-blue-500 border-blue-600", btnText: "NYALAKAN MESIN!" },
                     { titleText: "Misi Sangrai", titleIcon: "🔥", themeClass: "level-3", panelColor: "bg-red-100",
                       dialog: "\"Tahap sangrai! Kopi sudah kering, kalor jenisnya turun.\"",
                       theoryTitle: "KONDUKSI", theoryIcon: "🍳", theoryDesc: "Panas api merambat melalui wajan.",
                       cLabel: "Kalor Jenis (c)", cValue: 1.5, cUnit: "kJ/kg°C",
-                      v1Key: 'm', v1Range: [10,30], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '🍳',
-                      v2Key: 'dt', v2Range: [100,140], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '🌡️',
-                      btnColor: "bg-red-500 border-red-600", btnText: "SANGRAI SEKARANG!" }
+                      v1Key: 'm', v1Range: [10,30], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '🍳', v1Bg: 'from-slate-200 to-slate-400',
+                      v2Key: 'dt', v2Range: [100,140], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '🔥', v2Bg: 'from-orange-400 to-red-500',
+                      btnColor: "bg-red-500 border-red-600", btnText: "SANGRAI SEKARANG!" },
+                    { titleText: "Pendinginan Biji", titleIcon: "❄️", themeClass: "level-4", panelColor: "bg-teal-100",
+                      dialog: "\"Kopi selesai disangrai! Hitung kalor yang dilepas agar tidak gosong.\"",
+                      theoryTitle: "MELEPAS KALOR", theoryIcon: "🌬️", theoryDesc: "Penurunan suhu membuang energi panas ke udara.",
+                      cLabel: "Kalor Jenis (c)", cValue: 1.5, cUnit: "kJ/kg°C",
+                      v1Key: 'm', v1Range: [10,20], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '🫘', v1Bg: 'from-orange-700 to-orange-900',
+                      v2Key: 'dt', v2Range: [50,80], v2Unit: '°C', v2Icon: 'fa-arrow-down', v2Color: 'text-teal-600', v2Visual: '❄️', v2Bg: 'from-cyan-200 to-blue-400',
+                      btnColor: "bg-teal-500 border-teal-600", btnText: "DINGINKAN KOPI!" },
+                    { titleText: "Penyeduhan Kopi", titleIcon: "☕", themeClass: "level-5", panelColor: "bg-pink-100",
+                      dialog: "\"Mari kita seduh kopinya! Panaskan air bersih sekarang.\"",
+                      theoryTitle: "MENYERAP KALOR", theoryIcon: "💧", theoryDesc: "Air menyerap energi besar untuk memanas.",
+                      cLabel: "Kalor Jenis Air (c)", cValue: 4.2, cUnit: "kJ/kg°C",
+                      v1Key: 'm', v1Range: [1,5], v1Unit: 'kg', v1Icon: 'fa-tint', v1Color: 'text-blue-500', v1Visual: '💧', v1Bg: 'from-blue-200 to-blue-400',
+                      v2Key: 'dt', v2Range: [60,80], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '☕', v2Bg: 'from-amber-600 to-orange-800',
+                      btnColor: "bg-pink-500 border-pink-600", btnText: "SEDUH SEKARANG!" }
                 ]
             },
             kalorLaten: {
@@ -1630,17 +1673,38 @@
                     { titleText: "Cairkan Es Kopi", titleIcon: "🧊", themeClass: "level-2", panelColor: "bg-cyan-100",
                       dialog: "\"Es membeku jadi balok besar. Cairkan untuk kopi dingin!\"",
                       theoryTitle: "KALOR LEBUR", theoryIcon: "🧊", theoryDesc: "Energi mengubah wujud padat ke cair.",
-                      cLabel: "Kalor Lebur (L)", cValue: 336, cUnit: "kJ/kg",
-                      v1Key: 'm', v1Range: [2,5], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-green-600', v1Visual: '🧊',
-                      v2Key: null, v2Visual: '💧',
+                      cLabel: "Kalor Lebur Es (L)", cValue: 336, cUnit: "kJ/kg",
+                      v1Key: 'm', v1Range: [2,5], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-green-600', v1Visual: '🧊', v1Bg: 'from-cyan-100 to-blue-300',
+                      v2Key: null, v2Visual: '💧', v2Bg: 'from-blue-300 to-blue-500',
                       btnColor: "bg-cyan-500 border-blue-600", btnText: "CAIRKAN ES!" },
                     { titleText: "Ekstraksi Uap", titleIcon: "☁️", themeClass: "level-3", panelColor: "bg-orange-100",
                       dialog: "\"Mesin espresso butuh uap panas bertekanan. Uapkan airnya!\"",
                       theoryTitle: "KALOR UAP", theoryIcon: "💨", theoryDesc: "Energi merubah air mendidih jadi uap.",
-                      cLabel: "Kalor Uap (U)", cValue: 2260, cUnit: "kJ/kg",
-                      v1Key: 'm', v1Range: [2,5], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-green-600', v1Visual: '🫖',
-                      v2Key: null, v2Visual: '☁️',
-                      btnColor: "bg-orange-500 border-red-600", btnText: "UAPKAN AIR!" }
+                      cLabel: "Kalor Uap Air (U)", cValue: 2260, cUnit: "kJ/kg",
+                      v1Key: 'm', v1Range: [2,5], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-green-600', v1Visual: '🫖', v1Bg: 'from-slate-200 to-slate-400',
+                      v2Key: null, v2Visual: '☁️', v2Bg: 'from-gray-100 to-gray-300',
+                      btnColor: "bg-orange-500 border-red-600", btnText: "UAPKAN AIR!" },
+                    { titleText: "Pembuatan Es Batu", titleIcon: "❄️", themeClass: "level-4", panelColor: "bg-indigo-100",
+                      dialog: "\"Pabrik butuh stok es batu untuk Ice Coffee. Bekukan airnya!\"",
+                      theoryTitle: "KALOR BEKU", theoryIcon: "❄️", theoryDesc: "Melepas energi untuk berubah dari cair ke padat.",
+                      cLabel: "Kalor Beku Air (L)", cValue: 336, cUnit: "kJ/kg",
+                      v1Key: 'm', v1Range: [5,10], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-green-600', v1Visual: '💧', v1Bg: 'from-blue-300 to-blue-500',
+                      v2Key: null, v2Visual: '🧊', v2Bg: 'from-cyan-100 to-blue-300',
+                      btnColor: "bg-indigo-500 border-indigo-600", btnText: "BEKUKAN AIR!" },
+                    { titleText: "Peleburan Karamel", titleIcon: "🍮", themeClass: "level-1", panelColor: "bg-yellow-100",
+                      dialog: "\"Buat saus karamel untuk Macchiato! Leburkan gula aren ini.\"",
+                      theoryTitle: "KALOR LEBUR", theoryIcon: "🔥", theoryDesc: "Energi merusak ikatan molekul padat gula.",
+                      cLabel: "Kalor Lebur Gula", cValue: 200, cUnit: "kJ/kg",
+                      v1Key: 'm', v1Range: [1,3], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-yellow-700', v1Visual: '🪨', v1Bg: 'from-yellow-600 to-amber-800',
+                      v2Key: null, v2Visual: '🍮', v2Bg: 'from-yellow-300 to-amber-500',
+                      btnColor: "bg-yellow-500 border-yellow-600", btnText: "LEBURKAN GULA!" },
+                    { titleText: "Pengembunan Uap", titleIcon: "🌧️", themeClass: "level-5", panelColor: "bg-purple-100",
+                      dialog: "\"Uap panas ekstraksi harus diembunkan kembali menjadi air.\"",
+                      theoryTitle: "KALOR EMBUN", theoryIcon: "🌧️", theoryDesc: "Uap melepas energi tinggi kembali menjadi zat cair.",
+                      cLabel: "Kalor Embun Air", cValue: 2260, cUnit: "kJ/kg",
+                      v1Key: 'm', v1Range: [2,4], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-purple-600', v1Visual: '☁️', v1Bg: 'from-gray-200 to-gray-400',
+                      v2Key: null, v2Visual: '💧', v2Bg: 'from-blue-300 to-blue-500',
+                      btnColor: "bg-purple-500 border-purple-600", btnText: "EMBUNKAN UAP!" }
                 ]
             },
             pemuaian: {
@@ -1652,9 +1716,37 @@
                       dialog: "\"Bangun rel lori baja di pabrik. Berapa celah pemuaiannya?\"",
                       theoryTitle: "PEMUAIAN PANJANG", theoryIcon: "🛤️", theoryDesc: "Rel baja diberi celah agar tidak melengkung.",
                       cLabel: "Koef. Baja (α)", cValue: 0.01, cUnit: "mm/m°C",
-                      v1Key: 'L0', v1Range: [50,100], v1Unit: 'm', v1Icon: 'fa-ruler-horizontal', v1Color: 'text-indigo-600', v1Visual: '🛤️',
-                      v2Key: 'dt', v2Range: [20,40], v2Unit: '°C', v2Icon: 'fa-sun', v2Color: 'text-yellow-600', v2Visual: '☀️',
-                      btnColor: "bg-slate-500 border-slate-700", btnText: "CEK CELAH REL!" }
+                      v1Key: 'L0', v1Range: [50,100], v1Unit: 'm', v1Icon: 'fa-ruler-horizontal', v1Color: 'text-indigo-600', v1Visual: '🛤️', v1Bg: 'from-slate-400 to-slate-600',
+                      v2Key: 'dt', v2Range: [20,40], v2Unit: '°C', v2Icon: 'fa-sun', v2Color: 'text-yellow-600', v2Visual: '☀️', v2Bg: 'from-yellow-200 to-orange-400',
+                      btnColor: "bg-slate-500 border-slate-700", btnText: "CEK CELAH REL!" },
+                    { titleText: "Pipa Uap Panas", titleIcon: "🚰", themeClass: "level-2", panelColor: "bg-cyan-100",
+                      dialog: "\"Uap mengalir di pipa kuningan. Hitung pemuaian pipanya!\"",
+                      theoryTitle: "PEMUAIAN KUNINGAN", theoryIcon: "🚰", theoryDesc: "Logam kuningan memuai lebih cepat dari baja.",
+                      cLabel: "Koef. Kuningan (α)", cValue: 0.02, cUnit: "mm/m°C",
+                      v1Key: 'L0', v1Range: [10,30], v1Unit: 'm', v1Icon: 'fa-ruler-horizontal', v1Color: 'text-cyan-700', v1Visual: '🚰', v1Bg: 'from-teal-200 to-teal-400',
+                      v2Key: 'dt', v2Range: [50,80], v2Unit: '°C', v2Icon: 'fa-fire', v2Color: 'text-red-500', v2Visual: '🔥', v2Bg: 'from-orange-400 to-red-500',
+                      btnColor: "bg-cyan-500 border-cyan-600", btnText: "HITUNG PEMUAIAN!" },
+                    { titleText: "Kabel Listrik Pabrik", titleIcon: "⚡", themeClass: "level-3", panelColor: "bg-orange-100",
+                      dialog: "\"Kabel baja ini bisa memuai di siang hari. Berapa kendornya?\"",
+                      theoryTitle: "PEMUAIAN KABEL", theoryIcon: "🔌", theoryDesc: "Kabel memanjang akibat suhu terik matahari.",
+                      cLabel: "Koef. Baja (α)", cValue: 0.01, cUnit: "mm/m°C",
+                      v1Key: 'L0', v1Range: [100,200], v1Unit: 'm', v1Icon: 'fa-ruler-horizontal', v1Color: 'text-orange-700', v1Visual: '⚡', v1Bg: 'from-yellow-400 to-orange-500',
+                      v2Key: 'dt', v2Range: [10,30], v2Unit: '°C', v2Icon: 'fa-sun', v2Color: 'text-yellow-600', v2Visual: '☀️', v2Bg: 'from-yellow-200 to-orange-400',
+                      btnColor: "bg-orange-500 border-orange-600", btnText: "CEK KABEL!" },
+                    { titleText: "Tiang Penyangga", titleIcon: "🏗️", themeClass: "level-5", panelColor: "bg-rose-100",
+                      dialog: "\"Tiang besi penyangga mesin juga akan bertambah panjang.\"",
+                      theoryTitle: "PEMUAIAN BESI", theoryIcon: "🏗️", theoryDesc: "Fondasi besi terpengaruh suhu panas mesin.",
+                      cLabel: "Koef. Besi (α)", cValue: 0.01, cUnit: "mm/m°C",
+                      v1Key: 'L0', v1Range: [20,50], v1Unit: 'm', v1Icon: 'fa-arrows-alt-v', v1Color: 'text-rose-700', v1Visual: '🏗️', v1Bg: 'from-rose-300 to-rose-500',
+                      v2Key: 'dt', v2Range: [30,60], v2Unit: '°C', v2Icon: 'fa-thermometer-half', v2Color: 'text-red-600', v2Visual: '⚙️', v2Bg: 'from-gray-400 to-gray-600',
+                      btnColor: "bg-rose-500 border-rose-600", btnText: "HITUNG TIANG!" },
+                    { titleText: "Cerobong Asap", titleIcon: "🏭", themeClass: "level-1", panelColor: "bg-yellow-100",
+                      dialog: "\"Cerobong seng memuai drastis karena asap pembakaran!\"",
+                      theoryTitle: "PEMUAIAN SENG", theoryIcon: "🏭", theoryDesc: "Seng memiliki koefisien muai yang cukup besar.",
+                      cLabel: "Koef. Seng (α)", cValue: 0.03, cUnit: "mm/m°C",
+                      v1Key: 'L0', v1Range: [30,60], v1Unit: 'm', v1Icon: 'fa-ruler-vertical', v1Color: 'text-yellow-700', v1Visual: '🏭', v1Bg: 'from-slate-500 to-slate-700',
+                      v2Key: 'dt', v2Range: [80,120], v2Unit: '°C', v2Icon: 'fa-fire-alt', v2Color: 'text-orange-600', v2Visual: '🔥', v2Bg: 'from-orange-400 to-red-500',
+                      btnColor: "bg-yellow-600 border-yellow-700", btnText: "PERIKSA CEROBONG!" }
                 ]
             }
         };
@@ -1666,6 +1758,7 @@
             document.getElementById('game-modal').classList.add('hidden');
             document.getElementById('game-menu-screen').classList.remove('hidden');
             document.getElementById('game-active-screen').classList.add('hidden');
+            document.getElementById('game-result-screen').classList.add('hidden');
             document.getElementById('game-wrapper').className = "w-full min-h-[85vh] flex flex-col items-center justify-center p-4 sm:p-8 text-slate-800 rounded-3xl overflow-x-hidden bg-menu shadow-inner border border-slate-700 relative";
         }
 
@@ -1674,6 +1767,7 @@
             score = 0;
             currentLvl = 0;
             document.getElementById('game-menu-screen').classList.add('hidden');
+            document.getElementById('game-result-screen').classList.add('hidden');
             document.getElementById('game-active-screen').classList.remove('hidden');
             document.getElementById('question-text').innerHTML = `<i class="fas fa-question-circle text-blue-500"></i> ${activeGame.questionText}`;
             document.getElementById('formula-display').innerHTML = activeGame.formulaText;
@@ -1704,20 +1798,38 @@
             if(cfg.cValue === 1.5 && v1 % 2 !== 0) v1 += 1; 
 
             let tHtml = '';
+            
+            // Helper function to generate styled badge for game items
+            const createVisualBadge = (visual, bgClass, val, icon, color, unit, isInteractive) => `
+                <div class="flex flex-col items-center">
+                    <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-[2rem] bg-gradient-to-br ${bgClass} flex items-center justify-center shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] border-4 border-white/80 mx-auto mb-3 relative overflow-hidden transform transition-all duration-300 ${isInteractive ? 'hover:scale-110 hover:-rotate-3 group' : ''} z-10">
+                        <div class="absolute inset-0 bg-white/20 ${isInteractive ? 'group-hover:bg-white/0' : ''} transition-colors"></div>
+                        <div class="absolute -top-4 -left-4 w-16 h-16 bg-white/40 rounded-full blur-xl"></div>
+                        <div class="text-[3.5rem] sm:text-[4.5rem] drop-shadow-xl ${isInteractive ? 'group-hover:animate-bounce' : ''}">${visual}</div>
+                    </div>
+                    ${val !== null ? `
+                    <div class="bg-white px-4 py-1.5 rounded-xl shadow-lg font-black text-sm border border-slate-100 z-20 -mt-6 inline-block">
+                        <i class="fas ${icon}"></i> <span class="${color}">${val}</span> ${unit}
+                    </div>` : ''}
+                </div>
+            `;
+
             if (cfg.v2Key) {
                 v2 = Math.floor(Math.random() * (cfg.v2Range[1] - cfg.v2Range[0] + 1)) + cfg.v2Range[0];
                 target = Math.round(v1 * cfg.cValue * v2);
                 tHtml = `
-                    <div class="text-center"><div class="text-7xl mb-2">${cfg.v1Visual}</div><div class="bg-white px-3 py-1 rounded-xl shadow font-bold text-sm"><i class="fas ${cfg.v1Icon}"></i> <span class="${cfg.v1Color}">${v1}</span> ${cfg.v1Unit}</div></div>
-                    <div class="text-2xl text-slate-300 font-black mb-6"><i class="fas fa-times"></i></div>
-                    <div class="text-center"><div class="text-7xl mb-2">${cfg.v2Visual}</div><div class="bg-white px-3 py-1 rounded-xl shadow font-bold text-sm"><i class="fas ${cfg.v2Icon}"></i> <span class="${cfg.v2Color}">${v2}</span> ${cfg.v2Unit}</div></div>
+                    ${createVisualBadge(cfg.v1Visual, cfg.v1Bg, v1, cfg.v1Icon, cfg.v1Color, cfg.v1Unit, true)}
+                    <div class="text-3xl text-slate-300 font-black mb-10 flex items-center justify-center px-2 sm:px-4"><i class="fas fa-times"></i></div>
+                    ${createVisualBadge(cfg.v2Visual, cfg.v2Bg, v2, cfg.v2Icon, cfg.v2Color, cfg.v2Unit, true)}
                 `;
             } else {
                 target = Math.round(v1 * cfg.cValue); v2 = null;
                 tHtml = `
-                    <div class="text-center"><div class="text-7xl mb-2">${cfg.v1Visual}</div><div class="bg-white px-3 py-1 rounded-xl shadow font-bold text-sm"><i class="fas ${cfg.v1Icon}"></i> <span class="${cfg.v1Color}">${v1}</span> ${cfg.v1Unit}</div></div>
-                    <div class="flex flex-col items-center justify-center mx-4 gap-2 mb-6"><div class="text-2xl text-slate-300 font-black"><i class="fas fa-arrow-right"></i></div></div>
-                    <div class="text-center"><div class="text-7xl mb-2">${cfg.v2Visual}</div></div>
+                    ${createVisualBadge(cfg.v1Visual, cfg.v1Bg, v1, cfg.v1Icon, cfg.v1Color, cfg.v1Unit, true)}
+                    <div class="flex flex-col items-center justify-center px-2 sm:px-4 mb-10">
+                        <div class="text-3xl text-slate-300 font-black animate-pulse"><i class="fas fa-arrow-right"></i></div>
+                    </div>
+                    ${createVisualBadge(cfg.v2Visual, cfg.v2Bg, null, null, null, null, false)}
                 `;
             }
             document.getElementById('target-area').innerHTML = tHtml;
@@ -1784,9 +1896,9 @@
                 if(currentLvl < activeGame.levels.length - 1) {
                     document.getElementById('modal-buttons').innerHTML = `<button onclick="document.getElementById('game-modal').classList.add('hidden'); loadLevel(${currentLvl + 1})" class="w-full bg-green-500 text-white font-black py-3 rounded-xl border-b-4 border-green-700 active:border-b-0 active:translate-y-1">LANJUT LEVEL BERIKUTNYA</button>`;
                 } else {
-                    document.getElementById('modal-title').innerText = "MISI SELESAI!";
-                    document.getElementById('modal-desc').innerHTML = "Luar biasa! Kamu menaklukkan semua tantangan.";
-                    document.getElementById('modal-buttons').innerHTML = `<button onclick="showGameMenu()" class="w-full bg-blue-600 text-white font-black py-3 rounded-xl border-b-4 border-blue-800 active:border-b-0 active:translate-y-1">KEMBALI KE MENU GAME</button>`;
+                    document.getElementById('modal-title').innerText = "LEVEL SELESAI!";
+                    document.getElementById('modal-desc').innerHTML = "Luar biasa! Kamu menaklukkan level terakhir.";
+                    document.getElementById('modal-buttons').innerHTML = `<button onclick="showGameResult()" class="w-full bg-blue-600 text-white font-black py-3 rounded-xl border-b-4 border-blue-800 active:border-b-0 active:translate-y-1">LIHAT SKOR AKHIR</button>`;
                 }
             } else {
                 score = Math.max(0, score - 30);
@@ -1799,6 +1911,32 @@
                 document.getElementById('points-earned').className = "text-xl font-black text-red-500 mb-4 animate-bounce block";
                 document.getElementById('modal-buttons').innerHTML = `<button onclick="document.getElementById('game-modal').classList.add('hidden'); loadLevel(${currentLvl})" class="w-full bg-gray-800 text-white font-black py-3 rounded-xl border-b-4 border-gray-900 active:border-b-0 active:translate-y-1">COBA LAGI LEVEL INI</button>`;
             }
+        }
+
+        function showGameResult() {
+            document.getElementById('game-modal').classList.add('hidden');
+            document.getElementById('game-active-screen').classList.add('hidden');
+            document.getElementById('game-result-screen').classList.remove('hidden');
+            
+            document.getElementById('game-final-score').innerText = score;
+            
+            let msg = "";
+            let icon = "";
+            if(score === 500) { 
+                msg = "Sempurna! Kamu adalah ahli Termodinamika Pabrik Kopi!"; 
+                icon = "🏆"; 
+            } else if(score >= 300) { 
+                msg = "Kerja bagus! Pabrik kopi beroperasi dengan sangat baik."; 
+                icon = "🌟"; 
+            } else { 
+                msg = "Tetap semangat! Ayo coba lagi untuk hasil simulasi yang lebih baik."; 
+                icon = "💪"; 
+            }
+            
+            document.getElementById('game-result-msg').innerText = msg;
+            document.getElementById('game-result-icon').innerText = icon;
+            
+            if(score >= 300 && typeof confetti === 'function') confetti({ particleCount: 300, spread: 100, origin: {y:0.3} });
         }
 
          // --- 4. LOGIKA EVALUASI AKHIR (20 SOAL & DESAIN BARU) ---
@@ -1927,7 +2065,16 @@
             let answered = evalAnswers.filter(a => a !== null).length;
             
             if(answered < totalSoal) { 
-                alert(`Kamu baru menjawab ${answered} dari ${totalSoal} soal. Silakan lengkapi dulu ya!`); 
+                const msgEl = document.getElementById('eval-submit-msg');
+                msgEl.innerText = `Kamu baru menjawab ${answered} dari ${totalSoal} soal. Silakan lengkapi dulu ya!`;
+                msgEl.classList.remove('text-emerald-800');
+                msgEl.classList.add('text-red-600', 'animate-pulse');
+                
+                setTimeout(() => {
+                    msgEl.classList.remove('text-red-600', 'animate-pulse');
+                    msgEl.classList.add('text-emerald-800');
+                    msgEl.innerText = "Pastikan semua soal telah terjawab sebelum mengumpulkan.";
+                }, 3000);
                 return; 
             }
             
