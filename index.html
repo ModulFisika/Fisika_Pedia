@@ -6,7 +6,7 @@
     <title>Modul Fisika Interaktif - Suhu & Kalor</title>
     <!-- Tailwind CSS untuk styling responsif dan modern -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Canvas Confetti untuk animasi sukses -->
+    <!-- Canvas Confetti untuk animasi sukses -->A
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <!-- FontAwesome untuk Icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -106,6 +106,17 @@
             0% { transform: scale(0.9); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
+
+        /* --- CSS TAMBAHAN UNTUK TEMA MESIN (FUN) --- */
+        .console-btn { transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1); border-bottom-width: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .console-btn:active { transform: translateY(8px); border-bottom-width: 0px; box-shadow: none; margin-bottom: 8px;}
+        .console-btn.selected { transform: translateY(4px); border-bottom-width: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); margin-bottom: 4px;}
+        
+        .health-bar-container { box-shadow: inset 0 3px 6px rgba(0,0,0,0.4); }
+        .health-bar-fill { transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.5s; }
+        
+        @keyframes alarmFlash { 0%, 100% { background-color: rgba(239, 68, 68, 0); } 50% { background-color: rgba(239, 68, 68, 0.3); } }
+        .alarm-state { animation: alarmFlash 1s infinite; }
 
         /* --- CSS LATIHAN SOAL (PILIHAN GANDA) --- */
         .correct-opt { background-color: #dcfce7 !important; border-color: #22c55e !important; color: #166534 !important; }
@@ -969,168 +980,258 @@
         
         <section id="latihan" class="page-section">
             <!-- Game Wrapper / Container -->
-            <div id="game-wrapper" class="w-full min-h-[85vh] flex flex-col items-center justify-center p-4 sm:p-8 text-slate-800 rounded-3xl overflow-x-hidden bg-menu shadow-inner border border-slate-700 relative">
+            <div id="game-wrapper" class="w-full min-h-[85vh] flex flex-col items-center justify-center p-4 sm:p-8 text-slate-800 rounded-3xl overflow-x-hidden bg-menu shadow-inner border border-slate-700 relative transition-colors duration-500">
                 
                 <!-- 1. MENU GAME -->
-                <div id="game-menu-screen" class="w-full max-w-4xl flex flex-col items-center z-10 anim-pop">
-                    <div class="text-center mb-10">
-                        <h1 class="text-4xl md:text-5xl font-black text-white drop-shadow-lg tracking-tight mb-4">
+                <div id="game-menu-screen" class="w-full max-w-6xl flex flex-col items-center z-10 anim-pop">
+                    
+                    <!-- Header Beranda Game -->
+                    <div class="text-center mb-12 relative w-full">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/20 blur-[100px] rounded-full z-0 pointer-events-none"></div>
+                        
+                        <div class="relative z-10 inline-flex items-center gap-3 bg-slate-800/80 px-5 py-2 rounded-full border border-slate-600 backdrop-blur-md mb-6 shadow-xl">
+                            <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span> 
+                            <span class="text-slate-200 font-black tracking-widest text-sm uppercase">Simulator Insinyur Pabrik (C2-C5)</span>
+                        </div>
+                        
+                        <h1 class="relative z-10 text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400 drop-shadow-2xl tracking-tight mb-6">
                             FISIKA PABRIK KOPI
                         </h1>
-                        <p class="text-slate-200 text-lg font-bold max-w-xl mx-auto bg-slate-800/60 p-4 rounded-2xl border border-slate-600 backdrop-blur-sm">
-                            Bantu Pak Jember membangun pabrik kopi! Pilih tantangan rumus fisika (Suhu & Kalor) di bawah ini untuk memulai.
+                        
+                        <p class="relative z-10 text-slate-300 text-lg font-medium max-w-2xl mx-auto leading-relaxed bg-slate-800/40 p-4 sm:p-6 rounded-3xl border border-slate-700/50 backdrop-blur-sm shadow-inner">
+                            Selamat datang di ruang kendali! Bantu <strong class="text-amber-400">Pak Jember</strong> mengkalibrasi mesin dan menyelamatkan panen kopi hari ini dari kegagalan.
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+                    <!-- Kartu Pemilihan Mode (Zona) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full relative z-10">
+                        
                         <!-- Mode 1: Kalor Suhu -->
-                        <button onclick="startGame('kalorSuhu')" class="btn-3d bg-gradient-to-b from-amber-300 to-orange-400 border-orange-600 rounded-[2rem] p-6 text-left group hover:scale-105 transition-transform flex flex-col justify-between h-full shadow-[0_5px_0_rgb(194,65,12)]">
-                            <div>
-                                <div class="text-5xl mb-4 drop-shadow-md group-hover:animate-spin-slow">🌡️</div>
-                                <h2 class="text-2xl font-black text-orange-950 mb-2 leading-tight">Misi Kalor Suhu</h2>
-                                <p class="text-orange-900 font-bold mb-4 text-sm">Hitung energi untuk memanaskan/menjemur biji kopi.</p>
+                        <div onclick="startGame('kalorSuhu')" class="group cursor-pointer relative bg-gradient-to-b from-slate-800 to-slate-900 border-2 border-orange-500/30 hover:border-orange-400 rounded-[2.5rem] p-1.5 transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_20px_40px_-10px_rgba(249,115,22,0.4)]">
+                            <div class="absolute inset-0 bg-gradient-to-b from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 rounded-[2.5rem] transition-opacity duration-500"></div>
+                            <div class="bg-slate-900/80 backdrop-blur-sm rounded-[2.2rem] p-8 h-full flex flex-col relative overflow-hidden">
+                                <div class="absolute -right-6 -top-6 text-9xl opacity-5 transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">🌡️</div>
+                                
+                                <div class="flex justify-between items-start mb-8 relative z-10">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-orange-400 to-red-600 rounded-[1.5rem] flex items-center justify-center text-4xl shadow-lg shadow-orange-500/30 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 border-2 border-white/20 text-white">🔥</div>
+                                    <span class="bg-slate-800/80 text-orange-400 border border-orange-500/30 px-4 py-1.5 rounded-full text-xs font-black tracking-widest backdrop-blur-md">5 TAHAP</span>
+                                </div>
+                                <h2 class="text-3xl font-black text-white mb-3 group-hover:text-orange-400 transition-colors relative z-10 tracking-tight">Jalur Sangrai</h2>
+                                <p class="text-slate-400 text-sm mb-8 flex-grow relative z-10 leading-relaxed">Awasi suhu oven dan jemuran! Jangan sampai kopi kita gosong atau kurang matang.</p>
+                                
+                                <div class="bg-slate-950/80 border border-slate-700/50 p-4 rounded-2xl mb-6 text-center relative z-10 group-hover:border-orange-500/30 transition-colors shadow-inner">
+                                    <span class="font-mono text-orange-400 font-bold tracking-widest text-lg">Q = m &times; c &times; &Delta;T</span>
+                                </div>
+                                
+                                <button class="w-full bg-slate-800 text-slate-300 border border-slate-600 font-black py-4 rounded-2xl group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:to-red-600 group-hover:text-white group-hover:border-transparent group-hover:shadow-lg group-hover:shadow-orange-500/40 transition-all duration-300 flex justify-center items-center gap-3 relative z-10 overflow-hidden">
+                                    <span class="relative z-10">MASUK KONTROL</span> <i class="fas fa-power-off text-sm relative z-10 transform group-hover:scale-110 transition-transform"></i>
+                                </button>
                             </div>
-                            <div class="bg-white/40 p-3 rounded-xl border border-orange-300 text-center font-black text-orange-900 text-lg">
-                                Q = m &times; c &times; &Delta;T
-                            </div>
-                        </button>
+                        </div>
 
                         <!-- Mode 2: Kalor Wujud -->
-                        <button onclick="startGame('kalorLaten')" class="btn-3d bg-gradient-to-b from-sky-300 to-blue-400 border-blue-600 rounded-[2rem] p-6 text-left group hover:scale-105 transition-transform flex flex-col justify-between h-full shadow-[0_5px_0_rgb(37,99,235)]">
-                            <div>
-                                <div class="text-5xl mb-4 drop-shadow-md">🧊</div>
-                                <h2 class="text-2xl font-black text-blue-950 mb-2 leading-tight">Misi Kalor Laten</h2>
-                                <p class="text-blue-900 font-bold mb-4 text-sm">Hitung energi untuk mencairkan es atau menguapkan air.</p>
+                        <div onclick="startGame('kalorLaten')" class="group cursor-pointer relative bg-gradient-to-b from-slate-800 to-slate-900 border-2 border-blue-500/30 hover:border-blue-400 rounded-[2.5rem] p-1.5 transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_20px_40px_-10px_rgba(59,130,246,0.4)]">
+                            <div class="absolute inset-0 bg-gradient-to-b from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 rounded-[2.5rem] transition-opacity duration-500"></div>
+                            <div class="bg-slate-900/80 backdrop-blur-sm rounded-[2.2rem] p-8 h-full flex flex-col relative overflow-hidden">
+                                <div class="absolute -right-6 -top-6 text-9xl opacity-5 transform group-hover:scale-110 group-hover:-rotate-12 transition-all duration-500">🧊</div>
+                                
+                                <div class="flex justify-between items-start mb-8 relative z-10">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-[1.5rem] flex items-center justify-center text-4xl shadow-lg shadow-blue-500/30 transform group-hover:scale-110 group-hover:-rotate-6 transition-all duration-300 border-2 border-white/20 text-white">💧</div>
+                                    <span class="bg-slate-800/80 text-blue-400 border border-blue-500/30 px-4 py-1.5 rounded-full text-xs font-black tracking-widest backdrop-blur-md">5 TAHAP</span>
+                                </div>
+                                <h2 class="text-3xl font-black text-white mb-3 group-hover:text-blue-400 transition-colors relative z-10 tracking-tight">Sistem Uap & Es</h2>
+                                <p class="text-slate-400 text-sm mb-8 flex-grow relative z-10 leading-relaxed">Kendalikan tekanan uap espresso dan mesin pembuat es kristal di pabrik.</p>
+                                
+                                <div class="bg-slate-950/80 border border-slate-700/50 p-4 rounded-2xl mb-6 text-center relative z-10 group-hover:border-blue-500/30 transition-colors shadow-inner">
+                                    <span class="font-mono text-blue-400 font-bold tracking-widest text-lg">Q = m &times; L</span>
+                                </div>
+                                
+                                <button class="w-full bg-slate-800 text-slate-300 border border-slate-600 font-black py-4 rounded-2xl group-hover:bg-gradient-to-r group-hover:from-cyan-500 group-hover:to-blue-600 group-hover:text-white group-hover:border-transparent group-hover:shadow-lg group-hover:shadow-blue-500/40 transition-all duration-300 flex justify-center items-center gap-3 relative z-10 overflow-hidden">
+                                    <span class="relative z-10">MASUK KONTROL</span> <i class="fas fa-power-off text-sm relative z-10 transform group-hover:scale-110 transition-transform"></i>
+                                </button>
                             </div>
-                            <div class="bg-white/40 p-3 rounded-xl border border-blue-300 text-center font-black text-blue-900 text-lg">
-                                Q = m &times; L
-                            </div>
-                        </button>
+                        </div>
 
                         <!-- Mode 3: Pemuaian -->
-                        <button onclick="startGame('pemuaian')" class="btn-3d bg-gradient-to-b from-emerald-300 to-teal-400 border-teal-600 rounded-[2rem] p-6 text-left group hover:scale-105 transition-transform flex flex-col justify-between h-full shadow-[0_5px_0_rgb(13,148,136)]">
-                            <div>
-                                <div class="text-5xl mb-4 drop-shadow-md">🛤️</div>
-                                <h2 class="text-2xl font-black text-teal-950 mb-2 leading-tight">Misi Pemuaian</h2>
-                                <p class="text-teal-900 font-bold mb-4 text-sm">Bangun pipa & rel pabrik agar tidak melengkung.</p>
+                        <div onclick="startGame('pemuaian')" class="group cursor-pointer relative bg-gradient-to-b from-slate-800 to-slate-900 border-2 border-teal-500/30 hover:border-teal-400 rounded-[2.5rem] p-1.5 transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_20px_40px_-10px_rgba(20,184,166,0.4)]">
+                            <div class="absolute inset-0 bg-gradient-to-b from-teal-500/10 to-transparent opacity-0 group-hover:opacity-100 rounded-[2.5rem] transition-opacity duration-500"></div>
+                            <div class="bg-slate-900/80 backdrop-blur-sm rounded-[2.2rem] p-8 h-full flex flex-col relative overflow-hidden">
+                                <div class="absolute -right-6 -top-6 text-9xl opacity-5 transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">🛤️</div>
+                                
+                                <div class="flex justify-between items-start mb-8 relative z-10">
+                                    <div class="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-[1.5rem] flex items-center justify-center text-4xl shadow-lg shadow-teal-500/30 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 border-2 border-white/20 text-white">🏗️</div>
+                                    <span class="bg-slate-800/80 text-teal-400 border border-teal-500/30 px-4 py-1.5 rounded-full text-xs font-black tracking-widest backdrop-blur-md">5 TAHAP</span>
+                                </div>
+                                <h2 class="text-3xl font-black text-white mb-3 group-hover:text-teal-400 transition-colors relative z-10 tracking-tight">Infrastruktur</h2>
+                                <p class="text-slate-400 text-sm mb-8 flex-grow relative z-10 leading-relaxed">Cegah ledakan pipa dan bengkoknya rel lori! Prediksi muai logam di pabrik.</p>
+                                
+                                <div class="bg-slate-950/80 border border-slate-700/50 p-4 rounded-2xl mb-6 text-center relative z-10 group-hover:border-teal-500/30 transition-colors shadow-inner">
+                                    <span class="font-mono text-teal-400 font-bold tracking-widest text-lg">&Delta;L = L₀ &times; &alpha; &times; &Delta;T</span>
+                                </div>
+                                
+                                <button class="w-full bg-slate-800 text-slate-300 border border-slate-600 font-black py-4 rounded-2xl group-hover:bg-gradient-to-r group-hover:from-emerald-500 group-hover:to-teal-600 group-hover:text-white group-hover:border-transparent group-hover:shadow-lg group-hover:shadow-teal-500/40 transition-all duration-300 flex justify-center items-center gap-3 relative z-10 overflow-hidden">
+                                    <span class="relative z-10">MASUK KONTROL</span> <i class="fas fa-power-off text-sm relative z-10 transform group-hover:scale-110 transition-transform"></i>
+                                </button>
                             </div>
-                            <div class="bg-white/40 p-3 rounded-xl border border-teal-300 text-center font-black text-teal-900 text-lg">
-                                &Delta;L = L₀ &times; &alpha; &times; &Delta;T
-                            </div>
-                        </button>
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- 2. GAME INTERFACE -->
+                <!-- 2. GAME INTERFACE (TEMA KONSOL MESIN) -->
                 <div id="game-active-screen" class="hidden w-full max-w-5xl flex-col items-center z-10 anim-pop">
-                    <!-- Header -->
-                    <header class="w-full flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
-                        <div class="flex gap-2">
-                            <button onclick="showGameMenu()" class="bg-slate-800 text-white font-black px-4 py-2 rounded-full shadow-lg border-2 border-white hover:bg-slate-700 transition-colors text-sm flex items-center gap-2">
-                                <i class="fas fa-arrow-left"></i> KEMBALI
+                    
+                    <!-- Header Bar (Health & Status) -->
+                    <div class="w-full bg-slate-900 rounded-[2rem] p-4 flex flex-col md:flex-row items-center justify-between gap-4 mb-6 shadow-xl border-4 border-slate-700">
+                        <div class="flex items-center gap-4 w-full md:w-auto">
+                            <button onclick="showGameMenu()" class="bg-slate-700 hover:bg-slate-600 text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg transition-colors shrink-0 border border-slate-500">
+                                <i class="fas fa-arrow-left"></i>
                             </button>
-                            <div id="level-badge" class="bg-amber-500 text-white font-black px-6 py-2 rounded-full shadow-lg border-2 border-white tracking-widest text-sm md:text-base">
-                                LEVEL 1 / 5
+                            <!-- Health Bar Kualitas -->
+                            <div class="flex-grow md:w-64 bg-slate-800 rounded-xl p-2 border border-slate-700 health-bar-container">
+                                <div class="flex justify-between text-xs font-black text-slate-400 mb-1 px-1">
+                                    <span class="flex items-center gap-1"><i class="fas fa-coffee text-amber-500"></i> KUALITAS BATCH</span>
+                                    <span id="health-text" class="text-emerald-400">100%</span>
+                                </div>
+                                <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden">
+                                    <div id="health-bar" class="health-bar-fill bg-emerald-500 h-full w-full" style="width: 100%"></div>
+                                </div>
                             </div>
                         </div>
                         
-                        <h1 class="text-2xl md:text-3xl font-black text-slate-800 drop-shadow-md tracking-tight flex items-center justify-center gap-3 bg-white/60 px-6 py-2 rounded-3xl backdrop-blur-sm border-2 border-white/50">
-                            <span id="title-icon" class="animate-pulse inline-block">☀️</span> 
-                            <span id="title-text">Judul Misi</span>
-                        </h1>
-
-                        <div class="bg-slate-800 text-yellow-400 font-black px-6 py-2 rounded-full shadow-lg border-2 border-slate-700 tracking-wider text-lg flex items-center gap-2">
-                            <i class="fas fa-star"></i> SKOR: <span id="score-display">0</span>
+                        <!-- Panel Indikator Tengah -->
+                        <div class="bg-black/50 border-2 border-slate-600 px-6 py-2 rounded-xl flex flex-col items-center justify-center relative overflow-hidden group">
+                            <div class="absolute inset-0 bg-blue-500/10 animate-pulse"></div>
+                            <span id="level-badge" class="text-blue-400 font-black text-xs tracking-widest uppercase relative z-10">TAHAP 1 / 5</span>
+                            <span id="title-text" class="text-white font-black text-lg sm:text-xl tracking-tight relative z-10">Judul Mesin</span>
                         </div>
-                    </header>
 
-                    <!-- Main Container -->
-                    <div class="bg-white/95 backdrop-blur-xl rounded-[2.5rem] shadow-2xl w-full border-[6px] border-white flex flex-col md:flex-row relative">
+                        <!-- Skor & Bloom -->
+                        <div class="flex flex-row md:flex-col items-center md:items-end gap-2 w-full md:w-auto justify-between md:justify-center">
+                            <div class="bg-slate-800 text-yellow-400 font-mono font-black px-4 py-1.5 rounded-xl border border-yellow-500/30 shadow-[0_0_10px_rgba(234,179,8,0.2)] text-lg flex items-center gap-2">
+                                <span>SCORE</span> <span id="score-display">0000</span>
+                            </div>
+                            <div id="bloom-badge" class="bg-slate-800 text-purple-400 border border-purple-500/30 text-[10px] font-black px-3 py-1 rounded-lg uppercase tracking-widest">
+                                C3 (MENERAPKAN)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Dashboard -->
+                    <div class="bg-slate-200 rounded-[2.5rem] shadow-2xl w-full border-[8px] border-slate-300 flex flex-col md:flex-row relative overflow-hidden">
                         
-                        <!-- Panel Kiri: Info & Rumus -->
-                        <div class="bg-gradient-to-br from-amber-50 to-orange-100 p-6 md:w-5/12 border-b md:border-b-0 md:border-r border-slate-200 flex flex-col gap-5" id="left-panel">
-                            <!-- Karakter -->
-                            <div class="flex items-center gap-4 bg-white p-4 rounded-2xl shadow-lg border-2 border-white farmer-bounce">
-                                <div class="text-5xl bg-slate-100 rounded-full w-[4.5rem] h-[4.5rem] flex items-center justify-center border-4 border-white shadow-inner">👨🏽‍🌾</div>
+                        <!-- Panel Kiri: Layar Biru (Blueprint/Teori) -->
+                        <div class="bg-slate-800 p-6 md:w-5/12 flex flex-col gap-4 border-r-8 border-slate-300 z-10" id="left-panel">
+                            
+                            <!-- Komunikasi Radio Pak Jember -->
+                            <div class="bg-slate-900 border-2 border-slate-600 rounded-2xl p-4 flex gap-4 items-center shadow-inner relative overflow-hidden">
+                                <div class="absolute top-2 right-2 w-2 h-2 rounded-full bg-red-500 animate-ping"></div>
+                                <div class="w-16 h-16 bg-slate-700 rounded-xl flex items-center justify-center text-4xl border-2 border-slate-500 shrink-0 farmer-bounce shadow-lg">👨🏽‍🌾</div>
                                 <div>
-                                    <h3 class="font-black text-slate-800 text-lg">Pak Jember</h3>
-                                    <p class="text-sm text-slate-600 font-bold italic" id="farmer-dialog">"Bantu aku menghitung!"</p>
+                                    <h3 class="font-black text-slate-300 text-xs uppercase tracking-widest mb-1 border-b border-slate-700 pb-1">Radio: Kepala Pabrik</h3>
+                                    <p class="text-sm text-green-400 font-mono font-bold leading-snug" id="farmer-dialog">> "Gawat! Mesin ini butuh kalibrasi cepat!"</p>
                                 </div>
                             </div>
 
-                            <!-- Teori -->
-                            <div id="theory-box" class="p-4 rounded-2xl border-2 shadow-sm bg-amber-100 text-amber-800 border-amber-300 relative overflow-hidden">
-                                <div id="theory-bg-icon" class="absolute -right-2 -top-2 text-6xl opacity-20">💡</div>
-                                <h4 class="font-black mb-1 flex items-center gap-2 text-md relative z-10"><i class="fas fa-lightbulb"></i> <span id="theory-title">Teori</span></h4>
-                                <p class="text-sm font-bold relative z-10" id="theory-desc">Deskripsi</p>
-                            </div>
-
-                            <!-- Rumus -->
-                            <div class="bg-slate-50 p-5 rounded-3xl shadow-inner border-2 border-slate-200">
-                                <h3 class="font-black text-slate-800 border-b-2 border-slate-200 pb-2 mb-3 text-lg"><i class="fas fa-book-open text-blue-500"></i> Rumus</h3>
-                                <div id="formula-display" class="text-center text-xl bg-white p-2 rounded-2xl shadow-sm border-2 border-slate-200 text-slate-800 font-black mb-3"></div>
-                                <ul id="formula-vars" class="list-none space-y-2 text-xs font-bold text-slate-700"></ul>
-                                <div class="mt-3 bg-white p-2 rounded-xl border-2 border-slate-200 text-center shadow-sm">
-                                    <span class="block text-[10px] text-slate-500 uppercase tracking-wider mb-1" id="c-label">Konstanta</span>
-                                    <span class="text-lg font-black text-slate-700" id="c-value">0</span>
+                            <!-- Layar Teori (CRT Style) -->
+                            <div class="flex-grow bg-[#0f172a] rounded-2xl border-4 border-slate-600 p-5 relative overflow-hidden shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]">
+                                <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] z-20 pointer-events-none opacity-50"></div>
+                                <div id="theory-bg-icon" class="absolute -right-4 -bottom-4 text-8xl opacity-10 text-cyan-500">💡</div>
+                                
+                                <h4 class="font-black mb-3 flex items-center gap-2 text-cyan-400 border-b border-cyan-800 pb-2"><i class="fas fa-database"></i> <span id="theory-title">DATABASE TEORI</span></h4>
+                                <p class="text-sm font-medium text-cyan-100 leading-relaxed z-10 relative" id="theory-desc">Deskripsi sistem...</p>
+                                
+                                <!-- Rumus (Muncul jika tipe math) -->
+                                <div id="formula-container" class="mt-4 pt-4 border-t border-cyan-800/50 z-10 relative">
+                                    <div class="text-xs font-bold text-cyan-600 mb-2 uppercase">Parameter Aktif:</div>
+                                    <div id="formula-display" class="font-mono text-xl text-yellow-300 font-black mb-3 bg-black/40 px-3 py-2 rounded-lg border border-cyan-800/50 inline-block"></div>
+                                    <ul id="formula-vars" class="list-none space-y-1 text-xs text-cyan-300/80 mb-3"></ul>
+                                    <div class="flex justify-between items-center bg-cyan-900/30 p-2 rounded-lg border border-cyan-800">
+                                        <span class="text-[10px] text-cyan-400 uppercase" id="c-label">Konstanta</span>
+                                        <span class="font-mono font-black text-cyan-200" id="c-value">0</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Panel Kanan: Interaktif -->
-                        <div class="p-6 md:p-8 md:w-7/12 flex flex-col justify-between bg-slate-50/50">
-                            <div id="target-area" class="flex justify-around items-end mb-8 bg-gradient-to-t from-slate-200/50 to-white rounded-3xl p-6 border-2 border-slate-100 shadow-inner min-h-[200px]">
+                        <!-- Panel Kanan: Dashboard Operasi Mesin -->
+                        <div class="p-6 md:p-8 md:w-7/12 flex flex-col justify-between bg-slate-200 relative">
+                            <!-- Baut Dekorasi -->
+                            <div class="absolute top-4 left-4 w-3 h-3 rounded-full bg-slate-400 shadow-inner border border-slate-500"></div>
+                            <div class="absolute top-4 right-4 w-3 h-3 rounded-full bg-slate-400 shadow-inner border border-slate-500"></div>
+                            <div class="absolute bottom-4 left-4 w-3 h-3 rounded-full bg-slate-400 shadow-inner border border-slate-500"></div>
+                            <div class="absolute bottom-4 right-4 w-3 h-3 rounded-full bg-slate-400 shadow-inner border border-slate-500"></div>
+
+                            <!-- AREA HITUNGAN (MATH) -->
+                            <div id="target-area" class="flex justify-around items-center mb-8 bg-slate-300 rounded-3xl p-6 border-4 border-slate-400 shadow-inner min-h-[200px] relative">
                                 <!-- Injected by JS -->
                             </div>
 
-                            <div class="text-center">
-                                <h3 class="font-black text-slate-700 text-lg mb-4 text-left" id="question-text">Pilih Jawaban:</h3>
-                                <div class="grid grid-cols-2 gap-3 mb-6" id="choices-container">
+                            <!-- AREA KONSEP (TEXT) -->
+                            <div id="concept-area" class="hidden flex-col items-center justify-center mb-8 bg-amber-50 rounded-3xl p-6 sm:p-8 border-4 border-amber-200 shadow-inner min-h-[200px] text-center relative overflow-hidden">
+                                <div class="absolute top-0 w-full h-2 bg-[repeating-linear-gradient(45deg,#fbbf24,#fbbf24_10px,#f59e0b_10px,#f59e0b_20px)]"></div>
+                                <div class="text-4xl mb-4 bg-amber-100 w-16 h-16 rounded-2xl flex items-center justify-center shadow-inner border-2 border-amber-300 text-amber-600 mx-auto">⚠️</div>
+                                <h3 id="concept-question" class="text-lg sm:text-xl font-black text-slate-800 leading-relaxed">
+                                    Pertanyaan masalah mesin di sini.
+                                </h3>
+                            </div>
+
+                            <!-- Papan Tombol Kontrol -->
+                            <div class="bg-slate-300 p-5 rounded-3xl border-4 border-slate-400 shadow-[0_10px_20px_rgba(0,0,0,0.1)]">
+                                <h3 class="font-black text-slate-500 text-sm uppercase tracking-widest mb-4 flex items-center gap-2"><i class="fas fa-sliders-h"></i> Panel Kalibrasi</h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6" id="choices-container">
                                     <!-- Injected by JS -->
                                 </div>
-                                <button id="action-btn" onclick="submitAnswer()" class="w-full text-white text-xl md:text-2xl font-black py-4 rounded-[1.5rem] transition-all flex justify-center items-center gap-3 bg-slate-300 text-slate-500 cursor-not-allowed border-b-4 border-slate-400" disabled>
-                                    <i id="action-icon" class="fas fa-lock"></i> <span id="action-text">PILIH DULU</span>
+                                <button id="action-btn" onclick="submitAnswer()" class="w-full text-white text-xl font-black py-5 rounded-2xl transition-all flex justify-center items-center gap-3 bg-slate-400 text-slate-600 cursor-not-allowed border-b-8 border-slate-500" disabled>
+                                    <i id="action-icon" class="fas fa-lock"></i> <span id="action-text">PILIH PARAMETER</span>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 3. MODAL HASIL GAME -->
-                <div id="game-modal" class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm hidden items-center justify-center z-50 p-4 rounded-3xl">
-                    <div class="bg-white rounded-[2.5rem] p-8 max-w-md w-full shadow-2xl text-center border-[8px] relative" id="modal-content">
-                        <div id="modal-icon" class="text-7xl mb-4 drop-shadow-xl"></div>
-                        <h2 id="modal-title" class="text-3xl font-black mb-2 tracking-tight"></h2>
-                        <div id="points-earned" class="text-xl font-black mb-4 hidden animate-bounce"></div>
-                        <p id="modal-desc" class="text-slate-600 mb-6 font-bold text-lg bg-slate-50 p-4 rounded-2xl border-2 border-slate-100"></p>
-                        
-                        <div class="bg-slate-100 rounded-2xl p-5 mb-8 border-2 border-slate-200 text-left text-base shadow-inner">
-                            <p class="font-black text-slate-800 mb-2 flex items-center gap-2"><i class="fas fa-calculator text-blue-500"></i> Cek Hitungan:</p>
-                            <div class="font-bold text-slate-600 bg-white p-3 rounded-xl border border-slate-200 text-sm mb-3" id="modal-calc-breakdown"></div>
-                            <div class="font-black text-2xl text-center text-green-600 border-t-2 border-slate-200 pt-3" id="modal-calc-result"></div>
+                <!-- 3. MODAL HASIL GAME (DIAGNOSIS REPORT) -->
+                <div id="game-modal" class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm hidden items-center justify-center z-[60] p-4 rounded-3xl">
+                    <div class="bg-white rounded-[2rem] max-w-md w-full shadow-2xl text-center border-[6px] border-slate-300 relative overflow-hidden" id="modal-content">
+                        <!-- Header Laporan -->
+                        <div id="modal-header-bg" class="py-6 px-4 bg-green-500 border-b-4 border-green-600">
+                            <div id="modal-icon" class="text-6xl mb-2 drop-shadow-md">✅</div>
+                            <h2 id="modal-title" class="text-3xl font-black text-white tracking-tight uppercase">Sistem Normal</h2>
                         </div>
+                        
+                        <div class="p-8 bg-slate-50">
+                            <div id="points-earned" class="text-lg font-black text-green-600 mb-2 hidden bg-green-100 py-1 px-4 rounded-full inline-block border border-green-200"></div>
+                            <p id="modal-desc" class="text-slate-700 mb-6 font-bold text-base leading-relaxed"></p>
+                            
+                            <div class="bg-slate-200 rounded-xl p-4 mb-8 border-2 border-slate-300 text-left text-sm shadow-inner">
+                                <p class="font-black text-slate-500 mb-2 uppercase tracking-widest text-xs flex items-center gap-2"><i class="fas fa-clipboard-check"></i> Log Diagnostik:</p>
+                                <div class="font-mono text-slate-800 bg-slate-50 p-3 rounded-lg border border-slate-300 text-xs mb-3 overflow-x-auto whitespace-pre-wrap" id="modal-calc-breakdown"></div>
+                                <div class="font-black text-lg text-center border-t-2 border-slate-300 pt-3" id="modal-calc-result"></div>
+                            </div>
 
-                        <div id="modal-buttons" class="flex flex-col gap-3"></div>
+                            <div id="modal-buttons" class="flex flex-col gap-3"></div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 4. LAYAR SKOR AKHIR GAME (BARU) -->
-                <div id="game-result-screen" class="hidden w-full max-w-2xl bg-white/95 backdrop-blur-xl rounded-[2.5rem] p-10 text-center shadow-2xl border-8 border-slate-100 anim-pop z-10 relative">
-                    <div id="game-result-icon" class="text-[6rem] mb-4 drop-shadow-lg leading-none">🏆</div>
-                    <h2 class="text-4xl sm:text-5xl font-black text-slate-800 mb-2 tracking-tight">Misi Selesai!</h2>
-                    <p id="game-result-msg" class="text-slate-500 font-bold text-lg mb-8">Kerja bagus telah menyelesaikan seluruh level!</p>
+                <!-- 4. LAYAR SKOR AKHIR GAME ATAU GAME OVER -->
+                <div id="game-result-screen" class="hidden w-full max-w-2xl bg-white rounded-[2.5rem] p-10 text-center shadow-2xl border-8 border-slate-200 anim-pop z-10 relative overflow-hidden">
+                    <div id="game-result-bg-decor" class="absolute inset-0 opacity-10 pointer-events-none"></div>
+                    <div id="game-result-icon" class="text-[6rem] mb-4 drop-shadow-lg leading-none relative z-10">🏆</div>
+                    <h2 id="game-result-title" class="text-4xl sm:text-5xl font-black text-slate-800 mb-2 tracking-tight relative z-10">Shift Selesai!</h2>
+                    <p id="game-result-msg" class="text-slate-600 font-bold text-lg mb-8 relative z-10">Pabrik beroperasi dengan sempurna berkat Anda.</p>
                     
-                    <div class="bg-gradient-to-b from-blue-50 to-blue-100 border-4 border-blue-200 rounded-3xl p-8 mb-8 inline-block w-full max-w-sm transform transition-transform hover:scale-105 shadow-inner">
-                        <span class="block text-sm font-black text-blue-500 uppercase tracking-widest mb-2">Total Skor Anda</span>
-                        <div id="game-final-score" class="text-[6rem] font-black text-blue-700 leading-none drop-shadow-md">500</div>
+                    <div id="game-result-score-box" class="bg-slate-100 border-4 border-slate-200 rounded-3xl p-8 mb-8 inline-block w-full max-w-sm transform transition-transform shadow-inner relative z-10">
+                        <span id="game-result-score-lbl" class="block text-sm font-black text-slate-500 uppercase tracking-widest mb-2">Total Kinerja</span>
+                        <div id="game-final-score" class="text-[6rem] font-black text-slate-800 leading-none drop-shadow-sm">0</div>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <button onclick="startGame(activeGame.id)" class="bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-8 rounded-2xl shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-1 text-lg flex items-center justify-center gap-3">
-                            <i class="fas fa-redo"></i> Ulangi Misi
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+                        <button onclick="startGame(activeGame.id)" class="bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-8 rounded-2xl shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-1 text-lg flex items-center justify-center gap-3 border-b-4 border-blue-800 active:border-b-0 active:translate-y-1">
+                            <i class="fas fa-redo"></i> Ulangi Shift
                         </button>
-                        <button onclick="showGameMenu()" class="bg-slate-800 hover:bg-slate-900 text-white font-black py-4 px-8 rounded-2xl shadow-lg transition transform hover:-translate-y-1 text-lg flex items-center justify-center gap-3">
-                            <i class="fas fa-bars"></i> Menu Utama
+                        <button onclick="showGameMenu()" class="bg-slate-800 hover:bg-slate-900 text-white font-black py-4 px-8 rounded-2xl shadow-lg transition transform hover:-translate-y-1 text-lg flex items-center justify-center gap-3 border-b-4 border-slate-950 active:border-b-0 active:translate-y-1">
+                            <i class="fas fa-power-off"></i> Ke Ruang Kendali Utama
                         </button>
                     </div>
                 </div>
@@ -1624,319 +1725,633 @@
         // --- 3. LOGIKA MINI GAMES PABRIK KOPI ---
         const gameDatabase = {
             kalorSuhu: {
-                id: 'kalorSuhu', unitResult: 'kJ', questionText: "Berapa Energi Kalor (Q)?",
-                formulaText: '<span class="text-red-500">Q</span> = m &times; c &times; &Delta;T',
-                formulaVarsHTML: `<li><span class="text-red-600 font-bold">Q</span> Energi (kJ)</li><li><span class="text-blue-600 font-bold">m</span> Massa (kg)</li><li><span class="text-orange-600 font-bold">&Delta;T</span> Suhu (&deg;C)</li>`,
+                id: 'kalorSuhu', unitResult: 'kJ', questionText: "Kalibrasi Parameter Kalor (Q):",
+                formulaText: 'Q = m &times; c &times; &Delta;T',
+                formulaVarsHTML: `<li><span class="text-yellow-400 font-black">Q</span> Energi (kJ)</li><li><span class="text-cyan-300 font-bold">m</span> Massa (kg)</li><li><span class="text-rose-300 font-bold">&Delta;T</span> Suhu (&deg;C)</li>`,
                 levels: [
-                    { titleText: "Misi Jemur Kopi!", titleIcon: "☀️", themeClass: "level-1", panelColor: "bg-amber-100",
-                      dialog: "\"Bantu aku hitung energi untuk menjemur kopi basah ini!\"",
-                      theoryTitle: "RADIASI", theoryIcon: "☀️", theoryDesc: "Panas berpindah langsung dari matahari.",
-                      cLabel: "Kalor Jenis Basah (c)", cValue: 2, cUnit: "kJ/kg°C",
-                      v1Key: 'm', v1Range: [2,6], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '🧺', v1Bg: 'from-orange-200 to-amber-400',
-                      v2Key: 'dt', v2Range: [10,20], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '☀️', v2Bg: 'from-yellow-200 to-orange-400',
-                      btnColor: "bg-orange-400 border-orange-600", btnText: "PROSES JEMUR!" },
-                    { titleText: "Mesin Pengering", titleIcon: "💨", themeClass: "level-2", panelColor: "bg-blue-100",
-                      dialog: "\"Kita keringkan lebih cepat pakai mesin. Hitung kalor konveksi!\"",
-                      theoryTitle: "KONVEKSI", theoryIcon: "💨", theoryDesc: "Kalor dihantarkan udara panas.",
+                    { type: 'concept', bloom: 'C2 (Memahami)', titleText: "Analisis Biji Basah", titleIcon: "📖", themeClass: "bg-slate-800", panelColor: "bg-amber-100",
+                      theoryTitle: "KALOR JENIS (c)", theoryIcon: "💧", theoryDesc: "Semakin besar nilai (c), semakin besar energi yang disedot untuk menaikkan suhu.",
+                      pool: [
+                          {
+                              dialog: "> \"Pak Jember di sini. Biji kopi basah ini lama sekali panasnya! Ada ide kenapa?\"",
+                              question: "Sistem mendeteksi kalor jenis kopi basah sangat tinggi. Secara fisik, apa dampaknya pada mesin jemur kita?",
+                              options: ["Mesin akan cepat rusak", "Suhu kopi langsung melonjak naik", "Butuh waktu & energi ekstra lama untuk memanaskannya", "Kopi akan memuai dan meledak"],
+                              correctOpt: "Butuh waktu & energi ekstra lama untuk memanaskannya",
+                              explanation: "Sesuai teori, kalor jenis (c) yang tinggi berarti benda tersebut sangat 'kebal' terhadap perubahan suhu. Harus diberi panas terus menerus agar suhunya naik sedikit saja."
+                          },
+                          {
+                              dialog: "> \"Laporan sensor: Kopi segar yang baru dipanen lambat sekali naik suhunya dibanding biji kering.\"",
+                              question: "Kandungan air pada biji segar memiliki kalor jenis (c) yang sangat besar. Apa akibatnya saat dijemur?",
+                              options: ["Suhunya langsung setara suhu lingkungan", "Menyerap banyak energi panas tanpa mengalami kenaikan suhu yang cepat", "Cepat terbakar jika terkena panas", "Memantulkan radiasi kembali ke udara"],
+                              correctOpt: "Menyerap banyak energi panas tanpa mengalami kenaikan suhu yang cepat",
+                              explanation: "Air membutuhkan energi sangat besar (4200 J) hanya untuk menaikkan 1 kg massanya sebesar 1°C. Oleh karena itu biji basah menyedot panas namun suhunya naik perlahan."
+                          },
+                          {
+                              dialog: "> \"Energi pemanas kita terbatas hari ini. Kita harus mengakalinya sebelum dioven!\"",
+                              question: "Jika kita ingin mempercepat kenaikan suhu biji kopi basah tanpa menambah energi pemanas (api), langkah awal paling logis secara fisika adalah...",
+                              options: ["Mengurangi/meniriskan kandungan airnya (menurunkan massa & c total)", "Menyiramnya dengan air mendidih", "Menambahkan garam ke biji kopi", "Mengurung kopi di ruangan gelap"],
+                              correctOpt: "Mengurangi/meniriskan kandungan airnya (menurunkan massa & c total)",
+                              explanation: "Dengan meniriskan atau menjemur angin terlebih dulu, kadar air (dan Kalor Jenis gabungan) berkurang. Semakin kecil massa dan kalor jenis, kopi semakin mudah dipanaskan oven."
+                          }
+                      ],
+                      btnColor: "bg-orange-500 border-orange-700", btnText: "SETUJUI ANALISIS!" },
+                    
+                    { type: 'math', bloom: 'C3 (Menerapkan)', titleText: "Mesin Pengering Utama", titleIcon: "💨", themeClass: "bg-slate-800", panelColor: "bg-blue-100",
+                      theoryTitle: "SISTEM KONVEKSI", theoryIcon: "💨", theoryDesc: "Blower meniupkan udara panas (Q) secara konstan ke tumpukan biji kopi.",
+                      pool: [
+                          { dialog: "> \"Kita pindahkan ke mesin pengering konveksi. Hitung suplai energinya sekarang!\"" },
+                          { dialog: "> \"Batch baru masuk pengering blower. Kalkulasi ulang energi panas yang dibutuhkan!\"" },
+                          { dialog: "> \"Blower udara panas siap ditiupkan. Atur injeksi kalornya sesuai parameter massa!\"" }
+                      ],
                       cLabel: "Kalor Jenis (c)", cValue: 2, cUnit: "kJ/kg°C",
-                      v1Key: 'm', v1Range: [10,20], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '🫘', v1Bg: 'from-amber-300 to-orange-500',
-                      v2Key: 'dt', v2Range: [30,50], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '♨️', v2Bg: 'from-red-200 to-red-400',
-                      btnColor: "bg-blue-500 border-blue-600", btnText: "NYALAKAN MESIN!" },
-                    { titleText: "Misi Sangrai", titleIcon: "🔥", themeClass: "level-3", panelColor: "bg-red-100",
-                      dialog: "\"Tahap sangrai! Kopi sudah kering, kalor jenisnya turun.\"",
-                      theoryTitle: "KONDUKSI", theoryIcon: "🍳", theoryDesc: "Panas api merambat melalui wajan.",
+                      v1Key: 'm', v1Range: [10,20], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-slate-700', v1Visual: '🫘', v1Bg: 'from-amber-200 to-amber-400',
+                      v2Key: 'dt', v2Range: [30,50], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-slate-700', v2Visual: '♨️', v2Bg: 'from-red-300 to-red-500',
+                      btnColor: "bg-blue-500 border-blue-700", btnText: "INJEKSI ENERGI!" },
+                    
+                    { type: 'concept', bloom: 'C4 (Menganalisis)', titleText: "Beban Kapasitas", titleIcon: "⚖️", themeClass: "bg-slate-800", panelColor: "bg-indigo-100",
+                      theoryTitle: "VARIABEL SISTEM", theoryIcon: "🔄", theoryDesc: "Rumus: ΔT = Q / (m.c). Jika energi (Q) mentok, massa (m) akan mendikte suhu.",
+                      pool: [
+                          {
+                              dialog: "> \"Peringatan! Petani memasukkan kopi 2x lipat lebih banyak dari biasanya. Suplai api kita mentok.\"",
+                              question: "Jika massa kopi (m) dilipatgandakan (2x) tapi suplai api (Q) tetap sama, apa yang tercatat di monitor suhu?",
+                              options: ["Kenaikan suhu menjadi 2x lipat lebih panas", "Kenaikan suhu hanya mencapai setengahnya (1/2)", "Suhu tidak akan berubah sama sekali", "Mesin otomatis mati"],
+                              correctOpt: "Kenaikan suhu hanya mencapai setengahnya (1/2)",
+                              explanation: "Massa dan perubahan suhu berbanding terbalik jika energinya tetap. Karena massanya dua kali lebih berat, energi yang sama hanya mampu memanaskannya separuh jalan."
+                          },
+                          {
+                              dialog: "> \"Kapasitas gas pemanas (Q) kita bocor dan berkurang setengahnya! Namun tumpukan kopinya tetap.\"",
+                              question: "Jika suplai energi (Q) turun menjadi separuhnya (1/2) sedangkan massa kopi tetap, bagaimana dampak pada suhunya?",
+                              options: ["Suhu akan tetap stabil", "Suhu menjadi dua kali lebih panas", "Kenaikan suhu melambat jadi setengahnya (1/2)", "Kopi berubah menjadi es"],
+                              correctOpt: "Kenaikan suhu melambat jadi setengahnya (1/2)",
+                              explanation: "Energi kalor (Q) berbanding lurus dengan perubahan suhu (ΔT). Jika kalor yang diberikan hanya separuhnya, maka kenaikan suhu juga hanya akan mencapai setengah dari target."
+                          },
+                          {
+                              dialog: "> \"Bos minta sangraian super cepat hari ini. Kita naikkan daya gas full!\"",
+                              question: "Jika kita memutar tuas gas agar suplai api (Q) menjadi 3 kali lipat untuk jumlah beban kopi yang sama, apa yang terjadi?",
+                              options: ["Kenaikan suhu (ΔT) menjadi 3 kali lipat lebih tinggi", "Massa kopi otomatis menyusut 3 kali lipat", "Kenaikan suhu (ΔT) menjadi sepertiganya (1/3)", "Kalor jenis kopi (c) ikut naik 3 kali lipat"],
+                              correctOpt: "Kenaikan suhu (ΔT) menjadi 3 kali lipat lebih tinggi",
+                              explanation: "Kalor (Q) berbanding lurus dengan perubahan suhu (ΔT). Jika panas yang disuntikkan tiga kali lebih besar, suhu kopi akan melonjak tiga kali lebih drastis pula."
+                          }
+                      ],
+                      btnColor: "bg-indigo-500 border-indigo-700", btnText: "KALIBRASI ULANG!" },
+
+                    { type: 'math', bloom: 'C3 (Menerapkan)', titleText: "Silinder Sangrai", titleIcon: "🔥", themeClass: "bg-slate-800", panelColor: "bg-red-100",
+                      theoryTitle: "KONDUKSI ROASTER", theoryIcon: "🍳", theoryDesc: "Dinding silinder baja menghantarkan panas langsung secara konduksi.",
+                      pool: [
+                          { dialog: "> \"Masuk tahap krusial! Kopi sudah kering, c-nya turun. Jangan sampai gosong, hitung dengan pas!\"" },
+                          { dialog: "> \"Silinder roasting siap berputar! Hitung injeksi konduksinya, mesin jangan sampai overheat!\"" },
+                          { dialog: "> \"Proses penyangraian dimulai. Masukkan parameter suhu dan massa untuk oven baja ini!\"" }
+                      ],
                       cLabel: "Kalor Jenis (c)", cValue: 1.5, cUnit: "kJ/kg°C",
-                      v1Key: 'm', v1Range: [10,30], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '🍳', v1Bg: 'from-slate-200 to-slate-400',
-                      v2Key: 'dt', v2Range: [100,140], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '🔥', v2Bg: 'from-orange-400 to-red-500',
-                      btnColor: "bg-red-500 border-red-600", btnText: "SANGRAI SEKARANG!" },
-                    { titleText: "Pendinginan Biji", titleIcon: "❄️", themeClass: "level-4", panelColor: "bg-teal-100",
-                      dialog: "\"Kopi selesai disangrai! Hitung kalor yang dilepas agar tidak gosong.\"",
-                      theoryTitle: "MELEPAS KALOR", theoryIcon: "🌬️", theoryDesc: "Penurunan suhu membuang energi panas ke udara.",
-                      cLabel: "Kalor Jenis (c)", cValue: 1.5, cUnit: "kJ/kg°C",
-                      v1Key: 'm', v1Range: [10,20], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '🫘', v1Bg: 'from-orange-700 to-orange-900',
-                      v2Key: 'dt', v2Range: [50,80], v2Unit: '°C', v2Icon: 'fa-arrow-down', v2Color: 'text-teal-600', v2Visual: '❄️', v2Bg: 'from-cyan-200 to-blue-400',
-                      btnColor: "bg-teal-500 border-teal-600", btnText: "DINGINKAN KOPI!" },
-                    { titleText: "Penyeduhan Kopi", titleIcon: "☕", themeClass: "level-5", panelColor: "bg-pink-100",
-                      dialog: "\"Mari kita seduh kopinya! Panaskan air bersih sekarang.\"",
-                      theoryTitle: "MENYERAP KALOR", theoryIcon: "💧", theoryDesc: "Air menyerap energi besar untuk memanas.",
-                      cLabel: "Kalor Jenis Air (c)", cValue: 4.2, cUnit: "kJ/kg°C",
-                      v1Key: 'm', v1Range: [1,5], v1Unit: 'kg', v1Icon: 'fa-tint', v1Color: 'text-blue-500', v1Visual: '💧', v1Bg: 'from-blue-200 to-blue-400',
-                      v2Key: 'dt', v2Range: [60,80], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '☕', v2Bg: 'from-amber-600 to-orange-800',
-                      btnColor: "bg-pink-500 border-pink-600", btnText: "SEDUH SEKARANG!" }
+                      v1Key: 'm', v1Range: [10,30], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-slate-700', v1Visual: '⚙️', v1Bg: 'from-slate-400 to-slate-500',
+                      v2Key: 'dt', v2Range: [100,140], v2Unit: '°C', v2Icon: 'fa-fire', v2Color: 'text-slate-700', v2Visual: '🔥', v2Bg: 'from-orange-500 to-red-600',
+                      btnColor: "bg-red-500 border-red-700", btnText: "PUTAR SILINDER!" },
+
+                    { type: 'concept', bloom: 'C5 (Mengevaluasi)', titleText: "Protokol Pendingin", titleIcon: "❄️", themeClass: "bg-slate-800", panelColor: "bg-teal-100",
+                      theoryTitle: "FLUIDA PENDINGIN", theoryIcon: "⚖️", theoryDesc: "Fluida dengan kalor jenis (c) sangat besar mampu menyerap energi raksasa tanpa cepat mendidih.",
+                      pool: [
+                          {
+                              dialog: "> \"Roasting selesai! Mesin overheat. Kita butuh fluida pendingin terbaik agar logam mesin tidak meleleh.\"",
+                              question: "Evaluasi logistik: Untuk menurunkan suhu mesin baja dengan aman, material mana yang paling optimal dipompa ke dalam radiator pendingin?",
+                              options: ["Gas Nitrogen (c kecil)", "Minyak pelumas (c sedang)", "Air murni (c sangat besar)", "Udara terbuka (c sangat kecil)"],
+                              correctOpt: "Air murni (c sangat besar)",
+                              explanation: "Air adalah pendingin (coolant) paling logis karena kalor jenisnya super besar (4200 J/kg°C). Air bisa menyerap berton-ton energi panas dari mesin sebelum suhunya sendiri menjadi terlalu panas."
+                          },
+                          {
+                              dialog: "> \"Pipa air murni kita tersumbat! Kita butuh mencari metode alternatif untuk mengekstrak panas biji kopi sangrai.\"",
+                              question: "Jika air tidak tersedia, mengapa meniupkan aliran angin (udara) dalam jumlah yang SANGAT masif bisa menjadi alternatif pendingin konveksi?",
+                              options: ["Udara memiliki kalor jenis (c) yang sangat besar seperti air", "Aliran udara membuang energi panas berkelanjutan meski kapasitas per molekulnya kecil", "Angin menyerap panas melalui radiasi magnetik", "Udara memampatkan biji kopi"],
+                              correctOpt: "Aliran udara membuang energi panas berkelanjutan meski kapasitas per molekulnya kecil",
+                              explanation: "Meskipun kalor jenis udara kecil (cepat panas), aliran angin blower terus-menerus mengganti udara yang sudah panas dengan udara dingin baru, membawa energi menjauh dari biji kopi."
+                          },
+                          {
+                              dialog: "> \"Ada usulan mengganti cairan radiator mesin pabrik dengan Minyak Sayur (c = 2000 J/kg°C) karena lebih awet dari air murni (c = 4200 J/kg°C).\"",
+                              question: "Berdasarkan prinsip kalor, apakah usulan menggunakan minyak sayur sebagai pendingin mesin itu tepat?",
+                              options: ["Tepat, karena minyak lebih licin dan dingin", "Tepat, karena minyak tidak bisa mendidih", "Tidak tepat, karena untuk tiap 1°C kenaikan suhunya, minyak menyerap kalor jauh lebih sedikit dibanding air", "Tidak tepat, karena minyak bersifat isolator mutlak"],
+                              correctOpt: "Tidak tepat, karena untuk tiap 1°C kenaikan suhunya, minyak menyerap kalor jauh lebih sedikit dibanding air",
+                              explanation: "Air (c=4200) jauh lebih superior menyedot energi panas dibanding Minyak (c=2000). Jika pakai minyak, suhu radiator akan sangat cepat mendidih/panas sebelum sempat membuang kalor dari mesin."
+                          }
+                      ],
+                      btnColor: "bg-teal-500 border-teal-700", btnText: "EKSEKUSI PENDINGIN!" }
                 ]
             },
             kalorLaten: {
-                id: 'kalorLaten', unitResult: 'kJ', questionText: "Berapa Energi Laten (Q)?",
-                formulaText: '<span class="text-blue-500">Q</span> = m &times; L',
-                formulaVarsHTML: `<li><span class="text-blue-600 font-bold">Q</span> Energi (kJ)</li><li><span class="text-green-600 font-bold">m</span> Massa (kg)</li><li><span class="text-cyan-600 font-bold">L/U</span> Kalor Laten</li>`,
+                id: 'kalorLaten', unitResult: 'kJ', questionText: "Kalibrasi Kalor Laten (Q):",
+                formulaText: 'Q = m &times; L',
+                formulaVarsHTML: `<li><span class="text-yellow-400 font-black">Q</span> Energi (kJ)</li><li><span class="text-cyan-300 font-bold">m</span> Massa (kg)</li><li><span class="text-purple-300 font-bold">L/U</span> Kalor Laten</li>`,
                 levels: [
-                    { titleText: "Cairkan Es Kopi", titleIcon: "🧊", themeClass: "level-2", panelColor: "bg-cyan-100",
-                      dialog: "\"Es membeku jadi balok besar. Cairkan untuk kopi dingin!\"",
-                      theoryTitle: "KALOR LEBUR", theoryIcon: "🧊", theoryDesc: "Energi mengubah wujud padat ke cair.",
-                      cLabel: "Kalor Lebur Es (L)", cValue: 336, cUnit: "kJ/kg",
-                      v1Key: 'm', v1Range: [2,5], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-green-600', v1Visual: '🧊', v1Bg: 'from-cyan-100 to-blue-300',
-                      v2Key: null, v2Visual: '💧', v2Bg: 'from-blue-300 to-blue-500',
-                      btnColor: "bg-cyan-500 border-blue-600", btnText: "CAIRKAN ES!" },
-                    { titleText: "Ekstraksi Uap", titleIcon: "☁️", themeClass: "level-3", panelColor: "bg-orange-100",
-                      dialog: "\"Mesin espresso butuh uap panas bertekanan. Uapkan airnya!\"",
-                      theoryTitle: "KALOR UAP", theoryIcon: "💨", theoryDesc: "Energi merubah air mendidih jadi uap.",
-                      cLabel: "Kalor Uap Air (U)", cValue: 2260, cUnit: "kJ/kg",
-                      v1Key: 'm', v1Range: [2,5], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-green-600', v1Visual: '🫖', v1Bg: 'from-slate-200 to-slate-400',
-                      v2Key: null, v2Visual: '☁️', v2Bg: 'from-gray-100 to-gray-300',
-                      btnColor: "bg-orange-500 border-red-600", btnText: "UAPKAN AIR!" },
-                    { titleText: "Pembuatan Es Batu", titleIcon: "❄️", themeClass: "level-4", panelColor: "bg-indigo-100",
-                      dialog: "\"Pabrik butuh stok es batu untuk Ice Coffee. Bekukan airnya!\"",
-                      theoryTitle: "KALOR BEKU", theoryIcon: "❄️", theoryDesc: "Melepas energi untuk berubah dari cair ke padat.",
-                      cLabel: "Kalor Beku Air (L)", cValue: 336, cUnit: "kJ/kg",
-                      v1Key: 'm', v1Range: [5,10], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-green-600', v1Visual: '💧', v1Bg: 'from-blue-300 to-blue-500',
-                      v2Key: null, v2Visual: '🧊', v2Bg: 'from-cyan-100 to-blue-300',
-                      btnColor: "bg-indigo-500 border-indigo-600", btnText: "BEKUKAN AIR!" },
-                    { titleText: "Peleburan Karamel", titleIcon: "🍮", themeClass: "level-1", panelColor: "bg-yellow-100",
-                      dialog: "\"Buat saus karamel untuk Macchiato! Leburkan gula aren ini.\"",
-                      theoryTitle: "KALOR LEBUR", theoryIcon: "🔥", theoryDesc: "Energi merusak ikatan molekul padat gula.",
-                      cLabel: "Kalor Lebur Gula", cValue: 200, cUnit: "kJ/kg",
-                      v1Key: 'm', v1Range: [1,3], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-yellow-700', v1Visual: '🪨', v1Bg: 'from-yellow-600 to-amber-800',
-                      v2Key: null, v2Visual: '🍮', v2Bg: 'from-yellow-300 to-amber-500',
-                      btnColor: "bg-yellow-500 border-yellow-600", btnText: "LEBURKAN GULA!" },
-                    { titleText: "Pengembunan Uap", titleIcon: "🌧️", themeClass: "level-5", panelColor: "bg-purple-100",
-                      dialog: "\"Uap panas ekstraksi harus diembunkan kembali menjadi air.\"",
-                      theoryTitle: "KALOR EMBUN", theoryIcon: "🌧️", theoryDesc: "Uap melepas energi tinggi kembali menjadi zat cair.",
-                      cLabel: "Kalor Embun Air", cValue: 2260, cUnit: "kJ/kg",
-                      v1Key: 'm', v1Range: [2,4], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-purple-600', v1Visual: '☁️', v1Bg: 'from-gray-200 to-gray-400',
-                      v2Key: null, v2Visual: '💧', v2Bg: 'from-blue-300 to-blue-500',
-                      btnColor: "bg-purple-500 border-purple-600", btnText: "EMBUNKAN UAP!" }
+                    { type: 'concept', bloom: 'C2 (Memahami)', titleText: "Anomali Peleburan", titleIcon: "🧊", themeClass: "bg-slate-800", panelColor: "bg-cyan-100",
+                      theoryTitle: "GRAFIK WUJUD", theoryIcon: "📈", theoryDesc: "Kurva suhu akan mendatar (flat) tepat pada saat wujud sedang transisi.",
+                      pool: [
+                          {
+                              dialog: "> \"Perhatian! Sensor suhu es batu di mesin pendingin stagnan di 0°C padahal pemanas nyala!\"",
+                              question: "Mengapa sistem termometer tidak mencatat kenaikan suhu saat balok es sedang mencair menjadi air seluruhnya?",
+                              options: ["Termometernya rusak terkena air", "Energinya dipakai murni untuk merusak ikatan molekul es, bukan menaikkan suhu", "Es menyerap dingin dari udara", "Api pemanas otomatis mati"],
+                              correctOpt: "Energinya dipakai murni untuk merusak ikatan molekul es, bukan menaikkan suhu",
+                              explanation: "Saat di titik lebur (0°C), Kalor Laten bekerja menghancurkan struktur padat es menjadi cair. Suhu baru akan naik JIKA semua es sudah 100% menjadi air cair."
+                          },
+                          {
+                              dialog: "> \"Log sistem mencatat konsumsi energi raksasa tapi suhu adonan tetap 0°C saat es melebur.\"",
+                              question: "Fase di mana wujud zat berubah dari padat menjadi cair sambil menyerap kalor tanpa perubahan suhu disebut fasa...",
+                              options: ["Menguap", "Membeku", "Melebur", "Menyublim"],
+                              correctOpt: "Melebur",
+                              explanation: "Melebur adalah proses perubahan wujud padat (es) menjadi cair (air) yang ditandai dengan penyerapan Kalor Lebur pada suhu yang stagnan (titik lebur)."
+                          },
+                          {
+                              dialog: "> \"Di tangki mixer, ada campuran setengah es batu dan setengah air yang sedang meleleh diaduk rata.\"",
+                              question: "Berapakah suhu rata-rata campuran dalam tangki pencair tersebut saat proses peleburan belum selesai?",
+                              options: ["Lebih dari 0°C karena sudah ada airnya", "Tepat di bawah 0°C agar esnya tidak habis", "Tetap stabil di 0°C hingga seluruh es habis mencair", "Mengikuti suhu ruangan sekitarnya"],
+                              correctOpt: "Tetap stabil di 0°C hingga seluruh es habis mencair",
+                              explanation: "Selama masih ada wujud es yang sedang berproses mencair (fase transisi campuran), sistem akan mempertahankan suhunya konstan di titik lebur (0°C) sampai proses selesai sempurna."
+                          }
+                      ],
+                      btnColor: "bg-cyan-500 border-cyan-700", btnText: "KONFIRMASI LOG!" },
+                    
+                    { type: 'math', bloom: 'C3 (Menerapkan)', titleText: "Modul Pencair Es", titleIcon: "💧", themeClass: "bg-slate-800", panelColor: "bg-blue-100",
+                      theoryTitle: "KALOR LEBUR", theoryIcon: "🧊", theoryDesc: "Injeksi energi (Q = m.L) untuk mencairkan es secara total.",
+                      pool: [
+                          { dialog: "> \"Kita butuh supply air dingin untuk Cold Brew. Aktifkan modul pelebur es sekarang!\"" },
+                          { dialog: "> \"Pabrik kekurangan cairan pendingin. Pecahkan ikatan es ini jadi air cair, kalkulasi dayanya!\"" },
+                          { dialog: "> \"Es kristal siap dilelehkan. Eksekusi perhitungan kalor laten es (m.L) ini!\"" }
+                      ],
+                      cLabel: "Kalor Lebur (L)", cValue: 336, cUnit: "kJ/kg",
+                      v1Key: 'm', v1Range: [2,5], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-slate-700', v1Visual: '🧊', v1Bg: 'from-cyan-200 to-cyan-400',
+                      v2Key: null, v2Visual: '💧', v2Bg: 'from-blue-400 to-blue-600',
+                      btnColor: "bg-blue-500 border-blue-700", btnText: "CAIRKAN SISTEM!" },
+
+                    { type: 'concept', bloom: 'C4 (Menganalisis)', titleText: "Bahaya Uap Mesin", titleIcon: "☁️", themeClass: "bg-slate-800", panelColor: "bg-purple-100",
+                      theoryTitle: "KALOR UAP (U)", theoryIcon: "🔥", theoryDesc: "Uap air menyimpan energi siluman raksasa (2260 kJ/kg) untuk mempertahankan wujud gasnya.",
+                      pool: [
+                          {
+                              dialog: "> \"Peringatan K3! Pipa uap espresso bocor! Ini jauh lebih bahaya dari cipratan air panas.\"",
+                              question: "Sistem K3 Pabrik mencatat uap 100°C menyebabkan luka bakar lebih ekstrem dibanding air 100°C. Apa alasan fisis utamanya?",
+                              options: ["Uap lebih cepat menembus pakaian", "Uap mengembun di kulit dan melepaskan energi kalor laten yang super besar", "Air 100°C cepat dingin di udara", "Gas memiliki sifat korosif"],
+                              correctOpt: "Uap mengembun di kulit dan melepaskan energi kalor laten yang super besar",
+                              explanation: "Saat uap panas 100°C menyentuh kulit, ia langsung berubah wujud (mengembun) jadi air 100°C. Proses mengembun ini membuang 'Kalor Uap' bernilai masif langsung ke kulit korban."
+                          },
+                          {
+                              dialog: "> \"Sensor kelembaban uap mendeteksi peningkatan suhu ekstrim di ruang tertutup tanpa ada sumber api!\"",
+                              question: "Saat uap espresso panas mengenai dinding kaca yang dingin, uap berubah wujud menjadi tetesan air (mengembun). Proses embun ini akan...",
+                              options: ["Menyerap dingin dari kaca", "Melepaskan energi kalor ke lingkungan (kaca) sehingga kaca ikut panas", "Menyebabkan kaca membeku", "Menurunkan tekanan udara drastis"],
+                              correctOpt: "Melepaskan energi kalor ke lingkungan (kaca) sehingga kaca ikut panas",
+                              explanation: "Mengembun adalah kebalikan dari menguap. Jika menguap butuh menyerap panas, maka mengembun pasti melepaskan energi panas (Kalor Embun) ke lingkungan sekitarnya."
+                          },
+                          {
+                              dialog: "> \"Air boiler sudah mendidih hebat, tapi baristanya terus menaikkan suhu api ke tingkat maksimum!\"",
+                              question: "Apakah memperbesar nyala api pada air yang sudah mendidih hebat (100°C) di tangki terbuka dapat menaikkan suhunya menjadi 110°C?",
+                              options: ["Bisa, jika apinya sangat besar", "Tidak, tambahan kalor hanya akan mempercepat air berubah wujud menjadi gas (uap)", "Bisa, tetapi uapnya akan hilang", "Tidak, air akan memadat"],
+                              correctOpt: "Tidak, tambahan kalor hanya akan mempercepat air berubah wujud menjadi gas (uap)",
+                              explanation: "Setelah mencapai titik didih, seluruh suplai kalor tambahan sepenuhnya dipakai (sebagai Kalor Uap) untuk membebaskan molekul air menjadi gas, bukan menaikkan suhu cairan lagi."
+                          }
+                      ],
+                      btnColor: "bg-purple-500 border-purple-700", btnText: "TERAPKAN PROTOKOL!" },
+
+                    { type: 'math', bloom: 'C3 (Menerapkan)', titleText: "Boiler Espresso", titleIcon: "🫖", themeClass: "bg-slate-800", panelColor: "bg-orange-100",
+                      theoryTitle: "INJEKSI UAP", theoryIcon: "💨", theoryDesc: "Berikan energi besar untuk mengubah air 100°C menjadi gas bertekanan.",
+                      pool: [
+                          { dialog: "> \"Target tekanan ekstraksi belum tercapai. Kita butuh lebih banyak uap panas!\"" },
+                          { dialog: "> \"Mesin espresso siap. Hasilkan uap segera, injeksi energi raksasa ke boiler sekarang!\"" },
+                          { dialog: "> \"Sistem vakum butuh injeksi gas air. Kalkulasi kalor penguapannya (m.U)!\"" }
+                      ],
+                      cLabel: "Kalor Uap (U)", cValue: 2260, cUnit: "kJ/kg",
+                      v1Key: 'm', v1Range: [2,5], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-slate-700', v1Visual: '🚰', v1Bg: 'from-blue-300 to-blue-500',
+                      v2Key: null, v2Visual: '☁️', v2Bg: 'from-slate-200 to-slate-400',
+                      btnColor: "bg-orange-500 border-orange-700", btnText: "UAPKAN AIR!" },
+
+                    { type: 'concept', bloom: 'C5 (Mengevaluasi)', titleText: "Optimalisasi Barista", titleIcon: "🍸", themeClass: "bg-slate-800", panelColor: "bg-pink-100",
+                      theoryTitle: "EVALUASI PENDINGIN", theoryIcon: "⚖️", theoryDesc: "Proses melebur (padat ke cair) aktif menyerap panas dari lingkungan sekitarnya.",
+                      pool: [
+                          {
+                              dialog: "> \"Mesin pendingin rusak! Barista butuh mendinginkan kopi panas dengan cepat manual.\"",
+                              question: "Sebagai engineer, sarankan barista: Mana yang lebih efektif mendinginkan kopi 80°C? Memasukkan 50 gram Air Dingin 0°C, atau 50 gram Es Batu 0°C?",
+                              options: ["Air dingin 0°C karena gampang diaduk", "Sama saja, suhu keduanya sudah mentok 0°C", "Es batu 0°C karena menyedot kalor kopi ekstra banyak untuk melebur dulu", "Keduanya tidak disarankan"],
+                              correctOpt: "Es batu 0°C karena menyedot kalor kopi ekstra banyak untuk melebur dulu",
+                              explanation: "Es batu 0°C tidak akan langsung menaikkan suhunya. Ia butuh menyerap Kalor Lebur terlebih dulu HANYA untuk jadi air 0°C. Alhasil, energi panas kopi disedot jauh lebih rakus oleh es batu."
+                          },
+                          {
+                              dialog: "> \"Ada pesanan kopi botolan mendadak! Botolnya masih panas, kita harus mengkarantinanya ke pendingin ekstrim.\"",
+                              question: "Metode pendinginan botol kopi panas mana yang secara termodinamika paling agresif menyerap suhu botol?",
+                              options: ["Dikubur dalam gundukan es batu serut/cincang", "Diletakkan dalam kotak berisi balok es utuh raksasa", "Dibiarkan di depan kipas angin", "Dibungkus dengan kain basah biasa"],
+                              correctOpt: "Dikubur dalam gundukan es batu serut/cincang",
+                              explanation: "Es serut memiliki luas permukaan sentuh yang luar biasa besar bersentuhan langsung dengan botol. Proses meleburnya serpihan es secara merata akan menyedot kalor botol dengan agresif."
+                          },
+                          {
+                              dialog: "> \"Sistem pendingin (freezer) pabrik bekerja terlalu keras saat membekukan adonan es krim kopi.\"",
+                              question: "Untuk membuat es krim dari cairan 0°C menjadi padat 0°C, kompresor mesin harus bekerja keras karena...",
+                              options: ["Menaikkan suhu beku air", "Harus menyedot/mengekstrak Kalor Beku laten dari adonan untuk merubah wujudnya ke padat", "Adonan bereaksi menghasilkan panas sendiri", "Menambahkan udara dingin ke dalam es krim"],
+                              correctOpt: "Harus menyedot/mengekstrak Kalor Beku laten dari adonan untuk merubah wujudnya ke padat",
+                              explanation: "Membeku (cair ke padat) memakan banyak 'biaya'. Mesin pendingin harus secara aktif membuang/mengeluarkan Kalor Laten yang tersembunyi dari air cairan 0°C agar bisa berubah menjadi wujud kristal padat 0°C."
+                          }
+                      ],
+                      btnColor: "bg-pink-500 border-pink-700", btnText: "KIRIM REKOMENDASI!" }
                 ]
             },
             pemuaian: {
-                id: 'pemuaian', unitResult: 'mm', questionText: "Berapa Pertambahan Panjang?",
-                formulaText: '<span class="text-teal-600">&Delta;L</span> = L₀ &times; &alpha; &times; &Delta;T',
-                formulaVarsHTML: `<li><span class="text-teal-600 font-bold">&Delta;L</span> Muai (mm)</li><li><span class="text-indigo-600 font-bold">L₀</span> Awal (m)</li><li><span class="text-rose-600 font-bold">&Delta;T</span> Suhu (&deg;C)</li>`,
+                id: 'pemuaian', unitResult: 'mm', questionText: "Kalibrasi Celah Muai (&Delta;L):",
+                formulaText: '&Delta;L = L₀ &times; &alpha; &times; &Delta;T',
+                formulaVarsHTML: `<li><span class="text-teal-400 font-bold">&Delta;L</span> Muai (mm)</li><li><span class="text-indigo-300 font-bold">L₀</span> Awal (m)</li><li><span class="text-rose-300 font-bold">&Delta;T</span> Suhu (&deg;C)</li>`,
                 levels: [
-                    { titleText: "Rel Lori Pengangkut", titleIcon: "🛤️", themeClass: "level-4", panelColor: "bg-slate-200",
-                      dialog: "\"Bangun rel lori baja di pabrik. Berapa celah pemuaiannya?\"",
-                      theoryTitle: "PEMUAIAN PANJANG", theoryIcon: "🛤️", theoryDesc: "Rel baja diberi celah agar tidak melengkung.",
+                    { type: 'concept', bloom: 'C2 (Memahami)', titleText: "Infrastruktur Lori", titleIcon: "🏗️", themeClass: "bg-slate-800", panelColor: "bg-slate-200",
+                      theoryTitle: "TOLERANSI MUAI", theoryIcon: "🛤️", theoryDesc: "Logam rel bertambah panjang akibat radiasi termal siang hari.",
+                      pool: [
+                          {
+                              dialog: "> \"Halo? Mandor lapangan lapor, kenapa desain rel lori kita bolong-bolong di sambungannya?\"",
+                              question: "Beri penjelasan fisis: Mengapa kita harus menyetujui cetak biru sambungan rel pabrik yang diberi celah jarak?",
+                              options: ["Agar roda lori tidak slip", "Mencegah rel melengkung atau patah saling tabrak saat siang hari terik", "Menghemat biaya besi baja", "Agar bunyi kereta lebih berirama"],
+                              correctOpt: "Mencegah rel melengkung atau patah saling tabrak saat siang hari terik",
+                              explanation: "Pemuaian panjang (ΔL) pasti terjadi. Celah itu adalah ruang kosong yang sengaja disiapkan agar saat rel baja memanjang karena panas matahari, ujungnya tidak saling bertabrakan."
+                          },
+                          {
+                              dialog: "> \"Pak Jember komplain, kabel jalur komunikasi di luar pabrik terlihat sangat kendur melengkung ke bawah hari ini!\"",
+                              question: "Menurut prinsip pemuaian, fenomena fisik apa yang sedang terjadi pada kabel pabrik di siang hari yang terik?",
+                              options: ["Kabel menyusut menjadi tegang", "Kabel bertambah panjang secara linear (memuai)", "Arus listrik membuat kabel berat", "Isolator kabel meleleh seluruhnya"],
+                              correctOpt: "Kabel bertambah panjang secara linear (memuai)",
+                              explanation: "Siang hari yang terik mentransfer kalor radiasi, membuat partikel logam kabel bergerak lebih bebas. Logam bertambah panjang (memuai) sehingga terlihat kendur (melengkung)."
+                          },
+                          {
+                              dialog: "> \"Ada insiden pagi ini. Gelas ukur tebal yang dingin disiram uap air mendidih lalu seketika pecah belah!\"",
+                              question: "Mengapa gelas kaca biasa (tebal) yang dingin dapat retak atau pecah tiba-tiba saat diisi fluida sangat panas?",
+                              options: ["Tekanan air terlalu kuat", "Gelas menyerap uap beracun", "Bagian dalam gelas memuai drastis sementara luarnya belum, memicu tegangan struktural", "Kaca melepaskan kalor ke air"],
+                              correctOpt: "Bagian dalam gelas memuai drastis sementara luarnya belum, memicu tegangan struktural",
+                              explanation: "Kaca penghantar panas yang buruk. Permukaan dalam langsung memuai saat terkena air panas, sementara permukaan luar yang masih dingin tetap kaku. Tarikan tak seimbang ini memecahkan struktur kaca."
+                          }
+                      ],
+                      btnColor: "bg-slate-600 border-slate-800", btnText: "SETUJUI BLUEPRINT!" },
+
+                    { type: 'math', bloom: 'C3 (Menerapkan)', titleText: "Trek Lori Utama", titleIcon: "🛤️", themeClass: "bg-slate-800", panelColor: "bg-indigo-100",
+                      theoryTitle: "MUAI PANJANG", theoryIcon: "📏", theoryDesc: "Kalkulasi batas muai baja dengan persamaan presisi.",
+                      pool: [
+                          { dialog: "> \"Siap! Hitung toleransi celah untuk rel baja lori zona luar sekarang!\"" },
+                          { dialog: "> \"Ada pesanan ekspansi trek lori. Tentukan panjang muainya agar pekerja bisa memotong celahnya!\"" },
+                          { dialog: "> \"Sistem rel butuh ruang muai tambahan. Eksekusi kalkulasi ΔL baja hari ini!\"" }
+                      ],
                       cLabel: "Koef. Baja (α)", cValue: 0.01, cUnit: "mm/m°C",
-                      v1Key: 'L0', v1Range: [50,100], v1Unit: 'm', v1Icon: 'fa-ruler-horizontal', v1Color: 'text-indigo-600', v1Visual: '🛤️', v1Bg: 'from-slate-400 to-slate-600',
-                      v2Key: 'dt', v2Range: [20,40], v2Unit: '°C', v2Icon: 'fa-sun', v2Color: 'text-yellow-600', v2Visual: '☀️', v2Bg: 'from-yellow-200 to-orange-400',
-                      btnColor: "bg-slate-500 border-slate-700", btnText: "CEK CELAH REL!" },
-                    { titleText: "Pipa Uap Panas", titleIcon: "🚰", themeClass: "level-2", panelColor: "bg-cyan-100",
-                      dialog: "\"Uap mengalir di pipa kuningan. Hitung pemuaian pipanya!\"",
-                      theoryTitle: "PEMUAIAN KUNINGAN", theoryIcon: "🚰", theoryDesc: "Logam kuningan memuai lebih cepat dari baja.",
+                      v1Key: 'L0', v1Range: [50,100], v1Unit: 'm', v1Icon: 'fa-ruler-horizontal', v1Color: 'text-slate-700', v1Visual: '🛤️', v1Bg: 'from-slate-400 to-slate-600',
+                      v2Key: 'dt', v2Range: [20,40], v2Unit: '°C', v2Icon: 'fa-sun', v2Color: 'text-slate-700', v2Visual: '☀️', v2Bg: 'from-amber-300 to-orange-500',
+                      btnColor: "bg-indigo-500 border-indigo-700", btnText: "UBAH CELAH REL!" },
+
+                    { type: 'concept', bloom: 'C4 (Menganalisis)', titleText: "Alarm Bimetal", titleIcon: "🚨", themeClass: "bg-slate-800", panelColor: "bg-red-100",
+                      theoryTitle: "SENSOR BIMETAL", theoryIcon: "🔗", theoryDesc: "Plat ganda: Kuningan (α besar) & Besi (α kecil). Logam yang α-nya besar memuai lebih panjang.",
+                      pool: [
+                          {
+                              dialog: "> \"Sistem alarm kebakaran pabrik pakai plat Bimetal. Jika terbakar, ia harus menyentuh tombol di ATAS-nya.\"",
+                              question: "Agar saat dipanaskan plat tersebut melengkung menekan tombol di ATAS, bagaimana susunan posisi plat yang benar?",
+                              options: ["Kuningan di ATAS, Besi di BAWAH", "Kuningan di BAWAH, Besi di ATAS", "Besi saja tidak usah bimetal", "Letakkan sejajar secara vertikal"],
+                              correctOpt: "Kuningan di BAWAH, Besi di ATAS",
+                              explanation: "Kuningan memuai (bertambah panjang) LEBIH BANYAK dari besi. Jika Kuningan di bawah, ia akan mendorong plat melengkung ke atas (ke arah besi yang lebih pendek)."
+                          },
+                          {
+                              dialog: "> \"Alarm kita salah memicu! Bukannya menekan tombol di atas saat panas, dia malah melengkung ke bawah.\"",
+                              question: "Jika plat Bimetal melengkung ke BAWAH saat terkena panas api, diagnosis apa yang bisa Anda pastikan dari susunan platnya?",
+                              options: ["Kuningan diletakkan di ATAS, mendorong besi di BAWAH", "Suhunya kurang panas", "Plat besi yang ada di BAWAH memuai lebih panjang", "Bimetal terpasang terbalik secara horizontal"],
+                              correctOpt: "Kuningan diletakkan di ATAS, mendorong besi di BAWAH",
+                              explanation: "Logam dengan koefisien muai (α) besar selalu melengkung ke arah logam berkoefisien muai kecil. Jika melengkung ke bawah, berarti logam ekspansif (Kuningan) berada di posisi atas."
+                          },
+                          {
+                              dialog: "> \"Pabrik disemprot sistem pendingin darurat! Sensor alarm bimetal (Kuningan bawah, Besi atas) membeku.\"",
+                              question: "Jika plat Bimetal (Kuningan bawah, Besi atas) didinginkan drastis bukannya dipanaskan, ke arah mana ia akan melengkung?",
+                              options: ["Melengkung ke ATAS menekan tombol", "Lurus memanjang saja", "Melengkung ke BAWAH menjauhi tombol", "Tidak bereaksi sama sekali"],
+                              correctOpt: "Melengkung ke BAWAH menjauhi tombol",
+                              explanation: "Kuningan tidak hanya agresif memanjang saat panas, tapi juga agresif MENYUSUT (memendek) saat dingin. Karena Kuningan menyusut lebih parah dari Besi, plat akan tertarik melengkung ke BAWAH."
+                          }
+                      ],
+                      btnColor: "bg-red-500 border-red-700", btnText: "RANGKAI SENSOR!" },
+
+                    { type: 'math', bloom: 'C3 (Menerapkan)', titleText: "Distribusi Uap", titleIcon: "🚰", themeClass: "bg-slate-800", panelColor: "bg-cyan-100",
+                      theoryTitle: "PEMUAIAN KUNINGAN", theoryIcon: "🚰", theoryDesc: "Kuningan merespons panas dua kali lipat lebih agresif dari baja.",
+                      pool: [
+                          { dialog: "> \"Valve uap dibuka! Uap panas 80°C mengalir ke pipa kuningan. Hati-hati pipanya memanjang menabrak dinding!\"" },
+                          { dialog: "> \"Pipa kuningan baru telah dipasang! Segera komputasi panjang muainya saat mesin bekerja penuh!\"" },
+                          { dialog: "> \"Jalur pipa ekspansi aktif. Masukkan data hitungan toleransi muai material kuningan!\"" }
+                      ],
                       cLabel: "Koef. Kuningan (α)", cValue: 0.02, cUnit: "mm/m°C",
-                      v1Key: 'L0', v1Range: [10,30], v1Unit: 'm', v1Icon: 'fa-ruler-horizontal', v1Color: 'text-cyan-700', v1Visual: '🚰', v1Bg: 'from-teal-200 to-teal-400',
-                      v2Key: 'dt', v2Range: [50,80], v2Unit: '°C', v2Icon: 'fa-fire', v2Color: 'text-red-500', v2Visual: '🔥', v2Bg: 'from-orange-400 to-red-500',
-                      btnColor: "bg-cyan-500 border-cyan-600", btnText: "HITUNG PEMUAIAN!" },
-                    { titleText: "Kabel Listrik Pabrik", titleIcon: "⚡", themeClass: "level-3", panelColor: "bg-orange-100",
-                      dialog: "\"Kabel baja ini bisa memuai di siang hari. Berapa kendornya?\"",
-                      theoryTitle: "PEMUAIAN KABEL", theoryIcon: "🔌", theoryDesc: "Kabel memanjang akibat suhu terik matahari.",
-                      cLabel: "Koef. Baja (α)", cValue: 0.01, cUnit: "mm/m°C",
-                      v1Key: 'L0', v1Range: [100,200], v1Unit: 'm', v1Icon: 'fa-ruler-horizontal', v1Color: 'text-orange-700', v1Visual: '⚡', v1Bg: 'from-yellow-400 to-orange-500',
-                      v2Key: 'dt', v2Range: [10,30], v2Unit: '°C', v2Icon: 'fa-sun', v2Color: 'text-yellow-600', v2Visual: '☀️', v2Bg: 'from-yellow-200 to-orange-400',
-                      btnColor: "bg-orange-500 border-orange-600", btnText: "CEK KABEL!" },
-                    { titleText: "Tiang Penyangga", titleIcon: "🏗️", themeClass: "level-5", panelColor: "bg-rose-100",
-                      dialog: "\"Tiang besi penyangga mesin juga akan bertambah panjang.\"",
-                      theoryTitle: "PEMUAIAN BESI", theoryIcon: "🏗️", theoryDesc: "Fondasi besi terpengaruh suhu panas mesin.",
-                      cLabel: "Koef. Besi (α)", cValue: 0.01, cUnit: "mm/m°C",
-                      v1Key: 'L0', v1Range: [20,50], v1Unit: 'm', v1Icon: 'fa-arrows-alt-v', v1Color: 'text-rose-700', v1Visual: '🏗️', v1Bg: 'from-rose-300 to-rose-500',
-                      v2Key: 'dt', v2Range: [30,60], v2Unit: '°C', v2Icon: 'fa-thermometer-half', v2Color: 'text-red-600', v2Visual: '⚙️', v2Bg: 'from-gray-400 to-gray-600',
-                      btnColor: "bg-rose-500 border-rose-600", btnText: "HITUNG TIANG!" },
-                    { titleText: "Cerobong Asap", titleIcon: "🏭", themeClass: "level-1", panelColor: "bg-yellow-100",
-                      dialog: "\"Cerobong seng memuai drastis karena asap pembakaran!\"",
-                      theoryTitle: "PEMUAIAN SENG", theoryIcon: "🏭", theoryDesc: "Seng memiliki koefisien muai yang cukup besar.",
-                      cLabel: "Koef. Seng (α)", cValue: 0.03, cUnit: "mm/m°C",
-                      v1Key: 'L0', v1Range: [30,60], v1Unit: 'm', v1Icon: 'fa-ruler-vertical', v1Color: 'text-yellow-700', v1Visual: '🏭', v1Bg: 'from-slate-500 to-slate-700',
-                      v2Key: 'dt', v2Range: [80,120], v2Unit: '°C', v2Icon: 'fa-fire-alt', v2Color: 'text-orange-600', v2Visual: '🔥', v2Bg: 'from-orange-400 to-red-500',
-                      btnColor: "bg-yellow-600 border-yellow-700", btnText: "PERIKSA CEROBONG!" }
+                      v1Key: 'L0', v1Range: [10,30], v1Unit: 'm', v1Icon: 'fa-ruler-horizontal', v1Color: 'text-slate-700', v1Visual: '🚰', v1Bg: 'from-cyan-300 to-blue-400',
+                      v2Key: 'dt', v2Range: [50,80], v2Unit: '°C', v2Icon: 'fa-fire', v2Color: 'text-slate-700', v2Visual: '🔥', v2Bg: 'from-red-400 to-red-600',
+                      btnColor: "bg-cyan-500 border-cyan-700", btnText: "GESER DINDING PIPA!" },
+
+                    { type: 'concept', bloom: 'C5 (Mengevaluasi)', titleText: "Kaca Oven Sangrai", titleIcon: "🪟", themeClass: "bg-slate-800", panelColor: "bg-yellow-100",
+                      theoryTitle: "TEGANGAN TERMAL", theoryIcon: "💥", theoryDesc: "Pemuaian tidak merata (bagian dalam panas, luar dingin) menyebabkan retak/pecah.",
+                      pool: [
+                          {
+                              dialog: "> \"Kaca pantau mesin sangrai pecah lagi gara-gara kepanasan! Tolong pilih material yang tepat!\"",
+                              question: "Untuk mengganti kaca jendela oven 200°C, material apa yang akan Anda ajukan ke departemen logistik pabrik?",
+                              options: ["Kaca super tebal agar kuat", "Kaca akrilik transparan tipis", "Kaca Borosilikat (Pyrex) yang memiliki koefisien muai (α) amat kecil", "Kaca berlapis timah penahan panas"],
+                              correctOpt: "Kaca Borosilikat (Pyrex) yang memiliki koefisien muai (α) amat kecil",
+                              explanation: "Kaca Pyrex/Borosilikat dirancang dengan (α) yang amat sangat kecil. Artinya, meski suhunya melonjak drastis, kaca ini nyaris tidak memuai, sehingga terhindar dari tegangan retak dan pecah."
+                          },
+                          {
+                              dialog: "> \"Kita membuat engsel pintu mesin dari baja. Namun bingkai pintunya dari aluminium. Apakah ini aman secara teknis?\"",
+                              question: "Mengevaluasi desain mesin: Jika aluminium memiliki koefisien muai JAUH lebih besar dari baja, apa resikonya saat oven dipanaskan?",
+                              options: ["Aman saja, keduanya adalah logam kuat", "Pintu aluminium akan memuai berlebih dan terjepit macet di engsel baja", "Engsel baja akan mencair mendahului pintu", "Pintu otomatis terbuka sendiri"],
+                              correctOpt: "Pintu aluminium akan memuai berlebih dan terjepit macet di engsel baja",
+                              explanation: "Material yang berdekatan dengan perbedaan muai yang mencolok sangat rentan macet. Aluminium akan bertambah lebar dengan cepat sementara engsel baja kaku, menyebabkan macet struktural."
+                          },
+                          {
+                              dialog: "> \"Roda gigi baja mesin penggiling kita terlalu sempit untuk dipasangkan as (poros) besi silindernya!\"",
+                              question: "Cara paling logis secara Termodinamika untuk memasang bingkai baja yang terlalu sempit ke dalam poros adalah...",
+                              options: ["Mendinginkan bingkai baja agar menyusut lalu dipasang paksa", "Mendinginkan poros besi saja tanpa mempedulikan bingkai", "Memanaskan bingkai baja agar memuai (melebar), memasukkan poros, lalu biarkan menyusut dingin menempel ketat", "Melumuri keduanya dengan oli panas"],
+                              correctOpt: "Memanaskan bingkai baja agar memuai (melebar), memasukkan poros, lalu biarkan menyusut dingin menempel ketat",
+                              explanation: "Memanaskan baja akan memuaikan diameter dalam ring-nya sehingga poros bisa masuk. Saat didinginkan, baja menyusut mencengkeram poros dengan sangat kuat."
+                          }
+                      ],
+                      btnColor: "bg-yellow-600 border-yellow-800", btnText: "PESAN MATERIAL!" }
                 ]
             }
         };
 
         let activeGame = null, currentLvl = 0, cfg = null;
         let score = 0, v1 = 0, v2 = 0, target = 0, selected = null;
+        let generatedChoices = []; 
+        let coffeeHealth = 100; // VARIABEL BARU: NYAWA KOPI
 
         function showGameMenu() {
             document.getElementById('game-modal').classList.add('hidden');
             document.getElementById('game-menu-screen').classList.remove('hidden');
             document.getElementById('game-active-screen').classList.add('hidden');
             document.getElementById('game-result-screen').classList.add('hidden');
-            document.getElementById('game-wrapper').className = "w-full min-h-[85vh] flex flex-col items-center justify-center p-4 sm:p-8 text-slate-800 rounded-3xl overflow-x-hidden bg-menu shadow-inner border border-slate-700 relative";
+            document.getElementById('game-wrapper').className = "w-full min-h-[85vh] flex flex-col items-center justify-center p-4 sm:p-8 text-slate-800 rounded-3xl overflow-x-hidden bg-menu shadow-inner border border-slate-700 relative transition-colors duration-500";
         }
 
         function startGame(id) {
             activeGame = gameDatabase[id];
             score = 0;
             currentLvl = 0;
+            coffeeHealth = 100; // Reset Nyawa
+            updateHealthUI();
+            
             document.getElementById('game-menu-screen').classList.add('hidden');
             document.getElementById('game-result-screen').classList.add('hidden');
             document.getElementById('game-active-screen').classList.remove('hidden');
-            document.getElementById('question-text').innerHTML = `<i class="fas fa-question-circle text-blue-500"></i> ${activeGame.questionText}`;
-            document.getElementById('formula-display').innerHTML = activeGame.formulaText;
-            document.getElementById('formula-vars').innerHTML = activeGame.formulaVarsHTML;
+            document.getElementById('game-active-screen').classList.add('flex');
             loadLevel(0);
+        }
+        
+        function updateHealthUI() {
+            const bar = document.getElementById('health-bar');
+            const text = document.getElementById('health-text');
+            bar.style.width = `${coffeeHealth}%`;
+            text.innerText = `${coffeeHealth}%`;
+            
+            bar.classList.remove('bg-emerald-500', 'bg-yellow-500', 'bg-red-600');
+            text.classList.remove('text-emerald-400', 'text-yellow-400', 'text-red-400');
+            
+            if(coffeeHealth > 60) {
+                bar.classList.add('bg-emerald-500'); text.classList.add('text-emerald-400');
+            } else if (coffeeHealth > 30) {
+                bar.classList.add('bg-yellow-500'); text.classList.add('text-yellow-400');
+            } else {
+                bar.classList.add('bg-red-600'); text.classList.add('text-red-400');
+            }
         }
 
         function loadLevel(idx) {
             currentLvl = idx;
             cfg = activeGame.levels[idx];
             selected = null;
+            generatedChoices = [];
             
-            document.getElementById('game-wrapper').className = `w-full min-h-[85vh] flex flex-col items-center justify-center p-4 sm:p-8 text-slate-800 rounded-3xl overflow-x-hidden ${cfg.themeClass} shadow-inner border border-slate-200 relative`;
-            document.getElementById('level-badge').innerText = `LEVEL ${idx + 1} / ${activeGame.levels.length}`;
-            document.getElementById('score-display').innerText = score;
-            document.getElementById('title-icon').innerText = cfg.titleIcon;
+            // ==========================================
+            // LOGIKA BANK SOAL (POOL VARIASI)
+            // ==========================================
+            if (cfg.pool && cfg.pool.length > 0) {
+                let rIdx = Math.floor(Math.random() * cfg.pool.length);
+                cfg.dialog = cfg.pool[rIdx].dialog || cfg.dialog;
+                if(cfg.type === 'concept') {
+                    cfg.question = cfg.pool[rIdx].question;
+                    cfg.options = cfg.pool[rIdx].options;
+                    cfg.correctOpt = cfg.pool[rIdx].correctOpt;
+                    cfg.explanation = cfg.pool[rIdx].explanation;
+                }
+            }
+
+            // Header Info
+            document.getElementById('level-badge').innerText = `TAHAP ${idx + 1} / ${activeGame.levels.length}`;
+            document.getElementById('score-display').innerText = score.toString().padStart(4, '0');
             document.getElementById('title-text').innerText = cfg.titleText;
             document.getElementById('farmer-dialog').innerText = cfg.dialog;
             
+            // Bloom Taxonomy Badge
+            const bloomBadge = document.getElementById('bloom-badge');
+            bloomBadge.innerText = cfg.bloom;
+            if(cfg.bloom.includes("C2") || cfg.bloom.includes("C1")) bloomBadge.className = "bg-slate-800 text-green-400 border border-green-500/30 text-[10px] font-black px-3 py-1 rounded-lg uppercase tracking-widest";
+            else if(cfg.bloom.includes("C3")) bloomBadge.className = "bg-slate-800 text-blue-400 border border-blue-500/30 text-[10px] font-black px-3 py-1 rounded-lg uppercase tracking-widest";
+            else if(cfg.bloom.includes("C4")) bloomBadge.className = "bg-slate-800 text-purple-400 border border-purple-500/30 text-[10px] font-black px-3 py-1 rounded-lg uppercase tracking-widest";
+            else bloomBadge.className = "bg-slate-800 text-rose-400 border border-rose-500/30 text-[10px] font-black px-3 py-1 rounded-lg uppercase tracking-widest";
+
+            // Panel Kiri Umum (Layar Biru CRT)
             document.getElementById('theory-title').innerText = cfg.theoryTitle;
             document.getElementById('theory-desc').innerText = cfg.theoryDesc;
             document.getElementById('theory-bg-icon').innerText = cfg.theoryIcon;
-            document.getElementById('theory-box').className = `p-4 rounded-2xl border-2 shadow-sm relative overflow-hidden ${cfg.panelColor}`;
-            document.getElementById('c-label').innerText = cfg.cLabel;
-            document.getElementById('c-value').innerText = `${cfg.cValue} ${cfg.cUnit}`;
-
-            v1 = Math.floor(Math.random() * (cfg.v1Range[1] - cfg.v1Range[0] + 1)) + cfg.v1Range[0];
-            if(cfg.cValue === 1.5 && v1 % 2 !== 0) v1 += 1; 
-
-            let tHtml = '';
-            
-            // Helper function to generate styled badge for game items
-            const createVisualBadge = (visual, bgClass, val, icon, color, unit, isInteractive) => `
-                <div class="flex flex-col items-center">
-                    <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-[2rem] bg-gradient-to-br ${bgClass} flex items-center justify-center shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] border-4 border-white/80 mx-auto mb-3 relative overflow-hidden transform transition-all duration-300 ${isInteractive ? 'hover:scale-110 hover:-rotate-3 group' : ''} z-10">
-                        <div class="absolute inset-0 bg-white/20 ${isInteractive ? 'group-hover:bg-white/0' : ''} transition-colors"></div>
-                        <div class="absolute -top-4 -left-4 w-16 h-16 bg-white/40 rounded-full blur-xl"></div>
-                        <div class="text-[3.5rem] sm:text-[4.5rem] drop-shadow-xl ${isInteractive ? 'group-hover:animate-bounce' : ''}">${visual}</div>
-                    </div>
-                    ${val !== null ? `
-                    <div class="bg-white px-4 py-1.5 rounded-xl shadow-lg font-black text-sm border border-slate-100 z-20 -mt-6 inline-block">
-                        <i class="fas ${icon}"></i> <span class="${color}">${val}</span> ${unit}
-                    </div>` : ''}
-                </div>
-            `;
-
-            if (cfg.v2Key) {
-                v2 = Math.floor(Math.random() * (cfg.v2Range[1] - cfg.v2Range[0] + 1)) + cfg.v2Range[0];
-                target = Math.round(v1 * cfg.cValue * v2);
-                tHtml = `
-                    ${createVisualBadge(cfg.v1Visual, cfg.v1Bg, v1, cfg.v1Icon, cfg.v1Color, cfg.v1Unit, true)}
-                    <div class="text-3xl text-slate-300 font-black mb-10 flex items-center justify-center px-2 sm:px-4"><i class="fas fa-times"></i></div>
-                    ${createVisualBadge(cfg.v2Visual, cfg.v2Bg, v2, cfg.v2Icon, cfg.v2Color, cfg.v2Unit, true)}
-                `;
-            } else {
-                target = Math.round(v1 * cfg.cValue); v2 = null;
-                tHtml = `
-                    ${createVisualBadge(cfg.v1Visual, cfg.v1Bg, v1, cfg.v1Icon, cfg.v1Color, cfg.v1Unit, true)}
-                    <div class="flex flex-col items-center justify-center px-2 sm:px-4 mb-10">
-                        <div class="text-3xl text-slate-300 font-black animate-pulse"><i class="fas fa-arrow-right"></i></div>
-                    </div>
-                    ${createVisualBadge(cfg.v2Visual, cfg.v2Bg, null, null, null, null, false)}
-                `;
-            }
-            document.getElementById('target-area').innerHTML = tHtml;
-
-            let oSet = new Set([target, target + 50]);
-            let multi = activeGame.unitResult === 'mm' ? 1 : 10;
-            while(oSet.size < 4) {
-                let r = target + (Math.floor(Math.random() * 20 + 2) * multi * (Math.random()>0.5?1:-1));
-                if(r > 0) oSet.add(r);
-            }
-            let oArr = Array.from(oSet).sort(() => Math.random() - 0.5);
-            
-            document.getElementById('choices-container').innerHTML = oArr.map(val => 
-                `<button onclick="selectChoice(this, ${val})" class="choice-btn btn-3d bg-white border-2 border-slate-200 text-slate-700 font-black text-2xl py-4 rounded-2xl shadow-[0_5px_0_rgb(203,213,225)] hover:bg-slate-50">${val}</button>`
-            ).join('');
 
             const actBtn = document.getElementById('action-btn');
             actBtn.disabled = true;
-            actBtn.className = "w-full text-white text-xl font-black py-4 rounded-2xl bg-slate-300 text-slate-500 cursor-not-allowed border-b-4 border-slate-400 flex justify-center gap-2 items-center";
+            actBtn.className = "w-full text-white text-xl font-black py-5 rounded-2xl bg-slate-400 text-slate-500 cursor-not-allowed border-b-8 border-slate-500 flex justify-center gap-2 items-center uppercase tracking-widest";
             document.getElementById('action-icon').className = "fas fa-lock";
-            document.getElementById('action-text').innerText = "PILIH JAWABAN DULU";
+            document.getElementById('action-text').innerText = "PILIH PARAMETER DULU";
             actBtn.dataset.btnColor = cfg.btnColor;
             actBtn.dataset.btnText = cfg.btnText;
+
+            // ==========================================
+            // LOGIKA CABANG: TIPE MATH VS TIPE CONCEPT
+            // ==========================================
+            if (cfg.type === 'concept') {
+                document.getElementById('target-area').classList.add('hidden');
+                document.getElementById('formula-container').classList.add('hidden');
+                document.getElementById('concept-area').classList.remove('hidden');
+                document.getElementById('concept-area').classList.add('flex');
+
+                document.getElementById('concept-question').innerText = cfg.question;
+                target = cfg.correctOpt;
+
+                generatedChoices = [...cfg.options].sort(() => Math.random() - 0.5);
+                
+                document.getElementById('choices-container').innerHTML = generatedChoices.map((opt, i) => 
+                    `<button onclick="selectChoice(this, ${i})" class="choice-btn console-btn bg-slate-100 border-2 border-slate-300 text-slate-700 font-bold text-sm sm:text-base py-3 px-4 rounded-xl hover:bg-white text-left leading-snug flex items-center h-full">
+                        <span class="w-8 h-8 rounded-md bg-slate-200 border-b-4 border-slate-300 flex items-center justify-center shrink-0 mr-3 font-black text-xs">${String.fromCharCode(65+i)}</span>
+                        <span>${opt}</span>
+                    </button>`
+                ).join('');
+
+            } else {
+                document.getElementById('concept-area').classList.add('hidden');
+                document.getElementById('concept-area').classList.remove('flex');
+                document.getElementById('target-area').classList.remove('hidden');
+                document.getElementById('formula-container').classList.remove('hidden');
+
+                document.getElementById('formula-display').innerHTML = activeGame.formulaText;
+                document.getElementById('formula-vars').innerHTML = activeGame.formulaVarsHTML;
+                document.getElementById('c-label').innerText = cfg.cLabel;
+                document.getElementById('c-value').innerText = `${cfg.cValue} ${cfg.cUnit}`;
+
+                // Variasi Hitungan Matematis (Otomatis Acak tiap reload)
+                v1 = Math.floor(Math.random() * (cfg.v1Range[1] - cfg.v1Range[0] + 1)) + cfg.v1Range[0];
+                if(cfg.cValue === 1.5 && v1 % 2 !== 0) v1 += 1; 
+
+                let tHtml = '';
+                const createVisualBadge = (visual, bgClass, val, icon, color, unit, isInteractive) => `
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-br ${bgClass} flex items-center justify-center shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] border-2 border-white/50 mx-auto mb-2 relative overflow-hidden transform transition-all duration-300 ${isInteractive ? 'hover:scale-105 hover:-rotate-3 group' : ''} z-10">
+                            <div class="absolute inset-0 bg-white/20 ${isInteractive ? 'group-hover:bg-white/0' : ''} transition-colors"></div>
+                            <div class="text-4xl sm:text-6xl drop-shadow-lg ${isInteractive ? 'group-hover:animate-bounce' : ''}">${visual}</div>
+                        </div>
+                        ${val !== null ? `
+                        <div class="bg-slate-800 text-white px-3 py-1 rounded-md shadow font-mono font-bold text-xs border border-slate-600 z-20 -mt-4 inline-block">
+                            <i class="fas ${icon} ${color.replace('text-', 'text-')}"></i> <span>${val}</span> ${unit}
+                        </div>` : ''}
+                    </div>
+                `;
+
+                if (cfg.v2Key) {
+                    v2 = Math.floor(Math.random() * (cfg.v2Range[1] - cfg.v2Range[0] + 1)) + cfg.v2Range[0];
+                    target = Math.round(v1 * cfg.cValue * v2);
+                    tHtml = `
+                        ${createVisualBadge(cfg.v1Visual, cfg.v1Bg, v1, cfg.v1Icon, cfg.v1Color, cfg.v1Unit, true)}
+                        <div class="text-2xl text-slate-500 font-black mb-6 px-2"><i class="fas fa-times"></i></div>
+                        ${createVisualBadge(cfg.v2Visual, cfg.v2Bg, v2, cfg.v2Icon, cfg.v2Color, cfg.v2Unit, true)}
+                    `;
+                } else {
+                    target = Math.round(v1 * cfg.cValue); v2 = null;
+                    tHtml = `
+                        ${createVisualBadge(cfg.v1Visual, cfg.v1Bg, v1, cfg.v1Icon, cfg.v1Color, cfg.v1Unit, true)}
+                        <div class="flex flex-col items-center justify-center px-2 mb-6">
+                            <div class="text-3xl text-slate-500 font-black animate-pulse"><i class="fas fa-angle-double-right"></i></div>
+                        </div>
+                        ${createVisualBadge(cfg.v2Visual, cfg.v2Bg, null, null, null, null, false)}
+                    `;
+                }
+                document.getElementById('target-area').innerHTML = tHtml;
+
+                let oSet = new Set([target, target + 50]);
+                let multi = activeGame.unitResult === 'mm' ? 1 : 10;
+                while(oSet.size < 4) {
+                    let r = target + (Math.floor(Math.random() * 20 + 2) * multi * (Math.random()>0.5?1:-1));
+                    if(r > 0) oSet.add(r);
+                }
+                generatedChoices = Array.from(oSet).sort(() => Math.random() - 0.5);
+                
+                document.getElementById('choices-container').innerHTML = generatedChoices.map((val, i) => 
+                    `<button onclick="selectChoice(this, ${i})" class="choice-btn console-btn bg-slate-100 border-2 border-slate-300 text-slate-800 font-mono font-black text-xl py-3 rounded-xl hover:bg-white">${val}</button>`
+                ).join('');
+            }
         }
 
-        function selectChoice(btn, val) {
-            selected = val;
+        function selectChoice(btn, index) {
+            selected = generatedChoices[index];
+            
             document.querySelectorAll('.choice-btn').forEach(b => {
-                b.classList.remove('selected','ring-4','ring-blue-400','border-blue-500','text-blue-700');
-                b.classList.add('shadow-[0_5px_0_rgb(203,213,225)]','text-slate-700','border-slate-200');
+                b.classList.remove('selected','border-blue-500','text-blue-700', 'bg-blue-100');
+                b.classList.add('border-slate-300');
+                if(cfg.type === 'concept') b.classList.add('text-slate-700');
+                else b.classList.add('text-slate-800');
             });
-            btn.classList.add('selected','ring-4','ring-blue-400','border-blue-500','text-blue-700');
-            btn.classList.remove('shadow-[0_5px_0_rgb(203,213,225)]');
+
+            btn.classList.add('selected','border-blue-500','text-blue-700', 'bg-blue-100');
+            if(cfg.type === 'concept') btn.classList.remove('text-slate-700');
+            else btn.classList.remove('text-slate-800');
 
             const actBtn = document.getElementById('action-btn');
             actBtn.disabled = false;
-            actBtn.className = `w-full text-white text-xl font-black py-4 rounded-2xl flex justify-center gap-2 items-center border-b-4 active:border-b-0 active:translate-y-1 transition-all ${actBtn.dataset.btnColor}`;
-            document.getElementById('action-icon').className = "fas fa-check-circle animate-pulse";
+            actBtn.className = `w-full text-white text-xl font-black py-5 rounded-2xl flex justify-center gap-2 items-center transition-all ${actBtn.dataset.btnColor} console-btn`;
+            document.getElementById('action-icon').className = "fas fa-power-off animate-pulse";
             document.getElementById('action-text').innerText = actBtn.dataset.btnText;
         }
 
         function submitAnswer() {
-            if(!selected) return;
+            if(selected === null) return;
             const modal = document.getElementById('game-modal');
+            const wrapper = document.getElementById('game-wrapper');
             modal.classList.remove('hidden'); modal.classList.add('flex');
             
-            let lbl = activeGame.id === 'pemuaian' ? '&Delta;L' : 'Q';
-            let calcH = `<p>${lbl} = <span class="${cfg.v1Color}">${v1}</span> &times; <span class="text-slate-600">${cfg.cValue}</span> ${cfg.v2Key ? `&times; <span class="${cfg.v2Color}">${v2}</span>` : ''}</p>`;
-            document.getElementById('modal-calc-breakdown').innerHTML = calcH;
-            document.getElementById('modal-calc-result').innerHTML = `${lbl} = ${target} ${activeGame.unitResult}`;
+            // Setup Laporan
+            if(cfg.type === 'concept') {
+                document.getElementById('modal-calc-breakdown').innerHTML = `<span class="text-slate-500">> Query:</span>\n"${cfg.question}"`;
+                document.getElementById('modal-calc-result').innerHTML = `<div class="text-sm text-slate-700 mt-2 p-3 bg-blue-50/50 rounded-xl border border-blue-200 leading-relaxed font-medium text-left">💡 <span class="font-bold">Analisis Sistem:</span><br>${cfg.explanation}</div>`;
+            } else {
+                let lbl = activeGame.id === 'pemuaian' ? '&Delta;L' : 'Q';
+                let calcH = `> RUNNING CALC...\n> ${lbl} = ${v1} * ${cfg.cValue} ${cfg.v2Key ? `* ${v2}` : ''}\n> OUTPUT EXPECTED: ${target}`;
+                document.getElementById('modal-calc-breakdown').innerHTML = calcH;
+                document.getElementById('modal-calc-result').innerHTML = `<div class="text-center font-mono font-black">${lbl} = ${target} <span class="text-sm">${activeGame.unitResult}</span></div>`;
+            }
 
             if(selected === target) {
+                // JIKA BENAR
                 score += 100;
-                document.getElementById('score-display').innerText = score;
-                document.getElementById('modal-icon').innerText = "🎉✨";
-                document.getElementById('modal-title').className = "text-3xl font-black mb-1 text-green-600";
-                document.getElementById('modal-title').innerText = "Tepat Sekali!";
-                document.getElementById('modal-desc').innerHTML = `Jawaban <b class="text-green-600">${selected}</b> benar! Pabrik berjalan lancar.`;
-                document.getElementById('points-earned').innerText = "+100 POIN!";
-                document.getElementById('points-earned').className = "text-xl font-black text-yellow-500 mb-4 animate-bounce block";
+                document.getElementById('score-display').innerText = score.toString().padStart(4, '0');
+                document.getElementById('modal-header-bg').className = "py-6 px-4 bg-emerald-500 border-b-4 border-emerald-600";
+                document.getElementById('modal-icon').innerText = "✅";
+                document.getElementById('modal-title').innerText = "KALIBRASI SUKSES";
+                document.getElementById('modal-desc').innerHTML = cfg.type === 'concept' ? `Diagnosis disetujui! Produksi pabrik berjalan mulus.` : `Input <b class="text-emerald-600">${selected}</b> valid! Mesin beroperasi normal.`;
+                document.getElementById('points-earned').innerText = "+100 SCORE";
+                document.getElementById('points-earned').className = "text-sm font-black text-emerald-600 mb-4 bg-emerald-100 py-1 px-4 rounded-full inline-block border border-emerald-200";
                 
-                if(typeof confetti === 'function') confetti({ particleCount: 150, spread: 80, origin: {y:0.6} });
+                if(typeof confetti === 'function') confetti({ particleCount: 100, spread: 60, origin: {y:0.6}, colors: ['#10b981', '#34d399', '#ffffff'] });
 
                 if(currentLvl < activeGame.levels.length - 1) {
-                    document.getElementById('modal-buttons').innerHTML = `<button onclick="document.getElementById('game-modal').classList.add('hidden'); loadLevel(${currentLvl + 1})" class="w-full bg-green-500 text-white font-black py-3 rounded-xl border-b-4 border-green-700 active:border-b-0 active:translate-y-1">LANJUT LEVEL BERIKUTNYA</button>`;
+                    document.getElementById('modal-buttons').innerHTML = `<button onclick="document.getElementById('game-modal').classList.add('hidden'); loadLevel(${currentLvl + 1})" class="w-full bg-emerald-600 text-white font-black py-4 rounded-xl console-btn hover:bg-emerald-500 text-sm tracking-widest uppercase">PROSES TAHAP SELANJUTNYA</button>`;
                 } else {
-                    document.getElementById('modal-title').innerText = "LEVEL SELESAI!";
-                    document.getElementById('modal-desc').innerHTML = "Luar biasa! Kamu menaklukkan level terakhir.";
-                    document.getElementById('modal-buttons').innerHTML = `<button onclick="showGameResult()" class="w-full bg-blue-600 text-white font-black py-3 rounded-xl border-b-4 border-blue-800 active:border-b-0 active:translate-y-1">LIHAT SKOR AKHIR</button>`;
+                    document.getElementById('modal-title').innerText = "MISI SELESAI";
+                    document.getElementById('modal-desc').innerHTML = "Luar biasa! Seluruh jadwal shift operasi Anda berhasil.";
+                    document.getElementById('modal-buttons').innerHTML = `<button onclick="showGameResult()" class="w-full bg-blue-600 text-white font-black py-4 rounded-xl console-btn hover:bg-blue-500 text-sm tracking-widest uppercase">LIHAT LAPORAN AKHIR</button>`;
                 }
             } else {
-                score = Math.max(0, score - 30);
-                document.getElementById('score-display').innerText = score;
-                document.getElementById('modal-icon').innerText = "❌😱";
-                document.getElementById('modal-title').className = "text-3xl font-black mb-1 text-red-600";
-                document.getElementById('modal-title').innerText = "Salah Hitung!";
-                document.getElementById('modal-desc').innerHTML = `Jawaban <b class="text-red-600">${selected}</b> salah. Coba hitung lagi!`;
-                document.getElementById('points-earned').innerText = "-30 POIN!";
-                document.getElementById('points-earned').className = "text-xl font-black text-red-500 mb-4 animate-bounce block";
-                document.getElementById('modal-buttons').innerHTML = `<button onclick="document.getElementById('game-modal').classList.add('hidden'); loadLevel(${currentLvl})" class="w-full bg-gray-800 text-white font-black py-3 rounded-xl border-b-4 border-gray-900 active:border-b-0 active:translate-y-1">COBA LAGI LEVEL INI</button>`;
+                // JIKA SALAH (DRAMATIS)
+                coffeeHealth -= 35; // Kurangi nyawa drastis
+                updateHealthUI();
+                wrapper.classList.add('alarm-state'); // Flash merah
+                
+                document.getElementById('modal-header-bg').className = "py-6 px-4 bg-red-600 border-b-4 border-red-700";
+                document.getElementById('modal-icon').innerText = "💥";
+                document.getElementById('modal-title').innerText = "SISTEM GAGAL!";
+                document.getElementById('modal-desc').innerHTML = cfg.type === 'concept' ? `Analisis keliru! Kualitas kopi menurun.` : `Input <b class="text-red-600">${selected}</b> menyebabkan mesin overheat/macet!`;
+                document.getElementById('points-earned').innerText = "KUALITAS -35%";
+                document.getElementById('points-earned').className = "text-sm font-black text-red-600 mb-4 bg-red-100 py-1 px-4 rounded-full inline-block border border-red-200 animate-bounce";
+                
+                if(coffeeHealth <= 0) {
+                    document.getElementById('modal-desc').innerHTML = `<b>KRITIS! Kualitas Kopi hancur total (0%). Panen hari ini gagal.</b><br>Pak Jember menangis.`;
+                    document.getElementById('modal-buttons').innerHTML = `<button onclick="document.getElementById('game-modal').classList.add('hidden'); document.getElementById('game-wrapper').classList.remove('alarm-state'); showGameResult(false)" class="w-full bg-slate-800 text-white font-black py-4 rounded-xl console-btn hover:bg-slate-700 text-sm tracking-widest uppercase">AKHIRI SHIFT (GAGAL)</button>`;
+                } else {
+                    document.getElementById('modal-buttons').innerHTML = `<button onclick="document.getElementById('game-modal').classList.add('hidden'); document.getElementById('game-wrapper').classList.remove('alarm-state'); loadLevel(${currentLvl})" class="w-full bg-slate-800 text-white font-black py-4 rounded-xl console-btn hover:bg-slate-700 text-sm tracking-widest uppercase">PERBAIKI MESIN (COBA LAGI)</button>`;
+                }
             }
         }
 
-        function showGameResult() {
+        function showGameResult(isWin = true) {
             document.getElementById('game-modal').classList.add('hidden');
             document.getElementById('game-active-screen').classList.add('hidden');
+            document.getElementById('game-active-screen').classList.remove('flex');
             document.getElementById('game-result-screen').classList.remove('hidden');
             
-            document.getElementById('game-final-score').innerText = score;
+            document.getElementById('game-final-score').innerText = score.toString().padStart(4, '0');
             
-            let msg = "";
-            let icon = "";
-            if(score === 500) { 
-                msg = "Sempurna! Kamu adalah ahli Termodinamika Pabrik Kopi!"; 
-                icon = "🏆"; 
-            } else if(score >= 300) { 
-                msg = "Kerja bagus! Pabrik kopi beroperasi dengan sangat baik."; 
-                icon = "🌟"; 
+            let title = "", msg = "", icon = "", bgClass="bg-white";
+            
+            if(!isWin || coffeeHealth <= 0) {
+                title = "PABRIK DITUTUP!";
+                msg = "Sistem rusak parah. Kualitas kopi hancur. Anda dipecat (untuk hari ini). Ayo belajar lagi!";
+                icon = "📉💥";
+                document.getElementById('game-result-score-box').className = "bg-red-50 border-4 border-red-200 rounded-3xl p-8 mb-8 inline-block w-full max-w-sm transform shadow-inner relative z-10";
+                document.getElementById('game-result-score-lbl').className = "block text-sm font-black text-red-500 uppercase tracking-widest mb-2";
+                document.getElementById('game-final-score').className = "text-[6rem] font-black text-red-700 leading-none drop-shadow-sm";
+            } else if(score === 500 && coffeeHealth === 100) { 
+                title = "OPERATOR LEGENDARIS";
+                msg = "Sempurna! Tidak ada satupun mesin rusak. Pak Jember sangat bangga padamu."; 
+                icon = "🏆✨"; 
+                document.getElementById('game-result-score-box').className = "bg-emerald-50 border-4 border-emerald-200 rounded-3xl p-8 mb-8 inline-block w-full max-w-sm transform shadow-inner relative z-10";
+                document.getElementById('game-result-score-lbl').className = "block text-sm font-black text-emerald-500 uppercase tracking-widest mb-2";
+                document.getElementById('game-final-score').className = "text-[6rem] font-black text-emerald-700 leading-none drop-shadow-sm";
+                if(typeof confetti === 'function') confetti({ particleCount: 300, spread: 100, origin: {y:0.3} });
             } else { 
-                msg = "Tetap semangat! Ayo coba lagi untuk hasil simulasi yang lebih baik."; 
-                icon = "💪"; 
+                title = "SHIFT SELESAI";
+                msg = `Kerja bagus! Pabrik beroperasi meski dengan sisa kualitas kopi ${coffeeHealth}%.`; 
+                icon = "☕👍"; 
+                document.getElementById('game-result-score-box').className = "bg-blue-50 border-4 border-blue-200 rounded-3xl p-8 mb-8 inline-block w-full max-w-sm transform shadow-inner relative z-10";
+                document.getElementById('game-result-score-lbl').className = "block text-sm font-black text-blue-500 uppercase tracking-widest mb-2";
+                document.getElementById('game-final-score').className = "text-[6rem] font-black text-blue-700 leading-none drop-shadow-sm";
             }
             
+            document.getElementById('game-result-title').innerText = title;
             document.getElementById('game-result-msg').innerText = msg;
             document.getElementById('game-result-icon').innerText = icon;
-            
-            if(score >= 300 && typeof confetti === 'function') confetti({ particleCount: 300, spread: 100, origin: {y:0.3} });
         }
 
          // --- 4. LOGIKA EVALUASI AKHIR (20 SOAL & DESAIN BARU) ---
