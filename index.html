@@ -424,7 +424,7 @@
                     </div>
                     
                     <!-- Kartu Kalor -->
-                    <div onclick="navigateTo('sub-kalor')" class="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 border border-gray-100 flex flex-col">
+                     <div onclick="navigateTo('sub-kalor')" class="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 cursor-pointer transform hover:-translate-y-2 border border-gray-100 flex flex-col">
                         <div class="h-2 w-full bg-gradient-to-r from-orange-400 to-orange-600"></div>
                         <div class="p-6 sm:p-8 flex flex-col flex-grow">
                             <div class="flex justify-between items-start mb-6">
@@ -432,13 +432,7 @@
                                 <span class="text-xs font-bold text-gray-500 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">Bab 2</span>
                             </div>
                             <h3 class="text-2xl font-bold text-gray-800 mb-3 group-hover:text-orange-600 transition-colors">Kalor</h3>
-                            <p class="text-gray-500 text-sm mb-8 leading-relaxed">Pelajari proses perpindahan energi, pemuaian zat, dan penerapan komprehensif Asas Black.</p>
-                            <div class="flex items-center justify-between mt-auto pt-5 border-t border-gray-100">
-                                <span class="text-orange-600 font-bold text-sm flex items-center">
-                                    Mulai Belajar
-                                    <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                </span>
-                            </div>
+                            <p class="text-gray-500 text-sm mb-8 leading-relaxed">Pelajari proses perpindahan energi, pemuaian zat, dan penerapannya pada perubahan suhu/wujud.</p>
                         </div>
                     </div>
 
@@ -519,7 +513,7 @@
         </section>
 
         <!-- Sub Halaman: Kalor -->
-        <section id="sub-kalor" class="page-section">
+         <section id="sub-kalor" class="page-section">
             <button onclick="navigateTo('materi')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors shadow-sm w-full sm:w-auto justify-center sm:justify-start border border-orange-200">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali ke Halaman Utama Materi
@@ -532,43 +526,52 @@
                         <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-1">Dinamika Kalor</h2>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <button onclick="navigateTo('kalor-pengertian')" class="flex flex-col text-left p-6 border border-gray-200 rounded-2xl hover:border-orange-400 hover:shadow-lg transition-all bg-white group h-full">
-                        <div class="w-12 h-12 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors">1</div>
-                        <h4 class="font-bold text-gray-800 text-lg mb-2">Pengertian Kalor</h4>
-                        <p class="text-sm text-gray-500 line-clamp-2">Energi yang berpindah dan satuan pengukurannya.</p>
+                
+                <!-- Grid Menu Subbab Kalor (Diperbarui) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <button onclick="navigateTo('kalor-pengertian')" class="flex flex-col text-left p-5 border border-gray-200 rounded-2xl hover:border-orange-400 hover:shadow-lg transition-all bg-white group h-full">
+                        <div class="w-10 h-10 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center text-lg mb-3 group-hover:bg-orange-500 group-hover:text-white transition-colors">1</div>
+                        <h4 class="font-bold text-gray-800 text-md mb-1">Pengertian Kalor</h4>
+                        <p class="text-xs text-gray-500">Definisi energi panas & satuannya.</p>
                     </button>
-                    <button onclick="navigateTo('kalor-perpindahan')" class="flex flex-col text-left p-6 border border-gray-200 rounded-2xl hover:border-orange-400 hover:shadow-lg transition-all bg-white group h-full">
-                        <div class="w-12 h-12 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors">2</div>
-                        <h4 class="font-bold text-gray-800 text-lg mb-2">Perpindahan Kalor</h4>
-                        <p class="text-sm text-gray-500 line-clamp-2">Konduksi, Konveksi, dan Radiasi.</p>
+                    <button onclick="navigateTo('kalor-suhu')" class="flex flex-col text-left p-5 border border-gray-200 rounded-2xl hover:border-orange-400 hover:shadow-lg transition-all bg-white group h-full">
+                        <div class="w-10 h-10 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center text-lg mb-3 group-hover:bg-orange-500 group-hover:text-white transition-colors">2</div>
+                        <h4 class="font-bold text-gray-800 text-md mb-1">Perubahan Suhu</h4>
+                        <p class="text-xs text-gray-500">Rumus kalor jenis & kapasitas kalor.</p>
                     </button>
-                    <button onclick="navigateTo('kalor-pengaruh')" class="flex flex-col text-left p-6 border border-gray-200 rounded-2xl hover:border-orange-400 hover:shadow-lg transition-all bg-white group h-full">
-                        <div class="w-12 h-12 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors">3</div>
-                        <h4 class="font-bold text-gray-800 text-lg mb-2">Pengaruh Kalor</h4>
-                        <p class="text-sm text-gray-500 line-clamp-2">Perubahan suhu dan perubahan wujud zat.</p>
+                    <button onclick="navigateTo('kalor-wujud')" class="flex flex-col text-left p-5 border border-gray-200 rounded-2xl hover:border-orange-400 hover:shadow-lg transition-all bg-white group h-full">
+                        <div class="w-10 h-10 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center text-lg mb-3 group-hover:bg-orange-500 group-hover:text-white transition-colors">3</div>
+                        <h4 class="font-bold text-gray-800 text-md mb-1">Perubahan Wujud</h4>
+                        <p class="text-xs text-gray-500">Kalor Laten: Lebur & Uap.</p>
                     </button>
-                    <button onclick="navigateTo('kalor-pemuaian')" class="flex flex-col text-left p-6 border border-gray-200 rounded-2xl hover:border-orange-400 hover:shadow-lg transition-all bg-white group h-full">
-                        <div class="w-12 h-12 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors">4</div>
-                        <h4 class="font-bold text-gray-800 text-lg mb-2">Pemuaian Zat</h4>
-                        <p class="text-sm text-gray-500 line-clamp-2">Pemuaian panjang, luas, dan volume.</p>
+                    <button onclick="navigateTo('kalor-pemuaian')" class="flex flex-col text-left p-5 border border-gray-200 rounded-2xl hover:border-orange-400 hover:shadow-lg transition-all bg-white group h-full">
+                        <div class="w-10 h-10 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center text-lg mb-3 group-hover:bg-orange-500 group-hover:text-white transition-colors">4</div>
+                        <h4 class="font-bold text-gray-800 text-md mb-1">Pemuaian Zat</h4>
+                        <p class="text-xs text-gray-500">Pemuaian panjang, luas & volume.</p>
                     </button>
-                    <button onclick="navigateTo('kalor-contoh')" class="flex flex-col text-left p-6 border border-blue-200 rounded-2xl hover:border-blue-500 hover:shadow-lg transition-all bg-blue-50 group h-full">
-                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">📝</div>
-                        <h4 class="font-bold text-blue-900 text-lg mb-2">Contoh Soal</h4>
-                        <p class="text-sm text-blue-700 line-clamp-2">Penerapan rumus kalor dan Asas Black.</p>
+                    <button onclick="navigateTo('kalor-perpindahan')" class="flex flex-col text-left p-5 border border-gray-200 rounded-2xl hover:border-orange-400 hover:shadow-lg transition-all bg-white group h-full">
+                        <div class="w-10 h-10 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center text-lg mb-3 group-hover:bg-orange-500 group-hover:text-white transition-colors">5</div>
+                        <h4 class="font-bold text-gray-800 text-md mb-1">Perpindahan Kalor</h4>
+                        <p class="text-xs text-gray-500">Konduksi, Konveksi, dan Radiasi.</p>
                     </button>
-                    <button onclick="navigateTo('kalor-rangkuman')" class="flex flex-col text-left p-6 border border-green-200 rounded-2xl hover:border-green-500 hover:shadow-lg transition-all bg-green-50 group h-full">
-                        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-green-600 group-hover:text-white transition-colors">📌</div>
-                        <h4 class="font-bold text-green-900 text-lg mb-2">Rangkuman</h4>
-                        <p class="text-sm text-green-700 line-clamp-2">Intisari penting dari seluruh materi Kalor.</p>
+                    
+                    <button onclick="navigateTo('kalor-contoh')" class="flex flex-col text-left p-5 border border-blue-200 rounded-2xl hover:border-blue-500 hover:shadow-lg transition-all bg-blue-50 group h-full">
+                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-lg mb-3 group-hover:bg-blue-600 group-hover:text-white transition-colors">📝</div>
+                        <h4 class="font-bold text-blue-900 text-md mb-1">Contoh Soal</h4>
+                        <p class="text-xs text-blue-700">Penerapan rumus & Asas Black.</p>
                     </button>
-                    <!-- TOMBOL BARU: Latihan Soal Pilihan Ganda -->
-                    <button onclick="startLatihanSoal('kalor')" class="flex flex-col text-left p-6 border border-purple-200 rounded-2xl hover:border-purple-500 hover:shadow-lg transition-all bg-purple-50 group h-full sm:col-span-2 lg:col-span-3 lg:flex-row lg:items-center">
-                        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-xl mb-4 lg:mb-0 lg:mr-5 group-hover:bg-purple-600 group-hover:text-white transition-colors shrink-0">📝</div>
+                    <button onclick="navigateTo('kalor-rangkuman')" class="flex flex-col text-left p-5 border border-green-200 rounded-2xl hover:border-green-500 hover:shadow-lg transition-all bg-green-50 group h-full sm:col-span-2 lg:col-span-2">
+                        <div class="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-lg mb-3 group-hover:bg-green-600 group-hover:text-white transition-colors">📌</div>
+                        <h4 class="font-bold text-green-900 text-md mb-1">Rangkuman Materi</h4>
+                        <p class="text-xs text-green-700">Intisari penting dari materi Kalor.</p>
+                    </button>
+                    
+                    <!-- Latihan Soal Interaktif -->
+                    <button onclick="startLatihanSoal('kalor')" class="flex flex-col text-left p-5 border border-purple-200 rounded-2xl hover:border-purple-500 hover:shadow-lg transition-all bg-purple-50 group h-full sm:col-span-2 lg:col-span-4 lg:flex-row lg:items-center">
+                        <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-2xl mb-4 lg:mb-0 lg:mr-5 group-hover:scale-110 transition-transform shrink-0">🎮</div>
                         <div>
-                            <h4 class="font-bold text-purple-900 text-lg mb-1">Latihan Soal Kalor</h4>
-                            <p class="text-sm text-purple-700">Uji pemahamanmu tentang perpindahan dan hitungan kalor dengan evaluasi interaktif.</p>
+                            <h4 class="font-bold text-purple-900 text-xl mb-1">Kuis Interaktif Kalor</h4>
+                            <p class="text-sm text-purple-700">Uji pemahamanmu tentang perpindahan dan hitungan kalor dengan kuis pilihan ganda interaktif!</p>
                         </div>
                     </button>
                 </div>
@@ -1095,118 +1098,412 @@
         <!-- ================================== -->
         <!-- KONTEN MATERI KALOR                -->
         <!-- ================================== -->
-
+<!-- 1. Pengertian Kalor -->
         <section id="kalor-pengertian" class="page-section content-body">
-            <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors shadow-sm w-full sm:w-auto justify-center sm:justify-start border border-orange-200">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Kembali ke Menu Kalor
+            <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors border border-orange-200">
+                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kalor
             </button>
             <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="bg-gradient-to-r from-orange-500 to-orange-600 px-6 sm:px-8 py-6 text-white">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><span class="text-3xl sm:text-4xl mr-3">🔥</span> Pengertian Kalor</h2>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><i class="fas fa-fire mr-3 text-3xl"></i> Pengertian Kalor</h2>
                 </div>
                 <div class="p-6 sm:p-8">
                     <p class="text-lg leading-relaxed text-gray-700 mb-6">
-                        <strong>Kalor</strong> adalah suatu bentuk energi yang berpindah dari benda yang bersuhu <span class="text-red-600 font-bold">tinggi</span> ke benda yang bersuhu <span class="text-blue-600 font-bold">lebih rendah</span>.
+                        Pernahkah kalian merasa hangat ketika berjemur di bawah sinar matahari? Atau menyentuh cangkir kopi panas? Rasa hangat tersebut terjadi karena adanya perpindahan energi. <br><br>
+                        <strong>Kalor</strong> adalah suatu bentuk energi panas yang berpindah dari benda yang bersuhu <span class="text-red-600 font-bold underline decoration-red-300">tinggi</span> ke benda yang bersuhu <span class="text-blue-600 font-bold underline decoration-blue-300">lebih rendah</span> secara alamiah. Perpindahan ini akan terus terjadi hingga kedua benda mencapai suhu yang sama (Keseimbangan Termal).
                     </p>
-                    <div class="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-xl">
-                        <p class="text-amber-700 m-0 font-bold">1 kalori = 4,2 Joule</p>
+
+                    <div class="flex flex-col md:flex-row gap-6 mb-8">
+                        <div class="flex-1 bg-amber-50 border border-amber-200 p-6 rounded-2xl shadow-sm">
+                            <h3 class="font-bold text-amber-900 mt-0 mb-3 flex items-center"><i class="fas fa-balance-scale text-amber-500 mr-2"></i> Satuan Kalor</h3>
+                            <p class="text-sm text-amber-800 leading-relaxed m-0 mb-4">
+                                Karena kalor adalah bentuk energi, maka dalam Sistem Internasional (SI) satuan kalor adalah <strong>Joule (J)</strong>. Namun, dalam bidang gizi dan termodinamika klasik, satuan yang sering digunakan adalah <strong>kalori (kal)</strong>.
+                            </p>
+                            <div class="bg-white p-4 rounded-xl border border-amber-100 text-center font-mono font-bold text-amber-900">
+                                1 kalori = 4,2 Joule <br>
+                                1 Joule = 0,24 kalori
+                            </div>
+                        </div>
+                        
+                        <div class="flex-1 bg-blue-50 border border-blue-200 p-6 rounded-2xl shadow-sm relative overflow-hidden group">
+                            <div class="absolute -right-4 -top-4 text-7xl opacity-10 group-hover:scale-110 transition-transform">☕</div>
+                            <h3 class="font-bold text-blue-900 mt-0 mb-3 flex items-center relative z-10"><i class="fas fa-info-circle text-blue-500 mr-2"></i> Definisi 1 Kalori</h3>
+                            <p class="text-sm text-blue-800 leading-relaxed m-0 relative z-10">
+                                <strong>Satu kalori</strong> didefinisikan sebagai banyaknya kalor yang diperlukan untuk menaikkan suhu <strong>1 gram air</strong> murni sebesar <strong>1°C</strong> (tepatnya dari 14,5°C ke 15,5°C pada tekanan 1 atm).
+                            </p>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="kalor-perpindahan" class="page-section content-body">
-            <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors shadow-sm w-full sm:w-auto justify-center sm:justify-start border border-orange-200">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Kembali ke Menu Kalor
-            </button>
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="bg-gradient-to-r from-orange-500 to-orange-600 px-6 sm:px-8 py-6 text-white">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><span class="text-3xl sm:text-4xl mr-3">〰️</span> Perpindahan Kalor</h2>
-                </div>
-                <div class="p-6 sm:p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-gray-50 rounded-2xl p-6 border">
-                        <h3 class="font-bold text-gray-800 m-0 mb-2">1. Konduksi</h3>
-                        <p class="text-sm">Melalui zat padat tanpa perpindahan partikel.</p>
-                    </div>
-                    <div class="bg-gray-50 rounded-2xl p-6 border">
-                        <h3 class="font-bold text-gray-800 m-0 mb-2">2. Konveksi</h3>
-                        <p class="text-sm">Melalui fluida (cair/gas) disertai perpindahan partikel.</p>
-                    </div>
-                    <div class="bg-gray-50 rounded-2xl p-6 border">
-                        <h3 class="font-bold text-gray-800 m-0 mb-2">3. Radiasi</h3>
-                        <p class="text-sm">Tanpa medium (pancaran gelombang elektromagnetik).</p>
+
+                    <!-- Asas Black -->
+                    <div class="bg-gray-800 text-white p-6 rounded-2xl shadow-md border-l-8 border-red-500">
+                        <h3 class="font-bold text-xl mt-0 mb-2 flex items-center"><i class="fas fa-exchange-alt text-red-400 mr-3"></i> Asas Black</h3>
+                        <p class="text-sm text-gray-300 mb-3 leading-relaxed">
+                            Joseph Black merumuskan sebuah hukum kekekalan energi untuk kalor: <em>"Pada pencampuran dua zat, banyaknya kalor yang dilepas oleh zat yang suhunya lebih tinggi sama dengan banyaknya kalor yang diterima oleh zat yang suhunya lebih rendah."</em>
+                        </p>
+                        <div class="bg-gray-900 text-center py-3 rounded-xl border border-gray-700 font-mono text-xl text-red-400 font-black tracking-widest">
+                            Q<sub>lepas</sub> = Q<sub>terima</sub>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="kalor-pengaruh" class="page-section content-body">
-            <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors shadow-sm w-full sm:w-auto justify-center sm:justify-start border border-orange-200">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Kembali ke Menu Kalor
+        <!-- 2. Pengaruh Kalor pada Perubahan Suhu -->
+        <section id="kalor-suhu" class="page-section content-body">
+            <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors border border-orange-200">
+                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kalor
             </button>
             <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="bg-gradient-to-r from-orange-500 to-orange-600 px-6 sm:px-8 py-6 text-white">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><span class="text-3xl sm:text-4xl mr-3">🔄</span> Pengaruh Kalor</h2>
-                </div>
-                <div class="p-6 sm:p-8 flex flex-col lg:flex-row gap-6">
-                    <div class="flex-1 bg-red-50 p-6 rounded-2xl border border-red-100 text-center">
-                        <h3 class="text-xl font-bold text-red-800 mt-0 mb-3">A. Perubahan Suhu</h3>
-                        <div class="font-mono text-2xl font-bold text-red-600">Q = m × c × ΔT</div>
-                    </div>
-                    <div class="flex-1 bg-blue-50 p-6 rounded-2xl border border-blue-100 text-center">
-                        <h3 class="text-xl font-bold text-blue-800 mt-0 mb-3">B. Perubahan Wujud</h3>
-                        <div class="font-mono text-2xl font-bold text-blue-600">Q = m × L</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="kalor-pemuaian" class="page-section content-body">
-            <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors shadow-sm w-full sm:w-auto justify-center sm:justify-start border border-orange-200">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Kembali ke Menu Kalor
-            </button>
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="bg-gradient-to-r from-orange-500 to-orange-600 px-6 sm:px-8 py-6 text-white">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><span class="text-3xl sm:text-4xl mr-3">↗️</span> Pemuaian Zat</h2>
+                <div class="bg-gradient-to-r from-red-500 to-rose-600 px-6 sm:px-8 py-6 text-white">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><i class="fas fa-thermometer-three-quarters mr-3 text-3xl"></i> Pengaruh Kalor pada Suhu</h2>
                 </div>
                 <div class="p-6 sm:p-8">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="text-center p-5 border rounded-2xl">
-                            <h4 class="font-bold">Pemuaian Panjang</h4>
-                            <div class="mt-2 text-orange-700 font-bold">ΔL = L₀ × α × ΔT</div>
+                    <p class="text-lg leading-relaxed text-gray-700 mb-6">
+                        Jika suatu zat menyerap kalor, maka <strong>suhunya akan naik</strong>. Sebaliknya, jika zat tersebut melepaskan kalor, maka <strong>suhunya akan turun</strong>. Besarnya kalor yang dibutuhkan untuk menaikkan suhu suatu benda bergantung pada tiga hal: <strong>massa benda ($m$)</strong>, <strong>kenaikan suhu ($\Delta T$)</strong>, dan <strong>jenis benda ($c$)</strong>.
+                    </p>
+
+                    <!-- Rumus Utama -->
+                    <div class="bg-rose-50 border border-rose-200 p-6 md:p-8 rounded-3xl text-center mb-8 shadow-inner">
+                        <span class="text-sm font-bold text-rose-600 uppercase tracking-widest mb-3 block">Persamaan Kalor untuk Perubahan Suhu</span>
+                        <div class="font-mono text-3xl md:text-5xl font-black text-rose-800 mb-6 bg-white py-4 rounded-2xl shadow-sm inline-block px-8 border border-rose-100">
+                            Q = m &times; c &times; &Delta;T
                         </div>
-                        <div class="text-center p-5 border rounded-2xl">
-                            <h4 class="font-bold">Pemuaian Luas</h4>
-                            <div class="mt-2 text-orange-700 font-bold">ΔA = A₀ × β × ΔT</div>
+                        <ul class="text-left max-w-xl mx-auto space-y-3 text-rose-900 font-medium text-sm md:text-base p-0 m-0 list-none">
+                            <li class="flex items-center bg-white p-3 rounded-xl border border-rose-100 shadow-sm"><span class="w-10 h-10 bg-rose-100 text-rose-700 rounded-lg flex items-center justify-center font-black mr-4 shrink-0 text-xl">Q</span> Energi Kalor (Joule / kalori)</li>
+                            <li class="flex items-center bg-white p-3 rounded-xl border border-rose-100 shadow-sm"><span class="w-10 h-10 bg-rose-100 text-rose-700 rounded-lg flex items-center justify-center font-black mr-4 shrink-0 text-xl">m</span> Massa benda (kg / gram)</li>
+                            <li class="flex items-center bg-white p-3 rounded-xl border border-rose-100 shadow-sm"><span class="w-10 h-10 bg-rose-100 text-rose-700 rounded-lg flex items-center justify-center font-black mr-4 shrink-0 text-xl">c</span> Kalor Jenis zat (J/kg°C)</li>
+                            <li class="flex items-center bg-white p-3 rounded-xl border border-rose-100 shadow-sm"><span class="w-10 h-10 bg-rose-100 text-rose-700 rounded-lg flex items-center justify-center font-black mr-4 shrink-0 text-xl">&Delta;T</span> Perubahan Suhu ($T_{akhir} - T_{awal}$)</li>
+                        </ul>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Kalor Jenis -->
+                        <div class="bg-gray-50 border border-gray-200 p-6 rounded-2xl">
+                            <h3 class="font-bold text-gray-800 mt-0 mb-2">Apa itu Kalor Jenis ($c$)?</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed m-0">
+                                <strong>Kalor jenis</strong> adalah karakteristik unik tiap zat. Ini menunjukkan berapa banyak energi yang dibutuhkan untuk menaikkan suhu 1 kg zat tersebut sebesar 1°C. Air memiliki kalor jenis yang sangat tinggi ($4.200 \text{ J/kg°C}$), artinya air butuh banyak panas untuk menjadi panas, dan lambat untuk menjadi dingin.
+                            </p>
                         </div>
-                        <div class="text-center p-5 border rounded-2xl">
-                            <h4 class="font-bold">Pemuaian Volume</h4>
-                            <div class="mt-2 text-orange-700 font-bold">ΔV = V₀ × γ × ΔT</div>
+                        <!-- Kapasitas Kalor -->
+                        <div class="bg-gray-50 border border-gray-200 p-6 rounded-2xl">
+                            <h3 class="font-bold text-gray-800 mt-0 mb-2">Kapasitas Kalor ($C$)</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed m-0">
+                                Berbeda dengan kalor jenis, <strong>kapasitas kalor</strong> tidak peduli massa tiap kilonya. Ia langsung menyatakan total energi yang dibutuhkan oleh <em>seluruh benda itu</em> untuk naik suhunya 1°C. <br><br>
+                                <span class="bg-white px-2 py-1 border rounded font-mono text-blue-600 font-bold">C = m &times; c</span>  sehingga  <span class="bg-white px-2 py-1 border rounded font-mono text-red-600 font-bold">Q = C &times; &Delta;T</span>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="kalor-contoh" class="page-section content-body">
-            <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 border border-orange-200">Kembali</button>
+        <!-- 3. Pengaruh Kalor pada Wujud Zat -->
+        <section id="kalor-wujud" class="page-section content-body">
+            <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors border border-orange-200">
+                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kalor
+            </button>
             <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-6 text-white"><h2 class="text-2xl font-extrabold m-0">📝 Contoh Soal Kalor</h2></div>
-                <div class="p-6">
-                    <p class="font-mono text-gray-700 block my-2">Q = m × c × ΔT = 2 × 4.200 × 50 = 420.000 J</p>
+                <div class="bg-gradient-to-r from-blue-500 to-cyan-500 px-6 sm:px-8 py-6 text-white">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><i class="fas fa-icicles mr-3 text-3xl"></i> Pengaruh Kalor pada Wujud</h2>
+                </div>
+                <div class="p-6 sm:p-8">
+                    <p class="text-lg leading-relaxed text-gray-700 mb-6">
+                        Selain mengubah suhu, kalor juga dapat digunakan untuk <strong>mengubah wujud suatu zat</strong>. Ingat aturan emas termodinamika: <em>"Pada saat terjadi perubahan wujud, suhu benda <strong>TETAP</strong> (tidak berubah) sampai seluruh proses perubahan wujud selesai."</em> Energi panas saat itu tidak dipakai untuk menaikkan suhu, melainkan untuk memutuskan ikatan antar partikel. Energi ini disebut <strong>Kalor Laten</strong>.
+                    </p>
+
+                    <!-- Skema Perubahan Wujud -->
+                    <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 text-center mb-8 relative">
+                        <h3 class="font-bold text-slate-700 mt-0 mb-6 uppercase tracking-wider text-sm">Diagram Segitiga Wujud Zat</h3>
+                        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 max-w-3xl mx-auto">
+                            <!-- Padat -->
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-white border-4 border-slate-300 rounded-2xl flex items-center justify-center text-4xl shadow-md mx-auto mb-2">🧊</div>
+                                <span class="font-black text-slate-700">PADAT</span>
+                            </div>
+                            <!-- Arah 1 -->
+                            <div class="flex flex-col gap-2">
+                                <div class="bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full border border-red-200 whitespace-nowrap">Mencair (Q diserap) ➔</div>
+                                <div class="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full border border-blue-200 whitespace-nowrap">🠔 Membeku (Q dilepas)</div>
+                            </div>
+                            <!-- Cair -->
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-blue-50 border-4 border-blue-300 rounded-full flex items-center justify-center text-4xl shadow-md mx-auto mb-2">💧</div>
+                                <span class="font-black text-blue-700">CAIR</span>
+                            </div>
+                            <!-- Arah 2 -->
+                            <div class="flex flex-col gap-2">
+                                <div class="bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full border border-red-200 whitespace-nowrap">Menguap (Q diserap) ➔</div>
+                                <div class="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full border border-blue-200 whitespace-nowrap">🠔 Mengembun (Q dilepas)</div>
+                            </div>
+                            <!-- Gas -->
+                            <div class="text-center">
+                                <div class="w-20 h-20 bg-white border-4 border-slate-300 rounded-full border-dashed flex items-center justify-center text-4xl shadow-md mx-auto mb-2">☁️</div>
+                                <span class="font-black text-slate-700">GAS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rumus Kalor Laten -->
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <!-- Lebur/Beku -->
+                        <div class="flex-1 bg-cyan-50 border border-cyan-200 p-6 rounded-2xl text-center shadow-sm">
+                            <h3 class="font-bold text-cyan-900 mt-0 mb-2">Kalor Lebur / Beku ($L$)</h3>
+                            <p class="text-sm text-cyan-800 mb-4 h-16">Digunakan saat es mencair menjadi air, atau air membeku menjadi es pada suhu 0°C.</p>
+                            <div class="font-mono text-2xl font-black text-cyan-700 bg-white py-3 rounded-xl border border-cyan-100 mb-3">Q = m &times; L</div>
+                            <p class="text-xs text-cyan-600 font-bold m-0">L = Kalor Lebur (J/kg)</p>
+                        </div>
+                        <!-- Uap/Embun -->
+                        <div class="flex-1 bg-orange-50 border border-orange-200 p-6 rounded-2xl text-center shadow-sm">
+                            <h3 class="font-bold text-orange-900 mt-0 mb-2">Kalor Uap / Embun ($U$)</h3>
+                            <p class="text-sm text-orange-800 mb-4 h-16">Digunakan saat air mendidih berubah menjadi uap pada suhu 100°C (kasus pengeringan kopi).</p>
+                            <div class="font-mono text-2xl font-black text-orange-700 bg-white py-3 rounded-xl border border-orange-100 mb-3">Q = m &times; U</div>
+                            <p class="text-xs text-orange-600 font-bold m-0">U = Kalor Uap (J/kg)</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="kalor-rangkuman" class="page-section content-body">
-             <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 border border-orange-200">Kembali</button>
+        <!-- 4. Pemuaian Zat -->
+        <section id="kalor-pemuaian" class="page-section content-body">
+            <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors border border-orange-200">
+                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kalor
+            </button>
             <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="bg-gradient-to-r from-green-500 to-green-600 px-6 py-6 text-white"><h2 class="text-2xl font-extrabold m-0">📌 Rangkuman Kalor</h2></div>
-                <div class="p-6"><p>Intisari kalor.</p></div>
+                <div class="bg-gradient-to-r from-teal-500 to-emerald-600 px-6 sm:px-8 py-6 text-white">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><i class="fas fa-expand-arrows-alt mr-3 text-3xl"></i> Pemuaian Zat</h2>
+                </div>
+                <div class="p-6 sm:p-8">
+                    <p class="text-lg leading-relaxed text-gray-700 mb-8">
+                        Secara umum, ketika suatu zat dipanaskan, jarak antar partikelnya akan meregang. Hal ini menyebabkan ukuran benda bertambah besar. Peristiwa bertambahnya ukuran benda akibat kenaikan suhu disebut <strong>Pemuaian</strong>. Pemuaian terjadi pada zat padat, cair, maupun gas.
+                    </p>
+
+                    <!-- Kartu Pemuaian Padat -->
+                    <h3 class="font-black text-slate-800 text-xl border-b-2 border-slate-100 pb-2 mb-6">Pemuaian Zat Padat</h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        <!-- Panjang -->
+                        <div class="bg-white border-2 border-slate-200 rounded-2xl p-6 shadow-sm hover:border-teal-400 hover:shadow-lg transition-all relative">
+                            <div class="absolute -top-3 -right-3 w-8 h-8 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center font-bold text-sm">1D</div>
+                            <h4 class="font-bold text-slate-800 mt-0 mb-2">Pemuaian Panjang</h4>
+                            <p class="text-sm text-slate-500 mb-4 h-10">Pemuaian pada benda tipis panjang seperti kawat atau rel kereta api.</p>
+                            <div class="bg-teal-50 p-3 rounded-xl border border-teal-100 text-center font-mono text-lg font-black text-teal-700 mb-2">
+                                &Delta;L = L₀ &times; &alpha; &times; &Delta;T
+                            </div>
+                            <ul class="text-xs text-slate-600 m-0 pl-3 list-disc">
+                                <li><strong>&Delta;L</strong> : Pertambahan Panjang (m)</li>
+                                <li><strong>L₀</strong> : Panjang Awal (m)</li>
+                                <li><strong>&alpha;</strong> (Alpha) : Koef. muai panjang</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Luas -->
+                        <div class="bg-white border-2 border-slate-200 rounded-2xl p-6 shadow-sm hover:border-teal-400 hover:shadow-lg transition-all relative">
+                            <div class="absolute -top-3 -right-3 w-8 h-8 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center font-bold text-sm">2D</div>
+                            <h4 class="font-bold text-slate-800 mt-0 mb-2">Pemuaian Luas</h4>
+                            <p class="text-sm text-slate-500 mb-4 h-10">Pemuaian pada bidang pelat tipis seperti lempengan seng pelapis atap pabrik.</p>
+                            <div class="bg-teal-50 p-3 rounded-xl border border-teal-100 text-center font-mono text-lg font-black text-teal-700 mb-2">
+                                &Delta;A = A₀ &times; &beta; &times; &Delta;T
+                            </div>
+                            <ul class="text-xs text-slate-600 m-0 pl-3 list-disc">
+                                <li><strong>&Delta;A</strong> : Pertambahan Luas (m²)</li>
+                                <li><strong>A₀</strong> : Luas Awal (m²)</li>
+                                <li><strong>&beta; = 2&alpha;</strong> : Koef. muai luas</li>
+                            </ul>
+                        </div>
+
+                        <!-- Volume -->
+                        <div class="bg-white border-2 border-slate-200 rounded-2xl p-6 shadow-sm hover:border-teal-400 hover:shadow-lg transition-all relative">
+                            <div class="absolute -top-3 -right-3 w-8 h-8 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center font-bold text-sm">3D</div>
+                            <h4 class="font-bold text-slate-800 mt-0 mb-2">Pemuaian Volume</h4>
+                            <p class="text-sm text-slate-500 mb-4 h-10">Pemuaian ruang pada benda 3 dimensi seperti bola baja, zat cair, atau gas.</p>
+                            <div class="bg-teal-50 p-3 rounded-xl border border-teal-100 text-center font-mono text-lg font-black text-teal-700 mb-2">
+                                &Delta;V = V₀ &times; &gamma; &times; &Delta;T
+                            </div>
+                            <ul class="text-xs text-slate-600 m-0 pl-3 list-disc">
+                                <li><strong>&Delta;V</strong> : Pertambahan Volume (m³)</li>
+                                <li><strong>V₀</strong> : Volume Awal (m³)</li>
+                                <li><strong>&gamma; = 3&alpha;</strong> : Koef. muai volume</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Anomali Air -->
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-xl shadow-sm flex items-start gap-4">
+                        <div class="text-3xl">🧊</div>
+                        <div>
+                            <h4 class="font-bold text-blue-900 mt-0 mb-1">Pengecualian: Anomali Air</h4>
+                            <p class="text-sm text-blue-800 m-0 leading-relaxed">Pada umumnya zat cair memuai saat dipanaskan. Namun, air memiliki keanehan (anomali) pada suhu <strong>0°C hingga 4°C</strong>. Jika air dipanaskan dari 0°C ke 4°C, volumenya justru <strong>menyusut</strong> (massa jenisnya maksimal pada 4°C). Inilah sebabnya es batu bisa mengapung di atas air murni.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Perpindahan Kalor -->
+        <section id="kalor-perpindahan" class="page-section content-body">
+            <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors border border-orange-200">
+                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kalor
+            </button>
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="bg-gradient-to-r from-indigo-500 to-purple-600 px-6 sm:px-8 py-6 text-white">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><i class="fas fa-wind mr-3 text-3xl"></i> Perpindahan Kalor</h2>
+                </div>
+                <div class="p-6 sm:p-8">
+                    <p class="text-lg leading-relaxed text-gray-700 mb-8">
+                        Kalor tidak akan diam di satu tempat jika ada perbedaan suhu. Panas selalu mencari cara untuk menyeimbangkan diri. Terdapat tiga mekanisme utama bagaimana energi panas ini berpindah di alam.
+                    </p>
+
+                    <div class="space-y-6">
+                        <!-- Konduksi -->
+                        <div class="flex flex-col md:flex-row bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden shadow-sm group">
+                            <div class="bg-red-100 text-red-600 md:w-48 flex flex-col justify-center items-center p-6 border-b md:border-b-0 md:border-r border-red-200 transition-colors group-hover:bg-red-500 group-hover:text-white">
+                                <i class="fas fa-grip-lines text-5xl mb-2"></i>
+                                <h3 class="font-black m-0 tracking-widest uppercase text-center text-sm">Konduksi</h3>
+                            </div>
+                            <div class="p-6 flex-1 relative">
+                                <h4 class="font-bold text-gray-800 mt-0 mb-2">Hantaran pada Zat Padat</h4>
+                                <p class="text-sm text-gray-600 leading-relaxed mb-4">Perpindahan panas melalui bahan zat padat <strong>tanpa disertai perpindahan partikel-partikel</strong> zat penyusunnya. Partikel hanya bergetar dan menumbuk tetangganya untuk menyalurkan panas.</p>
+                                <div class="bg-white px-4 py-2 rounded-xl border border-gray-200 text-sm font-mono text-red-600 inline-block font-bold">Laju (H) = (k &times; A &times; &Delta;T) / L</div>
+                                <p class="text-xs text-gray-400 italic mt-3 mb-0">Contoh: Memanaskan ujung besi, panas merambat ke tangan kita. Atau wajan alat sangrai kopi yang menghantarkan panas api ke biji kopi.</p>
+                            </div>
+                        </div>
+
+                        <!-- Konveksi -->
+                        <div class="flex flex-col md:flex-row bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden shadow-sm group">
+                            <div class="bg-blue-100 text-blue-600 md:w-48 flex flex-col justify-center items-center p-6 border-b md:border-b-0 md:border-r border-blue-200 transition-colors group-hover:bg-blue-500 group-hover:text-white">
+                                <i class="fas fa-water text-5xl mb-2"></i>
+                                <h3 class="font-black m-0 tracking-widest uppercase text-center text-sm">Konveksi</h3>
+                            </div>
+                            <div class="p-6 flex-1 relative">
+                                <h4 class="font-bold text-gray-800 mt-0 mb-2">Aliran pada Fluida (Cairan/Gas)</h4>
+                                <p class="text-sm text-gray-600 leading-relaxed mb-4">Perpindahan kalor yang <strong>disertai oleh pergerakan partikel-partikel</strong> zat perantaranya karena adanya perbedaan massa jenis (udara panas lebih ringan naik ke atas).</p>
+                                <div class="bg-white px-4 py-2 rounded-xl border border-gray-200 text-sm font-mono text-blue-600 inline-block font-bold">Laju (H) = h &times; A &times; &Delta;T</div>
+                                <p class="text-xs text-gray-400 italic mt-3 mb-0">Contoh: Air mendidih yang berputar dalam panci, terjadinya angin darat & laut, aliran udara panas dalam mesin pengering kopi.</p>
+                            </div>
+                        </div>
+
+                        <!-- Radiasi -->
+                        <div class="flex flex-col md:flex-row bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden shadow-sm group">
+                            <div class="bg-amber-100 text-amber-600 md:w-48 flex flex-col justify-center items-center p-6 border-b md:border-b-0 md:border-r border-amber-200 transition-colors group-hover:bg-amber-500 group-hover:text-white">
+                                <i class="fas fa-sun text-5xl mb-2"></i>
+                                <h3 class="font-black m-0 tracking-widest uppercase text-center text-sm">Radiasi</h3>
+                            </div>
+                            <div class="p-6 flex-1 relative">
+                                <h4 class="font-bold text-gray-800 mt-0 mb-2">Pancaran (Tanpa Medium)</h4>
+                                <p class="text-sm text-gray-600 leading-relaxed mb-4">Perpindahan panas melalui gelombang elektromagnetik <strong>tanpa memerlukan zat perantara (medium)</strong> sama sekali, bahkan bisa menembus ruang hampa udara.</p>
+                                <div class="bg-white px-4 py-2 rounded-xl border border-gray-200 text-sm font-mono text-amber-600 inline-block font-bold">Daya (P) = e &times; &sigma; &times; A &times; T<sup>4</sup></div>
+                                <p class="text-xs text-gray-400 italic mt-3 mb-0">Contoh: Panas sinar matahari sampai ke bumi untuk menjemur kopi, atau tubuh terasa hangat saat berada di dekat api unggun.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Contoh Soal Kalor -->
+        <section id="kalor-contoh" class="page-section content-body">
+            <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors border border-orange-200">
+                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kalor
+            </button>
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 px-6 sm:px-8 py-6 text-white">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><span class="text-3xl mr-3">📝</span> Contoh Soal Kalor</h2>
+                </div>
+                <div class="p-6 sm:p-8 space-y-8">
+                    
+                    <!-- Soal 1: Q = mcDT -->
+                    <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm group hover:shadow-md transition-shadow">
+                        <div class="bg-blue-50 px-6 py-5 border-b border-blue-100 flex flex-col sm:flex-row items-start gap-4">
+                            <div class="bg-blue-500 text-white font-black w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm mt-1">1</div>
+                            <div>
+                                <h4 class="font-bold text-blue-900 mt-0 mb-2 text-lg">Menghitung Energi Kalor</h4>
+                                <p class="text-blue-800 m-0 leading-relaxed text-sm sm:text-base">Untuk menyeduh kopi, Pak Jember memanaskan <strong>0,5 kg</strong> air bersuhu <strong>20°C</strong> hingga mendidih pada suhu <strong>100°C</strong>. Jika kalor jenis air adalah <strong>4.200 J/kg°C</strong>, berapakah kalor yang dibutuhkan untuk memanaskan air tersebut?</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-6 py-5 sm:pl-20 border-t border-white">
+                            <h5 class="font-bold text-gray-700 mb-3 flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Pembahasan:</h5>
+                            <div class="font-mono text-gray-700 space-y-2 text-sm sm:text-base bg-white p-5 rounded-xl border border-gray-200 shadow-inner">
+                                <span class="text-gray-400 block mb-1">» Diketahui:</span>
+                                <div>m = 0,5 kg</div>
+                                <div>c = 4.200 J/kg°C</div>
+                                <div>&Delta;T = 100°C - 20°C = 80°C</div>
+                                <hr class="border-gray-100 my-2">
+                                <span class="text-gray-400 block mb-1">» Penyelesaian:</span>
+                                <div>Q = m &times; c &times; &Delta;T</div>
+                                <div>Q = 0,5 &times; 4.200 &times; 80</div>
+                                <div>Q = 2.100 &times; 80</div>
+                                <div>Q = <strong class="text-blue-600 text-lg">168.000 Joule</strong> (atau 168 kJ)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soal 2: Asas Black -->
+                    <div class="border border-gray-200 rounded-2xl overflow-hidden shadow-sm group hover:shadow-md transition-shadow">
+                        <div class="bg-red-50 px-6 py-5 border-b border-red-100 flex flex-col sm:flex-row items-start gap-4">
+                            <div class="bg-red-500 text-white font-black w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm mt-1">2</div>
+                            <div>
+                                <h4 class="font-bold text-red-900 mt-0 mb-2 text-lg">Penerapan Asas Black</h4>
+                                <p class="text-red-800 m-0 leading-relaxed text-sm sm:text-base">Secangkir kopi panas bermassa <strong>200 gram</strong> dengan suhu <strong>80°C</strong> dicampurkan dengan <strong>100 gram</strong> susu dingin bersuhu <strong>20°C</strong>. Anggap kalor jenis kopi dan susu sama dengan air (1 kal/g°C), dan wadah tidak menyerap kalor. Berapa <strong>suhu akhir campuran (T_c)</strong> keduanya?</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-6 py-5 sm:pl-20 border-t border-white">
+                            <h5 class="font-bold text-gray-700 mb-3 flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i> Pembahasan:</h5>
+                            <div class="font-mono text-gray-700 space-y-2 text-sm sm:text-base bg-white p-5 rounded-xl border border-gray-200 shadow-inner overflow-x-auto">
+                                <div><strong class="text-red-500">Q<sub>lepas</sub> (Kopi Panas)</strong> = <strong class="text-blue-500">Q<sub>terima</sub> (Susu Dingin)</strong></div>
+                                <div>m₁ &times; c &times; &Delta;T₁ = m₂ &times; c &times; &Delta;T₂</div>
+                                <div class="text-gray-400 text-xs italic">Karena c sama, coret c di kedua sisi. T_c adalah suhu campuran (di antara 20 dan 80).</div>
+                                <div>200 &times; (80 - T_c) = 100 &times; (T_c - 20)</div>
+                                <div class="text-gray-400 text-xs italic">Bagi kedua sisi dengan 100</div>
+                                <div>2 &times; (80 - T_c) = 1 &times; (T_c - 20)</div>
+                                <div>160 - 2T_c = T_c - 20</div>
+                                <div>160 + 20 = T_c + 2T_c</div>
+                                <div>180 = 3T_c</div>
+                                <div>T_c = 180 / 3</div>
+                                <div>T_c = <strong class="text-red-600 text-lg">60°C</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Rangkuman Kalor -->
+        <section id="kalor-rangkuman" class="page-section content-body">
+             <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors border border-orange-200">
+                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kalor
+            </button>
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="bg-gradient-to-r from-green-500 to-emerald-600 px-6 sm:px-8 py-6 text-white">
+                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><i class="fas fa-thumbtack mr-3 text-3xl transform rotate-45"></i> Rangkuman Kalor</h2>
+                </div>
+                <div class="p-6 sm:p-8 space-y-6">
+                    
+                    <div class="bg-green-50 border-l-4 border-green-500 p-5 rounded-r-2xl shadow-sm transition-transform hover:-translate-y-1">
+                        <h3 class="font-bold text-green-900 text-lg mb-2 mt-0">1. Energi Kalor & Suhu</h3>
+                        <p class="text-green-800 text-sm leading-relaxed m-0">Kalor berpindah dari benda panas ke dingin. Jumlah kalor yang mengubah suhu dihitung dengan <code class="bg-white px-2 py-0.5 rounded border border-green-200 text-green-700">Q = m.c.ΔT</code>. Keseimbangan campuran energi mematuhi Asas Black: <strong>Kalor Lepas = Kalor Terima</strong>.</p>
+                    </div>
+
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-2xl shadow-sm transition-transform hover:-translate-y-1">
+                        <h3 class="font-bold text-blue-900 text-lg mb-2 mt-0">2. Kalor & Perubahan Wujud</h3>
+                        <p class="text-blue-800 text-sm leading-relaxed m-0">Saat berubah wujud (mencair, membeku, menguap), suhu benda konstan. Kalor yang diserap/dilepas disebut Kalor Laten: <code class="bg-white px-2 py-0.5 rounded border border-blue-200 text-blue-700">Q = m.L</code> (Lebur) atau <code class="bg-white px-2 py-0.5 rounded border border-blue-200 text-blue-700">Q = m.U</code> (Uap).</p>
+                    </div>
+
+                    <div class="bg-teal-50 border-l-4 border-teal-500 p-5 rounded-r-2xl shadow-sm transition-transform hover:-translate-y-1">
+                        <h3 class="font-bold text-teal-900 text-lg mb-2 mt-0">3. Pemuaian</h3>
+                        <p class="text-teal-800 text-sm leading-relaxed m-0">Akibat panas, jarak partikel merenggang sehingga benda bertambah ukuran (Panjang, Luas, Volume). Anomali air terjadi pada 0-4°C dimana volumenya justru menyusut saat dipanaskan.</p>
+                    </div>
+
+                    <div class="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-2xl shadow-sm transition-transform hover:-translate-y-1">
+                        <h3 class="font-bold text-amber-900 text-lg mb-2 mt-0">4. Perpindahan Panas</h3>
+                        <ul class="text-sm text-amber-800 pl-4 m-0 space-y-1">
+                            <li><strong>Konduksi:</strong> Merambat pada zat padat tanpa memindah partikel.</li>
+                            <li><strong>Konveksi:</strong> Mengalir pada fluida (cair/gas) memindahkan partikel.</li>
+                            <li><strong>Radiasi:</strong> Memancar melalui gelombang EM tanpa butuh medium (hampa udara).</li>
+                        </ul>
+                    </div>
+
+                </div>
             </div>
         </section>
 
