@@ -1495,21 +1495,137 @@
         <!-- ================================== -->
         
         <section id="kopi-proses" class="page-section content-body">
-            <button onclick="navigateTo('sub-kopi')" class="mb-6 inline-flex items-center px-4 py-3 bg-amber-50 text-amber-700 font-bold rounded-xl hover:bg-amber-100 border border-amber-200">Kembali</button>
+            <button onclick="navigateTo('sub-kopi')" class="mb-6 inline-flex items-center px-4 py-3 bg-amber-50 text-amber-700 font-bold rounded-xl hover:bg-amber-100 border border-amber-200 shadow-sm transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kopi
+            </button>
+            
             <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="bg-gradient-to-r from-amber-600 to-amber-800 px-6 py-6 text-white"><h2 class="text-2xl font-extrabold m-0">🌱 Proses Pasca Panen</h2></div>
-                <div class="p-6">
-                    <p>Biji kopi yang baru saja dipetik memiliki kadar air 60%. Harus diturunkan hingga 11% dengan dijemur (Sun Drying).</p>
+                <div class="bg-gradient-to-r from-amber-600 to-amber-800 px-6 sm:px-8 py-6 text-white relative overflow-hidden">
+                    <div class="absolute right-0 top-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-10 translate-x-10"></div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0 relative z-10"><span class="text-3xl sm:text-4xl mr-3">🌱</span> Proses Pasca Panen</h2>
+                </div>
+                
+                <div class="p-6 sm:p-8">
+                    <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8 mb-8 shadow-inner text-center">
+                        <h3 class="font-black text-slate-800 text-xl mb-2 mt-0">Misi Utama: Menurunkan Kadar Air!</h3>
+                        <p class="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto mb-6">
+                            Biji kopi segar (*coffee cherry*) yang baru dipetik sangat basah. Jika dibiarkan, jamur dan bakteri pembusuk akan cepat merusak kualitasnya. Kita harus mengeringkannya hingga mencapai batas aman.
+                        </p>
+                        
+                        <div class="max-w-xl mx-auto relative pt-8 pb-4">
+                            <div class="w-full h-8 bg-slate-200 rounded-full overflow-hidden border-2 border-slate-300 relative shadow-inner">
+                                <div class="absolute top-0 left-0 h-full bg-red-400 w-[60%] flex items-center justify-end pr-3 transition-all"></div>
+                                <div class="absolute top-0 left-0 h-full bg-emerald-500 w-[11%] flex items-center justify-center border-r-4 border-white z-10 shadow-[4px_0_10px_rgba(0,0,0,0.2)]"></div>
+                            </div>
+                            
+                            <div class="absolute top-0 left-[60%] transform -translate-x-1/2 flex flex-col items-center">
+                                <span class="bg-red-100 text-red-700 font-bold text-xs px-2 py-1 rounded-lg border border-red-200 mb-1 shadow-sm whitespace-nowrap">Awal Panen: 60%</span>
+                                <div class="w-0.5 h-3 bg-red-400"></div>
+                            </div>
+                            <div class="absolute top-0 left-[11%] transform -translate-x-1/2 flex flex-col items-center">
+                                <span class="bg-emerald-100 text-emerald-700 font-bold text-xs px-2 py-1 rounded-lg border border-emerald-200 mb-1 shadow-sm whitespace-nowrap">Target Aman: 11%</span>
+                                <div class="w-0.5 h-3 bg-emerald-500"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="font-black text-slate-800 text-xl mb-4 border-b-2 border-slate-100 pb-2"><i class="fas fa-sun text-amber-500 mr-2"></i> Tahapan Sun Drying (Penjemuran Alami)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
+                        <div class="hidden md:block absolute top-1/2 left-10 right-10 h-1 bg-slate-200 -z-10 transform -translate-y-1/2 border-t-2 border-dashed border-slate-300"></div>
+
+                        <div class="bg-white border-2 border-slate-200 rounded-2xl p-5 text-center shadow-sm hover:border-amber-400 hover:shadow-md transition-all group">
+                            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center font-black text-xl mx-auto mb-3 shadow-inner group-hover:scale-110 transition-transform">1</div>
+                            <h4 class="font-bold text-slate-800 mt-0 mb-2">Penghamparan</h4>
+                            <p class="text-xs text-slate-500 m-0">Biji kopi diratakan di atas lantai semen atau terpal dengan ketebalan 2-4 cm agar mendapat panas optimal.</p>
+                        </div>
+                        
+                        <div class="bg-white border-2 border-slate-200 rounded-2xl p-5 text-center shadow-sm hover:border-orange-400 hover:shadow-md transition-all group">
+                            <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center font-black text-xl mx-auto mb-3 shadow-inner group-hover:scale-110 transition-transform">2</div>
+                            <h4 class="font-bold text-slate-800 mt-0 mb-2">Pembalikan Berksala</h4>
+                            <p class="text-xs text-slate-500 m-0">Menggunakan garu kayu, kopi dibolak-balik setiap beberapa jam agar pengeringan merata dan bagian bawah tidak berjamur.</p>
+                        </div>
+
+                        <div class="bg-white border-2 border-slate-200 rounded-2xl p-5 text-center shadow-sm hover:border-emerald-400 hover:shadow-md transition-all group">
+                            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-black text-xl mx-auto mb-3 shadow-inner group-hover:scale-110 transition-transform">3</div>
+                            <h4 class="font-bold text-slate-800 mt-0 mb-2">Fase Dorman</h4>
+                            <p class="text-xs text-slate-500 m-0">Setelah 10-14 hari, kadar air mencapai 11%. Kopi siap disimpan dalam jangka waktu lama atau diproses lebih lanjut.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
         
         <section id="kopi-pengaruh" class="page-section content-body">
-            <button onclick="navigateTo('sub-kopi')" class="mb-6 inline-flex items-center px-4 py-3 bg-amber-50 text-amber-700 font-bold rounded-xl hover:bg-amber-100 border border-amber-200">Kembali</button>
+            <button onclick="navigateTo('sub-kopi')" class="mb-6 inline-flex items-center px-4 py-3 bg-amber-50 text-amber-700 font-bold rounded-xl hover:bg-amber-100 border border-amber-200 shadow-sm transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kopi
+            </button>
+            
             <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="bg-gradient-to-r from-amber-600 to-amber-800 px-6 py-6 text-white"><h2 class="text-2xl font-extrabold m-0">☀️ Peran Suhu & Kalor</h2></div>
-                <div class="p-6">
-                    <p>Radiasi (Matahari), Konduksi (Lantai Semen), Konveksi (Angin).</p>
+                <div class="bg-gradient-to-r from-amber-600 to-orange-600 px-6 sm:px-8 py-6 text-white relative overflow-hidden">
+                    <div class="absolute right-0 bottom-0 text-7xl opacity-20 transform translate-x-5 translate-y-5">☕</div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0 relative z-10"><span class="text-3xl sm:text-4xl mr-3">☀️</span> Peran Suhu & Kalor</h2>
+                </div>
+                
+                <div class="p-6 sm:p-8">
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        Pengeringan kopi adalah laboratorium termodinamika alam yang sempurna. Selama proses penjemuran berlangsung, terjadi <strong>tiga mekanisme perpindahan kalor sekaligus</strong> untuk mengubah molekul air menjadi uap (*evaporasi*).
+                    </p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        
+                        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 shadow-sm hover:-translate-y-2 transition-transform duration-300">
+                            <div class="w-14 h-14 bg-amber-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-md transform rotate-3">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <span class="text-[10px] font-black uppercase tracking-widest text-amber-600 bg-amber-100 px-2 py-1 rounded mb-2 inline-block">Mekanisme 1</span>
+                            <h4 class="font-black text-amber-900 text-lg mt-0 mb-2">Radiasi Matahari</h4>
+                            <p class="text-sm text-amber-800 leading-relaxed mb-4">Pancaran gelombang elektromagnetik dari matahari langsung menyentuh hamparan kopi, menyuplai energi panas utama tanpa perantara apa pun.</p>
+                            <div class="bg-white px-3 py-2 rounded-xl text-xs font-bold text-amber-700 border border-amber-100 flex items-start gap-2">
+                                <i class="fas fa-search mt-0.5 opacity-50"></i> Fokus pada area hamparan kopi teratas.
+                            </div>
+                        </div>
+
+                        <div class="bg-orange-50 border border-orange-200 rounded-2xl p-6 shadow-sm hover:-translate-y-2 transition-transform duration-300">
+                            <div class="w-14 h-14 bg-orange-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-md transform -rotate-3">
+                                <i class="fas fa-border-all"></i>
+                            </div>
+                            <span class="text-[10px] font-black uppercase tracking-widest text-orange-600 bg-orange-100 px-2 py-1 rounded mb-2 inline-block">Mekanisme 2</span>
+                            <h4 class="font-black text-orange-900 text-lg mt-0 mb-2">Hantaran Lantai Jemur</h4>
+                            <p class="text-sm text-orange-800 leading-relaxed mb-4">Lantai semen menyerap panas radiasi. Saat biji kopi bersentuhan langsung dengan lantai panas, kalor merambat (konduksi) masuk ke pori-pori kopi.</p>
+                            <div class="bg-white px-3 py-2 rounded-xl text-xs font-bold text-orange-700 border border-orange-100 flex items-start gap-2">
+                                <i class="fas fa-search mt-0.5 opacity-50"></i> Memanaskan kopi bagian bawah/dasar.
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 rounded-2xl p-6 shadow-sm hover:-translate-y-2 transition-transform duration-300">
+                            <div class="w-14 h-14 bg-blue-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-md transform rotate-3">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <span class="text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-100 px-2 py-1 rounded mb-2 inline-block">Mekanisme 3</span>
+                            <h4 class="font-black text-blue-900 text-lg mt-0 mb-2">Sirkulasi Angin</h4>
+                            <p class="text-sm text-blue-800 leading-relaxed mb-4">Air di dalam kopi yang panas akan menguap. Aliran udara (angin) mengangkut uap air tersebut menjauh, sehingga udara tetap kering untuk melanjutkan penguapan.</p>
+                            <div class="bg-white px-3 py-2 rounded-xl text-xs font-bold text-blue-700 border border-blue-100 flex items-start gap-2">
+                                <i class="fas fa-search mt-0.5 opacity-50"></i> Menjaga kelembapan tetap rendah.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="bg-gradient-to-r from-teal-500 to-emerald-600 p-1 rounded-3xl shadow-lg mt-10">
+                        <div class="bg-white rounded-[1.35rem] p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                            <div class="flex items-center gap-5">
+                                <div class="text-5xl drop-shadow-md animate-bounce">🎮</div>
+                                <div>
+                                    <h4 class="font-black text-slate-800 text-xl mb-1">Sudah Paham Konsepnya?</h4>
+                                    <p class="text-slate-600 text-sm font-medium">Bantu Pak Jember menghitung suhu dan kalor di pabriknya lewat tantangan interaktif!</p>
+                                </div>
+                            </div>
+                            <button onclick="navigateTo('latihan')" class="w-full md:w-auto bg-emerald-500 hover:bg-emerald-600 text-white font-black py-4 px-8 rounded-2xl shadow-md transition-transform transform hover:-translate-y-1 active:translate-y-0 text-sm whitespace-nowrap">
+                                MAIN MINI GAMES SEKARANG <i class="fas fa-play ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
