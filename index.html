@@ -329,21 +329,25 @@
                 </div>
 
                 <div class="relative z-10 overflow-x-auto pb-8 pt-4 custom-scrollbar">
-                    <div class="min-w-[800px] flex flex-col items-center font-sans mx-auto pb-4">
+                    <div class="min-w-[900px] flex flex-col items-center font-sans mx-auto pb-4">
                         <div class="border-2 border-blue-500 bg-blue-50 text-blue-800 font-bold px-8 py-3 rounded-xl shadow-md z-10 text-xl tracking-wide uppercase text-center cursor-pointer hover:bg-blue-100 transition-colors" onclick="navigateTo('materi')">Modul Fisika: Suhu & Kalor</div>
                         <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-50 px-2 py-0.5 text-xs text-slate-600 italic font-medium rounded-full border border-slate-200">membahas</span></div>
-                        <div class="w-[680px] border-t-2 border-slate-400 relative">
+                        <div class="w-[800px] border-t-2 border-slate-400 relative">
                             <div class="absolute left-0 w-0.5 h-10 bg-slate-400"></div>
                             <div class="absolute left-1/2 w-0.5 h-10 bg-slate-400 transform -translate-x-1/2"></div>
                             <div class="absolute right-0 w-0.5 h-10 bg-slate-400"></div>
                         </div>
-                        <div class="flex justify-between w-[680px] gap-6 mt-10">
-                            <!-- Kolom 1: SUHU -->
+                        <div class="flex justify-between w-[800px] gap-6 mt-10">
                             <div class="flex flex-col items-center w-1/3">
                                 <div class="border-2 border-red-500 bg-red-50 text-red-700 font-bold px-4 py-2 rounded-lg shadow-sm z-10 w-full text-center uppercase tracking-wide cursor-pointer hover:bg-red-100 transition-colors" onclick="navigateTo('sub-suhu')">Suhu</div>
-                                <div class="w-0.5 h-12 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">diukur dengan</span></div>
+                                
+                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">berkaitan dengan</span></div>
+                                <div class="border-2 border-slate-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full text-center text-sm font-semibold hover:border-red-300 transition-colors cursor-pointer" onclick="navigateTo('suhu-pengertian')">Pengertian & Energi Kinetik</div>
+
+                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">diukur dengan</span></div>
                                 <div class="border-2 border-slate-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full text-center text-sm font-semibold hover:border-red-300 transition-colors cursor-pointer" onclick="navigateTo('suhu-alat')">Alat Ukur (Termometer)</div>
-                                <div class="w-0.5 h-12 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dinyatakan dalam</span></div>
+                                
+                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dinyatakan dalam</span></div>
                                 <div class="border-2 border-slate-300 bg-white text-slate-700 p-4 rounded-lg shadow-sm z-10 w-full text-left text-sm hover:border-red-300 transition-colors cursor-pointer" onclick="navigateTo('suhu-skala')">
                                     <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-red-600">Skala Pengukuran</span>
                                     <ul class="list-disc pl-5 text-xs space-y-1.5 font-medium text-slate-600">
@@ -352,35 +356,43 @@
                                 </div>
                             </div>
 
-                            <!-- Kolom 2: KALOR -->
                             <div class="flex flex-col items-center w-1/3">
                                 <div class="border-2 border-orange-500 bg-orange-50 text-orange-700 font-bold px-4 py-2 rounded-lg shadow-sm z-10 w-full text-center uppercase tracking-wide cursor-pointer hover:bg-orange-100 transition-colors" onclick="navigateTo('sub-kalor')">Kalor</div>
-                                <div class="w-0.5 h-12 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dapat mengalami</span></div>
+                                
+                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dijelaskan oleh</span></div>
+                                <div class="border-2 border-slate-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full text-center text-sm font-semibold hover:border-orange-300 transition-colors cursor-pointer" onclick="navigateTo('kalor-pengertian')">Pengertian & Asas Black</div>
+
+                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">menyebabkan</span></div>
+                                <div class="border-2 border-slate-300 bg-white text-slate-700 p-4 rounded-lg shadow-sm z-10 w-full text-left text-sm hover:border-orange-300 transition-colors cursor-pointer" onclick="navigateTo('kalor-suhu')">
+                                    <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-orange-600">Pengaruh pada Zat</span>
+                                    <ul class="list-disc pl-5 text-xs space-y-1.5 font-medium text-slate-600">
+                                        <li>Perubahan Suhu <br><span class="text-[9px] text-slate-400 font-mono">Q = m.c.ΔT</span></li>
+                                        <li>Perubahan Wujud <br><span class="text-[9px] text-slate-400 font-mono">Q = m.L / m.U</span></li>
+                                        <li>Pemuaian Zat</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dapat mengalami</span></div>
                                 <div class="border-2 border-slate-300 bg-white text-slate-700 p-4 rounded-lg shadow-sm z-10 w-full text-left text-sm hover:border-orange-300 transition-colors cursor-pointer" onclick="navigateTo('kalor-perpindahan')">
                                     <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-orange-600">Perpindahan</span>
                                     <ul class="list-disc pl-5 text-xs space-y-1.5 font-medium text-slate-600">
                                         <li>Konduksi (Zat Padat)</li><li>Konveksi (Fluida)</li><li>Radiasi (Pancaran)</li>
                                     </ul>
                                 </div>
-                                <div class="w-0.5 h-12 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">menyebabkan</span></div>
-                                <div class="border-2 border-slate-300 bg-white text-slate-700 p-4 rounded-lg shadow-sm z-10 w-full text-left text-sm hover:border-orange-300 transition-colors cursor-pointer" onclick="navigateTo('kalor-pengaruh')">
-                                    <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-orange-600">Pengaruh pada Zat</span>
-                                    <ul class="list-disc pl-5 text-xs space-y-1.5 font-medium text-slate-600">
-                                        <li>Perubahan Suhu <br><span class="text-[9px] text-slate-400 font-mono">Q = m.c.ΔT</span></li>
-                                        <li>Perubahan Wujud <br><span class="text-[9px] text-slate-400 font-mono">Q = m.L</span></li>
-                                        <li>Pemuaian Zat</li>
-                                    </ul>
-                                </div>
                             </div>
 
-                            <!-- Kolom 3: APLIKASI (KOPI) -->
                             <div class="flex flex-col items-center w-1/3">
                                 <div class="border-2 border-amber-600 bg-amber-50 text-amber-800 font-bold px-4 py-2 rounded-lg shadow-sm z-10 w-full text-center uppercase tracking-wide cursor-pointer hover:bg-amber-100 transition-colors" onclick="navigateTo('sub-kopi')">Penerapan</div>
-                                <div class="w-0.5 h-12 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dalam kasus</span></div>
-                                <div class="border-2 border-amber-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full text-center text-sm font-bold text-amber-900 hover:border-amber-500 transition-colors cursor-pointer" onclick="navigateTo('kopi-proses')">Pengeringan Kopi</div>
-                                <div class="w-0.5 h-12 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">melibatkan</span></div>
+                                
+                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dalam kasus</span></div>
+                                <div class="border-2 border-amber-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full text-center text-sm font-bold text-amber-900 hover:border-amber-500 transition-colors cursor-pointer" onclick="navigateTo('sub-kopi')">Pengeringan Kopi</div>
+
+                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">terdiri atas</span></div>
+                                <div class="border-2 border-slate-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full text-center text-sm font-semibold hover:border-amber-400 transition-colors cursor-pointer" onclick="navigateTo('kopi-proses')">Proses Pasca Panen</div>
+                                
+                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">melibatkan</span></div>
                                 <div class="border-2 border-slate-300 bg-white text-slate-700 p-4 rounded-lg shadow-sm z-10 w-full text-left text-sm hover:border-amber-400 transition-colors cursor-pointer" onclick="navigateTo('kopi-pengaruh')">
-                                    <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-amber-700">Integrasi Fisika</span>
+                                    <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-amber-700">Peran Suhu & Kalor</span>
                                     <ul class="list-disc pl-5 text-xs space-y-1.5 font-medium text-slate-600">
                                         <li>Radiasi panas matahari</li><li>Konduksi panas lantai</li><li>Evaporasi (uap air)</li><li>Konveksi udara sekitar</li>
                                     </ul>
