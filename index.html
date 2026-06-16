@@ -1494,6 +1494,7 @@
         <!-- KONTEN MATERI KOPI                 -->
         <!-- ================================== -->
         
+        <!-- Sub Halaman: Konten Proses Pasca Panen Kopi -->
         <section id="kopi-proses" class="page-section content-body">
             <button onclick="navigateTo('sub-kopi')" class="mb-6 inline-flex items-center px-4 py-3 bg-amber-50 text-amber-700 font-bold rounded-xl hover:bg-amber-100 border border-amber-200 shadow-sm transition-colors">
                 <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kopi
@@ -1506,51 +1507,113 @@
                 </div>
                 
                 <div class="p-6 sm:p-8">
+                    <!-- Intro & Infografis Kadar Air -->
                     <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 sm:p-8 mb-8 shadow-inner text-center">
                         <h3 class="font-black text-slate-800 text-xl mb-2 mt-0">Misi Utama: Menurunkan Kadar Air!</h3>
                         <p class="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto mb-6">
-                            Biji kopi segar (*coffee cherry*) yang baru dipetik sangat basah. Jika dibiarkan, jamur dan bakteri pembusuk akan cepat merusak kualitasnya. Kita harus mengeringkannya hingga mencapai batas aman.
+                            Biji kopi segar (*coffee cherry*) yang baru dipetik sangat basah. Jika dibiarkan, jamur dan bakteri pembusuk akan cepat merusak kualitasnya[cite: 2]. Kita harus mengeringkannya hingga mencapai batas aman.
                         </p>
                         
+                        <!-- Visual Bar Kadar Air -->
                         <div class="max-w-xl mx-auto relative pt-8 pb-4">
                             <div class="w-full h-8 bg-slate-200 rounded-full overflow-hidden border-2 border-slate-300 relative shadow-inner">
+                                <!-- Bar 60% (Merah/Bahaya) -->
                                 <div class="absolute top-0 left-0 h-full bg-red-400 w-[60%] flex items-center justify-end pr-3 transition-all"></div>
-                                <div class="absolute top-0 left-0 h-full bg-emerald-500 w-[11%] flex items-center justify-center border-r-4 border-white z-10 shadow-[4px_0_10px_rgba(0,0,0,0.2)]"></div>
+                                <!-- Bar 12% (Hijau/Aman) -->
+                                <div class="absolute top-0 left-0 h-full bg-emerald-500 w-[12%] flex items-center justify-center border-r-4 border-white z-10 shadow-[4px_0_10px_rgba(0,0,0,0.2)]"></div>
                             </div>
                             
+                            <!-- Label Pointers -->
                             <div class="absolute top-0 left-[60%] transform -translate-x-1/2 flex flex-col items-center">
                                 <span class="bg-red-100 text-red-700 font-bold text-xs px-2 py-1 rounded-lg border border-red-200 mb-1 shadow-sm whitespace-nowrap">Awal Panen: 60%</span>
                                 <div class="w-0.5 h-3 bg-red-400"></div>
                             </div>
-                            <div class="absolute top-0 left-[11%] transform -translate-x-1/2 flex flex-col items-center">
-                                <span class="bg-emerald-100 text-emerald-700 font-bold text-xs px-2 py-1 rounded-lg border border-emerald-200 mb-1 shadow-sm whitespace-nowrap">Target Aman: 11%</span>
+                            <div class="absolute top-0 left-[12%] transform -translate-x-1/2 flex flex-col items-center">
+                                <span class="bg-emerald-100 text-emerald-700 font-bold text-xs px-2 py-1 rounded-lg border border-emerald-200 mb-1 shadow-sm whitespace-nowrap">Target Aman: 12-15%</span>
                                 <div class="w-0.5 h-3 bg-emerald-500"></div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 italic">Petani memanen saat kadar air sudah stabil di kisaran 12% hingga 15%[cite: 2].</p>
+                    </div>
+
+                    <!-- Metode Penjemuran Praktik Lapangan -->
+                    <div class="mb-10">
+                        <h3 class="font-black text-slate-800 text-xl mb-4 border-b-2 border-slate-100 pb-2 flex items-center">
+                            <i class="fas fa-sun text-amber-500 mr-3 text-2xl"></i> Metode Pengeringan Tradisional
+                        </h3>
+                        <p class="text-slate-700 mb-6 leading-relaxed">
+                            Di lapangan, petani menggunakan beberapa cara untuk mengeringkan biji kopi menggunakan sumber panas alami dari sinar matahari. Pemilihan metode ini juga mempengaruhi profil rasa (*cupping profile*) kopi nantinya[cite: 2].
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Pelataran Terbuka -->
+                            <div class="bg-white border-2 border-orange-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                                <div class="absolute -right-4 -top-4 text-7xl opacity-10 group-hover:scale-110 transition-transform">☀️</div>
+                                <h4 class="font-bold text-orange-900 text-lg mb-2 relative z-10">1. Penjemuran Langsung di Pelataran</h4>
+                                <p class="text-sm text-slate-600 mb-3 relative z-10 leading-relaxed">Biji kopi dijemur langsung terpapar terik matahari. Karena lantai pelataran juga ikut menyerap panas (memanas dari bawah), kopi harus diberi <strong>alas terpal</strong> agar tidak cepat gosong[cite: 2].</p>
+                                <div class="bg-orange-50 px-3 py-2 rounded-lg text-xs font-bold text-orange-800 border border-orange-100 mt-auto">
+                                    <i class="fas fa-exclamation-triangle text-orange-500 mr-1"></i> Risiko: Jika terlalu terik bisa merusak cita rasa (muncul *notes spicy*).
+                                </div>
+                            </div>
+                            
+                            <!-- Greenhouse (Sistem Rumah Kaca) -->
+                            <div class="bg-white border-2 border-emerald-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
+                                <div class="absolute -right-4 -top-4 text-7xl opacity-10 group-hover:scale-110 transition-transform">🏕️</div>
+                                <h4 class="font-bold text-emerald-900 text-lg mb-2 relative z-10">2. Sistem Greenhouse (Naungan)</h4>
+                                <p class="text-sm text-slate-600 mb-3 relative z-10 leading-relaxed">Penjemuran dilakukan di dalam struktur beratapkan plastik atau bahan tembus cahaya. Pemanasan terjadi secara tidak langsung[cite: 2]. Metode ini lebih aman dari risiko gosong dan menjaga kualitas cita rasa kopi yang stabil.</p>
+                                <div class="bg-emerald-50 px-3 py-2 rounded-lg text-xs font-bold text-emerald-800 border border-emerald-100 mt-auto">
+                                    <i class="fas fa-shield-alt text-emerald-500 mr-1"></i> Keunggulan: Aman dari fluktuasi cuaca ekstrem.
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <h3 class="font-black text-slate-800 text-xl mb-4 border-b-2 border-slate-100 pb-2"><i class="fas fa-sun text-amber-500 mr-2"></i> Tahapan Sun Drying (Penjemuran Alami)</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 relative">
-                        <div class="hidden md:block absolute top-1/2 left-10 right-10 h-1 bg-slate-200 -z-10 transform -translate-y-1/2 border-t-2 border-dashed border-slate-300"></div>
-
-                        <div class="bg-white border-2 border-slate-200 rounded-2xl p-5 text-center shadow-sm hover:border-amber-400 hover:shadow-md transition-all group">
-                            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center font-black text-xl mx-auto mb-3 shadow-inner group-hover:scale-110 transition-transform">1</div>
-                            <h4 class="font-bold text-slate-800 mt-0 mb-2">Penghamparan</h4>
-                            <p class="text-xs text-slate-500 m-0">Biji kopi diratakan di atas lantai semen atau terpal dengan ketebalan 2-4 cm agar mendapat panas optimal.</p>
-                        </div>
+                    <!-- BOX FAKTOR YANG MEMPENGARUHI PENGERINGAN -->
+                    <div class="bg-gradient-to-br from-slate-50 to-blue-50 border-2 border-blue-100 rounded-3xl p-6 sm:p-8 shadow-sm">
+                        <h3 class="font-black text-blue-900 text-xl mb-6 flex items-center">
+                            <i class="fas fa-list-ul text-blue-500 mr-3"></i> Faktor-Faktor yang Mempengaruhi Proses Pengeringan
+                        </h3>
                         
-                        <div class="bg-white border-2 border-slate-200 rounded-2xl p-5 text-center shadow-sm hover:border-orange-400 hover:shadow-md transition-all group">
-                            <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center font-black text-xl mx-auto mb-3 shadow-inner group-hover:scale-110 transition-transform">2</div>
-                            <h4 class="font-bold text-slate-800 mt-0 mb-2">Pembalikan Berksala</h4>
-                            <p class="text-xs text-slate-500 m-0">Menggunakan garu kayu, kopi dibolak-balik setiap beberapa jam agar pengeringan merata dan bagian bawah tidak berjamur.</p>
-                        </div>
+                        <div class="space-y-4">
+                            <!-- Faktor 1: Jenis Proses/Preparasi Kopi -->
+                            <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-start gap-4">
+                                <div class="bg-blue-100 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center font-black shrink-0 shadow-inner">1</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 mb-1">Jenis Proses Pasca Panen (Preparasi)</h4>
+                                    <p class="text-sm text-slate-600 m-0 leading-relaxed">Lama pengeringan sangat bergantung pada wujud kopi yang dijemur. Misalnya, untuk proses *full wash* (sudah dikupas kulit buah dan lendirnya) dan proses *honey* membutuhkan waktu sekitar 10 hingga 15 hari pada musim kemarau[cite: 2]. Namun, untuk kopi proses *natural* (dijemur utuh berserta kulit buah merahnya atau gelondong merah), proses pengeringan bisa memakan waktu hingga satu bulan penuh[cite: 2].</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Faktor 2: Kondisi Cuaca & Sirkulasi Udara -->
+                            <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-start gap-4">
+                                <div class="bg-blue-100 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center font-black shrink-0 shadow-inner">2</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 mb-1">Cuaca, Kelembapan, dan Sirkulasi Udara</h4>
+                                    <p class="text-sm text-slate-600 m-0 leading-relaxed">Musim kemarau mempercepat pengeringan[cite: 2]. Sebaliknya, jika cuaca mendung atau hujan, udara menjadi lembap dan basah yang memicu tumbuhnya jamur pembusuk[cite: 2]. Oleh karena itu, sirkulasi udara (angin) sangat vital. Meski cuaca mendung, kopi tetap harus dihamparkan (dibuka) di pagi hari agar sirkulasi udara tetap berjalan dan mencegah timbulnya efek jamur[cite: 2].</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Faktor 3: Perlakuan Fisik (Pembalikan) -->
+                            <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-start gap-4">
+                                <div class="bg-blue-100 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center font-black shrink-0 shadow-inner">3</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 mb-1">Perlakuan Fisik (Pembalikan Berkala)</h4>
+                                    <p class="text-sm text-slate-600 m-0 leading-relaxed">Suhu dan panas harus merata. Petani harus melakukan observasi ketat dan membolak-balik atau mengorak-arik tumpukan kopi setiap jam. Tujuannya agar pemanasan merata di semua sisi (bagian bawah, tengah, maupun atas) sehingga kadar air turun secara seragam[cite: 2].</p>
+                                </div>
+                            </div>
 
-                        <div class="bg-white border-2 border-slate-200 rounded-2xl p-5 text-center shadow-sm hover:border-emerald-400 hover:shadow-md transition-all group">
-                            <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center font-black text-xl mx-auto mb-3 shadow-inner group-hover:scale-110 transition-transform">3</div>
-                            <h4 class="font-bold text-slate-800 mt-0 mb-2">Fase Dorman</h4>
-                            <p class="text-xs text-slate-500 m-0">Setelah 10-14 hari, kadar air mencapai 11%. Kopi siap disimpan dalam jangka waktu lama atau diproses lebih lanjut.</p>
+                             <!-- Faktor 4: Penggunaan Mesin vs Alami -->
+                             <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-start gap-4">
+                                <div class="bg-blue-100 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center font-black shrink-0 shadow-inner">4</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 mb-1">Sumber Energi (Mesin Pengering vs Matahari)</h4>
+                                    <p class="text-sm text-slate-600 m-0 leading-relaxed">Penggunaan mesin pengering (*drying machine*) berbahan bakar kayu atau gas LPG (untuk skala ratusan kilo) dapat memangkas waktu pengeringan secara drastis, hingga selesai hanya dalam setengah hari (tergantung besaran api/suhu)[cite: 2]. Metode mesin ini umumnya disukai oleh eksportir skala besar untuk mengejar waktu panen[cite: 2]. Akan tetapi, percepatan yang tidak alami ini pastinya akan membawa dampak terhadap kualitas dan cita rasa (profil *cupping*) kopi tersebut jika dibandingkan penjemuran alami[cite: 2].</p>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
