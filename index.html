@@ -2705,7 +2705,7 @@
                 } else if(idx < 12) {
                     catBg = "bg-orange-100"; catText = "text-orange-700"; catIcon = "🌍"; catLabel = "Studi Sehari-hari";
                 } else {
-                    catBg = "bg-amber-100"; catText = "text-amber-800"; catIcon = "☕"; catLabel = "Studi Kasus Kopi";
+                    catBg = "bg-amber-100"; catText = "text-amber-800"; catIcon = "☕"; catLabel = "Pengeringan Kopi";
                 }
 
                 let html = `
@@ -2740,6 +2740,7 @@
                     `;
                 });
                 
+                // PENAMBAHAN: Struktur HTML untuk menampilkan jawaban benar & evaluasi
                 html += `
                             </div>
                             
@@ -2748,7 +2749,15 @@
                                     <span class="eval-status-badge"></span>
                                     <span class="font-black text-slate-800 text-lg border-l-2 border-slate-300 pl-3">Ulasan Pembahasan:</span>
                                 </div>
-                                <p class="text-slate-700 leading-relaxed text-sm sm:text-base font-medium bg-white p-5 rounded-xl border border-slate-200 shadow-sm"><i class="fas fa-lightbulb text-amber-500 mr-2 text-lg"></i> ${item.exp}</p>
+                                
+                                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                                    <p class="text-emerald-600 font-bold mb-3 text-sm sm:text-base border-b border-slate-100 pb-3">
+                                        <i class="fas fa-check-circle mr-1"></i> Jawaban Benar: <strong>${letters[item.ans]}. ${item.opts[item.ans]}</strong>
+                                    </p>
+                                    <p class="text-slate-700 leading-relaxed text-sm sm:text-base font-medium">
+                                        <i class="fas fa-lightbulb text-amber-500 mr-2 text-lg"></i> ${item.exp}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
