@@ -2245,8 +2245,9 @@
             const targetPage = document.getElementById(targetPageId);
             if (targetPage) targetPage.classList.add('active');
 
-            const mainMenus = ['beranda', 'petunjuk', 'capaian', 'petakonsep', 'materi', 'latihan', 'evaluasi', 'referensi'];
+            const mainMenus = ['beranda', 'petunjuk', 'capaian', 'petakonsep', 'materi', 'latihan', 'evaluasi', 'referensi', 'latihan-soal'];
             let activeNavId = mainMenus.includes(targetPageId) ? targetPageId : 'materi';
+            if(activeNavId === 'latihan-soal') activeNavId = 'materi';
 
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('bg-blue-700'); link.classList.add('hover:bg-blue-700');
@@ -2268,71 +2269,55 @@
         function openProfilePopup() { document.getElementById('profile-popup').classList.remove('hidden'); }
         function closeProfilePopup() { document.getElementById('profile-popup').classList.add('hidden'); }
 
-        // --- 2. LOGIKA LATIHAN SOAL (DARI SUB HALAMAN) ---
-        const latihanSoalDB = {
+        // --- 2. DATABASE KUIS/MINI GAMES YANG DIUNIFIKASI ---
+        const kuisDatabase = {
+            // Latihan Soal Bab Utama
             suhu: [
-                {
-                    q: "Apa yang terjadi pada partikel benda secara mikroskopis ketika suhu benda tersebut dinaikkan?",
-                    opts: ["Partikel diam di tempat", "Energi kinetik partikel berkurang", "Energi kinetik partikel bertambah", "Partikel saling tolak menolak"],
-                    ans: 2,
-                    exp: "Suhu sebanding dengan energi kinetik rata-rata partikel. Jika suhu naik, partikel bergerak/bergetar lebih cepat sehingga energi kinetiknya bertambah."
-                },
-                {
-                    q: "Termometer Celcius menunjukkan angka 45°C. Berapakah suhu tersebut jika diukur menggunakan termometer Reamur?",
-                    opts: ["36°R", "45°R", "50°R", "56°R"],
-                    ans: 0,
-                    exp: "Perbandingan skala C : R adalah 5 : 4. Maka R = (4/5) × 45°C = 36°R."
-                },
-                {
-                    q: "Sifat fisik dari suatu zat yang berubah secara teratur ketika suhunya berubah dan dimanfaatkan untuk membuat termometer disebut...",
-                    opts: ["Sifat anomali", "Sifat mekanik", "Sifat termometrik", "Sifat konduktor"],
-                    ans: 2,
-                    exp: "Sifat termometrik adalah sifat dasar zat yang berubah secara teratur jika suhunya berubah (misal: volume zat cair pada raksa yang memuai)."
-                },
-                {
-                    q: "Suhu mutlak dalam Satuan Internasional (SI) diukur menggunakan skala...",
-                    opts: ["Celcius", "Fahrenheit", "Kelvin", "Reamur"],
-                    ans: 2,
-                    exp: "Kelvin adalah satuan dasar SI untuk suhu karena didasarkan pada titik nol mutlak dimana energi kinetik partikel bernilai nol."
-                },
-                {
-                    q: "Suatu ruangan suhunya diukur 25°C. Jika diubah ke dalam skala Kelvin menjadi...",
-                    opts: ["248 K", "273 K", "298 K", "300 K"],
-                    ans: 2,
-                    exp: "Rumus konversi Celcius ke Kelvin adalah K = C + 273. Jadi, K = 25 + 273 = 298 K."
-                }
+                { q: "Apa yang terjadi pada partikel benda secara mikroskopis ketika suhu benda tersebut dinaikkan?", opts: ["Partikel diam di tempat", "Energi kinetik partikel berkurang", "Energi kinetik partikel bertambah", "Partikel saling tolak menolak"], ans: 2, exp: "Suhu sebanding dengan energi kinetik rata-rata partikel. Jika suhu naik, partikel bergerak/bergetar lebih cepat sehingga energi kinetiknya bertambah." },
+                { q: "Termometer Celcius menunjukkan angka 45°C. Berapakah suhu tersebut jika diukur menggunakan termometer Reamur?", opts: ["36°R", "45°R", "50°R", "56°R"], ans: 0, exp: "Perbandingan skala C : R adalah 5 : 4. Maka R = (4/5) × 45°C = 36°R." },
+                { q: "Sifat fisik dari suatu zat yang berubah secara teratur ketika suhunya berubah dan dimanfaatkan untuk membuat termometer disebut...", opts: ["Sifat anomali", "Sifat mekanik", "Sifat termometrik", "Sifat konduktor"], ans: 2, exp: "Sifat termometrik adalah sifat dasar zat yang berubah secara teratur jika suhunya berubah (misal: volume zat cair pada raksa yang memuai)." },
+                { q: "Suhu mutlak dalam Satuan Internasional (SI) diukur menggunakan skala...", opts: ["Celcius", "Fahrenheit", "Kelvin", "Reamur"], ans: 2, exp: "Kelvin adalah satuan dasar SI untuk suhu karena didasarkan pada titik nol mutlak dimana energi kinetik partikel bernilai nol." },
+                { q: "Suatu ruangan suhunya diukur 25°C. Jika diubah ke dalam skala Kelvin menjadi...", opts: ["248 K", "273 K", "298 K", "300 K"], ans: 2, exp: "Rumus konversi Celcius ke Kelvin adalah K = C + 273. Jadi, K = 25 + 273 = 298 K." }
             ],
             kalor: [
-                {
-                    q: "Manakah pernyataan yang paling tepat mengenai pengertian kalor?",
-                    opts: ["Energi yang terkandung secara statis dalam benda", "Bentuk energi yang berpindah akibat perbedaan suhu", "Derajat panas dinginnya suatu benda", "Zat cair yang digunakan untuk menaikkan suhu"],
-                    ans: 1,
-                    exp: "Kalor adalah energi panas yang secara alami mengalir/berpindah dari benda bersuhu lebih tinggi ke benda bersuhu lebih rendah."
-                },
-                {
-                    q: "Jika 2 kg air (kalor jenis = 4.200 J/kg°C) dipanaskan dari suhu 20°C menjadi 50°C, berapakah kalor yang diserap?",
-                    opts: ["252.000 J", "420.000 J", "168.000 J", "84.000 J"],
-                    ans: 0,
-                    exp: "Gunakan rumus Q = m.c.ΔT. ΔT = 50 - 20 = 30°C. Q = 2 × 4.200 × 30 = 252.000 Joule."
-                },
-                {
-                    q: "Proses merambatnya panas matahari menembus ruang hampa udara hingga sampai ke bumi merupakan contoh perpindahan kalor secara...",
-                    opts: ["Konduksi", "Konveksi", "Radiasi", "Evaporasi"],
-                    ans: 2,
-                    exp: "Radiasi adalah perpindahan panas melalui pancaran gelombang elektromagnetik tanpa memerlukan perantara (medium), seperti cahaya matahari di ruang hampa."
-                },
-                {
-                    q: "Menurut Asas Black, jika dua benda yang suhunya berbeda dicampurkan di dalam suatu wadah tertutup/terisolasi, maka...",
-                    opts: ["Kalor yang dilepas sama dengan kalor yang diterima", "Suhu kedua benda tetap berbeda", "Kalor akan hilang ke lingkungan", "Suhu campuran akan lebih tinggi dari suhu tertinggi"],
-                    ans: 0,
-                    exp: "Hukum kekekalan energi kalor (Asas Black) menyatakan bahwa benda yang suhunya tinggi melepas kalor (Q_lepas) sama besarnya dengan benda bersuhu rendah yang menyerap kalor (Q_terima)."
-                },
-                {
-                    q: "Rel kereta api diberi celah antar sambungannya untuk mencegah bengkok saat siang hari. Hal ini disebabkan oleh konsep fisika...",
-                    opts: ["Perubahan Wujud", "Konduksi Panas", "Pemuaian Panjang", "Kapasitas Kalor"],
-                    ans: 2,
-                    exp: "Panas matahari (peningkatan suhu) menyebabkan rel besi memuai (bertambah panjang). Celah diberikan sebagai ruang muai agar rel tidak melengkung."
-                }
+                { q: "Manakah pernyataan yang paling tepat mengenai pengertian kalor?", opts: ["Energi yang terkandung secara statis dalam benda", "Bentuk energi yang berpindah akibat perbedaan suhu", "Derajat panas dinginnya suatu benda", "Zat cair yang digunakan untuk menaikkan suhu"], ans: 1, exp: "Kalor adalah energi panas yang secara alami mengalir/berpindah dari benda bersuhu lebih tinggi ke benda bersuhu lebih rendah." },
+                { q: "Jika 2 kg air (kalor jenis = 4.200 J/kg°C) dipanaskan dari suhu 20°C menjadi 50°C, berapakah kalor yang diserap?", opts: ["252.000 J", "420.000 J", "168.000 J", "84.000 J"], ans: 0, exp: "Gunakan rumus Q = m.c.ΔT. ΔT = 50 - 20 = 30°C. Q = 2 × 4.200 × 30 = 252.000 Joule." },
+                { q: "Proses merambatnya panas matahari menembus ruang hampa udara hingga sampai ke bumi merupakan contoh perpindahan kalor secara...", opts: ["Konduksi", "Konveksi", "Radiasi", "Evaporasi"], ans: 2, exp: "Radiasi adalah perpindahan panas melalui pancaran gelombang elektromagnetik tanpa memerlukan perantara (medium), seperti cahaya matahari di ruang hampa." },
+                { q: "Menurut Asas Black, jika dua benda yang suhunya berbeda dicampurkan di dalam suatu wadah tertutup/terisolasi, maka...", opts: ["Kalor yang dilepas sama dengan kalor yang diterima", "Suhu kedua benda tetap berbeda", "Kalor akan hilang ke lingkungan", "Suhu campuran akan lebih tinggi dari suhu tertinggi"], ans: 0, exp: "Hukum kekekalan energi kalor (Asas Black) menyatakan bahwa benda yang suhunya tinggi melepas kalor (Q_lepas) sama besarnya dengan benda bersuhu rendah yang menyerap kalor (Q_terima)." },
+                { q: "Rel kereta api diberi celah antar sambungannya untuk mencegah bengkok saat siang hari. Hal ini disebabkan oleh konsep fisika...", opts: ["Perubahan Wujud", "Konduksi Panas", "Pemuaian Panjang", "Kapasitas Kalor"], ans: 2, exp: "Panas matahari (peningkatan suhu) menyebabkan rel besi memuai (bertambah panjang). Celah diberikan sebagai ruang muai agar rel tidak melengkung." }
+            ],
+            // Sub-materi Mini Games Konten
+            'suhu-pengertian': [
+                { q: "Suhu hamparan kopi saat dijemur terukur 40°C. Secara mikroskopis, apa yang terjadi pada partikel air di dalam biji kopi tersebut?", opts: ["Partikel air berhenti bergerak", "Energi kinetik partikel berkurang", "Energi kinetik partikel bertambah cepat", "Massa partikel air mengecil"], ans: 2, exp: "Suhu adalah ukuran energi kinetik rata-rata. Semakin tinggi suhu, partikel penyusun benda bergerak/bergetar semakin cepat." },
+                { q: "Saat tangan menyentuh biji kopi yang baru keluar dari mesin pendingin, kopi terasa dingin karena...", opts: ["Tangan melepas kalor ke biji kopi", "Kopi melepas kalor ke tangan", "Kopi memiliki energi lebih besar", "Tangan menyerap kalor dari lingkungan"], ans: 0, exp: "Kalor selalu mengalir dari benda bersuhu tinggi (tangan) ke benda bersuhu rendah (kopi dingin). Kehilangan kalor inilah yang terasa 'dingin'." }
+            ],
+            'suhu-skala': [
+                { q: "Suhu udara di area penjemuran kopi adalah 35°C. Berapakah suhu tersebut jika diukur dengan skala Reamur?", opts: ["28°R", "36°R", "45°R", "50°R"], ans: 0, exp: "Perbandingan C : R adalah 5 : 4. Maka R = (4/5) × 35 = 28°R." },
+                { q: "Satuan suhu dalam Sistem Internasional (SI) yang digunakan untuk standar pengukuran global adalah...", opts: ["Celcius", "Fahrenheit", "Reamur", "Kelvin"], ans: 3, exp: "Kelvin adalah satuan suhu SI. Konversinya dari Celcius adalah K = °C + 273." }
+            ],
+            'suhu-alat': [
+                { q: "Pak Jember menggunakan Thermo gun (Termometer Inframerah) untuk mengukur suhu hamparan kopi dari jarak jauh tanpa menyentuhnya. Apa sifat termometrik dari alat ini?", opts: ["Pemuaian volume zat cair", "Perubahan hambatan listrik", "Pancaran energi gelombang inframerah", "Pemuaian panjang dua jenis logam"], ans: 2, exp: "Termometer inframerah bekerja dengan mendeteksi intensitas radiasi termal (inframerah) yang dipancarkan oleh objek." },
+                { q: "Termometer raksa bekerja berdasarkan sifat termometrik berupa...", opts: ["Perubahan warna", "Pemuaian volume", "Perubahan tegangan", "Pemuaian luas"], ans: 1, exp: "Zat cair seperti raksa atau alkohol di dalam pipa kapiler akan mengalami pertambahan volume (memuai) saat suhunya naik." }
+            ],
+            'kalor-pengertian': [
+                { q: "Pernyataan yang paling tepat mengenai pengertian kalor adalah...", opts: ["Kalor sama dengan suhu benda", "Energi panas yang berpindah dari benda bersuhu tinggi ke rendah", "Ukuran derajat panas suatu zat", "Zat cair yang digunakan untuk memanaskan"], ans: 1, exp: "Kalor adalah bentuk energi yang berpindah (transfer energi) secara alamiah akibat adanya perbedaan suhu." },
+                { q: "Dalam Asas Black, ketika dua benda dengan suhu berbeda dicampurkan dalam wadah terisolasi, maka...", opts: ["Benda dingin melepas kalor", "Kalor yang dilepas sama dengan kalor yang diterima", "Suhu campuran sama dengan suhu benda yang panas", "Tidak terjadi perpindahan energi"], ans: 1, exp: "Hukum kekekalan energi kalor (Asas Black) menyatakan bahwa Q lepas (dari benda panas) = Q terima (oleh benda dingin)." }
+            ],
+            'kalor-suhu': [
+                { q: "Berapa energi kalor yang dibutuhkan untuk menaikkan suhu 0,5 kg air penyeduh kopi dari 20°C menjadi 80°C? (Kalor jenis air = 4.200 J/kg°C)", opts: ["84.000 J", "126.000 J", "168.000 J", "210.000 J"], ans: 1, exp: "Gunakan rumus Q = m.c.ΔT. Q = 0,5 × 4.200 × (80-20) = 2.100 × 60 = 126.000 Joule." },
+                { q: "Air memiliki 'kalor jenis' yang sangat tinggi dibandingkan minyak. Artinya...", opts: ["Air lebih cepat panas daripada minyak", "Air lebih lambat naik suhunya saat dipanaskan", "Air lebih mudah menguap", "Air menghasilkan energi lebih besar"], ans: 1, exp: "Kalor jenis yang tinggi berarti air membutuhkan energi kalor yang lebih banyak untuk menaikkan suhunya sebesar 1°C, sehingga ia lambat panas dan lambat dingin." }
+            ],
+            'kalor-wujud': [
+                { q: "Saat proses pengeringan kopi, air di dalam biji kopi menguap. Pada saat perubahan wujud dari cair ke uap ini terjadi, suhu air di dalamnya...", opts: ["Terus naik", "Turun drastis", "Tetap konstan (tidak berubah)", "Naik turun"], ans: 2, exp: "Saat terjadi perubahan wujud (melebur, menguap), energi kalor sepenuhnya digunakan untuk memutuskan ikatan partikel (Kalor Laten), sehingga suhu benda tetap konstan." },
+                { q: "Kalor yang dibutuhkan untuk mengubah wujud zat cair menjadi uap tanpa mengubah suhunya disebut...", opts: ["Kalor Jenis", "Kalor Lebur", "Kalor Uap", "Kapasitas Kalor"], ans: 2, exp: "Kalor uap (laten uap) adalah banyaknya kalor yang diserap oleh 1 kg zat cair untuk berubah wujud menjadi gas/uap pada titik didihnya." }
+            ],
+            'kalor-pemuaian': [
+                { q: "Atap seng pada rumah pengering (greenhouse) kopi dapat melengkung jika dipasang terlalu rapat. Hal ini terjadi karena...", opts: ["Seng menyusut saat panas", "Pemuaian luas pada pelat seng saat menyerap kalor", "Tekanan udara di dalam greenhouse terlalu tinggi", "Anomali seng saat cuaca terik"], ans: 1, exp: "Benda berbentuk pelat tipis (seperti seng) akan mengalami pemuaian luas secara signifikan saat menerima kalor dari matahari." },
+                { q: "Air murni memiliki sifat unik (anomali) saat suhunya dinaikkan dari 0°C menuju 4°C, yaitu...", opts: ["Volumenya menyusut", "Volumenya bertambah besar drastis", "Berubah menjadi gas", "Massa jenisnya mengecil"], ans: 0, exp: "Anomali air terjadi pada rentang suhu 0-4°C, di mana pemanasan justru membuat volume air menyusut (massa jenis mencapai maksimum pada 4°C)." }
+            ],
+            'kalor-perpindahan': [
+                { q: "Biji kopi yang dijemur di atas lantai semen mendapatkan panas dari bagian bawahnya yang menempel pada lantai. Mekanisme ini disebut...", opts: ["Konveksi", "Radiasi", "Evaporasi", "Konduksi"], ans: 3, exp: "Konduksi adalah perpindahan panas melalui sentuhan langsung (hantaran benda padat) tanpa disertai perpindahan partikel lantai semen." },
+                { q: "Panas terik matahari mampu sampai ke bumi untuk mengeringkan hamparan biji kopi melewati ruang angkasa hampa udara. Ini adalah bukti perpindahan kalor secara...", opts: ["Radiasi", "Konduksi", "Konveksi", "Isolasi"], ans: 0, exp: "Radiasi adalah perpindahan panas berupa pancaran gelombang elektromagnetik yang tidak memerlukan zat perantara (medium) sama sekali." }
             ]
         };
 
@@ -2342,21 +2327,22 @@
         let lsCorrectCount = 0;
         let lsHasAnswered = false;
 
+        // --- 3. FUNGSI UTAMA KUIS / LATIHAN SOAL / MINI GAMES ---
         function startLatihanSoal(topic) {
             lsCurrentTopic = topic;
-            lsQuestions = latihanSoalDB[topic];
+            lsQuestions = kuisDatabase[topic];
+            if(!lsQuestions) return;
+            
             lsCurrentIndex = 0;
             lsCorrectCount = 0;
             
-            // Set Titles
             let icon = '📝', text = 'Latihan Soal';
             if(topic === 'suhu') { icon = '🌡️'; text = 'Latihan Soal: Suhu'; }
-            if(topic === 'kalor') { icon = '🔥'; text = 'Latihan Soal: Kalor'; }
+            else if(topic === 'kalor') { icon = '🔥'; text = 'Latihan Soal: Kalor'; }
             
             document.getElementById('ls-title-icon').innerText = icon;
             document.getElementById('ls-title-text').innerText = text;
 
-            // Tampilkan Section
             navigateTo('latihan-soal');
             
             document.getElementById('ls-result-screen').classList.add('hidden');
@@ -2365,10 +2351,34 @@
             loadLSQuestion();
         }
 
-        function closeLatihanSoal() {
-            if(lsCurrentTopic === 'suhu') navigateTo('sub-suhu');
-            else if(lsCurrentTopic === 'kalor') navigateTo('sub-kalor');
-            else navigateTo('materi');
+        function startMiniGame(subbabId) {
+            lsCurrentTopic = subbabId;
+            lsQuestions = kuisDatabase[subbabId];
+            if(!lsQuestions) return;
+            
+            lsCurrentIndex = 0;
+            lsCorrectCount = 0;
+            
+            const titleMap = {
+                'suhu-pengertian': 'MISI: PENGERTIAN SUHU',
+                'suhu-skala': 'MISI: SKALA SUHU',
+                'suhu-alat': 'MISI: ALAT UKUR SUHU',
+                'kalor-pengertian': 'MISI: PENGERTIAN KALOR',
+                'kalor-suhu': 'MISI: PERUBAHAN SUHU',
+                'kalor-wujud': 'MISI: PERUBAHAN WUJUD',
+                'kalor-pemuaian': 'MISI: PEMUAIAN ZAT',
+                'kalor-perpindahan': 'MISI: PERPINDAHAN KALOR'
+            };
+            
+            document.getElementById('ls-title-icon').innerText = '🎮';
+            document.getElementById('ls-title-text').innerText = titleMap[subbabId] || 'MISI KUIS KONTEN';
+
+            navigateTo('latihan-soal');
+            
+            document.getElementById('ls-result-screen').classList.add('hidden');
+            document.getElementById('ls-active-screen').classList.remove('hidden');
+            
+            loadLSQuestion();
         }
 
         function loadLSQuestion() {
@@ -2382,17 +2392,14 @@
             let letters = ['A', 'B', 'C', 'D'];
             currentQ.opts.forEach((opt, i) => {
                 choicesHtml += `
-                    <button id="ls-opt-btn-${i}" onclick="checkLSAnswer(${i})" class="btn-3d w-full text-left bg-white border-2 border-slate-200 text-slate-700 font-bold text-lg p-4 rounded-2xl shadow-[0_4px_0_rgb(203,213,225)] hover:bg-slate-50 hover:border-blue-400 flex items-center gap-4 transition-all">
-                        <span class="bg-slate-100 text-slate-500 w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border border-slate-200 font-black">${letters[i]}</span>
+                    <button id="ls-opt-btn-${i}" onclick="checkLSAnswer(${i})" class="btn-3d w-full text-left bg-white border-2 border-slate-200 text-slate-700 font-bold text-base sm:text-lg p-4 rounded-2xl shadow-[0_4px_0_rgb(203,213,225)] hover:bg-slate-50 hover:border-blue-400 flex items-center gap-4 transition-all focus:outline-none">
+                        <span class="bg-indigo-100 text-indigo-600 w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border border-slate-200 font-black">${letters[i]}</span>
                         <span class="leading-snug">${opt}</span>
                     </button>
                 `;
             });
             document.getElementById('ls-choices-container').innerHTML = choicesHtml;
-            
-            // Sembunyikan Evaluation Box
             document.getElementById('ls-eval-box').classList.add('hidden');
-            document.getElementById('ls-eval-box').classList.remove('anim-pop');
         }
 
         function checkLSAnswer(selectedIndex) {
@@ -2406,13 +2413,13 @@
 
             currentQ.opts.forEach((opt, i) => {
                 let btn = document.getElementById(`ls-opt-btn-${i}`);
-                btn.classList.add('disabled-opt'); 
                 
                 if(i === currentQ.ans) {
-                    btn.classList.add('correct-opt');
-                    btn.classList.remove('disabled-opt');
+                    btn.className = "w-full text-left bg-green-500 border-2 border-green-600 text-white font-bold text-base sm:text-lg p-4 rounded-2xl flex items-center gap-4 transition-all transform scale-[1.01] shadow-md focus:outline-none";
                 } else if(i === selectedIndex && !isCorrect) {
-                    btn.classList.add('wrong-opt');
+                    btn.className = "w-full text-left bg-red-50 border-2 border-red-300 text-red-700 font-bold text-base sm:text-lg p-4 rounded-2xl flex items-center gap-4 opacity-70 focus:outline-none";
+                } else {
+                    btn.className = "w-full text-left bg-slate-100 border-2 border-slate-200 text-slate-400 font-bold text-base sm:text-lg p-4 rounded-2xl flex items-center gap-4 opacity-50 focus:outline-none";
                 }
             });
 
@@ -2424,14 +2431,13 @@
 
             evalBox.classList.remove('hidden');
             evalBox.classList.add('anim-pop');
-
-            evalDesc.innerText = currentQ.exp;
+            evalDesc.innerHTML = currentQ.exp;
 
             if(isCorrect) {
                 evalIcon.innerText = "✅";
                 evalTitle.innerText = "Jawaban Tepat!";
                 evalTitle.className = "font-black text-xl mb-2 text-green-700";
-                if(typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                if(typeof confetti === 'function') confetti({ particleCount: 80, spread: 60, origin: { y: 0.6 } });
             } else {
                 evalIcon.innerText = "❌";
                 evalTitle.innerText = "Kurang Tepat!";
@@ -2440,10 +2446,10 @@
 
             if(lsCurrentIndex === lsQuestions.length - 1) {
                 nextBtn.innerHTML = `Lihat Skor Akhir <i class="fas fa-check ml-2"></i>`;
-                nextBtn.className = "bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3 px-8 rounded-xl shadow-md transition-transform transform hover:-translate-y-1";
+                nextBtn.className = "bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3 px-8 rounded-xl shadow-md transition-all";
             } else {
                 nextBtn.innerHTML = `Lanjut Soal Berikutnya <i class="fas fa-arrow-right ml-2"></i>`;
-                nextBtn.className = "bg-blue-600 hover:bg-blue-700 text-white font-black py-3 px-8 rounded-xl shadow-md transition-transform transform hover:-translate-y-1";
+                nextBtn.className = "bg-blue-600 hover:bg-blue-700 text-white font-black py-3 px-8 rounded-xl shadow-md transition-all";
             }
         }
 
@@ -2455,15 +2461,25 @@
                 document.getElementById('ls-active-screen').classList.add('hidden');
                 document.getElementById('ls-result-screen').classList.remove('hidden');
                 
-                let score = Math.round((lsCorrectCount / lsQuestions.length) * 100);
+                let scoreVal = Math.round((lsCorrectCount / lsQuestions.length) * 100);
                 let scoreEl = document.getElementById('ls-final-score');
-                scoreEl.innerText = score;
+                scoreEl.innerText = scoreVal;
                 
-                if(score >= 80) scoreEl.className = "text-6xl font-black text-green-600";
-                else if(score >= 60) scoreEl.className = "text-6xl font-black text-amber-500";
+                if(scoreVal >= 80) scoreEl.className = "text-6xl font-black text-green-600";
+                else if(scoreVal >= 60) scoreEl.className = "text-6xl font-black text-amber-500";
                 else scoreEl.className = "text-6xl font-black text-red-600";
 
-                if(score === 100 && typeof confetti === 'function') confetti({ particleCount: 200, spread: 100, origin: {y:0.3} });
+                if(scoreVal === 100 && typeof confetti === 'function') confetti({ particleCount: 150, spread: 80, origin: {y:0.4} });
+            }
+        }
+
+        function closeLatihanSoal() {
+            if(['suhu-pengertian','suhu-skala','suhu-alat','suhu-rangkuman'].includes(lsCurrentTopic)) {
+                navigateTo(lsCurrentTopic);
+            } else if(['kalor-pengertian','kalor-suhu','kalor-wujud','kalor-pemuaian','kalor-perpindahan','kalor-rangkuman'].includes(lsCurrentTopic)) {
+                navigateTo(lsCurrentTopic);
+            } else {
+                navigateTo('materi');
             }
         }
 
