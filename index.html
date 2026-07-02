@@ -10,6 +10,8 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <!-- FontAwesome untuk Icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <!-- ========================================== -->
     <!-- CSS (CUSTOM STYLES & ANIMATIONS)           -->
@@ -728,7 +730,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -1110,28 +1111,6 @@
             </div>
         </section>
 
-        <section id="suhu-contoh" class="page-section content-body">
-            <button onclick="navigateTo('sub-suhu')" class="mb-6 inline-flex items-center px-4 py-3 bg-red-50 text-red-700 font-bold rounded-xl hover:bg-red-100 transition-colors shadow-sm w-full sm:w-auto justify-center sm:justify-start border border-red-200">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Kembali ke Menu Suhu
-            </button>
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="bg-gradient-to-r from-blue-500 to-blue-600 px-6 sm:px-8 py-6 text-white">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><span class="text-3xl sm:text-4xl mr-3">📝</span> Contoh Soal Suhu</h2>
-                </div>
-                <div class="p-6 sm:p-8">
-                    <div class="bg-blue-50 px-6 py-5 border border-blue-100 rounded-2xl mb-4">
-                        <h4 class="font-bold text-blue-900 mt-1 mb-2 text-lg">Pertanyaan:</h4>
-                        <p class="text-blue-800 m-0 leading-relaxed">Suhu ruangan adalah <strong>25°C</strong>. Berapa suhu dalam Kelvin?</p>
-                    </div>
-                    <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
-                        <p class="font-bold text-gray-800 mb-3">Pembahasan:</p>
-                        <p class="font-mono text-gray-600 text-sm">T(K) = T(°C) + 273 = 25 + 273 = <strong>298 K</strong></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section id="suhu-rangkuman" class="page-section content-body">
             <button onclick="navigateTo('sub-suhu')" class="mb-6 inline-flex items-center px-4 py-3 bg-red-50 text-red-700 font-bold rounded-xl hover:bg-red-100 transition-colors shadow-sm w-full sm:w-auto justify-center sm:justify-start border border-red-200">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
@@ -1195,19 +1174,19 @@
                         </div>
                     </div>
 
-                    <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-md border-l-8 border-red-500">
-                        <h3 class="font-bold text-xl mt-0 mb-2 flex items-center"><i class="fas fa-exchange-alt text-red-400 mr-3"></i> Asas Black</h3>
-                        <p class="text-sm text-gray-300 mb-3 leading-relaxed">
-                            Joseph Black merumuskan sebuah hukum kekekalan energi untuk kalor: <em>"Pada pencampuran dua zat, banyaknya kalor yang dilepas oleh zat yang suhunya lebih tinggi sama dengan banyaknya kalor yang diterima oleh zat yang suhunya lebih rendah."</em>
+                    <div class="bg-red-50 text-slate-800 p-6 rounded-2xl shadow-md border-l-8 border-red-500 mb-8">
+                        <h3 class="font-bold text-xl mt-0 mb-2 flex items-center text-red-900"><i class="fas fa-exchange-alt text-red-500 mr-3"></i> Asas Black</h3>
+                        <p class="text-sm text-red-800 mb-3 leading-relaxed">
+                            Joseph Black merumuskan sebuah hukum kekekalan energi untuk kalor: <em>"Pada pencampuran dua zat di dalam sistem terisolasi, banyaknya kalor yang dilepas oleh zat yang suhunya lebih tinggi sama dengan banyaknya kalor yang diterima oleh zat yang suhunya lebih rendah."</em>
                         </p>
-                        <div class="bg-slate-800 text-center py-3 rounded-xl border border-slate-700 font-mono text-xl text-yellow-400 font-black tracking-widest">
-                            Q<sub>lepas</sub> = Q<sub>terima</sub>
+                        <div class="bg-white text-center py-4 rounded-xl border border-red-200 text-xl text-red-600 font-black tracking-widest overflow-x-auto">
+                             Q<sub>lepas</sub> = Q<sub>terima</sub>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
+ 
         <section id="kalor-suhu" class="page-section content-body">
             <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors border border-orange-200">
                 <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kalor
@@ -1268,26 +1247,33 @@
 
                     <div class="bg-slate-50 p-6 rounded-3xl border border-slate-200 text-center mb-8 relative">
                         <h3 class="font-bold text-slate-700 mt-0 mb-6 uppercase tracking-wider text-sm">Diagram Segitiga Wujud Zat</h3>
-                        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 max-w-3xl mx-auto">
-                            <div class="text-center">
-                                <div class="w-20 h-20 bg-white border-4 border-slate-300 rounded-2xl flex items-center justify-center text-4xl shadow-md mx-auto mb-2">🧊</div>
-                                <span class="font-black text-slate-700">PADAT</span>
+                        <div class="relative w-full max-w-sm mx-auto h-72 sm:h-80">
+                            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-20">
+                                <div class="w-16 h-16 bg-white border-4 border-slate-300 rounded-2xl flex items-center justify-center text-3xl shadow-md mb-2">🧊</div>
+                                <span class="font-black text-slate-700 text-sm">PADAT</span>
                             </div>
-                            <div class="flex flex-col gap-2">
-                                <div class="bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full border border-red-200 whitespace-nowrap">Mencair (Q diserap) ➔</div>
-                                <div class="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full border border-blue-200 whitespace-nowrap">🠔 Membeku (Q dilepas)</div>
+                            
+                            <div class="absolute bottom-0 right-0 sm:right-4 flex flex-col items-center z-20">
+                                <div class="w-16 h-16 bg-blue-50 border-4 border-blue-300 rounded-full flex items-center justify-center text-3xl shadow-md mb-2">💧</div>
+                                <span class="font-black text-blue-700 text-sm">CAIR</span>
                             </div>
-                            <div class="text-center">
-                                <div class="w-20 h-20 bg-blue-50 border-4 border-blue-300 rounded-full flex items-center justify-center text-4xl shadow-md mx-auto mb-2">💧</div>
-                                <span class="font-black text-blue-700">CAIR</span>
+
+                            <div class="absolute bottom-0 left-0 sm:left-4 flex flex-col items-center z-20">
+                                <div class="w-16 h-16 bg-white border-4 border-slate-300 rounded-full border-dashed flex items-center justify-center text-3xl shadow-md mb-2">☁️</div>
+                                <span class="font-black text-slate-700 text-sm">GAS</span>
                             </div>
-                            <div class="flex flex-col gap-2">
-                                <div class="bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full border border-red-200 whitespace-nowrap">Menguap (Q diserap) ➔</div>
-                                <div class="bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 rounded-full border border-blue-200 whitespace-nowrap">🠔 Mengembun (Q dilepas)</div>
+
+                            <div class="absolute top-1/4 right-8 sm:right-16 transform rotate-45 flex flex-col items-center bg-white/80 backdrop-blur-sm p-1 rounded-md z-10 border border-slate-100">
+                                <span class="text-[10px] font-bold text-red-500">Mencair (+Q) ➔</span>
+                                <span class="text-[10px] font-bold text-blue-500">🠔 Membeku (-Q)</span>
                             </div>
-                            <div class="text-center">
-                                <div class="w-20 h-20 bg-white border-4 border-slate-300 rounded-full border-dashed flex items-center justify-center text-4xl shadow-md mx-auto mb-2">☁️</div>
-                                <span class="font-black text-slate-700">GAS</span>
+                            <div class="absolute top-1/4 left-8 sm:left-16 transform -rotate-45 flex flex-col items-center bg-white/80 backdrop-blur-sm p-1 rounded-md z-10 border border-slate-100">
+                                <span class="text-[10px] font-bold text-red-500">Menyublim (+Q) ➔</span>
+                                <span class="text-[10px] font-bold text-blue-500">🠔 Mengkristal (-Q)</span>
+                            </div>
+                            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center bg-white/80 backdrop-blur-sm p-1 rounded-md z-10 border border-slate-100 w-32">
+                                <span class="text-[10px] font-bold text-red-500">➔ Menguap (+Q)</span>
+                                <span class="text-[10px] font-bold text-blue-500">Mengembun (-Q) 🠔</span>
                             </div>
                         </div>
                     </div>
@@ -1505,33 +1491,32 @@
              <button onclick="navigateTo('sub-kalor')" class="mb-6 inline-flex items-center px-4 py-3 bg-orange-50 text-orange-700 font-bold rounded-xl hover:bg-orange-100 transition-colors border border-orange-200">
                 <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kalor
             </button>
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="bg-gradient-to-r from-green-500 to-emerald-600 px-6 sm:px-8 py-6 text-white">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><i class="fas fa-thumbtack mr-3 text-3xl transform rotate-45"></i> Rangkuman Kalor</h2>
-                </div>
-                <div class="p-6 sm:p-8 space-y-6">
-                    
-                    <div class="bg-green-50 border-l-4 border-green-500 p-5 rounded-r-2xl shadow-sm transition-transform hover:-translate-y-1">
-                        <h3 class="font-bold text-green-900 text-lg mb-2 mt-0">1. Energi Kalor & Suhu</h3>
-                        <p class="text-green-800 text-sm leading-relaxed m-0">Kalor berpindah dari benda panas ke dingin. Jumlah kalor yang mengubah suhu dihitung dengan <code class="bg-white px-2 py-0.5 rounded border border-green-200 text-green-700">Q = m.c.ΔT</code>. Keseimbangan campuran energi mematuhi Asas Black: <strong>Kalor Genap Lepas = Kalor Terima</strong>.</p>
+            <div class="bg-green-50 border-l-4 border-green-500 p-5 rounded-r-2xl shadow-sm transition-transform hover:-translate-y-1">
+                        <h3 class="font-bold text-green-900 text-lg mb-2 mt-0">1. Energi Kalor & Perubahan Suhu</h3>
+                        <p class="text-green-800 text-sm leading-relaxed m-0">Energi kalor yang diserap atau dilepas untuk mengubah suhu bergantung pada massa ($m$), kalor jenis ($c$), dan perubahan suhu ($\Delta T$): <br><br> $$Q = m c \Delta T$$</p>
+                    </div>
+
+                    <div class="bg-rose-50 border-l-4 border-rose-500 p-5 rounded-r-2xl shadow-sm transition-transform hover:-translate-y-1">
+                        <h3 class="font-bold text-rose-900 text-lg mb-2 mt-0">2. Asas Black (Kekekalan Energi Kalor)</h3>
+                        <p class="text-rose-800 text-sm leading-relaxed m-0">Pada sistem terisolasi sempurna (seperti kalorimeter), total energi tidak ada yang hilang. Benda panas melepas kalor yang besarnya persis sama dengan kalor yang diserap benda dingin hingga mencapai suhu keseimbangan termal ($T_c$).<br><br> $$Q_{\text{lepas}} = Q_{\text{terima}}$$</p>
                     </div>
 
                     <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-2xl shadow-sm transition-transform hover:-translate-y-1">
-                        <h3 class="font-bold text-blue-900 text-lg mb-2 mt-0">2. Kalor & Perubahan Wujud</h3>
-                        <p class="text-blue-800 text-sm leading-relaxed m-0">Saat berubah wujud (mencair, membeku, menguap), suhu benda konstan. Kalor yang diserap/dilepas disebut Kalor Laten: <code class="bg-white px-2 py-0.5 rounded border border-blue-200 text-blue-700">Q = m.L</code> (Lebur) atau <code class="bg-white px-2 py-0.5 rounded border border-blue-200 text-blue-700">Q = m.U</code> (Uap).</p>
+                        <h3 class="font-bold text-blue-900 text-lg mb-2 mt-0">3. Kalor Laten (Perubahan Wujud)</h3>
+                        <p class="text-blue-800 text-sm leading-relaxed m-0">Saat terjadi perubahan wujud (misal es mencair atau air menguap di pori biji kopi), suhu zat bernilai <strong>tetap</strong>. Kalor yang berperan adalah kalor lebur ($L$) atau kalor uap ($U$): <br><br> $$Q = m L \quad \text{atau} \quad Q = m U$$</p>
                     </div>
 
                     <div class="bg-teal-50 border-l-4 border-teal-500 p-5 rounded-r-2xl shadow-sm transition-transform hover:-translate-y-1">
-                        <h3 class="font-bold text-teal-900 text-lg mb-2 mt-0">3. Pemuaian</h3>
-                        <p class="text-teal-800 text-sm leading-relaxed m-0">Akibat panas, jarak partikel merenggang sehingga benda bertambah ukuran (Panjang, Luas, Volume). Anomali air terjadi pada 0-4&deg;C dimana volumenya justru menyusut saat dipanaskan.</p>
+                        <h3 class="font-bold text-teal-900 text-lg mb-2 mt-0">4. Pemuaian Zat</h3>
+                        <p class="text-teal-800 text-sm leading-relaxed m-0">Pertambahan dimensi zat padat linier dihitung dengan koefisien muai panjang ($\alpha$): $$\Delta L = L_0 \alpha \Delta T$$. Untuk muai luas ($\beta = 2\alpha$) dan muai volume ($\gamma = 3\alpha$).</p>
                     </div>
 
                     <div class="bg-amber-50 border-l-4 border-amber-500 p-5 rounded-r-2xl shadow-sm transition-transform hover:-translate-y-1">
-                        <h3 class="font-bold text-amber-900 text-lg mb-2 mt-0">4. Perpindahan Panas</h3>
-                        <ul class="text-sm text-amber-800 pl-4 m-0 space-y-1">
-                            <li><strong>Konduksi:</strong> Merambat pada zat padat tanpa memindah partikel.</li>
-                            <li><strong>Konveksi:</strong> Mengalir pada fluida (cair/gas) memindahkan partikel.</li>
-                            <li><strong>Radiasi:</strong> Memancar melalui gelombang EM tanpa butuh medium (hampa udara).</li>
+                        <h3 class="font-bold text-amber-900 text-lg mb-2 mt-0">5. Laju Perpindahan Kalor</h3>
+                        <ul class="text-sm text-amber-800 pl-4 m-0 space-y-2 list-disc">
+                            <li><strong>Konduksi:</strong> Merambat melalui medium padat. Laju kalor: $$H = \frac{k A \Delta T}{L}$$</li>
+                            <li><strong>Konveksi:</strong> Aliran melalui fluida (cair/gas). Laju kalor: $$H = h A \Delta T$$</li>
+                            <li><strong>Radiasi:</strong> Pancaran tanpa medium. Laju energi (Daya): $$P = e \sigma A T^4$$</li>
                         </ul>
                     </div>
 
@@ -1624,45 +1609,47 @@
                         </h3>
                         
                         <div class="space-y-4">
-                            <!-- Faktor 1: Jenis Proses/Preparasi Kopi -->
-                            <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-start gap-4">
+                            <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-start gap-4 hover:border-blue-300 transition-colors">
                                 <div class="bg-blue-100 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center font-black shrink-0 shadow-inner">1</div>
                                 <div>
-                                    <h4 class="font-bold text-slate-800 mb-1">Jenis Proses Pasca Panen (Preparasi)</h4>
-                                    <p class="text-sm text-slate-600 m-0 leading-relaxed">Lama pengeringan sangat bergantung pada wujud kopi yang dijemur. Misalnya, untuk proses *full wash* (sudah dikupas kulit buah dan lendirnya) dan proses *honey* membutuhkan waktu sekitar 10 hingga 15 hari pada musim kemarau[cite: 2]. Namun, untuk kopi proses *natural* (dijemur utuh berserta kulit buah merahnya atau gelondong merah), proses pengeringan bisa memakan waktu hingga satu bulan penuh[cite: 2].</p>
+                                    <h4 class="font-bold text-slate-800 mb-1">Suhu (Temperatur)</h4>
+                                    <p class="text-sm text-slate-600 m-0 leading-relaxed">Semakin tinggi suhu udara di sekitar biji kopi, semakin besar energi kinetik partikel air di dalamnya. Hal ini mempercepat laju evaporasi (penguapan). Namun, suhu yang terlalu ekstrem dapat merusak struktur sel dan cita rasa kopi.</p>
                                 </div>
                             </div>
                             
-                            <!-- Faktor 2: Kondisi Cuaca & Sirkulasi Udara -->
-                            <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-start gap-4">
+                            <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-start gap-4 hover:border-blue-300 transition-colors">
                                 <div class="bg-blue-100 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center font-black shrink-0 shadow-inner">2</div>
                                 <div>
-                                    <h4 class="font-bold text-slate-800 mb-1">Cuaca, Kelembapan, dan Sirkulasi Udara</h4>
-                                    <p class="text-sm text-slate-600 m-0 leading-relaxed">Musim kemarau mempercepat pengeringan[cite: 2]. Sebaliknya, jika cuaca mendung atau hujan, udara menjadi lembap dan basah yang memicu tumbuhnya jamur pembusuk[cite: 2]. Oleh karena itu, sirkulasi udara (angin) sangat vital. Meski cuaca mendung, kopi tetap harus dihamparkan (dibuka) di pagi hari agar sirkulasi udara tetap berjalan dan mencegah timbulnya efek jamur[cite: 2].</p>
+                                    <h4 class="font-bold text-slate-800 mb-1">Kelembapan Udara (Rh)</h4>
+                                    <p class="text-sm text-slate-600 m-0 leading-relaxed">Udara yang kering (kelembapan rendah) mampu menampung lebih banyak uap air dibandingkan udara lembap. Pengeringan akan terhambat saat cuaca mendung karena udara sekitar sudah jenuh dengan uap air.</p>
                                 </div>
                             </div>
                             
-                            <!-- Faktor 3: Perlakuan Fisik (Pembalikan) -->
-                            <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-start gap-4">
+                            <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-start gap-4 hover:border-blue-300 transition-colors">
                                 <div class="bg-blue-100 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center font-black shrink-0 shadow-inner">3</div>
                                 <div>
-                                    <h4 class="font-bold text-slate-800 mb-1">Perlakuan Fisik (Pembalikan Berkala)</h4>
-                                    <p class="text-sm text-slate-600 m-0 leading-relaxed">Suhu dan panas harus merata. Petani harus melakukan observasi ketat dan membolak-balik atau mengorak-arik tumpukan kopi setiap jam. Tujuannya agar pemanasan merata di semua sisi (bagian bawah, tengah, maupun atas) sehingga kadar air turun secara seragam[cite: 2].</p>
+                                    <h4 class="font-bold text-slate-800 mb-1">Luas Permukaan</h4>
+                                    <p class="text-sm text-slate-600 m-0 leading-relaxed">Biji kopi yang dihamparkan secara merata dan tipis memiliki luas permukaan kontak yang lebih besar dengan sinar matahari dan udara. Semakin luas permukaannya, semakin cepat proses perpindahan kalor dan penguapan terjadi.</p>
                                 </div>
                             </div>
 
-                             <!-- Faktor 4: Penggunaan Mesin vs Alami -->
-                             <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-start gap-4">
+                             <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-start gap-4 hover:border-blue-300 transition-colors">
                                 <div class="bg-blue-100 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center font-black shrink-0 shadow-inner">4</div>
                                 <div>
-                                    <h4 class="font-bold text-slate-800 mb-1">Sumber Energi (Mesin Pengering vs Matahari)</h4>
-                                    <p class="text-sm text-slate-600 m-0 leading-relaxed">Penggunaan mesin pengering (*drying machine*) berbahan bakar kayu atau gas LPG (untuk skala ratusan kilo) dapat memangkas waktu pengeringan secara drastis, hingga selesai hanya dalam setengah hari (tergantung besaran api/suhu)[cite: 2]. Metode mesin ini umumnya disukai oleh eksportir skala besar untuk mengejar waktu panen[cite: 2]. Akan tetapi, percepatan yang tidak alami ini pastinya akan membawa dampak terhadap kualitas dan cita rasa (profil *cupping*) kopi tersebut jika dibandingkan penjemuran alami[cite: 2].</p>
+                                    <h4 class="font-bold text-slate-800 mb-1">Tekanan Udara</h4>
+                                    <p class="text-sm text-slate-600 m-0 leading-relaxed">Penurunan tekanan udara di permukaan zat cair akan menurunkan titik didih air. Pada daerah dataran tinggi (perkebunan kopi), tekanan udara lebih rendah, sehingga air di dalam biji kopi dapat menguap pada suhu yang sedikit lebih rendah dari 100°C.</p>
                                 </div>
                             </div>
 
+                            <div class="bg-white p-5 rounded-2xl border border-slate-200 flex items-start gap-4 hover:border-blue-300 transition-colors">
+                                <div class="bg-blue-100 text-blue-600 w-10 h-10 rounded-xl flex items-center justify-center font-black shrink-0 shadow-inner">5</div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800 mb-1">Kecepatan Aliran Udara</h4>
+                                    <p class="text-sm text-slate-600 m-0 leading-relaxed">Hembusan angin membawa uap air yang berkumpul tepat di atas hamparan kopi. Sirkulasi udara yang baik menjaga perbedaan konsentrasi uap air antara permukaan biji kopi dan udara bebas, sehingga laju pengeringan tetap optimal (konveksi mekanis).</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -2274,71 +2261,108 @@
 
         // --- 2. LOGIKA LATIHAN SOAL (DARI SUB HALAMAN) ---
         const latihanSoalDB = {
-            suhu: [
+             suhu: [
                 {
-                    q: "Apa yang terjadi pada partikel benda secara mikroskopis ketika suhu benda tersebut dinaikkan?",
-                    opts: ["Partikel diam di tempat", "Energi kinetik partikel berkurang", "Energi kinetik partikel bertambah", "Partikel saling tolak menolak"],
+                    q: "Berdasarkan teori kinetik, suhu mutlak gas ideal berbanding lurus dengan parameter mikroskopis yaitu...",
+                    opts: ["Massa total gas", "Volume ruang wadah", "Energi kinetik rata-rata translasi", "Gaya gravitasi antar partikel"],
                     ans: 2,
-                    exp: "Suhu sebanding dengan energi kinetik rata-rata partikel. Jika suhu naik, partikel bergerak/bergetar lebih cepat sehingga energi kinetiknya bertambah."
+                    exp: "Secara fisis, besaran makroskopis Suhu ($T$) merepresentasikan rata-rata energi kinetik pergerakan atom/molekul ($E_k = \frac{3}{2} kT$)."
                 },
                 {
-                    q: "Termometer Celcius menunjukkan angka 45°C. Berapakah suhu tersebut jika diukur menggunakan termometer Reamur?",
-                    opts: ["36°R", "45°R", "50°R", "56°R"],
+                    q: "Apa prinsip termodinamika yang menjelaskan tangan terasa dingin saat menggenggam segelas cold brew coffee bersuhu 5°C?",
+                    opts: ["Tangan melepas energi kalornya menuju gelas kopi", "Tangan menyerap kalor laten peleburan", "Kopi memancarkan radiasi termal ke tangan", "Kapasitas kalor kopi lebih besar dari tangan"],
                     ans: 0,
-                    exp: "Perbandingan skala C : R adalah 5 : 4. Maka R = (4/5) × 45°C = 36°R."
+                    exp: "Panas (kalor) selalu berpindah dari suhu lebih tinggi (kulit/tangan) ke benda suhu rendah (gelas cold brew). Menghilangnya energi kalor dari kulit inilah yang direspon otak sebagai rasa dingin."
                 },
                 {
-                    q: "Sifat fisik dari suatu zat yang berubah secara teratur ketika suhunya berubah dan dimanfaatkan untuk membuat termometer disebut...",
-                    opts: ["Sifat anomali", "Sifat mekanik", "Sifat termometrik", "Sifat konduktor"],
-                    ans: 2,
-                    exp: "Sifat termometrik adalah sifat dasar zat yang berubah secara teratur jika suhunya berubah (misal: volume zat cair pada raksa yang memuai)."
+                    q: "Sebuah termometer custom berskala Z menetapkan titik beku air di 10°Z dan titik didih di 130°Z. Jika suhu hamparan kopi tercatat 40°C, termometer Z akan menunjuk angka...",
+                    opts: ["48°Z", "58°Z", "68°Z", "78°Z"],
+                    ans: 1,
+                    exp: "Gunakan interpolasi: $(Z - 10) / (130 - 10) = 40 / 100 \implies (Z - 10)/120 = 0,4 \implies Z = 48 + 10 = 58^\circ Z$."
                 },
                 {
-                    q: "Suhu mutlak dalam Satuan Internasional (SI) diukur menggunakan skala...",
-                    opts: ["Celcius", "Fahrenheit", "Kelvin", "Reamur"],
-                    ans: 2,
-                    exp: "Kelvin adalah satuan dasar SI untuk suhu karena didasarkan pada titik nol mutlak dimana energi kinetik partikel bernilai nol."
+                    q: "Berapa kenaikan suhu dalam kelvin jika dipanaskan dari 30°C hingga 80°C?",
+                    opts: ["50 K", "323 K", "353 K", "273 K"],
+                    ans: 0,
+                    exp: "Rentang/selisih suhu ($\Delta T$) pada skala Celcius sama persis dengan skala Kelvin. Kenaikan 50°C setara dengan kenaikan 50 Kelvin."
                 },
                 {
-                    q: "Suatu ruangan suhunya diukur 25°C. Jika diubah ke dalam skala Kelvin menjadi...",
-                    opts: ["248 K", "273 K", "298 K", "300 K"],
+                    q: "Termokopel adalah sensor alat ukur suhu yang banyak dipakai di industri sangrai kopi modern. Sifat termometrik termokopel didasarkan pada...",
+                    opts: ["Perubahan hambatan bahan semikonduktor", "Pemuaian panjang dua logam yang dilas", "Beda potensial (tegangan) akibat perbedaan suhu di dua ujung persambungan logam", "Intensitas panjang gelombang inframerah"],
                     ans: 2,
-                    exp: "Rumus konversi Celcius ke Kelvin adalah K = C + 273. Jadi, K = 25 + 273 = 298 K."
+                    exp: "Termokopel memanfaatkan efek Seebeck, yaitu timbulnya beda potensial (GGL) termotrik ketika ada beda suhu pada dua ujung sambungan logam berbeda."
+                },
+                {
+                    q: "Untuk mengukur suhu di dalam mesin furnace (tungku pemanas besar di atas 1000°C), alat ukur paling akurat dan aman untuk digunakan adalah...",
+                    opts: ["Termometer klinis raksa", "Termometer hambatan platina", "Pirometer optik", "Termometer bimetal spiral"],
+                    ans: 2,
+                    exp: "Pirometer optik mengukur suhu secara visual (tanpa kontak fisik) berdasarkan warna pijar radiasi termal dari sumber panas ekstrem."
                 }
             ],
             kalor: [
                 {
-                    q: "Manakah pernyataan yang paling tepat mengenai pengertian kalor?",
-                    opts: ["Energi yang terkandung secara statis dalam benda", "Bentuk energi yang berpindah akibat perbedaan suhu", "Derajat panas dinginnya suatu benda", "Zat cair yang digunakan untuk menaikkan suhu"],
+                    q: "Pernyataan yang membedakan Kalor dengan Suhu yang paling tepat di bawah ini adalah...",
+                    opts: ["Kalor dan suhu adalah besaran pokok Sistem Internasional (SI)", "Kalor adalah energi transfer antar benda, suhu adalah penentu arah transfer energi", "Suhu adalah energi panas total, kalor adalah energi rata-rata", "Kalor diukur dengan termometer, suhu dikalkulasi dengan Asas Black"],
                     ans: 1,
-                    exp: "Kalor adalah energi panas yang secara alami mengalir/berpindah dari benda bersuhu lebih tinggi ke benda bersuhu lebih rendah."
+                    exp: "Suhu menentukan ke mana arah transfer panas terjadi (dari Tinggi ke Rendah). Kalor adalah jumlah energi (Joule) yang sedang transit/berpindah tersebut."
                 },
                 {
-                    q: "Jika 2 kg air (kalor jenis = 4.200 J/kg°C) dipanaskan dari suhu 20°C menjadi 50°C, berapakah kalor yang diserap?",
-                    opts: ["252.000 J", "420.000 J", "168.000 J", "84.000 J"],
-                    ans: 0,
-                    exp: "Gunakan rumus Q = m.c.ΔT. ΔT = 50 - 20 = 30°C. Q = 2 × 4.200 × 30 = 252.000 Joule."
+                    q: "Sepotong baja panas dimasukkan ke dalam air bermassa sama namun bersuhu dingin dalam sistem terisolasi kalorimeter. Pernyataan sesuai Asas Black:",
+                    opts: ["Air mencapai suhu lebih rendah dari baja pada akhirnya", "Air akan mendidih seluruhnya dan baja mendingin", "Baja menerima energi kinetik dari air", "Energi (kalor) yang dilepas baja bernilai mutlak sama dengan yang diserap air"],
+                    ans: 3,
+                    exp: "Asas Black adalah prinsip kekekalan energi untuk kalor: Kalor yang dilepas ($Q_{out}$) sistem yang suhunya tinggi = kalor yang diserap ($Q_{in}$) sistem bersuhu rendah."
                 },
                 {
-                    q: "Proses merambatnya panas matahari menembus ruang hampa udara hingga sampai ke bumi merupakan contoh perpindahan kalor secara...",
-                    opts: ["Konduksi", "Konveksi", "Radiasi", "Evaporasi"],
+                    q: "Air 0,2 kg (c = 4200 J/kg°C) di 20°C dipanaskan menjadi 60°C. Daya kompor yang memanaskannya 280 Watt. Asumsikan efisiensi 100%, butuh waktu berapa lama?",
+                    opts: ["60 detik", "120 detik", "180 detik", "240 detik"],
+                    ans: 1,
+                    exp: "$Q = mc\Delta T = 0,2 \times 4200 \times 40 = 33.600$ J. Waktu $t = Q / \text{Daya} = 33.600 / 280 = 120$ detik."
+                },
+                {
+                    q: "Kopi susu dibuat dengan mencampur air kopi 100g (90°C) dan susu 50g (30°C). Asumsi kalor jenis keduanya sama. Suhu akhir campuran adalah...",
+                    opts: ["50°C", "60°C", "70°C", "80°C"],
                     ans: 2,
-                    exp: "Radiasi adalah perpindahan panas melalui pancaran gelombang elektromagnetik tanpa memerlukan perantara (medium), seperti cahaya matahari di ruang hampa."
+                    exp: "$m_{\text{kopi}}(90-T_c) = m_{\text{susu}}(T_c-30) \implies 100(90-T_c) = 50(T_c-30) \implies 180 - 2T_c = T_c - 30 \implies 210 = 3T_c \implies T_c = 70^\circ C$."
                 },
                 {
-                    q: "Menurut Asas Black, jika dua benda yang suhunya berbeda dicampurkan di dalam suatu wadah tertutup/terisolasi, maka...",
-                    opts: ["Kalor yang dilepas sama dengan kalor yang diterima", "Suhu kedua benda tetap berbeda", "Kalor akan hilang ke lingkungan", "Suhu campuran akan lebih tinggi dari suhu tertinggi"],
-                    ans: 0,
-                    exp: "Hukum kekekalan energi kalor (Asas Black) menyatakan bahwa benda yang suhunya tinggi melepas kalor (Q_lepas) sama besarnya dengan benda bersuhu rendah yang menyerap kalor (Q_terima)."
+                    q: "Massa jenis kopi yang dijemur akan mengecil sering berjalannya waktu. Ke mana perginya massa tersebut secara fisis?",
+                    opts: ["Mencair lalu meresap ke dalam lantai jemur", "Menerima Kalor Laten Uap lalu terlepas dari biji kopi ke udara sebagai gas (evaporasi)", "Memuai akibat konduksi lantai panas", "Termusnahkan oleh tingginya paparan sinar radiasi matahari"],
+                    ans: 1,
+                    exp: "Proses evaporasi terjadi saat partikel air dalam kopi menyerap kalor uap ($Q=mU$) sehingga cukup energi untuk memutus ikatan fasa cair dan lepas sebagai gas."
                 },
                 {
-                    q: "Rel kereta api diberi celah antar sambungannya untuk mencegah bengkok saat siang hari. Hal ini disebabkan oleh konsep fisika...",
-                    opts: ["Perubahan Wujud", "Konduksi Panas", "Pemuaian Panjang", "Kapasitas Kalor"],
+                    q: "Grafik pemanasan zat dari padat ke gas menunjukkan dua buah garis lurus horizontal searah sumbu waktu. Garis horizontal ini menandakan...",
+                    opts: ["Penurunan suhu lingkungan", "Suhu konstan selama energi difokuskan untuk memutus ikatan partikel (Perubahan wujud)", "Kapasitas kalor menurun pada wujud gas", "Tidak ada kalor yang masuk pada waktu tersebut"],
+                    ans: 1,
+                    exp: "Garis horizontal mencerminkan Kalor Laten ($L/U$). Seluruh kalor masuk dipakai merubah wujud fasa zat, sehingga suhu statis/konstan."
+                },
+                {
+                    q: "Pada percobaan laboratorium, sebuah tabung reaksi Pyrex disiram air panas tidak retak, namun botol kaca minuman biasa retak. Hal ini dikarenakan Pyrex memiliki...",
+                    opts: ["Koefisien konduktivitas tinggi", "Kalor lebur tinggi", "Koefisien muai panjang sangat kecil", "Kapasitas kalor mendekati nol"],
                     ans: 2,
-                    exp: "Panas matahari (peningkatan suhu) menyebabkan rel besi memuai (bertambah panjang). Celah diberikan sebagai ruang muai agar rel tidak melengkung."
+                    exp: "Pemuaian yang terjadi mendadak dan berbeda antar dinding akan meretakkan material. Pyrex dirancang dengan koefisien muai $\alpha$ sangat rendah sehingga relatif tidak memuai walau suhunya berubah tajam."
+                },
+                {
+                    q: "Pelat tembaga segi empat dengan panjang 40 cm dan lebar 25 cm memuai setelah suhunya naik 50°C. ($\alpha = 1,7 \times 10^{-5} /^\circ C$). Berapa penambahan luas pelat tersebut?",
+                    opts: ["0,00017 m²", "0,017 m²", "0,17 m²", "1,7 m²"],
+                    ans: 0,
+                    exp: "Luas awal $A_0 = 0,4 \times 0,25 = 0,1$ m². Koef muai luas $\beta = 2\alpha = 3,4 \times 10^{-5}$. $\Delta A = 0,1 \times (3,4 \times 10^{-5}) \times 50 = 1,7 \times 10^{-4}$ m² atau $0,00017$ m²." // Wait, let's make the answer option match exactly.
+                },
+                {
+                    q: "Hukum radiasi termal Stefan-Boltzmann menyatakan bahwa energi pancaran per detik sebanding dengan...",
+                    opts: ["Invers suhu ruang", "Luas penampang dan pangkat 4 suhu mutlak ($T^4$)", "Kapasitas kalor spesifik benda", "Ketebalan lapisan atmosfer"],
+                    ans: 1,
+                    exp: "Daya radiasi ($P = e\sigma A T^4$) bergantung pada emisivitas benda, luas permukaan penampang ($A$), dan suhu mutlak yang dipangkatkan 4."
+                },
+                {
+                    q: "Agar aliran konveksi di rumah pengering kopi (greenhouse) maksimal sehingga udara lembap terdorong keluar, petani mendesain ventilasi pembuangan atap di posisi paling tinggi. Mengapa?",
+                    opts: ["Udara lembap dan panas memiliki massa jenis (kerapatan) lebih rendah sehingga bergerak naik", "Udara panas akan membeku di bagian bawah", "Mencegah energi kalor radiasi masuk", "Konduktivitas atap sangat kecil terhadap angin luar"],
+                    ans: 0,
+                    exp: "Konveksi berjalan murni karena perbedaan massa jenis fluida. Udara panas memiliki kerapatan ($ρ$) lebih renggang sehingga selalu terdorong naik ke atas atap."
                 }
             ]
         };
+        
 
         let lsCurrentTopic = null;
         let lsQuestions = [];
