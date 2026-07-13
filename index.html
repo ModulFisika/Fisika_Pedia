@@ -1805,8 +1805,9 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             
                             <div class="bg-white border-2 border-orange-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-orange-400 transition-all flex flex-col h-full group">
-                                <div class="overflow-hidden rounded-xl mb-4 border border-orange-100">
-                                    <img src="Penjemuran_Pelataran.png" alt="Penjemuran Pelataran" class="w-full h-40 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                                <div class="overflow-hidden rounded-xl mb-4 border border-orange-100 relative">
+                                    <img src="Penjemuran_Pelataran.png" alt="Penjemuran Pelataran" class="w-full h-40 object-cover transform group-hover:scale-110 transition-transform duration-500 cursor-pointer" onclick="openImageModal(this.src)" title="Klik untuk memperbesar">
+                                    <div class="absolute top-2 right-2 bg-black/50 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"><i class="fas fa-search-plus"></i></div>
                                 </div>
                                 <h4 class="font-bold text-orange-900 text-lg mb-2">1. Pelataran Terbuka</h4>
                                 <p class="text-sm text-slate-600 mb-4 flex-grow leading-relaxed">Biji kopi dijemur langsung terpapar terik matahari. Karena lantai pelataran menyerap panas dari bawah, proses konduksi sangat kuat.</p>
@@ -1816,8 +1817,9 @@
                             </div>
                             
                             <div class="bg-white border-2 border-emerald-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-emerald-400 transition-all flex flex-col h-full group">
-                                <div class="overflow-hidden rounded-xl mb-4 border border-emerald-100">
-                                    <img src="Sistem_Greenhouse.png" alt="Sistem Greenhouse" class="w-full h-40 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                                <div class="overflow-hidden rounded-xl mb-4 border border-emerald-100 relative">
+                                    <img src="Sistem_Greenhouse.png" alt="Sistem Greenhouse" class="w-full h-40 object-cover transform group-hover:scale-110 transition-transform duration-500 cursor-pointer" onclick="openImageModal(this.src)" title="Klik untuk memperbesar">
+                                    <div class="absolute top-2 right-2 bg-black/50 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"><i class="fas fa-search-plus"></i></div>
                                 </div>
                                 <h4 class="font-bold text-emerald-900 text-lg mb-2">2. Sistem Greenhouse</h4>
                                 <p class="text-sm text-slate-600 mb-4 flex-grow leading-relaxed">Penjemuran dilakukan di dalam struktur beratap pelindung. Pemanasan terjadi lebih merata dan suhu sangat terjaga di dalamnya.</p>
@@ -1827,8 +1829,9 @@
                             </div>
 
                             <div class="bg-white border-2 border-blue-200 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-blue-400 transition-all flex flex-col h-full group">
-                                <div class="overflow-hidden rounded-xl mb-4 border border-blue-100">
-                                    <img src="Meja_Jemur.jpg" alt="Meja Jemur Para-para" class="w-full h-40 object-cover transform group-hover:scale-110 transition-transform duration-500">
+                                <div class="overflow-hidden rounded-xl mb-4 border border-blue-100 relative">
+                                    <img src="Meja_Jemur.jpg" alt="Meja Jemur Para-para" class="w-full h-40 object-cover transform group-hover:scale-110 transition-transform duration-500 cursor-pointer" onclick="openImageModal(this.src)" title="Klik untuk memperbesar">
+                                    <div class="absolute top-2 right-2 bg-black/50 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"><i class="fas fa-search-plus"></i></div>
                                 </div>
                                 <h4 class="font-bold text-blue-900 text-lg mb-2">3. Meja Jemur (Para-para)</h4>
                                 <p class="text-sm text-slate-600 mb-4 flex-grow leading-relaxed">Penjemuran di atas meja jaring. Sirkulasi udara (konveksi) mengalir bebas dari atas maupun bawah hamparan biji kopi.</p>
@@ -1889,6 +1892,12 @@
                     </div>
                 </div>
             </div>
+            <div id="image-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/90 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300" onclick="closeImageModal()">
+            <button class="absolute top-4 right-4 sm:top-8 sm:right-8 text-white bg-white/20 hover:bg-red-500 rounded-full w-12 h-12 flex items-center justify-center transition-colors z-10 shadow-lg backdrop-blur-md">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <img id="modal-image" src="" alt="Pop-up Image" class="max-w-full max-h-[90vh] rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.5)] transform scale-95 transition-transform duration-300 border-4 border-white" onclick="event.stopPropagation()">
+        </div>
         </section>
         
         <section id="kopi-pengaruh" class="page-section content-body">
@@ -2495,6 +2504,41 @@
         function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
         function openProfilePopup() { document.getElementById('profile-popup').classList.remove('hidden'); }
         function closeProfilePopup() { document.getElementById('profile-popup').classList.add('hidden'); }
+
+        // --- LOGIKA POP-UP GAMBAR (LIGHTBOX) ---
+        function openImageModal(imgSrc) {
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-image');
+            
+            // Set sumber gambar sesuai yang diklik
+            modalImg.src = imgSrc;
+            
+            // Tampilkan modal (hapus class hidden)
+            modal.classList.remove('hidden');
+            
+            // Beri sedikit jeda agar transisi Tailwind bisa berjalan mulus
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalImg.classList.remove('scale-95');
+                modalImg.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-image');
+            
+            // Mulai efek menghilang
+            modal.classList.add('opacity-0');
+            modalImg.classList.remove('scale-100');
+            modalImg.classList.add('scale-95');
+            
+            // Tunggu transisi selesai baru sembunyikan total
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modalImg.src = ''; // Bersihkan gambar
+            }, 300);
+        }
 
         // --- 2. LOGIKA LATIHAN SOAL (DARI SUB HALAMAN) ---
         const latihanSoalDB = {
