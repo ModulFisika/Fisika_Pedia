@@ -1056,7 +1056,7 @@
                     </div>
         </section>
 
-        <section id="suhu-alat" class="page-section content-body">
+       <section id="suhu-alat" class="page-section content-body">
             <button onclick="navigateTo('sub-suhu')" class="mb-6 inline-flex items-center px-4 py-3 bg-red-50 text-red-700 font-bold rounded-xl hover:bg-red-100 transition-colors shadow-sm w-full sm:w-auto justify-center sm:justify-start border border-red-200">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali ke Menu Suhu
@@ -1095,8 +1095,10 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
                         <!-- Card 1: Termometer Zat Cair -->
                         <div class="relative overflow-hidden rounded-2xl shadow-sm border border-gray-200 group bg-slate-50 cursor-pointer">
-                            <div class="p-8 text-center bg-white h-full transform transition-transform duration-500 group-hover:-translate-y-full">
-                                <div class="text-6xl mb-5 drop-shadow-md">🌡️</div>
+                            <div class="p-6 text-center bg-white h-full transform transition-transform duration-500 group-hover:-translate-y-full flex flex-col items-center">
+                                <div class="mb-4 h-24 w-full flex items-center justify-center">
+                                    <img src="termometer_cair.jpg" alt="Termometer Zat Cair" class="h-full w-auto object-contain mix-blend-multiply drop-shadow-md">
+                                </div>
                                 <h4 class="font-black text-gray-800 text-lg mb-2">Termometer Zat Cair</h4>
                                 <p class="text-xs text-gray-500 font-bold">Menggunakan Raksa atau Alkohol</p>
                             </div>
@@ -1110,8 +1112,10 @@
 
                         <!-- Card 2: Termometer Bimetal -->
                         <div class="relative overflow-hidden rounded-2xl shadow-sm border border-gray-200 group bg-slate-50 cursor-pointer">
-                            <div class="p-8 text-center bg-white h-full transform transition-transform duration-500 group-hover:-translate-y-full">
-                                <div class="text-6xl mb-5 drop-shadow-md text-gray-600">🛠️</div>
+                            <div class="p-6 text-center bg-white h-full transform transition-transform duration-500 group-hover:-translate-y-full flex flex-col items-center">
+                                <div class="mb-4 h-24 w-full flex items-center justify-center">
+                                    <img src="termometer_bimetal.jpg" alt="Termometer Bimetal" class="h-full w-auto object-contain mix-blend-multiply drop-shadow-md">
+                                </div>
                                 <h4 class="font-black text-gray-800 text-lg mb-2">Termometer Bimetal</h4>
                                 <p class="text-xs text-gray-500 font-bold">Banyak dipakai di oven/mesin</p>
                             </div>
@@ -1125,8 +1129,10 @@
 
                         <!-- Card 3: Termometer Digital -->
                         <div class="relative overflow-hidden rounded-2xl shadow-sm border border-gray-200 group bg-slate-50 cursor-pointer">
-                            <div class="p-8 text-center bg-white h-full transform transition-transform duration-500 group-hover:-translate-y-full">
-                                <div class="text-6xl mb-5 drop-shadow-md text-emerald-500">📱</div>
+                            <div class="p-6 text-center bg-white h-full transform transition-transform duration-500 group-hover:-translate-y-full flex flex-col items-center">
+                                <div class="mb-4 h-24 w-full flex items-center justify-center">
+                                    <img src="termometer_digital.jpg" alt="Termometer Digital" class="h-full w-auto object-contain mix-blend-multiply drop-shadow-md">
+                                </div>
                                 <h4 class="font-black text-gray-800 text-lg mb-2">Termometer Digital</h4>
                                 <p class="text-xs text-gray-500 font-bold">Aman, cepat & akurat (Termistor)</p>
                             </div>
@@ -1140,8 +1146,10 @@
 
                         <!-- Card 4: Termometer Inframerah -->
                         <div class="relative overflow-hidden rounded-2xl shadow-sm border border-gray-200 group bg-slate-50 cursor-pointer">
-                            <div class="p-8 text-center bg-white h-full transform transition-transform duration-500 group-hover:-translate-y-full">
-                                <div class="text-6xl mb-5 drop-shadow-md">🔫</div>
+                            <div class="p-6 text-center bg-white h-full transform transition-transform duration-500 group-hover:-translate-y-full flex flex-col items-center">
+                                <div class="mb-4 h-24 w-full flex items-center justify-center">
+                                    <img src="termometer_inframerah.jpg" alt="Termometer Inframerah" class="h-full w-auto object-contain mix-blend-multiply drop-shadow-md">
+                                </div>
                                 <h4 class="font-black text-gray-800 text-lg mb-2">Termometer Inframerah</h4>
                                 <p class="text-xs text-gray-500 font-bold">Pirometer / Thermo gun</p>
                             </div>
@@ -1168,35 +1176,36 @@
 
                 </div>
             </div>
-        <div class="border-t-2 border-blue-100 pt-8 mb-8">
-                        <h3 class="text-2xl font-black text-blue-900 mb-4 flex items-center"><i class="fas fa-graduation-cap text-red-500 mr-3"></i> Contoh Soal & Tutorial Instrumen</h3>
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            <div class="bg-blue-50 p-5 rounded-2xl border border-blue-200 flex flex-col">
-                                <span class="bg-blue-200 text-blue-800 text-xs px-2 py-0.5 rounded-md font-bold uppercase tracking-wider mb-2 inline-block w-max">Bimetal</span>
-                                <p class="text-blue-950 text-sm font-bold mb-3 flex-grow">Sebuah saklar pemutus termal mesin oven terbuat dari bimetal kuningan dan besi. Bagaimana cara kerjanya secara fisis jika suhu oven melampaui batas wajar?</p>
-                                <div class="bg-white p-4 rounded-xl border border-blue-100 text-sm text-gray-700 shadow-inner mt-auto">
-                                    <strong class="text-emerald-700 font-bold block mb-1">Tutorial:</strong>
-                                    <p class="text-xs text-gray-600 leading-relaxed m-0">Memanfaatkan sifat termometrik <strong>pemuaian panjang</strong> yang berbeda. Kuningan (koefisien muai lebih besar) memuai lebih cepat dari besi, sehingga pelat akan melengkung ke arah besi dan otomatis memutus kontak sirkuit arus listrik.</p>
-                                </div>
-                            </div>
-                            <div class="bg-blue-50 p-5 rounded-2xl border border-blue-200 flex flex-col">
-                                <span class="bg-blue-200 text-blue-800 text-xs px-2 py-0.5 rounded-md font-bold uppercase tracking-wider mb-2 inline-block w-max">Termistor</span>
-                                <p class="text-blue-950 text-sm font-bold mb-3 flex-grow">Bagaimana sebuah termometer digital medis dapat menampilkan angka suhu tubuh di layar padahal ia tidak menggunakan cairan raksa yang memuai?</p>
-                                <div class="bg-white p-4 rounded-xl border border-blue-100 text-sm text-gray-700 shadow-inner mt-auto">
-                                    <strong class="text-emerald-700 font-bold block mb-1">Tutorial:</strong>
-                                    <p class="text-xs text-gray-600 leading-relaxed m-0">Termometer digital menggunakan sensor elektronika (termistor/RTD). Sifat termometriknya adalah <strong>perubahan hambatan listrik</strong> bahan semikonduktor atau kawat logam yang nilainya berubah proporsional terhadap perubahan suhu sekitar.</p>
-                                </div>
-                            </div>
-                            <div class="bg-amber-50 p-5 rounded-2xl border border-amber-200 flex flex-col shadow-sm">
-                                <span class="bg-amber-200 text-amber-800 text-xs px-2 py-0.5 rounded-md font-bold uppercase tracking-wider mb-2 inline-block w-max">☕ Studi Kasus Kopi</span>
-                                <p class="text-amber-950 text-sm font-bold mb-3 flex-grow">Pak Jember rutin menggunakan <em>thermo gun</em> untuk menembak suhu hamparan kopi di pelataran dari jarak satu meter tanpa menyentuhnya. Instrumen apa ini dan bagaimana sifat termometriknya?</p>
-                                <div class="bg-white p-4 rounded-xl border border-amber-100 text-sm text-gray-700 shadow-inner mt-auto">
-                                    <strong class="text-emerald-700 font-bold block mb-1">Tutorial:</strong>
-                                    <p class="text-xs text-gray-600 leading-relaxed m-0">Alat ini adalah <strong>Termometer Inframerah (Pirometer)</strong>. Sifat termometriknya bekerja dengan cara menangkap dan mengukur <strong>pancaran energi gelombang inframerah (radiasi termal)</strong> yang secara alami dilepaskan oleh objek hangat (biji kopi).</p>
-                                </div>
-                            </div>
+            
+            <div class="border-t-2 border-blue-100 pt-8 mb-8">
+                <h3 class="text-2xl font-black text-blue-900 mb-4 flex items-center"><i class="fas fa-graduation-cap text-red-500 mr-3"></i> Contoh Soal & Tutorial Instrumen</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="bg-blue-50 p-5 rounded-2xl border border-blue-200 flex flex-col">
+                        <span class="bg-blue-200 text-blue-800 text-xs px-2 py-0.5 rounded-md font-bold uppercase tracking-wider mb-2 inline-block w-max">Bimetal</span>
+                        <p class="text-blue-950 text-sm font-bold mb-3 flex-grow">Sebuah saklar pemutus termal mesin oven terbuat dari bimetal kuningan dan besi. Bagaimana cara kerjanya secara fisis jika suhu oven melampaui batas wajar?</p>
+                        <div class="bg-white p-4 rounded-xl border border-blue-100 text-sm text-gray-700 shadow-inner mt-auto">
+                            <strong class="text-emerald-700 font-bold block mb-1">Tutorial:</strong>
+                            <p class="text-xs text-gray-600 leading-relaxed m-0">Memanfaatkan sifat termometrik <strong>pemuaian panjang</strong> yang berbeda. Kuningan (koefisien muai lebih besar) memuai lebih cepat dari besi, sehingga pelat akan melengkung ke arah besi dan otomatis memutus kontak sirkuit arus listrik.</p>
                         </div>
                     </div>
+                    <div class="bg-blue-50 p-5 rounded-2xl border border-blue-200 flex flex-col">
+                        <span class="bg-blue-200 text-blue-800 text-xs px-2 py-0.5 rounded-md font-bold uppercase tracking-wider mb-2 inline-block w-max">Termistor</span>
+                        <p class="text-blue-950 text-sm font-bold mb-3 flex-grow">Bagaimana sebuah termometer digital medis dapat menampilkan angka suhu tubuh di layar padahal ia tidak menggunakan cairan raksa yang memuai?</p>
+                        <div class="bg-white p-4 rounded-xl border border-blue-100 text-sm text-gray-700 shadow-inner mt-auto">
+                            <strong class="text-emerald-700 font-bold block mb-1">Tutorial:</strong>
+                            <p class="text-xs text-gray-600 leading-relaxed m-0">Termometer digital menggunakan sensor elektronika (termistor/RTD). Sifat termometriknya adalah <strong>perubahan hambatan listrik</strong> bahan semikonduktor atau kawat logam yang nilainya berubah proporsional terhadap perubahan suhu sekitar.</p>
+                        </div>
+                    </div>
+                    <div class="bg-amber-50 p-5 rounded-2xl border border-amber-200 flex flex-col shadow-sm">
+                        <span class="bg-amber-200 text-amber-800 text-xs px-2 py-0.5 rounded-md font-bold uppercase tracking-wider mb-2 inline-block w-max">☕ Studi Kasus Kopi</span>
+                        <p class="text-amber-950 text-sm font-bold mb-3 flex-grow">Pak Jember rutin menggunakan <em>thermo gun</em> untuk menembak suhu hamparan kopi di pelataran dari jarak satu meter tanpa menyentuhnya. Instrumen apa ini dan bagaimana sifat termometriknya?</p>
+                        <div class="bg-white p-4 rounded-xl border border-amber-100 text-sm text-gray-700 shadow-inner mt-auto">
+                            <strong class="text-emerald-700 font-bold block mb-1">Tutorial:</strong>
+                            <p class="text-xs text-gray-600 leading-relaxed m-0">Alat ini adalah <strong>Termometer Inframerah (Pirometer)</strong>. Sifat termometriknya bekerja dengan cara menangkap dan mengukur <strong>pancaran energi gelombang inframerah (radiasi termal)</strong> yang secara alami dilepaskan oleh objek hangat (biji kopi).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
        <section id="suhu-rangkuman" class="page-section content-body">
