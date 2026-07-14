@@ -112,6 +112,23 @@
         .correct-opt { background-color: #dcfce7 !important; border-color: #22c55e !important; color: #166534 !important; }
         .wrong-opt { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
         .disabled-opt { opacity: 0.6; cursor: not-allowed; transform: none !important; border-bottom-width: 2px !important; margin-bottom: 3px !important;}
+    
+        /* --- ANIMASI SIMULASI ASAS BLACK --- */
+@keyframes floatUpHeat {
+    0% { transform: translateY(0) scale(0.5) translateX(0); opacity: 1; background-color: #ef4444; }
+    50% { background-color: #f97316; }
+    100% { transform: translateY(-80px) scale(1.5) translateX(calc(-20px + 40px * var(--dirX))); opacity: 0; background-color: #fde047; }
+}
+
+.heat-particle {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: floatUpHeat 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col pt-16">
@@ -1319,10 +1336,7 @@
                             </p>
                         </div>
                     </div>
-                    <div class="my-6 p-8 border-2 border-dashed border-slate-300 rounded-2xl bg-slate-50 flex flex-col items-center justify-center text-center text-slate-400">
-                        <i class="fas fa-balance-scale-left text-4xl mb-2 text-orange-400"></i>
-                        <p class="font-bold text-slate-700 text-sm">[KOTAK MEDIA: PROSES ALIRAN PANAS MENUJU KESETIMBANGAN TERMAL]</p>
-                        <p class="text-xs text-slate-500 max-w-md mt-1">Disarankan memasukkan skema ilustrasi atau video simulasi perpindahan partikel kalor dari balok logam membara ke dalam wadah air dingin hingga kedua warna grafik suhu bertemu di satu titik konstan.</p>
+                    <div class="my-8 border-2 border-slate-200 rounded-3xl bg-white shadow-lg overflow-hidden relative group">
                     </div>
                     <div class="bg-red-50 text-slate-800 p-6 rounded-2xl shadow-md border-l-8 border-red-500 mb-8">
                         <h3 class="font-bold text-xl mt-0 mb-2 flex items-center text-red-900"><i class="fas fa-exchange-alt text-red-500 mr-3"></i> Asas Black</h3>
@@ -3431,6 +3445,88 @@
             if(document.getElementById('master-slider')) {
                 syncFromSlider(25);
             }
+            /* --- LOGIKA SIMULASI ASAS BLACK --- */
+let simInterval = null;
+let particleInterval = null;
+
+function runAsasBlackSim() {
+    const btn = document.getElementById('btn-start-sim');
+    const metal = document.getElementById('sim-metal');
+    const water = document.getElementById('sim-water');
+    const pathMetal = document.getElementById('graph-metal');
+    const pathWater = document.getElementById('graph-water');
+    const particleContainer = document.getElementById('sim-particles-container');
+    
+    // 1. Reset Kondisi Awal
+    clearInterval(simInterval);
+    clearInterval(particleInterval);
+    particleContainer.innerHTML = '';
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROSES TRANSFER...';
+    btn.classList.replace('from-orange-500', 'from-slate-400');
+    btn.classList.replace('to-red-500', 'to-slate-500');
+
+    metal.style.backgroundColor = '#dc2626'; 
+    water.style.backgroundColor = 'rgba(96, 165, 250, 0.8)'; 
+    
+    let time = 0;
+    let pointsMetal = [];
+    let pointsWater = [];
+
+    // 2. Animasi Grafik & Warna
+    simInterval = setInterval(() => {
+        time += 1;
+        let x = time; 
+        let k = 0.05;
+        
+        let yMetal = 50 - 40 * Math.exp(-k * time);
+        let yWater = 50 + 40 * Math.exp(-k * time);
+
+        pointsMetal.push(`${x},${yMetal}`);
+        pointsWater.push(`${x},${yWater}`);
+
+        pathMetal.setAttribute('points', pointsMetal.join(' '));
+        pathWater.setAttribute('points', pointsWater.join(' '));
+
+        let progress = 1 - Math.exp(-k * time);
+        
+        let mR = Math.round(220 - (220 - 16) * progress);
+        let mG = Math.round(38 + (185 - 38) * progress);
+        let mB = Math.round(38 + (129 - 38) * progress);
+        metal.style.backgroundColor = `rgb(${mR}, ${mG}, ${mB})`;
+
+        let wR = Math.round(96 - (96 - 16) * progress);
+        let wG = Math.round(165 + (185 - 165) * progress);
+        let wB = Math.round(250 - (250 - 129) * progress);
+        water.style.backgroundColor = `rgba(${wR}, ${wG}, ${wB}, 0.8)`;
+
+        if(time >= 100) {
+            clearInterval(simInterval);
+            clearInterval(particleInterval);
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-redo"></i> ULANGI SIMULASI';
+            btn.classList.replace('from-slate-400', 'from-emerald-500');
+            btn.classList.replace('to-slate-500', 'to-teal-600');
+            
+            metal.classList.add('scale-110');
+            setTimeout(() => metal.classList.remove('scale-110'), 300);
+        }
+    }, 40);
+
+    // 3. Animasi Partikel Kalor
+    particleInterval = setInterval(() => {
+        if(Math.random() > Math.exp(-0.03 * time)) return;
+
+        const p = document.createElement('div');
+        p.className = 'heat-particle';
+        p.style.setProperty('--dirX', Math.random() * 2 - 1);
+        particleContainer.appendChild(p);
+
+        setTimeout(() => {
+            if(particleContainer.contains(p)) p.remove();
+        }, 1500);
+    }, 100);
+}
         });
     </script>
 </body>
