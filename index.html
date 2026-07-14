@@ -112,23 +112,6 @@
         .correct-opt { background-color: #dcfce7 !important; border-color: #22c55e !important; color: #166534 !important; }
         .wrong-opt { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
         .disabled-opt { opacity: 0.6; cursor: not-allowed; transform: none !important; border-bottom-width: 2px !important; margin-bottom: 3px !important;}
-    
-        /* --- ANIMASI SIMULASI ASAS BLACK --- */
-@keyframes floatUpHeat {
-    0% { transform: translateY(0) scale(0.5) translateX(0); opacity: 1; background-color: #ef4444; }
-    50% { background-color: #f97316; }
-    100% { transform: translateY(-80px) scale(1.5) translateX(calc(-20px + 40px * var(--dirX))); opacity: 0; background-color: #fde047; }
-}
-
-.heat-particle {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    animation: floatUpHeat 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col pt-16">
@@ -1334,80 +1317,7 @@
                             <p class="text-sm text-blue-800 leading-relaxed m-0 relative z-10">
                                 <strong>Satu kalori</strong> didefinisikan sebagai banyaknya kalor yang diperlukan untuk menaikkan suhu <strong>1 gram air</strong> murni sebesar <strong>1&deg;C</strong> (tepatnya dari 14,5&deg;C ke 15,5&deg;C pada tekanan 1 atm).
                             </p>
-                        <div class="flex flex-col md:flex-row gap-6 mb-8">
-                        <div class="flex-1 bg-amber-50 border border-amber-200 p-6 rounded-2xl shadow-sm">
-                            <h3 class="font-bold text-amber-900 mt-0 mb-3 flex items-center"><i class="fas fa-balance-scale text-amber-500 mr-2"></i> Satuan Kalor</h3>
-                            <p class="text-sm text-amber-800 leading-relaxed m-0 mb-4">
-                                Karena kalor adalah bentuk energi, maka dalam Sistem Internasional (SI) satuan kalor adalah <strong>Joule (J)</strong>. Namun, dalam bidang gizi dan termodinamika klasik, satuan yang sering digunakan adalah <strong>kalori (kal)</strong>.
-                            </p>
-                            <div class="bg-white p-4 rounded-xl border border-amber-100 text-center font-mono font-bold text-amber-900">
-                                1 kalori = 4,2 Joule <br>
-                                1 Joule = 0,24 kalori
-                            </div>
-                        </div>
                         
-                        <div class="flex-1 bg-blue-50 border border-blue-200 p-6 rounded-2xl shadow-sm relative overflow-hidden group">
-                            <div class="absolute -right-4 -top-4 text-7xl opacity-10 group-hover:scale-110 transition-transform">☕</div>
-                            <h3 class="font-bold text-blue-900 mt-0 mb-3 flex items-center relative z-10"><i class="fas fa-info-circle text-blue-500 mr-2"></i> Definisi 1 Kalori</h3>
-                            <p class="text-sm text-blue-800 leading-relaxed m-0 relative z-10">
-                                <strong>Satu kalori</strong> didefinisikan sebagai banyaknya kalor yang diperlukan untuk menaikkan suhu <strong>1 gram air</strong> murni sebesar <strong>1&deg;C</strong> (tepatnya dari 14,5&deg;C ke 15,5&deg;C pada tekanan 1 atm).
-                            </p>
-                        </div>
-                    </div> <div class="my-8 border-2 border-slate-200 rounded-3xl bg-white shadow-lg overflow-hidden relative group">
-                        <div class="bg-gradient-to-r from-slate-800 to-slate-700 text-white p-5 flex flex-col sm:flex-row justify-between items-center gap-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-xl backdrop-blur-sm">🔄</div>
-                                <div>
-                                    <h4 class="font-black text-lg m-0 leading-none tracking-wide">Simulasi Kesetimbangan Termal</h4>
-                                    <p class="text-xs text-slate-300 m-0 mt-1">Hukum Kekekalan Energi Kalor (Asas Black)</p>
-                                </div>
-                            </div>
-                            <button id="btn-start-sim" onclick="runAsasBlackSim()" class="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-black px-6 py-2.5 rounded-xl shadow-[0_4px_15px_rgba(239,68,68,0.4)] transform transition-all hover:scale-105 active:scale-95 flex items-center gap-2 text-sm w-full sm:w-auto justify-center">
-                                <i class="fas fa-play"></i> MULAI SIMULASI
-                            </button>
-                        </div>
-
-                        <div class="flex flex-col md:flex-row p-6 gap-6 items-stretch bg-slate-50">
-                            
-                            <div class="w-full md:w-5/12 bg-white rounded-2xl border border-slate-200 p-4 flex flex-col items-center justify-center relative min-h-[280px] shadow-sm">
-                                <h5 class="text-xs font-black text-slate-400 mb-6 uppercase tracking-widest text-center w-full border-b border-slate-100 pb-2">Visualisasi Partikel</h5>
-                                
-                                <div class="relative w-40 h-48 border-x-4 border-b-4 border-slate-300 rounded-b-2xl flex items-end justify-center overflow-hidden bg-slate-50">
-                                    <div id="sim-water" class="w-full h-[85%] bg-blue-400/80 transition-colors duration-1000 relative flex items-end justify-center pb-2">
-                                        <div id="sim-metal" class="w-20 h-20 bg-red-600 border-2 border-black/20 rounded-lg shadow-lg transition-colors duration-1000 relative z-10 flex items-center justify-center text-white/50 text-2xl font-black">
-                                            Fe
-                                        </div>
-                                    </div>
-                                    <div id="sim-particles-container" class="absolute inset-0 pointer-events-none z-20 overflow-hidden"></div>
-                                </div>
-                            </div>
-
-                            <div class="w-full md:w-7/12 bg-white rounded-2xl border border-slate-200 p-5 flex flex-col shadow-sm">
-                                <h5 class="text-xs font-black text-slate-400 mb-4 uppercase tracking-widest text-center w-full border-b border-slate-100 pb-2">Grafik Suhu (T) vs Waktu (t)</h5>
-                                
-                                <div class="flex-1 relative w-full h-full min-h-[220px] ml-6 mb-4 border-l-2 border-b-2 border-slate-700">
-                                    <div class="absolute -left-8 top-0 text-[10px] font-bold text-slate-500">100°</div>
-                                    <div class="absolute -left-7 top-[50%] transform -translate-y-1/2 text-[10px] font-bold text-green-600">Tc</div>
-                                    <div class="absolute -left-6 bottom-0 text-[10px] font-bold text-slate-500">0°</div>
-                                    
-                                    <div class="absolute top-[50%] left-0 w-full border-t-2 border-dashed border-green-400/50"></div>
-
-                                    <svg class="w-full h-full overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
-                                        <polyline id="graph-metal" points="" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        <polyline id="graph-water" points="" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-
-                                    <div class="absolute -bottom-6 right-0 text-[10px] font-bold text-slate-500 uppercase">Waktu (s) ➔</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-4 border-t border-slate-100 flex flex-wrap justify-center gap-4 sm:gap-8 text-xs font-bold text-slate-600">
-                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-red-500 shadow-sm"></span> Logam (Melepas Kalor)</div>
-                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-blue-500 shadow-sm"></span> Air (Menerima Kalor)</div>
-                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-emerald-500 shadow-sm"></span> Kesetimbangan (Suhu Campuran)</div>
-                        </div>
-                    </div>
                     <div class="bg-red-50 text-slate-800 p-6 rounded-2xl shadow-md border-l-8 border-red-500 mb-8">
                         <h3 class="font-bold text-xl mt-0 mb-2 flex items-center text-red-900"><i class="fas fa-exchange-alt text-red-500 mr-3"></i> Asas Black</h3>
                         <p class="text-sm text-red-800 mb-3 leading-relaxed">
@@ -3515,88 +3425,6 @@
             if(document.getElementById('master-slider')) {
                 syncFromSlider(25);
             }
-            /* --- LOGIKA SIMULASI ASAS BLACK --- */
-let simInterval = null;
-let particleInterval = null;
-
-function runAsasBlackSim() {
-    const btn = document.getElementById('btn-start-sim');
-    const metal = document.getElementById('sim-metal');
-    const water = document.getElementById('sim-water');
-    const pathMetal = document.getElementById('graph-metal');
-    const pathWater = document.getElementById('graph-water');
-    const particleContainer = document.getElementById('sim-particles-container');
-    
-    // 1. Reset Kondisi Awal
-    clearInterval(simInterval);
-    clearInterval(particleInterval);
-    particleContainer.innerHTML = '';
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PROSES TRANSFER...';
-    btn.classList.replace('from-orange-500', 'from-slate-400');
-    btn.classList.replace('to-red-500', 'to-slate-500');
-
-    metal.style.backgroundColor = '#dc2626'; 
-    water.style.backgroundColor = 'rgba(96, 165, 250, 0.8)'; 
-    
-    let time = 0;
-    let pointsMetal = [];
-    let pointsWater = [];
-
-    // 2. Animasi Grafik & Warna
-    simInterval = setInterval(() => {
-        time += 1;
-        let x = time; 
-        let k = 0.05;
-        
-        let yMetal = 50 - 40 * Math.exp(-k * time);
-        let yWater = 50 + 40 * Math.exp(-k * time);
-
-        pointsMetal.push(`${x},${yMetal}`);
-        pointsWater.push(`${x},${yWater}`);
-
-        pathMetal.setAttribute('points', pointsMetal.join(' '));
-        pathWater.setAttribute('points', pointsWater.join(' '));
-
-        let progress = 1 - Math.exp(-k * time);
-        
-        let mR = Math.round(220 - (220 - 16) * progress);
-        let mG = Math.round(38 + (185 - 38) * progress);
-        let mB = Math.round(38 + (129 - 38) * progress);
-        metal.style.backgroundColor = `rgb(${mR}, ${mG}, ${mB})`;
-
-        let wR = Math.round(96 - (96 - 16) * progress);
-        let wG = Math.round(165 + (185 - 165) * progress);
-        let wB = Math.round(250 - (250 - 129) * progress);
-        water.style.backgroundColor = `rgba(${wR}, ${wG}, ${wB}, 0.8)`;
-
-        if(time >= 100) {
-            clearInterval(simInterval);
-            clearInterval(particleInterval);
-            btn.disabled = false;
-            btn.innerHTML = '<i class="fas fa-redo"></i> ULANGI SIMULASI';
-            btn.classList.replace('from-slate-400', 'from-emerald-500');
-            btn.classList.replace('to-slate-500', 'to-teal-600');
-            
-            metal.classList.add('scale-110');
-            setTimeout(() => metal.classList.remove('scale-110'), 300);
-        }
-    }, 40);
-
-    // 3. Animasi Partikel Kalor
-    particleInterval = setInterval(() => {
-        if(Math.random() > Math.exp(-0.03 * time)) return;
-
-        const p = document.createElement('div');
-        p.className = 'heat-particle';
-        p.style.setProperty('--dirX', Math.random() * 2 - 1);
-        particleContainer.appendChild(p);
-
-        setTimeout(() => {
-            if(particleContainer.contains(p)) p.remove();
-        }, 1500);
-    }, 100);
-}
         });
     </script>
 </body>
