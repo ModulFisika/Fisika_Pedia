@@ -1998,26 +1998,34 @@
                     </p>
 
                     <!-- AWAL KODE ILUSTRASI YANG DITAMBAHKAN -->
-                    <div class="mb-12 bg-slate-50 border-2 border-slate-200 rounded-3xl p-5 sm:p-8 shadow-inner text-center">
-                        <span class="bg-orange-100 text-orange-700 font-bold px-4 py-1.5 rounded-full text-xs tracking-widest shadow-sm inline-block mb-4 uppercase">Visualisasi Konsep</span>
-                        <h3 class="font-black text-slate-800 text-2xl mb-6">Mekanisme Kalor pada Pengeringan Kopi</h3>
-                        
-                        <!-- Interaktif Gambar (Bisa di-klik zoom) -->
-                        <div class="overflow-hidden rounded-2xl border-2 border-slate-200 relative group max-w-4xl mx-auto cursor-pointer shadow-sm hover:shadow-lg transition-all" onclick="openImageModal('ilustrasi_mejapengering.png')">
-                            <img src="ilustrasi_mejapengering.png" alt="Ilustrasi Konsep Perpindahan Kalor Pengeringan Kopi" class="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-500">
-                            
-                            <!-- Overlay Hover -->
-                            <div class="absolute inset-0 bg-slate-900/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <span class="bg-white text-slate-800 font-black px-5 py-3 rounded-xl flex items-center gap-2 shadow-2xl transform scale-90 group-hover:scale-100 transition-transform">
-                                    <i class="fas fa-search-plus text-blue-500"></i> KLIK UNTUK PERBESAR
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <p class="text-sm text-slate-500 mt-5 font-medium max-w-3xl mx-auto leading-relaxed">
-                            Diagram di atas memvisualisasikan bagaimana suhu dari matahari dan lingkungan bekerja sama menciptakan proses radiasi, konduksi, dan konveksi secara serentak untuk menurunkan kadar air pada kopi.
-                        </p>
-                    </div>
+                   <div class="mb-12 bg-slate-50 border-2 border-slate-200 rounded-3xl p-5 sm:p-8 shadow-inner text-center">
+    <span class="bg-orange-100 text-orange-700 font-bold px-4 py-1.5 rounded-full text-xs tracking-widest shadow-sm inline-block mb-4 uppercase">Visualisasi Konsep</span>
+    <h3 class="font-black text-slate-800 text-2xl mb-6">Mekanisme Kalor pada Pengeringan Kopi</h3>
+    
+    <div class="overflow-hidden rounded-2xl border-2 border-slate-200 relative group max-w-4xl mx-auto cursor-pointer shadow-sm hover:shadow-lg transition-all" 
+         onclick="openImageModal('ilustrasi_lantai.png')">
+        
+        <img src="ilustrasi_lantai.png" 
+             alt="Ilustrasi Konsep Perpindahan Kalor Pengeringan Kopi" 
+             class="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-500">
+        
+        <div class="absolute inset-0 bg-slate-900/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <span class="bg-white text-slate-800 font-black px-5 py-3 rounded-xl flex items-center gap-2 shadow-2xl transform scale-90 group-hover:scale-100 transition-transform">
+                <i class="fas fa-search-plus text-blue-500"></i> KLIK UNTUK PERBESAR
+            </span>
+        </div>
+    </div>
+    
+    <p class="text-sm text-slate-500 mt-5 font-medium max-w-3xl mx-auto leading-relaxed">
+        Diagram di atas memvisualisasikan bagaimana suhu dari matahari dan lingkungan bekerja sama menciptakan proses radiasi, konduksi, dan konveksi secara serentak untuk menurunkan kadar air pada kopi.
+    </p>
+</div>
+    <div id="image-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/90 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300" onclick="closeImageModal()">
+    <button class="absolute top-4 right-4 sm:top-8 sm:right-8 text-white bg-white/20 hover:bg-red-500 rounded-full w-12 h-12 flex items-center justify-center transition-colors z-10 shadow-lg backdrop-blur-md">
+        <i class="fas fa-times text-2xl"></i>
+    </button>
+    <img id="modal-image" src="" alt="Pop-up Image" class="max-w-full max-h-[90vh] rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.5)] transform scale-95 transition-transform duration-300 border-4 border-white" onclick="event.stopPropagation()">
+</div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                         
