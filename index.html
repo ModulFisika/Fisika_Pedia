@@ -2013,25 +2013,44 @@
             </div>
 
             <!-- Analisis Fisika Pendukung -->
-            <div class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-2xl mb-8 shadow-sm">
-                <h3 class="text-lg font-extrabold text-amber-900 mt-0 mb-3">Analisis Fisika pada Ilustrasi:</h3>
-                <ul class="space-y-3 text-gray-700 text-sm sm:text-base">
-                    <li class="flex items-start">
-                        <span class="text-amber-600 mr-3 mt-1"><i class="fas fa-radiation"></i></span>
-                        <span><strong>Radiasi:</strong> Energi panas matahari memancar langsung diserap oleh permukaan atas biji kopi.</span>
-                    </li>
-                    <li class="flex items-start">
-                        <span class="text-amber-600 mr-3 mt-1"><i class="fas fa-fire"></i></span>
-                        <span><strong>Konduksi:</strong> Panas dari lantai semen/ubin ditransfer secara langsung ke bagian bawah biji kopi yang bersentuhan.</span>
-                    </li>
-                    <li class="flex items-start">
-                        <span class="text-amber-600 mr-3 mt-1"><i class="fas fa-wind"></i></span>
-                        <span><strong>Konveksi & Evaporasi:</strong> Aliran udara membawa uap air keluar dari biji kopi sehingga mempercepat proses penurunan kadar air.</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        
+                        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 shadow-sm hover:-translate-y-2 transition-transform duration-300">
+                            <div class="w-14 h-14 bg-amber-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-md transform rotate-3">
+                                <i class="fas fa-sun"></i>
+                            </div>
+                            <span class="text-[10px] font-black uppercase tracking-widest text-amber-600 bg-amber-100 px-2 py-1 rounded mb-2 inline-block">Mekanisme 1</span>
+                            <h4 class="font-black text-amber-900 text-lg mt-0 mb-2">Radiasi Matahari</h4>
+                            <p class="text-sm text-amber-800 leading-relaxed mb-4">Pancaran gelombang elektromagnetik dari matahari langsung menyentuh hamparan kopi, menyuplai energi panas utama tanpa perantara apa pun.</p>
+                            <div class="bg-white px-3 py-2 rounded-xl text-xs font-bold text-amber-700 border border-amber-100 flex items-start gap-2">
+                                <i class="fas fa-search mt-0.5 opacity-50"></i> Fokus pada area hamparan kopi teratas.
+                            </div>
+                        </div>
+
+                        <div class="bg-orange-50 border border-orange-200 rounded-2xl p-6 shadow-sm hover:-translate-y-2 transition-transform duration-300">
+                            <div class="w-14 h-14 bg-orange-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-md transform -rotate-3">
+                                <i class="fas fa-border-all"></i>
+                            </div>
+                            <span class="text-[10px] font-black uppercase tracking-widest text-orange-600 bg-orange-100 px-2 py-1 rounded mb-2 inline-block">Mekanisme 2</span>
+                            <h4 class="font-black text-orange-900 text-lg mt-0 mb-2">Hantaran Lantai Jemur</h4>
+                            <p class="text-sm text-orange-800 leading-relaxed mb-4">Lantai semen menyerap panas radiasi. Saat biji kopi bersentuhan langsung dengan lantai panas, kalor merambat (konduksi) masuk ke pori-pori kopi.</p>
+                            <div class="bg-white px-3 py-2 rounded-xl text-xs font-bold text-orange-700 border border-orange-100 flex items-start gap-2">
+                                <i class="fas fa-search mt-0.5 opacity-50"></i> Memanaskan kopi bagian bawah/dasar.
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 rounded-2xl p-6 shadow-sm hover:-translate-y-2 transition-transform duration-300">
+                            <div class="w-14 h-14 bg-blue-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-md transform rotate-3">
+                                <i class="fas fa-wind"></i>
+                            </div>
+                            <span class="text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-100 px-2 py-1 rounded mb-2 inline-block">Mekanisme 3</span>
+                            <h4 class="font-black text-blue-900 text-lg mt-0 mb-2">Sirkulasi Angin</h4>
+                            <p class="text-sm text-blue-800 leading-relaxed mb-4">Air di dalam kopi yang panas akan menguap. Aliran udara (angin) mengangkut uap air tersebut menjauh, sehingga udara tetap kering untuk melanjutkan penguapan.</p>
+                            <div class="bg-white px-3 py-2 rounded-xl text-xs font-bold text-blue-700 border border-blue-100 flex items-start gap-2">
+                                <i class="fas fa-search mt-0.5 opacity-50"></i> Menjaga kelembapan tetap rendah.
+                            </div>
+                        </div>
+                    </div>
 
     <div class="mt-8 flex justify-start">
         <button onclick="navigateTo('sub-kopi')" class="inline-flex items-center px-4 py-3 bg-amber-50 text-amber-700 font-bold rounded-xl hover:bg-amber-100 transition-colors shadow-sm w-full sm:w-auto justify-center border border-amber-200">
