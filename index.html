@@ -1981,99 +1981,77 @@
                     </div>
         </section>
         
-        <section id="kopi-pengaruh" class="page-section content-body">
-            <button onclick="navigateTo('sub-kopi')" class="mb-6 inline-flex items-center px-4 py-3 bg-amber-50 text-amber-700 font-bold rounded-xl hover:bg-amber-100 border border-amber-200 shadow-sm transition-colors">
-                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kopi
-            </button>
-            
-            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="bg-gradient-to-r from-amber-600 to-orange-600 px-6 sm:px-8 py-6 text-white relative overflow-hidden">
-                    <div class="absolute right-0 bottom-0 text-7xl opacity-20 transform translate-x-5 translate-y-5">☕</div>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0 relative z-10"><span class="text-3xl sm:text-4xl mr-3">☀️</span> Peran Suhu & Kalor</h2>
-                </div>
-                
-                <div class="p-6 sm:p-8">
-                    <p class="text-lg text-gray-700 mb-8 leading-relaxed">
-                        Pengeringan kopi adalah laboratorium termodinamika alam yang sempurna. Selama proses penjemuran berlangsung, terjadi <strong>tiga mekanisme perpindahan kalor sekaligus</strong> untuk mengubah molekul air menjadi uap (evaporasi).
-                    </p>
-
-                    <!-- AWAL KODE ILUSTRASI YANG DITAMBAHKAN -->
-                   <div class="mb-12 bg-slate-50 border-2 border-slate-200 rounded-3xl p-5 sm:p-8 shadow-inner text-center">
-    <span class="bg-orange-100 text-orange-700 font-bold px-4 py-1.5 rounded-full text-xs tracking-widest shadow-sm inline-block mb-4 uppercase">Visualisasi Konsep</span>
-    <h3 class="font-black text-slate-800 text-2xl mb-6">Mekanisme Kalor pada Pengeringan Kopi</h3>
+        <!-- Sub Halaman: Peran Suhu & Kalor pada Pengeringan Kopi -->
+<section id="kopi-pengaruh" class="page-section content-body">
+    <button onclick="navigateTo('sub-kopi')" class="mb-6 inline-flex items-center px-4 py-3 bg-amber-50 text-amber-700 font-bold rounded-xl hover:bg-amber-100 transition-colors shadow-sm w-full sm:w-auto justify-center sm:justify-start border border-amber-200">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        Kembali ke Menu Kopi
+    </button>
     
-    <div class="overflow-hidden rounded-2xl border-2 border-slate-200 relative group max-w-4xl mx-auto cursor-pointer shadow-sm hover:shadow-lg transition-all" 
-         onclick="openImageModal('ilustrasi_lantai.png')">
+    <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="bg-gradient-to-r from-amber-600 to-amber-700 px-6 sm:px-8 py-6 text-white">
+            <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0"><span class="text-3xl sm:text-4xl mr-3">☀️</span> Peran Suhu & Kalor</h2>
+        </div>
         
-        <img src="ilustrasi_lantai.png" 
-             alt="Ilustrasi Konsep Perpindahan Kalor Pengeringan Kopi" 
-             class="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-500">
-        
-        <div class="absolute inset-0 bg-slate-900/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <span class="bg-white text-slate-800 font-black px-5 py-3 rounded-xl flex items-center gap-2 shadow-2xl transform scale-90 group-hover:scale-100 transition-transform">
-                <i class="fas fa-search-plus text-blue-500"></i> KLIK UNTUK PERBESAR
-            </span>
+        <div class="p-6 sm:p-8">
+            <p class="text-lg leading-relaxed text-gray-700 mb-6">
+                Proses pengeringan kopi memanfaatkan tiga mekanisme perpindahan kalor secara simultan, yaitu <strong>radiasi</strong>, <strong>konduksi</strong>, dan <strong>konveksi</strong>. Untuk memahami bagaimana panas mengalir dari lingkungan ke biji kopi, perhatikan ilustrasi mekanisme lantai jemur di bawah ini.
+            </p>
+
+            <!-- Container Gambar Klik Pop-Up -->
+            <div class="my-8 flex flex-col items-center">
+                <div class="relative group cursor-pointer overflow-hidden rounded-2xl border-4 border-amber-100 shadow-md max-w-xl w-full transition-all duration-300 hover:scale-[1.02] hover:shadow-lg" onclick="openCoffeeModal()">
+                    <img src="ilustrasi_lantai.png" alt="Ilustrasi Mekanisme Pengeringan Kopi" class="w-full h-auto object-cover">
+                    <!-- Overlay saat kursor diarahkan (hover) -->
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white font-bold text-lg">
+                        <div class="bg-amber-600/95 px-5 py-2.5 rounded-full flex items-center gap-2 shadow-lg">
+                            <i class="fas fa-search-plus"></i> Klik untuk Perbesar
+                        </div>
+                    </div>
+                </div>
+                <span class="text-sm text-gray-500 mt-3 italic text-center">Gambar: Distribusi perpindahan panas dan penguapan air pada lantai pengeringan kopi (Klik gambar untuk melihat detail).</span>
+            </div>
+
+            <!-- Analisis Fisika Pendukung -->
+            <div class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-2xl mb-8 shadow-sm">
+                <h3 class="text-lg font-extrabold text-amber-900 mt-0 mb-3">Analisis Fisika pada Ilustrasi:</h3>
+                <ul class="space-y-3 text-gray-700 text-sm sm:text-base">
+                    <li class="flex items-start">
+                        <span class="text-amber-600 mr-3 mt-1"><i class="fas fa-radiation"></i></span>
+                        <span><strong>Radiasi:</strong> Energi panas matahari memancar langsung diserap oleh permukaan atas biji kopi.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-amber-600 mr-3 mt-1"><i class="fas fa-fire"></i></span>
+                        <span><strong>Konduksi:</strong> Panas dari lantai semen/ubin ditransfer secara langsung ke bagian bawah biji kopi yang bersentuhan.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-amber-600 mr-3 mt-1"><i class="fas fa-wind"></i></span>
+                        <span><strong>Konveksi & Evaporasi:</strong> Aliran udara membawa uap air keluar dari biji kopi sehingga mempercepat proses penurunan kadar air.</span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-    
-    <p class="text-sm text-slate-500 mt-5 font-medium max-w-3xl mx-auto leading-relaxed">
-        Diagram di atas memvisualisasikan bagaimana suhu dari matahari dan lingkungan bekerja sama menciptakan proses radiasi, konduksi, dan konveksi secara serentak untuk menurunkan kadar air pada kopi.
-    </p>
+
+    <div class="mt-8 flex justify-start">
+        <button onclick="navigateTo('sub-kopi')" class="inline-flex items-center px-4 py-3 bg-amber-50 text-amber-700 font-bold rounded-xl hover:bg-amber-100 transition-colors shadow-sm w-full sm:w-auto justify-center border border-amber-200">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Kembali ke Menu Kopi
+        </button>
+    </div>
+    <!-- Modal Pop-Up Gambar -->
+<div id="coffee-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 hidden opacity-0 transition-opacity duration-300 pointer-events-none" onclick="closeCoffeeModal()">
+    <div class="relative max-w-4xl max-h-[90vh] p-4 flex flex-col items-center justify-center" onclick="event.stopPropagation()">
+        <!-- Tombol Close -->
+        <button onclick="closeCoffeeModal()" class="absolute top-6 right-6 text-white hover:text-amber-400 text-4xl font-bold bg-black/50 hover:bg-black/80 w-12 h-12 rounded-full flex items-center justify-center transition-colors shadow-md z-50">
+            &times;
+        </button>
+        <!-- Gambar Pop-Up -->
+        <img src="ilustrasi_lantai.png" alt="Ilustrasi Lantai Pengeringan Kopi" class="max-w-full max-h-[80vh] rounded-2xl object-contain shadow-2xl border-4 border-white/10 anim-pop">
+        <p class="text-white text-center mt-4 font-semibold text-sm bg-black/60 px-5 py-2 rounded-full shadow-lg">Ilustrasi Perpindahan Kalor pada Lantai Jemur Kopi</p>
+    </div>
 </div>
-    <div id="image-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/90 backdrop-blur-sm p-4 opacity-0 transition-opacity duration-300" onclick="closeImageModal()">
-    <button class="absolute top-4 right-4 sm:top-8 sm:right-8 text-white bg-white/20 hover:bg-red-500 rounded-full w-12 h-12 flex items-center justify-center transition-colors z-10 shadow-lg backdrop-blur-md">
-        <i class="fas fa-times text-2xl"></i>
-    </button>
-    <img id="modal-image" src="" alt="Pop-up Image" class="max-w-full max-h-[90vh] rounded-3xl shadow-[0_0_40px_rgba(0,0,0,0.5)] transform scale-95 transition-transform duration-300 border-4 border-white" onclick="event.stopPropagation()">
-</div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                        
-                        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 shadow-sm hover:-translate-y-2 transition-transform duration-300">
-                            <div class="w-14 h-14 bg-amber-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-md transform rotate-3">
-                                <i class="fas fa-sun"></i>
-                            </div>
-                            <span class="text-[10px] font-black uppercase tracking-widest text-amber-600 bg-amber-100 px-2 py-1 rounded mb-2 inline-block">Mekanisme 1</span>
-                            <h4 class="font-black text-amber-900 text-lg mt-0 mb-2">Radiasi Matahari</h4>
-                            <p class="text-sm text-amber-800 leading-relaxed mb-4">Pancaran gelombang elektromagnetik dari matahari langsung menyentuh hamparan kopi, menyuplai energi panas utama tanpa perantara apa pun.</p>
-                            <div class="bg-white px-3 py-2 rounded-xl text-xs font-bold text-amber-700 border border-amber-100 flex items-start gap-2">
-                                <i class="fas fa-search mt-0.5 opacity-50"></i> Fokus pada area hamparan kopi teratas.
-                            </div>
-                        </div>
-
-                        <div class="bg-orange-50 border border-orange-200 rounded-2xl p-6 shadow-sm hover:-translate-y-2 transition-transform duration-300">
-                            <div class="w-14 h-14 bg-orange-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-md transform -rotate-3">
-                                <i class="fas fa-border-all"></i>
-                            </div>
-                            <span class="text-[10px] font-black uppercase tracking-widest text-orange-600 bg-orange-100 px-2 py-1 rounded mb-2 inline-block">Mekanisme 2</span>
-                            <h4 class="font-black text-orange-900 text-lg mt-0 mb-2">Hantaran Lantai Jemur</h4>
-                            <p class="text-sm text-orange-800 leading-relaxed mb-4">Lantai semen menyerap panas radiasi. Saat biji kopi bersentuhan langsung dengan lantai panas, kalor merambat (konduksi) masuk ke pori-pori kopi.</p>
-                            <div class="bg-white px-3 py-2 rounded-xl text-xs font-bold text-orange-700 border border-orange-100 flex items-start gap-2">
-                                <i class="fas fa-search mt-0.5 opacity-50"></i> Memanaskan kopi bagian bawah/dasar.
-                            </div>
-                        </div>
-
-                        <div class="bg-blue-50 border border-blue-200 rounded-2xl p-6 shadow-sm hover:-translate-y-2 transition-transform duration-300">
-                            <div class="w-14 h-14 bg-blue-500 text-white rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-md transform rotate-3">
-                                <i class="fas fa-wind"></i>
-                            </div>
-                            <span class="text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-100 px-2 py-1 rounded mb-2 inline-block">Mekanisme 3</span>
-                            <h4 class="font-black text-blue-900 text-lg mt-0 mb-2">Sirkulasi Angin</h4>
-                            <p class="text-sm text-blue-800 leading-relaxed mb-4">Air di dalam kopi yang panas akan menguap. Aliran udara (angin) mengangkut uap air tersebut menjauh, sehingga udara tetap kering untuk melanjutkan penguapan.</p>
-                            <div class="bg-white px-3 py-2 rounded-xl text-xs font-bold text-blue-700 border border-blue-100 flex items-start gap-2">
-                                <i class="fas fa-search mt-0.5 opacity-50"></i> Menjaga kelembapan tetap rendah.
-                            </div>
-                        </div>
-                    </div>
-
-                   <div class="mt-8 flex justify-start">
-                        <button onclick="navigateTo('sub-kopi')" class="inline-flex items-center px-4 py-3 bg-amber-50 text-amber-700 font-bold rounded-xl hover:bg-amber-100 transition-colors shadow-sm w-full sm:w-auto justify-center border border-amber-200">
-                            <i class="fas fa-arrow-left mr-2"></i> Kembali ke Menu Kopi
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
+</section>
 
         <!-- ========================================== -->
         <!-- FITUR LATIHAN SOAL (DARI SUB HALAMAN)      -->
@@ -3434,6 +3412,25 @@
                 syncFromSlider(25);
             }
         });
+        // Fungsi untuk membuka modal gambar kopi
+function openCoffeeModal() {
+    const modal = document.getElementById('coffee-modal');
+    modal.classList.remove('hidden');
+    modal.classList.remove('pointer-events-none');
+    setTimeout(() => {
+        modal.classList.add('opacity-100');
+    }, 10);
+}
+
+// Fungsi untuk menutup modal gambar kopi
+function closeCoffeeModal() {
+    const modal = document.getElementById('coffee-modal');
+    modal.classList.remove('opacity-100');
+    modal.classList.add('pointer-events-none');
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 300); // Durasi transisi agar menutup dengan mulus
+}
     </script>
 </body>
 </html>
