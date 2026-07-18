@@ -924,124 +924,6 @@
                         </div>
                         <p class="text-amber-800 text-sm leading-relaxed mt-3 mb-0">Karena Fahrenheit dimulai dari angka <strong>32</strong> (bukan 0), maka saat dihitung nilainya harus <strong>dikurangi 32 terlebih dahulu</strong>. Sedangkan Kelvin memiliki rentang yang sama dengan Celcius (100), hanya saja mulainya dari 273.</p>
                     </div>
-
-                    <!-- Rumus Master -->
-                    <div class="border-t-2 border-gray-100 pt-8 mt-4">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="text-3xl bg-red-100 text-red-600 w-12 h-12 flex items-center justify-center rounded-xl shadow-sm">🧮</div>
-                            <h3 class="text-2xl font-bold text-gray-800 m-0">Rumus Jitu Konversi Suhu</h3>
-                        </div>
-                        
-                        <!-- Perbandingan Dasar -->
-                        <div class="bg-gradient-to-r from-red-50 to-orange-50 p-6 rounded-2xl border border-red-200 text-center mb-8 shadow-sm">
-                            <span class="text-sm font-bold text-red-600 uppercase tracking-widest mb-2 block">Persamaan Perbandingan</span>
-                            <div class="flex flex-wrap items-center justify-center font-mono text-2xl md:text-4xl font-black text-red-800 my-6">
-                                <div class="inline-flex flex-col items-center justify-center align-middle mx-2 sm:mx-4">
-                                    <span class="border-b-[4px] border-red-800 pb-1 px-3 hover:text-blue-600 transition-colors">C</span>
-                                    <span class="pt-2 hover:text-blue-600 transition-colors">5</span>
-                                </div>
-                                <span class="mx-1 sm:mx-2">=</span>
-                                <div class="inline-flex flex-col items-center justify-center align-middle mx-2 sm:mx-4">
-                                    <span class="border-b-[4px] border-red-800 pb-1 px-3 hover:text-green-600 transition-colors">R</span>
-                                    <span class="pt-2 hover:text-green-600 transition-colors">4</span>
-                                </div>
-                                <span class="mx-1 sm:mx-2">=</span>
-                                <div class="inline-flex flex-col items-center justify-center align-middle mx-2 sm:mx-4">
-                                    <span class="border-b-[4px] border-red-800 pb-1 px-3 hover:text-orange-600 transition-colors">F - 32</span>
-                                    <span class="pt-2 hover:text-orange-600 transition-colors">9</span>
-                                </div>
-                            </div>
-                            
-                            <div class="mt-4 bg-white p-4 rounded-xl inline-block border border-red-100 text-left mx-auto max-w-xl">
-                                <p class="text-sm text-red-800 font-bold m-0 mb-2"><i class="fas fa-magic text-yellow-500 mr-1"></i> Cara Pakai:</p>
-                                <ol class="text-sm text-red-700 m-0 pl-4 space-y-1">
-                                    <li>Pilih 2 skala yang ingin dikonversi (misal C dan F).</li>
-                                    <li>Abaikan yang lain, lalu hitung menggunakan <strong>kali silang</strong> matematika biasa.</li>
-                                    <li><strong>Khusus Kelvin:</strong> Langsung saja gunakan <code>K = C + 273</code>.</li>
-                                </ol>
-                            </div>
-                        </div>
-
-                        <!-- Grid Rumus Praktis (Opsional untuk yang suka langsung hafal) -->
-                        <h4 class="font-bold text-gray-600 text-sm uppercase tracking-wider mb-4 text-center">Bentuk Rumus Cepat</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <!-- Celcius box -->
-                            <div class="bg-blue-50 border border-blue-200 rounded-2xl p-5 shadow-sm">
-                                <h4 class="font-bold text-blue-900 border-b-2 border-blue-200 pb-2 mb-4 text-center mt-0">Ubah Celcius ke...</h4>
-                                <ul class="space-y-3 font-mono text-sm text-blue-900 m-0 pl-0 list-none">
-                                    <li class="flex items-center justify-between bg-white p-3 rounded-xl border border-blue-100 shadow-sm">
-                                        <span class="font-sans font-bold text-xs text-blue-500 uppercase">Reamur</span> 
-                                        <span class="text-base font-bold flex items-center">
-                                            R = <div class="inline-flex flex-col items-center mx-1.5 leading-none text-[13px]"><span class="border-b-2 border-blue-900 pb-0.5 px-1">4</span><span class="pt-0.5">5</span></div> &times; C
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center justify-between bg-white p-3 rounded-xl border border-blue-100 shadow-sm">
-                                        <span class="font-sans font-bold text-xs text-blue-500 uppercase">Fahrenheit</span> 
-                                        <span class="text-base font-bold flex items-center">
-                                            F = <span class="mx-1 text-lg">(</span><div class="inline-flex flex-col items-center mx-0.5 leading-none text-[13px]"><span class="border-b-2 border-blue-900 pb-0.5 px-1">9</span><span class="pt-0.5">5</span></div> &times; C<span class="mx-1 text-lg">)</span> + 32
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center justify-between bg-white p-3 rounded-xl border border-blue-100 shadow-sm">
-                                        <span class="font-sans font-bold text-xs text-blue-500 uppercase">Kelvin</span> 
-                                        <span class="text-base font-bold">K = C + 273</span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- Reamur box -->
-                            <div class="bg-green-50 border border-green-200 rounded-2xl p-5 shadow-sm">
-                                <h4 class="font-bold text-green-900 border-b-2 border-green-200 pb-2 mb-4 text-center mt-0">Ubah Reamur ke...</h4>
-                                <ul class="space-y-3 font-mono text-sm text-green-900 m-0 pl-0 list-none">
-                                    <li class="flex items-center justify-between bg-white p-3 rounded-xl border border-green-100 shadow-sm">
-                                        <span class="font-sans font-bold text-xs text-green-500 uppercase">Celcius</span> 
-                                        <span class="text-base font-bold flex items-center">
-                                            C = <div class="inline-flex flex-col items-center mx-1.5 leading-none text-[13px]"><span class="border-b-2 border-green-900 pb-0.5 px-1">5</span><span class="pt-0.5">4</span></div> &times; R
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center justify-between bg-white p-3 rounded-xl border border-green-100 shadow-sm">
-                                        <span class="font-sans font-bold text-xs text-green-500 uppercase">Fahrenheit</span> 
-                                        <span class="text-base font-bold flex items-center">
-                                            F = <span class="mx-1 text-lg">(</span><div class="inline-flex flex-col items-center mx-0.5 leading-none text-[13px]"><span class="border-b-2 border-green-900 pb-0.5 px-1">9</span><span class="pt-0.5">4</span></div> &times; R<span class="mx-1 text-lg">)</span> + 32
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center justify-between bg-white p-3 rounded-xl border border-green-100 shadow-sm">
-                                        <span class="font-sans font-bold text-xs text-green-500 uppercase">Kelvin</span> 
-                                        <span class="text-base font-bold flex items-center">
-                                            K = C + 273 <span class="text-xs text-green-600 font-sans ml-1 italic">(ubah ke C dulu)</span>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- Fahrenheit box -->
-                            <div class="bg-orange-50 border border-orange-200 rounded-2xl p-5 shadow-sm">
-                                <h4 class="font-bold text-orange-900 border-b-2 border-orange-200 pb-2 mb-4 text-center mt-0">Ubah Fahrenheit ke...</h4>
-                                <ul class="space-y-3 font-mono text-sm text-orange-900 m-0 pl-0 list-none">
-                                    <li class="flex items-center justify-between bg-white p-3 rounded-xl border border-orange-100 shadow-sm">
-                                        <span class="font-sans font-bold text-xs text-orange-500 uppercase">Celcius</span> 
-                                        <span class="text-base font-bold flex items-center">
-                                            C = <div class="inline-flex flex-col items-center mx-1.5 leading-none text-[13px]"><span class="border-b-2 border-orange-900 pb-0.5 px-1">5</span><span class="pt-0.5">9</span></div> &times; (F &minus; 32)
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center justify-between bg-white p-3 rounded-xl border border-orange-100 shadow-sm">
-                                        <span class="font-sans font-bold text-xs text-orange-500 uppercase">Reamur</span> 
-                                        <span class="text-base font-bold flex items-center">
-                                            R = <div class="inline-flex flex-col items-center mx-1.5 leading-none text-[13px]"><span class="border-b-2 border-orange-900 pb-0.5 px-1">4</span><span class="pt-0.5">9</span></div> &times; (F &minus; 32)
-                                        </span>
-                                    </li>
-                                    <li class="flex items-center justify-between bg-white p-3 rounded-xl border border-orange-100 shadow-sm">
-                                        <span class="font-sans font-bold text-xs text-orange-500 uppercase">Kelvin</span> 
-                                        <span class="text-base font-bold flex items-center">
-                                            K = C + 273 <span class="text-xs text-orange-600 font-sans ml-1 italic">(ubah ke C dulu)</span>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         <div class="border-t-2 border-gray-100 pt-8 mt-4">
                         <div class="flex items-center gap-3 mb-6">
                             <div class="text-3xl bg-red-100 text-red-600 w-12 h-12 flex items-center justify-center rounded-xl shadow-sm">🧮</div>
@@ -1097,7 +979,7 @@
                                     </div>
                                     <div class="bg-white p-3 rounded-xl border border-green-100 shadow-sm flex flex-col items-center justify-center text-center">
                                         <span class="font-sans font-bold text-xs text-green-500 uppercase mb-1">Kelvin</span> 
-                                        <span class="text-sm font-bold">$K = C + 273$</span>
+                                        <span class="text-sm font-bold"> $$ K = C + 273 $$ </span>
                                         <span class="text-[10px] text-green-600 mt-1 italic">(ubah ke C dulu)</span>
                                     </div>
                                 </div>
@@ -1116,7 +998,7 @@
                                     </div>
                                     <div class="bg-white p-3 rounded-xl border border-orange-100 shadow-sm flex flex-col items-center justify-center text-center">
                                         <span class="font-sans font-bold text-xs text-orange-500 uppercase mb-1">Kelvin</span> 
-                                        <span class="text-sm font-bold">$K = C + 273$</span>
+                                        <span class="text-sm font-bold"> $$ K = C + 273 $$ </span>
                                         <span class="text-[10px] text-orange-600 mt-1 italic">(ubah ke C dulu)</span>
                                     </div>
                                 </div>
