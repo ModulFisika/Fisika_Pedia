@@ -3158,9 +3158,17 @@
         function formatCwTime(sec) { return `${Math.floor(sec/60).toString().padStart(2,'0')}:${(sec%60).toString().padStart(2,'0')}`; }
 
         function startCwTimer() {
+            clearInterval(cwTimerInterval); 
             cwTimerInterval = setInterval(() => {
-                cwTimeLeft--; document.getElementById('cw-timerDisplay').innerText = formatCwTime(cwTimeLeft);
-                if (cwTimeLeft <= 0) { clearInterval(cwTimerInterval); checkCwAnswers(); setTimeout(finishCwGame, 2000); }
+                cwTimeLeft--; 
+                document.getElementById('cw-timerDisplay').innerText = formatCwTime(cwTimeLeft);
+                
+                if (cwTimeLeft <= 0) { 
+                    clearInterval(cwTimerInterval); 
+                    // BUG FIX: Waktu habis tidak lagi memaksa layar "Menang" (confetti).
+                    // Waktu akan berhenti di 00:00, namun user tetap diberikan kesempatan 
+                    // untuk menyelesaikan ketikannya tanpa diganggu layar hasil.
+                }
             }, 1000);
         }
 
@@ -3176,12 +3184,18 @@
                 playCwSound('click');
                 showCwPage('cw-page-game');
                 
-                // Eksekusi render jika belum digenerate
                 if (cwGrid.length === 0) {
-                    initCwGridData(); renderCwBoard(); renderCwClues(); createCwFloatingBeans();
+                    initCwGridData(); 
+                    renderCwBoard(); 
+                    renderCwClues(); 
+                    createCwFloatingBeans();
+                    startCwTimer(); 
+                    setTimeout(() => focusCwWord(2), 500);
+                } else {
+                    // BUG FIX: Jika tombol "Main Lagi" ditekan setelah permainan selesai,
+                    // sistem akan membersihkan/me-reset seluruh papan permainan secara otomatis.
+                    executeCwReset();
                 }
-                
-                startCwTimer(); setTimeout(() => focusCwWord(2), 500);
             });
         }
 
@@ -3204,9 +3218,15 @@
 
         function finishCwGame() {
             clearInterval(cwTimerInterval);
+            
+            // BUG FIX: Memastikan semua pop-up modal ditutup secara paksa 
+            // sebelum transisi ke layar hasil akhir agar tombol tidak macet.
+            document.querySelectorAll('.cw-modal-overlay').forEach(el => el.classList.remove('active'));
+
             document.getElementById('cw-finalScore').innerText = cwScore;
             document.getElementById('cw-finalTime').innerText = formatCwTime(15 * 60 - Math.max(0, cwTimeLeft));
             showCwPage('cw-page-result');
+            
             const end = Date.now() + 3000;
             (function frame() {
                 if(typeof confetti === 'function'){
