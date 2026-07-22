@@ -11,7 +11,10 @@
     <!-- FontAwesome untuk Icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
+    <!-- Canvas Confetti untuk animasi sukses -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Tone.js untuk Efek Suara Minigames -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
     <!-- ========================================== -->
     <!-- CSS (CUSTOM STYLES & ANIMATIONS)           -->
     <!-- ========================================== -->
@@ -64,49 +67,76 @@
         .content-body h3 { font-size: 1.25rem; font-weight: bold; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #1f2937; }
         .content-body ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; color: #374151; }
 
-        /* --- CSS KHUSUS MINI GAMES --- */
-        #game-wrapper { transition: background 1s ease; }
-        .bg-menu { background: linear-gradient(-45deg, #1e293b, #0f172a, #334155, #475569); background-size: 400% 400%; animation: gradientBG 15s ease infinite; }
-        .level-1 { background: linear-gradient(-45deg, #fef3c7, #fde68a, #fef08a, #fde047); background-size: 400% 400%; animation: gradientBG 15s ease infinite;}
-        .level-2 { background: linear-gradient(-45deg, #e0f2fe, #bae6fd, #7dd3fc, #38bdf8); background-size: 400% 400%; animation: gradientBG 15s ease infinite;}
-        .level-3 { background: linear-gradient(-45deg, #ffedd5, #fed7aa, #fdba74, #fb923c); background-size: 400% 400%; animation: gradientBG 15s ease infinite;}
-        .level-4 { background: linear-gradient(-45deg, #ccfbf1, #99f6e4, #5eead4, #2dd4bf); background-size: 400% 400%; animation: gradientBG 15s ease infinite;}
-        .level-5 { background: linear-gradient(-45deg, #fce7f3, #fbcfe8, #f9a8d4, #f472b6); background-size: 400% 400%; animation: gradientBG 15s ease infinite;}
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* --- CSS KHUSUS MINI GAMES (CROSSWORD TEMA BIRU) --- */
+        :root {
+            --cw-primary: #2563eb; /* Biru utama */
+            --cw-dark: #1e3a8a; /* Biru gelap */
+            --cw-light: #eff6ff; /* Biru sangat terang */
+            --cw-green: #10b981;
+            --cw-yellow: #f59e0b;
         }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px) rotate(-5deg); }
-            75% { transform: translateX(5px) rotate(5deg); }
+        .cw-glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(37, 99, 235, 0.15);
+            border-radius: 1.5rem;
         }
-        .shake-anim { animation: shake 0.5s ease-in-out; }
-
-        @keyframes bounceSlow {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+        .cw-page { display: none; width: 100%; opacity: 0; transition: opacity 0.5s ease-in-out; position: relative; z-index: 10;}
+        .cw-page.active { display: flex; opacity: 1; }
+        .cw-btn-primary {
+            background: linear-gradient(135deg, var(--cw-primary), var(--cw-dark));
+            color: white; padding: 1rem 2rem; border-radius: 999px; font-weight: 700;
+            border: none; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; position: relative; overflow: hidden;
         }
-        .farmer-bounce { animation: bounceSlow 3s infinite; }
-
-        .btn-3d { transition: all 0.15s; border-bottom-width: 5px; }
-        .btn-3d:active, .btn-3d.selected { transform: translateY(5px); border-bottom-width: 0px; margin-bottom: 5px; }
+        .cw-btn-primary:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6); }
+        .cw-btn-primary:active { transform: translateY(1px); }
+        .cw-crossword-container {
+            display: grid; grid-template-columns: repeat(20, 1fr); grid-template-rows: repeat(20, 1fr);
+            gap: 2px; background-color: var(--cw-primary); padding: 4px; border-radius: 8px; width: 100%; max-width: 600px; aspect-ratio: 1 / 1; margin: 0 auto;
+        }
+        .cw-cell { background-color: transparent; position: relative; width: 100%; height: 100%; }
+        .cw-cell.active { background-color: white; border-radius: 2px; cursor: pointer; transition: background-color 0.2s; }
+        .cw-cell.active:hover { background-color: #f0f8ff; }
+        .cw-cell.highlighted { background-color: #bfdbfe; }
+        .cw-cell.correct { background-color: #d1fae5; color: var(--cw-green); font-weight: bold; }
+        .cw-cell-input {
+            width: 100%; height: 100%; border: none; background: transparent; text-align: center; font-weight: 700; color: #1e293b;
+            text-transform: uppercase; padding: 0; margin: 0; outline: none; caret-color: var(--cw-primary); font-size: 16px;
+        }
+        .cw-cell.correct .cw-cell-input { pointer-events: none; }
+        .cw-cell-number { position: absolute; top: 2px; left: 2px; font-size: 0.6rem; font-weight: 700; color: #64748b; pointer-events: none; line-height: 1; }
+        .cw-clue-item { padding: 0.75rem; margin-bottom: 0.5rem; border-radius: 0.5rem; background: rgba(255, 255, 255, 0.7); cursor: pointer; transition: all 0.2s; border-left: 4px solid transparent; }
+        .cw-clue-item:hover { background: white; }
+        .cw-clue-item.active { background: white; border-left-color: var(--cw-primary); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .cw-clue-item.solved { opacity: 0.6; text-decoration: line-through; border-left-color: var(--cw-green); }
+        .cw-progress-container { width: 100%; height: 8px; background-color: #e2e8f0; border-radius: 4px; overflow: hidden; }
+        .cw-progress-bar { height: 100%; background-color: var(--cw-green); width: 0%; transition: width 0.5s ease-out; }
         
-        .modal-enter { animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes bounceIn {
-            0% { opacity: 0; transform: scale(0.3); }
-            50% { opacity: 1; transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); }
+        .floating-bean { position: absolute; font-size: 24px; pointer-events: none; z-index: 1; opacity: 0.15; animation: float-up linear infinite; color: var(--cw-primary); }
+        @keyframes float-up { 0% { transform: translateY(85vh) rotate(0deg); } 100% { transform: translateY(-100px) rotate(360deg); } }
+        
+        @media (max-width: 767px) {
+            .cw-crossword-container { gap: 1px; padding: 2px; }
+            .cw-cell-input { font-size: 12px; }
+            .cw-cell-number { font-size: 8px; top: 1px; left: 1px; }
+            .cw-layout { flex-direction: column; }
+            .cw-clues-container { width: 100%; max-height: 40vh; overflow-y: auto; margin-top: 1rem; }
         }
-        .anim-pop { animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes pop {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        @media (min-width: 768px) {
+            .cw-layout { display: flex; flex-direction: row; gap: 2rem; align-items: flex-start; }
+            .cw-board-container { flex: 1.5; }
+            .cw-clues-container { flex: 1; display: flex; flex-direction: column; gap: 1rem; height: 100%; max-height: 70vh; overflow-y: auto; padding-right: 10px; }
+            .cw-clues-section { background: rgba(255,255,255,0.6); padding: 1rem; border-radius: 1rem; }
         }
+        .cw-clues-container::-webkit-scrollbar { width: 6px; }
+        .cw-clues-container::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; }
+        .cw-clues-container::-webkit-scrollbar-thumb { background: rgba(37, 99, 235, 0.3); border-radius: 10px; }
+        
+        .cw-modal-overlay { position: absolute; inset: 0; background: rgba(15, 23, 42, 0.6); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(5px); border-radius: 1.5rem; }
+        .cw-modal-overlay.active { display: flex; }
+        .cw-modal-content { background: white; padding: 2rem; border-radius: 1.5rem; text-align: center; max-width: 90%; width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 
         /* --- CSS LATIHAN SOAL (PILIHAN GANDA) --- */
         .correct-opt { background-color: #dcfce7 !important; border-color: #22c55e !important; color: #166534 !important; }
@@ -2083,154 +2113,187 @@
         </section>
 
         <!-- ========================================== -->
-        <!-- FITUR MINI GAMES (TETAP DIPERTAHANKAN)     -->
+        <!-- FITUR MINI GAMES (CROSSWORD TEMA BIRU)     -->
         <!-- ========================================== -->
-        
         <section id="latihan" class="page-section">
-            <!-- Game Wrapper / Container -->
-            <div id="game-wrapper" class="w-full min-h-[85vh] flex flex-col items-center justify-center p-4 sm:p-8 text-slate-800 rounded-3xl overflow-x-hidden bg-menu shadow-inner border border-slate-700 relative">
+            <div class="relative w-full min-h-[85vh] bg-blue-50 overflow-hidden rounded-3xl border border-blue-200 flex flex-col p-2 sm:p-4 text-slate-800 shadow-inner">
                 
-                <!-- 1. MENU GAME -->
-                <div id="game-menu-screen" class="w-full max-w-4xl flex flex-col items-center z-10 anim-pop">
-                    <div class="text-center mb-10">
-                        <div class="text-7xl mb-4 animate-bounce">🏭☕</div>
-                        <h1 class="text-4xl md:text-5xl font-black text-white drop-shadow-lg tracking-tight mb-4">
-                            FISIKA PABRIK KOPI
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 z-0 opacity-5" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%231e3a8a\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+                <div id="cw-floating-bg" class="absolute inset-0 overflow-hidden pointer-events-none rounded-3xl"></div>
+
+                <!-- Halaman Beranda Game -->
+                <div id="cw-page-home" class="cw-page active flex-col items-center justify-center h-full my-auto z-10 w-full px-4">
+                    <div class="cw-glass-panel max-w-3xl w-full p-8 text-center anim-pop">
+                        <button onclick="navigateTo('materi')" class="absolute top-4 left-4 bg-white text-blue-700 font-bold px-4 py-2 rounded-xl shadow-sm hover:bg-blue-100 transition-colors text-sm border border-blue-200">
+                            <i class="fas fa-arrow-left"></i> KEMBALI
+                        </button>
+                        
+                        <div class="text-6xl mb-4 animate-bounce mt-8 sm:mt-0">☕</div>
+                        <h1 class="text-3xl md:text-5xl font-extrabold text-blue-800 mb-6 tracking-tight">
+                            MISI PENYELAMATAN<br>PANEN KOPI
                         </h1>
-                        <p class="text-slate-200 text-lg font-bold max-w-xl mx-auto bg-slate-800/60 p-4 rounded-2xl border border-slate-600 backdrop-blur-sm">
-                            Bantu Pak Jember membangun pabrik kopi! Pilih tantangan rumus fisika (Suhu & Kalor) di bawah ini untuk memulai.
+                        <p class="text-lg mb-6 leading-relaxed text-slate-700 font-medium">
+                            Hari ini cuaca sangat cerah. Petani kopi sedang melakukan <strong>pengeringan kopi</strong> hasil panennya. Namun, awan gelap mulai mendekat!<br><br>
+                            Agar kopi tetap berkualitas, bantu petani menyelesaikan proses pengeringan dengan memecahkan Teka-Teki Silang Fisika Suhu & Kalor. Setiap jawaban benar akan mempercepat pengeringan kopi.
                         </p>
-                    </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
-                        <!-- Mode 1: Kalor Suhu -->
-                        <button onclick="startGame('kalorSuhu')" class="btn-3d bg-gradient-to-b from-amber-300 to-orange-400 border-orange-600 rounded-[2rem] p-6 text-left group hover:scale-105 transition-transform flex flex-col justify-between h-full shadow-[0_5px_0_rgb(194,65,12)]">
-                            <div>
-                                <div class="text-5xl mb-4 drop-shadow-md group-hover:animate-spin-slow">🌡️</div>
-                                <h2 class="text-2xl font-black text-orange-950 mb-2 leading-tight">Misi Kalor Suhu</h2>
-                                <p class="text-orange-900 font-bold mb-4 text-sm">Hitung energi untuk memanaskan/menjemur biji kopi.</p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 text-sm">
+                            <div class="bg-white p-3 rounded-xl border border-blue-100 shadow-sm">
+                                <i class="fas fa-book text-blue-600 text-xl mb-1"></i>
+                                <div class="font-bold text-slate-800">Materi</div><div class="text-slate-500">Suhu & Kalor</div>
                             </div>
-                            <div class="bg-white/40 p-3 rounded-xl border border-orange-300 text-center font-black text-orange-900 text-lg">
-                                Q = m &times; c &times; &Delta;T
+                            <div class="bg-white p-3 rounded-xl border border-blue-100 shadow-sm">
+                                <i class="fas fa-mug-hot text-blue-600 text-xl mb-1"></i>
+                                <div class="font-bold text-slate-800">Konteks</div><div class="text-slate-500">Pengeringan Kopi</div>
                             </div>
-                        </button>
+                            <div class="bg-white p-3 rounded-xl border border-blue-100 shadow-sm">
+                                <i class="fas fa-star text-yellow-500 text-xl mb-1"></i>
+                                <div class="font-bold text-slate-800">Level</div><div class="text-slate-500">Menengah</div>
+                            </div>
+                            <div class="bg-white p-3 rounded-xl border border-blue-100 shadow-sm">
+                                <i class="fas fa-stopwatch text-indigo-500 text-xl mb-1"></i>
+                                <div class="font-bold text-slate-800">Waktu</div><div class="text-slate-500">15 Menit</div>
+                            </div>
+                        </div>
 
-                        <!-- Mode 2: Kalor Wujud -->
-                        <button onclick="startGame('kalorLaten')" class="btn-3d bg-gradient-to-b from-sky-300 to-blue-400 border-blue-600 rounded-[2rem] p-6 text-left group hover:scale-105 transition-transform flex flex-col justify-between h-full shadow-[0_5px_0_rgb(37,99,235)]">
-                            <div>
-                                <div class="text-5xl mb-4 drop-shadow-md">🧊</div>
-                                <h2 class="text-2xl font-black text-blue-950 mb-2 leading-tight">Misi Kalor Laten</h2>
-                                <p class="text-blue-900 font-bold mb-4 text-sm">Hitung energi untuk mencairkan es atau menguapkan air.</p>
-                            </div>
-                            <div class="bg-white/40 p-3 rounded-xl border border-blue-300 text-center font-black text-blue-900 text-lg">
-                                Q = m &times; L
-                            </div>
-                        </button>
-
-                        <!-- Mode 3: Pemuaian -->
-                        <button onclick="startGame('pemuaian')" class="btn-3d bg-gradient-to-b from-emerald-300 to-teal-400 border-teal-600 rounded-[2rem] p-6 text-left group hover:scale-105 transition-transform flex flex-col justify-between h-full shadow-[0_5px_0_rgb(13,148,136)]">
-                            <div>
-                                <div class="text-5xl mb-4 drop-shadow-md">🛤️</div>
-                                <h2 class="text-2xl font-black text-teal-950 mb-2 leading-tight">Misi Pemuaian</h2>
-                                <p class="text-teal-900 font-bold mb-4 text-sm">Bangun pipa & rel pabrik agar tidak melengkung.</p>
-                            </div>
-                            <div class="bg-white/40 p-3 rounded-xl border border-teal-300 text-center font-black text-teal-900 text-lg">
-                                &Delta;L = L₀ &times; &alpha; &times; &Delta;T
-                            </div>
+                        <button onclick="startCwGame()" class="cw-btn-primary text-xl py-3 px-8 w-full md:w-auto">
+                            <i class="fas fa-play"></i> MULAI MISI
                         </button>
                     </div>
                 </div>
 
-                <!-- 2. GAME INTERFACE -->
-                <div id="game-active-screen" class="hidden w-full max-w-5xl flex-col items-center z-10 anim-pop">
-                    <!-- Header -->
-                    <header class="w-full flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
-                        <div class="flex gap-2">
-                            <button onclick="showGameMenu()" class="bg-slate-800 text-white font-black px-4 py-2 rounded-full shadow-lg border-2 border-white hover:bg-slate-700 transition-colors text-sm flex items-center gap-2">
-                                <i class="fas fa-arrow-left"></i> KEMBALI
+                <!-- Halaman Papan Permainan -->
+                <div id="cw-page-game" class="cw-page flex-col h-full z-10 w-full max-w-6xl mx-auto">
+                    <header class="cw-glass-panel p-4 mb-6 flex flex-wrap justify-between items-center gap-4 anim-pop">
+                        <div class="flex items-center gap-3">
+                            <button onclick="showCwPage('cw-page-home')" class="bg-white border border-slate-200 text-slate-600 px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-colors">
+                                <i class="fas fa-arrow-left"></i>
                             </button>
-                            <div id="level-badge" class="bg-amber-500 text-white font-black px-6 py-2 rounded-full shadow-lg border-2 border-white tracking-widest text-sm md:text-base">
-                                LEVEL 1 / 5
-                            </div>
+                            <h2 class="text-xl font-bold text-blue-800 flex items-center gap-2 m-0">
+                                <i class="fas fa-border-all"></i> TTS Fisika
+                            </h2>
                         </div>
                         
-                        <h1 class="text-2xl md:text-3xl font-black text-slate-800 drop-shadow-md tracking-tight flex items-center justify-center gap-3 bg-white/60 px-6 py-2 rounded-3xl backdrop-blur-sm border-2 border-white/50">
-                            <span id="title-icon" class="animate-pulse inline-block">☀️</span> 
-                            <span id="title-text">Judul Misi</span>
-                        </h1>
-
-                        <div class="bg-slate-800 text-yellow-400 font-black px-6 py-2 rounded-full shadow-lg border-2 border-slate-700 tracking-wider text-lg flex items-center gap-2">
-                            <i class="fas fa-star"></i> SKOR: <span id="score-display">0</span>
+                        <div class="flex items-center gap-4 text-sm font-bold">
+                            <div class="bg-white px-3 py-1.5 rounded-full shadow-sm flex items-center gap-2 border border-slate-100">
+                                <i class="fas fa-stopwatch text-blue-500"></i><span id="cw-timerDisplay">15:00</span>
+                            </div>
+                            <div class="bg-white px-3 py-1.5 rounded-full shadow-sm flex items-center gap-2 border border-slate-100">
+                                <i class="fas fa-star text-yellow-500"></i><span id="cw-scoreDisplay">0</span>
+                            </div>
+                            <button id="btnHint" onclick="useCwHint()" class="bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full shadow-sm hover:bg-blue-100 border border-blue-200 transition-colors flex items-center gap-2">
+                                <i class="fas fa-lightbulb"></i> Hint (<span id="cw-hintCount">3</span>)
+                            </button>
+                        </div>
+                        
+                        <div class="w-full mt-2">
+                            <div class="flex justify-between text-xs mb-1 text-blue-800 font-bold">
+                                <span>Progress Pengeringan</span><span id="cw-progressText">0%</span>
+                            </div>
+                            <div class="cw-progress-container">
+                                <div id="cw-progressBar" class="cw-progress-bar"></div>
+                            </div>
                         </div>
                     </header>
 
-                    <!-- Main Container -->
-                    <div class="bg-white/95 backdrop-blur-xl rounded-[2.5rem] shadow-2xl w-full border-[6px] border-white flex flex-col md:flex-row relative">
-                        
-                        <!-- Panel Kiri: Info & Rumus -->
-                        <div class="bg-gradient-to-br from-amber-50 to-orange-100 p-6 md:w-5/12 border-b md:border-b-0 md:border-r border-slate-200 flex flex-col gap-5" id="left-panel">
-                            <!-- Karakter -->
-                            <div class="flex items-center gap-4 bg-white p-4 rounded-2xl shadow-lg border-2 border-white farmer-bounce">
-                                <div class="text-5xl bg-slate-100 rounded-full w-[4.5rem] h-[4.5rem] flex items-center justify-center border-4 border-white shadow-inner">👨🏽‍🌾</div>
-                                <div>
-                                    <h3 class="font-black text-slate-800 text-lg">Pak Jember</h3>
-                                    <p class="text-sm text-slate-600 font-bold italic" id="farmer-dialog">"Bantu aku menghitung!"</p>
-                                </div>
-                            </div>
-
-                            <!-- Teori -->
-                            <div id="theory-box" class="p-4 rounded-2xl border-2 shadow-sm bg-amber-100 text-amber-800 border-amber-300 relative overflow-hidden">
-                                <div id="theory-bg-icon" class="absolute -right-2 -top-2 text-6xl opacity-20">💡</div>
-                                <h4 class="font-black mb-1 flex items-center gap-2 text-md relative z-10"><i class="fas fa-lightbulb"></i> <span id="theory-title">Teori</span></h4>
-                                <p class="text-sm font-bold relative z-10" id="theory-desc">Deskripsi</p>
-                            </div>
-
-                            <!-- Rumus -->
-                            <div class="bg-slate-50 p-5 rounded-3xl shadow-inner border-2 border-slate-200">
-                                <h3 class="font-black text-slate-800 border-b-2 border-slate-200 pb-2 mb-3 text-lg"><i class="fas fa-book-open text-blue-500"></i> Rumus</h3>
-                                <div id="formula-display" class="text-center text-xl bg-white p-2 rounded-2xl shadow-sm border-2 border-slate-200 text-slate-800 font-black mb-3"></div>
-                                <ul id="formula-vars" class="list-none space-y-2 text-xs font-bold text-slate-700"></ul>
-                                <div class="mt-3 bg-white p-2 rounded-xl border-2 border-slate-200 text-center shadow-sm">
-                                    <span class="block text-[10px] text-slate-500 uppercase tracking-wider mb-1" id="c-label">Konstanta</span>
-                                    <span class="text-lg font-black text-slate-700" id="c-value">0</span>
-                                </div>
+                    <div class="cw-layout anim-pop" style="animation-delay: 0.1s;">
+                        <div class="cw-board-container cw-glass-panel p-3">
+                            <div id="crosswordGrid" class="cw-crossword-container"></div>
+                            
+                            <div class="mt-4 flex flex-wrap gap-2 justify-center">
+                                <button onclick="checkCwAnswers()" class="cw-btn-primary py-2 px-6 text-sm">
+                                    <i class="fas fa-check"></i> Periksa Jawaban
+                                </button>
+                                <button onclick="resetCwBoard()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 py-2 px-6 rounded-full font-bold text-sm transition-colors">
+                                    <i class="fas fa-redo"></i> Reset
+                                </button>
                             </div>
                         </div>
 
-                        <!-- Panel Kanan: Interaktif -->
-                        <div class="p-6 md:p-8 md:w-7/12 flex flex-col justify-between bg-slate-50/50">
-                            <div id="target-area" class="flex justify-around items-end mb-8 bg-gradient-to-t from-slate-200/50 to-white rounded-3xl p-6 border-2 border-slate-100 shadow-inner min-h-[200px]">
-                                <!-- Injected by JS -->
+                        <div class="cw-clues-container">
+                            <div class="cw-clues-section w-full border border-blue-100">
+                                <h3 class="font-black text-blue-800 mb-3 border-b-2 border-blue-200 pb-2 text-sm tracking-widest uppercase">
+                                    <i class="fas fa-arrow-right mr-1"></i> MENDATAR
+                                </h3>
+                                <ul id="acrossClues" class="list-none p-0 m-0 text-sm text-slate-700"></ul>
                             </div>
-
-                            <div class="text-center">
-                                <h3 class="font-black text-slate-700 text-lg mb-4 text-left" id="question-text">Pilih Jawaban:</h3>
-                                <div class="grid grid-cols-2 gap-3 mb-6" id="choices-container">
-                                    <!-- Injected by JS -->
-                                </div>
-                                <button id="action-btn" onclick="submitAnswer()" class="w-full text-white text-xl md:text-2xl font-black py-4 rounded-[1.5rem] transition-all flex justify-center items-center gap-3 bg-slate-300 text-slate-500 cursor-not-allowed border-b-4 border-slate-400" disabled>
-                                    <i id="action-icon" class="fas fa-lock"></i> <span id="action-text">PILIH DULU</span>
-                                </button>
+                            <div class="cw-clues-section w-full border border-blue-100">
+                                <h3 class="font-black text-blue-800 mb-3 border-b-2 border-blue-200 pb-2 text-sm tracking-widest uppercase">
+                                    <i class="fas fa-arrow-down mr-1"></i> MENURUN
+                                </h3>
+                                <ul id="downClues" class="list-none p-0 m-0 text-sm text-slate-700"></ul>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 3. MODAL HASIL GAME -->
-                <div id="game-modal" class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm hidden items-center justify-center z-50 p-4 rounded-3xl">
-                    <div class="bg-white rounded-[2.5rem] p-8 max-w-md w-full shadow-2xl text-center border-[8px] relative" id="modal-content">
-                        <div id="modal-icon" class="text-7xl mb-4 drop-shadow-xl"></div>
-                        <h2 id="modal-title" class="text-3xl font-black mb-2 tracking-tight"></h2>
-                        <div id="points-earned" class="text-xl font-black mb-4 hidden animate-bounce"></div>
-                        <p id="modal-desc" class="text-slate-600 mb-6 font-bold text-lg bg-slate-50 p-4 rounded-2xl border-2 border-slate-100"></p>
+                <!-- Halaman Hasil Akhir -->
+                <div id="cw-page-result" class="cw-page flex-col items-center justify-center h-full z-10 w-full px-4">
+                    <div class="cw-glass-panel max-w-2xl w-full p-8 text-center anim-pop relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-emerald-400 rounded-full opacity-20 blur-2xl"></div>
                         
-                        <div class="bg-slate-100 rounded-2xl p-5 mb-8 border-2 border-slate-200 text-left text-base shadow-inner">
-                            <p class="font-black text-slate-800 mb-2 flex items-center gap-2"><i class="fas fa-calculator text-blue-500"></i> Cek Hitungan:</p>
-                            <div class="font-bold text-slate-600 bg-white p-3 rounded-xl border border-slate-200 text-sm mb-3" id="modal-calc-breakdown"></div>
-                            <div class="font-black text-2xl text-center text-green-600 border-t-2 border-slate-200 pt-3" id="modal-calc-result"></div>
+                        <div class="text-7xl mb-4 drop-shadow-lg">🏆</div>
+                        <h2 class="text-3xl font-black text-slate-800 mb-2">SELAMAT!</h2>
+                        <h3 class="text-2xl font-black text-emerald-600 mb-6">MISI BERHASIL</h3>
+                        
+                        <p class="mb-8 text-slate-600 font-medium leading-relaxed">
+                            Kopi berhasil dikeringkan tepat waktu sebelum hujan badai! Kamu menguasai konsep Fisika dalam pengeringan kopi dengan luar biasa.
+                        </p>
+
+                        <div class="bg-blue-50 rounded-2xl p-6 mb-8 border border-blue-100">
+                            <h4 class="text-sm font-black text-blue-800 mb-4 tracking-widest uppercase">Statistik Penyelamatan</h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                                    <div class="text-xs text-slate-500 uppercase font-bold tracking-wide">Skor Akhir</div>
+                                    <div class="text-4xl font-black text-blue-600" id="cw-finalScore">0</div>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                                    <div class="text-xs text-slate-500 uppercase font-bold tracking-wide">Sisa Waktu</div>
+                                    <div class="text-4xl font-black text-emerald-600" id="cw-finalTime">00:00</div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div id="modal-buttons" class="flex flex-col gap-3"></div>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button onclick="startCwGame()" class="cw-btn-primary">
+                                <i class="fas fa-redo"></i> Main Lagi
+                            </button>
+                            <button onclick="navigateTo('materi')" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-8 rounded-full transition-colors flex items-center justify-center gap-2">
+                                <i class="fas fa-book"></i> Kembali ke Materi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modals -->
+                <div id="cw-modal-correct" class="cw-modal-overlay">
+                    <div class="cw-modal-content anim-pop">
+                        <div class="text-6xl mb-4">☀️</div>
+                        <h3 class="text-2xl font-black text-emerald-600 mb-2">Jawaban Tepat!</h3>
+                        <p class="text-slate-600 mb-6 font-medium">Bagus, proses pengeringan kopi semakin optimal.</p>
+                        <button onclick="closeCwModal('cw-modal-correct'); finishCwGame();" class="cw-btn-primary w-full">Lanjutkan</button>
+                    </div>
+                </div>
+
+                <div id="cw-modal-incorrect" class="cw-modal-overlay">
+                    <div class="cw-modal-content anim-pop">
+                        <div class="text-6xl mb-4">🌧️</div>
+                        <h3 class="text-2xl font-black text-amber-500 mb-2">Hampir Saja!</h3>
+                        <p class="text-slate-600 mb-6 font-medium">Masih ada jawaban yang belum tepat. Ayo periksa kembali!</p>
+                        <button onclick="closeCwModal('cw-modal-incorrect')" class="bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 font-bold py-3 rounded-xl w-full transition-colors">Coba Lagi</button>
+                    </div>
+                </div>
+
+                <div id="cw-modal-reset" class="cw-modal-overlay">
+                    <div class="cw-modal-content anim-pop">
+                        <div class="text-6xl mb-4">🔄</div>
+                        <h3 class="text-2xl font-black text-slate-800 mb-2">Mulai Ulang?</h3>
+                        <p class="text-slate-600 mb-6">Papan, petunjuk, dan waktu akan diulang sepenuhnya.</p>
+                        <div class="flex gap-3 justify-center">
+                            <button onclick="closeCwModal('cw-modal-reset')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition flex-1 border border-slate-200">Batal</button>
+                            <button onclick="executeCwReset(); closeCwModal('cw-modal-reset');" class="bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-xl flex-1 shadow-md">Ya, Reset</button>
+                        </div>
                     </div>
                 </div>
 
@@ -2806,212 +2869,329 @@
             }
         }
 
-        // --- 3. LOGIKA MINI GAMES PABRIK KOPI ---
-        const gameDatabase = {
-            kalorSuhu: {
-                id: 'kalorSuhu', unitResult: 'kJ', questionText: "Berapa Energi Kalor (Q)?",
-                formulaText: '<span class="text-red-500">Q</span> = m &times; c &times; &Delta;T',
-                formulaVarsHTML: `<li><span class="text-red-600 font-bold">Q</span> Energi (kJ)</li><li><span class="text-blue-600 font-bold">m</span> Massa (kg)</li><li><span class="text-orange-600 font-bold">&Delta;T</span> Suhu (&deg;C)</li>`,
-                levels: [
-                    { titleText: "Misi Jemur Kopi!", titleIcon: "☀️", themeClass: "level-1", panelColor: "bg-amber-100",
-                      dialog: "\"Bantu aku hitung energi untuk menjemur kopi basah ini!\"",
-                      theoryTitle: "RADIASI", theoryIcon: "☀️", theoryDesc: "Panas berpindah langsung dari matahari.",
-                      cLabel: "Kalor Jenis Basah (c)", cValue: 2, cUnit: "kJ/kg°C",
-                      v1Key: 'm', v1Range: [2,6], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '🧺',
-                      v2Key: 'dt', v2Range: [10,20], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '🌡️',
-                      btnColor: "bg-orange-400 border-orange-600", btnText: "PROSES JEMUR!" },
-                    { titleText: "Mesin Pengering", titleIcon: "💨", themeClass: "level-2", panelColor: "bg-blue-100",
-                      dialog: "\"Kita keringkan lebih cepat pakai mesin. Hitung kalor konveksi!\"",
-                      theoryTitle: "KONVEKSI", theoryIcon: "💨", theoryDesc: "Kalor dihantarkan udara panas.",
-                      cLabel: "Kalor Jenis (c)", cValue: 2, cUnit: "kJ/kg°C",
-                      v1Key: 'm', v1Range: [10,20], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '⚙️',
-                      v2Key: 'dt', v2Range: [30,50], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '🌡️',
-                      btnColor: "bg-blue-500 border-blue-600", btnText: "NYALAKAN MESIN!" },
-                    { titleText: "Misi Sangrai", titleIcon: "🔥", themeClass: "level-3", panelColor: "bg-red-100",
-                      dialog: "\"Tahap sangrai! Kopi sudah kering, kalor jenisnya turun.\"",
-                      theoryTitle: "KONDUKSI", theoryIcon: "🍳", theoryDesc: "Panas api merambat melalui wajan.",
-                      cLabel: "Kalor Jenis (c)", cValue: 1.5, cUnit: "kJ/kg°C",
-                      v1Key: 'm', v1Range: [10,30], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-blue-600', v1Visual: '🍳',
-                      v2Key: 'dt', v2Range: [100,140], v2Unit: '°C', v2Icon: 'fa-arrow-up', v2Color: 'text-red-600', v2Visual: '🌡️',
-                      btnColor: "bg-red-500 border-red-600", btnText: "SANGRAI SEKARANG!" }
-                ]
-            },
-            kalorLaten: {
-                id: 'kalorLaten', unitResult: 'kJ', questionText: "Berapa Energi Laten (Q)?",
-                formulaText: '<span class="text-blue-500">Q</span> = m &times; L',
-                formulaVarsHTML: `<li><span class="text-blue-600 font-bold">Q</span> Energi (kJ)</li><li><span class="text-green-600 font-bold">m</span> Massa (kg)</li><li><span class="text-cyan-600 font-bold">L/U</span> Kalor Laten</li>`,
-                levels: [
-                    { titleText: "Cairkan Es Kopi", titleIcon: "🧊", themeClass: "level-2", panelColor: "bg-cyan-100",
-                      dialog: "\"Es membeku jadi balok besar. Cairkan untuk kopi dingin!\"",
-                      theoryTitle: "KALOR LEBUR", theoryIcon: "🧊", theoryDesc: "Energi mengubah wujud padat ke cair.",
-                      cLabel: "Kalor Lebur (L)", cValue: 336, cUnit: "kJ/kg",
-                      v1Key: 'm', v1Range: [2,5], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-green-600', v1Visual: '🧊',
-                      v2Key: null, v2Visual: '💧',
-                      btnColor: "bg-cyan-500 border-blue-600", btnText: "CAIRKAN ES!" },
-                    { titleText: "Ekstraksi Uap", titleIcon: "☁️", themeClass: "level-3", panelColor: "bg-orange-100",
-                      dialog: "\"Mesin espresso butuh uap panas bertekanan. Uapkan airnya!\"",
-                      theoryTitle: "KALOR UAP", theoryIcon: "💨", theoryDesc: "Energi merubah air mendidih jadi uap.",
-                      cLabel: "Kalor Uap (U)", cValue: 2260, cUnit: "kJ/kg",
-                      v1Key: 'm', v1Range: [2,5], v1Unit: 'kg', v1Icon: 'fa-balance-scale', v1Color: 'text-green-600', v1Visual: '🫖',
-                      v2Key: null, v2Visual: '☁️',
-                      btnColor: "bg-orange-500 border-red-600", btnText: "UAPKAN AIR!" }
-                ]
-            },
-            pemuaian: {
-                id: 'pemuaian', unitResult: 'mm', questionText: "Berapa Pertambahan Panjang?",
-                formulaText: '<span class="text-teal-600">&Delta;L</span> = L₀ &times; &alpha; &times; &Delta;T',
-                formulaVarsHTML: `<li><span class="text-teal-600 font-bold">&Delta;L</span> Muai (mm)</li><li><span class="text-indigo-600 font-bold">L₀</span> Awal (m)</li><li><span class="text-rose-600 font-bold">&Delta;T</span> Suhu (&deg;C)</li>`,
-                levels: [
-                    { titleText: "Rel Lori Pengangkut", titleIcon: "🛤️", themeClass: "level-4", panelColor: "bg-slate-200",
-                      dialog: "\"Bangun rel lori baja di pabrik. Berapa celah pemuaiannya?\"",
-                      theoryTitle: "PEMUAIAN PANJANG", theoryIcon: "🛤️", theoryDesc: "Rel baja diberi celah agar tidak melengkung.",
-                      cLabel: "Koef. Baja (α)", cValue: 0.01, cUnit: "mm/m°C",
-                      v1Key: 'L0', v1Range: [50,100], v1Unit: 'm', v1Icon: 'fa-ruler-horizontal', v1Color: 'text-indigo-600', v1Visual: '🛤️',
-                      v2Key: 'dt', v2Range: [20,40], v2Unit: '°C', v2Icon: 'fa-sun', v2Color: 'text-yellow-600', v2Visual: '☀️',
-                      btnColor: "bg-slate-500 border-slate-700", btnText: "CEK CELAH REL!" }
-                ]
+        // --- 3. LOGIKA MINI GAMES TEKA-TEKI SILANG ---
+        let polySynth;
+        async function initCwAudio() {
+            if(polySynth) return;
+            await Tone.start();
+            polySynth = new Tone.PolySynth(Tone.Synth, {
+                oscillator: { type: "sine" },
+                envelope: { attack: 0.05, decay: 0.2, sustain: 0.1, release: 0.5 }
+            }).toDestination();
+        }
+
+        function playCwSound(type) {
+            if(Tone.context.state !== 'running' || !polySynth) return;
+            const now = Tone.now();
+            switch(type) {
+                case 'click': polySynth.triggerAttackRelease("C5", "32n", now); break;
+                case 'type': polySynth.triggerAttackRelease("G4", "64n", now); break;
+                case 'correct':
+                    polySynth.triggerAttackRelease("C4", "8n", now);
+                    polySynth.triggerAttackRelease("E4", "8n", now + 0.1);
+                    polySynth.triggerAttackRelease("G4", "8n", now + 0.2);
+                    polySynth.triggerAttackRelease("C5", "4n", now + 0.3); break;
+                case 'wrong':
+                    polySynth.triggerAttackRelease("D3", "8n", now);
+                    polySynth.triggerAttackRelease("C#3", "4n", now + 0.2); break;
+                case 'win':
+                    polySynth.triggerAttackRelease("C4", "8n", now);
+                    polySynth.triggerAttackRelease("E4", "8n", now + 0.15);
+                    polySynth.triggerAttackRelease("G4", "8n", now + 0.3);
+                    polySynth.triggerAttackRelease("C5", "2n", now + 0.45); break;
             }
-        };
-
-        let activeGame = null, currentLvl = 0, cfg = null;
-        let score = 0, v1 = 0, v2 = 0, target = 0, selected = null;
-
-        function showGameMenu() {
-            document.getElementById('game-modal').classList.add('hidden');
-            document.getElementById('game-menu-screen').classList.remove('hidden');
-            document.getElementById('game-active-screen').classList.add('hidden');
-            document.getElementById('game-wrapper').className = "w-full min-h-[85vh] flex flex-col items-center justify-center p-4 sm:p-8 text-slate-800 rounded-3xl overflow-x-hidden bg-menu shadow-inner border border-slate-700 relative";
         }
 
-        function startGame(id) {
-            activeGame = gameDatabase[id];
-            score = 0;
-            currentLvl = 0;
-            document.getElementById('game-menu-screen').classList.add('hidden');
-            document.getElementById('game-active-screen').classList.remove('hidden');
-            document.getElementById('question-text').innerHTML = `<i class="fas fa-question-circle text-blue-500"></i> ${activeGame.questionText}`;
-            document.getElementById('formula-display').innerHTML = activeGame.formulaText;
-            document.getElementById('formula-vars').innerHTML = activeGame.formulaVarsHTML;
-            loadLevel(0);
-        }
+        const CW_GRID_SIZE = 20;
+        const CW_WORDS = [
+            { id: 2, num: "2", answer: "TERMOMETER", x: 5, y: 3, dir: 1, clue: "Alat yang digunakan untuk mengukur derajat panas atau dingin suatu ruang/benda." },
+            { id: 4, num: "4", answer: "KALOR", x: 8, y: 6, dir: 1, clue: "Energi panas yang berpindah dari benda bersuhu tinggi ke suhu rendah." },
+            { id: 5, num: "5", answer: "RADIASI", x: 9, y: 8, dir: 1, clue: "Panas Matahari mencapai hamparan biji kopi tanpa medium." },
+            { id: 8, num: "8", answer: "KONVEKSI", x: 11, y: 10, dir: 1, clue: "Udara panas yang membawa uap air bergerak ke atas digantikan udara baru." },
+            { id: 9, num: "9", answer: "MENYUBLIM", x: 4, y: 12, dir: 1, clue: "Perubahan wujud dari padat langsung menjadi gas tanpa melalui fase cair." },
+            { id: 11, num: "11", answer: "PENGERINGAN", x: 2, y: 14, dir: 1, clue: "Proses utama pascapanen kopi untuk menurunkan kadar air menggunakan sinar matahari." },
+            { id: 12, num: "12", answer: "CELCIUS", x: 12, y: 15, dir: 1, clue: "Skala termometer dengan titik acuan didih air di angka 100." },
+            { id: 13, num: "13", answer: "SUHU", x: 1, y: 16, dir: 1, clue: "Tingkat derajat panas atau dinginnya suatu benda." },
+            { id: 1, num: "1", answer: "MEMBEKU", x: 8, y: 1, dir: 0, clue: "Air yang kehilangan kalor laten leburnya akan mengalami proses..." },
+            { id: 3, num: "3", answer: "KONDUKSI", x: 11, y: 5, dir: 0, clue: "Rambatan panas lantai jemur ke permukaan biji kopi yang bersentuhan." },
+            { id: 6, num: "6", answer: "PEMUAIAN", x: 8, y: 9, dir: 0, clue: "Bertambahnya ukuran dimensi benda padat akibat kenaikan suhu." },
+            { id: 7, num: "7", answer: "MENGEMBUN", x: 6, y: 10, dir: 0, clue: "Perubahan wujud uap air menjadi titik-titik cair." },
+            { id: 90, num: "9", answer: "MENGUAP", x: 4, y: 12, dir: 0, clue: "Proses terlepasnya partikel zat cair kopi menjadi gas akibat pemanasan (evaporasi)." },
+            { id: 10, num: "10", answer: "MENCAIR", x: 12, y: 12, dir: 0, clue: "Bongkahan es yang menyerap kalor akan berubah wujud menjadi air cair." }
+        ];
 
-        function loadLevel(idx) {
-            currentLvl = idx;
-            cfg = activeGame.levels[idx];
-            selected = null;
-            
-            document.getElementById('game-wrapper').className = `w-full min-h-[85vh] flex flex-col items-center justify-center p-4 sm:p-8 text-slate-800 rounded-3xl overflow-x-hidden ${cfg.themeClass} shadow-inner border border-slate-200 relative`;
-            document.getElementById('level-badge').innerText = `LEVEL ${idx + 1} / ${activeGame.levels.length}`;
-            document.getElementById('score-display').innerText = score;
-            document.getElementById('title-icon').innerText = cfg.titleIcon;
-            document.getElementById('title-text').innerText = cfg.titleText;
-            document.getElementById('farmer-dialog').innerText = cfg.dialog;
-            
-            document.getElementById('theory-title').innerText = cfg.theoryTitle;
-            document.getElementById('theory-desc').innerText = cfg.theoryDesc;
-            document.getElementById('theory-bg-icon').innerText = cfg.theoryIcon;
-            document.getElementById('theory-box').className = `p-4 rounded-2xl border-2 shadow-sm relative overflow-hidden ${cfg.panelColor}`;
-            document.getElementById('c-label').innerText = cfg.cLabel;
-            document.getElementById('c-value').innerText = `${cfg.cValue} ${cfg.cUnit}`;
+        let cwGrid = [], cwScore = 0, cwHintLeft = 3, cwSolvedWords = 0, cwTotalWords = CW_WORDS.length;
+        let cwTimerInterval, cwTimeLeft = 15 * 60, cwActiveWordId = null;
 
-            v1 = Math.floor(Math.random() * (cfg.v1Range[1] - cfg.v1Range[0] + 1)) + cfg.v1Range[0];
-            if(cfg.cValue === 1.5 && v1 % 2 !== 0) v1 += 1; 
-
-            let tHtml = '';
-            if (cfg.v2Key) {
-                v2 = Math.floor(Math.random() * (cfg.v2Range[1] - cfg.v2Range[0] + 1)) + cfg.v2Range[0];
-                target = Math.round(v1 * cfg.cValue * v2);
-                tHtml = `
-                    <div class="text-center"><div class="text-7xl mb-2">${cfg.v1Visual}</div><div class="bg-white px-3 py-1 rounded-xl shadow font-bold text-sm"><i class="fas ${cfg.v1Icon}"></i> <span class="${cfg.v1Color}">${v1}</span> ${cfg.v1Unit}</div></div>
-                    <div class="text-2xl text-slate-300 font-black mb-6"><i class="fas fa-times"></i></div>
-                    <div class="text-center"><div class="text-7xl mb-2">${cfg.v2Visual}</div><div class="bg-white px-3 py-1 rounded-xl shadow font-bold text-sm"><i class="fas ${cfg.v2Icon}"></i> <span class="${cfg.v2Color}">${v2}</span> ${cfg.v2Unit}</div></div>
-                `;
-            } else {
-                target = Math.round(v1 * cfg.cValue); v2 = null;
-                tHtml = `
-                    <div class="text-center"><div class="text-7xl mb-2">${cfg.v1Visual}</div><div class="bg-white px-3 py-1 rounded-xl shadow font-bold text-sm"><i class="fas ${cfg.v1Icon}"></i> <span class="${cfg.v1Color}">${v1}</span> ${cfg.v1Unit}</div></div>
-                    <div class="flex flex-col items-center justify-center mx-4 gap-2 mb-6"><div class="text-2xl text-slate-300 font-black"><i class="fas fa-arrow-right"></i></div></div>
-                    <div class="text-center"><div class="text-7xl mb-2">${cfg.v2Visual}</div></div>
-                `;
-            }
-            document.getElementById('target-area').innerHTML = tHtml;
-
-            let oSet = new Set([target, target + 50]);
-            let multi = activeGame.unitResult === 'mm' ? 1 : 10;
-            while(oSet.size < 4) {
-                let r = target + (Math.floor(Math.random() * 20 + 2) * multi * (Math.random()>0.5?1:-1));
-                if(r > 0) oSet.add(r);
-            }
-            let oArr = Array.from(oSet).sort(() => Math.random() - 0.5);
-            
-            document.getElementById('choices-container').innerHTML = oArr.map(val => 
-                `<button onclick="selectChoice(this, ${val})" class="choice-btn btn-3d bg-white border-2 border-slate-200 text-slate-700 font-black text-2xl py-4 rounded-2xl shadow-[0_5px_0_rgb(203,213,225)] hover:bg-slate-50">${val}</button>`
-            ).join('');
-
-            const actBtn = document.getElementById('action-btn');
-            actBtn.disabled = true;
-            actBtn.className = "w-full text-white text-xl font-black py-4 rounded-2xl bg-slate-300 text-slate-500 cursor-not-allowed border-b-4 border-slate-400 flex justify-center gap-2 items-center";
-            document.getElementById('action-icon').className = "fas fa-lock";
-            document.getElementById('action-text').innerText = "PILIH JAWABAN DULU";
-            actBtn.dataset.btnColor = cfg.btnColor;
-            actBtn.dataset.btnText = cfg.btnText;
-        }
-
-        function selectChoice(btn, val) {
-            selected = val;
-            document.querySelectorAll('.choice-btn').forEach(b => {
-                b.classList.remove('selected','ring-4','ring-blue-400','border-blue-500','text-blue-700');
-                b.classList.add('shadow-[0_5px_0_rgb(203,213,225)]','text-slate-700','border-slate-200');
-            });
-            btn.classList.add('selected','ring-4','ring-blue-400','border-blue-500','text-blue-700');
-            btn.classList.remove('shadow-[0_5px_0_rgb(203,213,225)]');
-
-            const actBtn = document.getElementById('action-btn');
-            actBtn.disabled = false;
-            actBtn.className = `w-full text-white text-xl font-black py-4 rounded-2xl flex justify-center gap-2 items-center border-b-4 active:border-b-0 active:translate-y-1 transition-all ${actBtn.dataset.btnColor}`;
-            document.getElementById('action-icon').className = "fas fa-check-circle animate-pulse";
-            document.getElementById('action-text').innerText = actBtn.dataset.btnText;
-        }
-
-        function submitAnswer() {
-            if(!selected) return;
-            const modal = document.getElementById('game-modal');
-            modal.classList.remove('hidden'); modal.classList.add('flex');
-            
-            let lbl = activeGame.id === 'pemuaian' ? '&Delta;L' : 'Q';
-            let calcH = `<p>${lbl} = <span class="${cfg.v1Color}">${v1}</span> &times; <span class="text-slate-600">${cfg.cValue}</span> ${cfg.v2Key ? `&times; <span class="${cfg.v2Color}">${v2}</span>` : ''}</p>`;
-            document.getElementById('modal-calc-breakdown').innerHTML = calcH;
-            document.getElementById('modal-calc-result').innerHTML = `${lbl} = ${target} ${activeGame.unitResult}`;
-
-            if(selected === target) {
-                score += 100;
-                document.getElementById('score-display').innerText = score;
-                document.getElementById('modal-icon').innerText = "🎉✨";
-                document.getElementById('modal-title').className = "text-3xl font-black mb-1 text-green-600";
-                document.getElementById('modal-title').innerText = "Tepat Sekali!";
-                document.getElementById('modal-desc').innerHTML = `Jawaban <b class="text-green-600">${selected}</b> benar! Pabrik berjalan lancar.`;
-                document.getElementById('points-earned').innerText = "+100 POIN!";
-                document.getElementById('points-earned').className = "text-xl font-black text-yellow-500 mb-4 animate-bounce block";
-                
-                if(typeof confetti === 'function') confetti({ particleCount: 150, spread: 80, origin: {y:0.6} });
-
-                if(currentLvl < activeGame.levels.length - 1) {
-                    document.getElementById('modal-buttons').innerHTML = `<button onclick="document.getElementById('game-modal').classList.add('hidden'); loadLevel(${currentLvl + 1})" class="w-full bg-green-500 text-white font-black py-3 rounded-xl border-b-4 border-green-700 active:border-b-0 active:translate-y-1">LANJUT LEVEL BERIKUTNYA</button>`;
-                } else {
-                    document.getElementById('modal-title').innerText = "MISI SELESAI!";
-                    document.getElementById('modal-desc').innerHTML = "Luar biasa! Kamu menaklukkan semua tantangan.";
-                    document.getElementById('modal-buttons').innerHTML = `<button onclick="showGameMenu()" class="w-full bg-blue-600 text-white font-black py-3 rounded-xl border-b-4 border-blue-800 active:border-b-0 active:translate-y-1">KEMBALI KE MENU GAME</button>`;
+        function initCwGridData() {
+            cwGrid = Array(CW_GRID_SIZE).fill(null).map(() => Array(CW_GRID_SIZE).fill(null));
+            CW_WORDS.forEach(word => {
+                let currX = word.x, currY = word.y;
+                for (let i = 0; i < word.answer.length; i++) {
+                    if (!cwGrid[currY][currX]) {
+                        cwGrid[currY][currX] = { isActive: true, number: (i === 0) ? word.num : null, correctChar: word.answer[i], userChar: "", words: [word.id], domInput: null };
+                    } else {
+                        cwGrid[currY][currX].words.push(word.id);
+                        if (i === 0 && !cwGrid[currY][currX].number) cwGrid[currY][currX].number = word.num;
+                    }
+                    if (word.dir === 1) currX++; else currY++;
                 }
-            } else {
-                score = Math.max(0, score - 30);
-                document.getElementById('score-display').innerText = score;
-                document.getElementById('modal-icon').innerText = "❌😱";
-                document.getElementById('modal-title').className = "text-3xl font-black mb-1 text-red-600";
-                document.getElementById('modal-title').innerText = "Salah Hitung!";
-                document.getElementById('modal-desc').innerHTML = `Jawaban <b class="text-red-600">${selected}</b> salah. Coba hitung lagi!`;
-                document.getElementById('points-earned').innerText = "-30 POIN!";
-                document.getElementById('points-earned').className = "text-xl font-black text-red-500 mb-4 animate-bounce block";
-                document.getElementById('modal-buttons').innerHTML = `<button onclick="document.getElementById('game-modal').classList.add('hidden'); loadLevel(${currentLvl})" class="w-full bg-gray-800 text-white font-black py-3 rounded-xl border-b-4 border-gray-900 active:border-b-0 active:translate-y-1">COBA LAGI LEVEL INI</button>`;
+            });
+        }
+
+        function renderCwBoard() {
+            const container = document.getElementById('crosswordGrid');
+            container.innerHTML = '';
+            for (let y = 0; y < CW_GRID_SIZE; y++) {
+                for (let x = 0; x < CW_GRID_SIZE; x++) {
+                    const cellData = cwGrid[y][x];
+                    const cellDiv = document.createElement('div');
+                    cellDiv.className = 'cw-cell';
+                    if (cellData && cellData.isActive) {
+                        cellDiv.classList.add('active');
+                        if (cellData.number) {
+                            const numSpan = document.createElement('span');
+                            numSpan.className = 'cw-cell-number'; numSpan.textContent = cellData.number; cellDiv.appendChild(numSpan);
+                        }
+                        const input = document.createElement('input');
+                        input.type = 'text'; input.maxLength = 1; input.className = 'cw-cell-input';
+                        
+                        input.addEventListener('focus', () => handleCwCellFocus(x, y));
+                        input.addEventListener('input', (e) => handleCwInput(e, x, y));
+                        input.addEventListener('keydown', (e) => handleCwKeydown(e, x, y));
+                        input.addEventListener('pointerdown', (e) => handleCwCellPointerDown(e, x, y));
+                        input.addEventListener('click', () => playCwSound('click'));
+                        
+                        cellData.domInput = input; cellDiv.appendChild(input);
+                    }
+                    container.appendChild(cellDiv);
+                }
+            }
+        }
+
+        function handleCwCellFocus(x, y) {
+            const cell = cwGrid[y][x];
+            if (!cell || cell.words.length === 0) return;
+            let wordId = cell.words[0];
+            if (cell.words.length > 1 && cell.words.includes(cwActiveWordId)) wordId = cwActiveWordId;
+            highlightCwWord(wordId);
+        }
+
+        function handleCwCellPointerDown(e, x, y) {
+            if (document.activeElement === e.target) {
+                const cell = cwGrid[y][x];
+                if (cell && cell.words.length > 1 && cell.words.includes(cwActiveWordId)) {
+                    const nextIndex = (cell.words.indexOf(cwActiveWordId) + 1) % cell.words.length;
+                    setTimeout(() => highlightCwWord(cell.words[nextIndex]), 10);
+                }
+            }
+        }
+
+        function highlightCwWord(wordId) {
+            cwActiveWordId = wordId;
+            document.querySelectorAll('.cw-cell.highlighted').forEach(el => el.classList.remove('highlighted'));
+            document.querySelectorAll('.cw-clue-item.active').forEach(el => el.classList.remove('active'));
+            const word = CW_WORDS.find(w => w.id === wordId);
+            if (!word) return;
+            let cx = word.x, cy = word.y;
+            for (let i = 0; i < word.answer.length; i++) {
+                const node = cwGrid[cy][cx].domInput.parentElement;
+                if(node) node.classList.add('highlighted');
+                if (word.dir === 1) cx++; else cy++;
+            }
+            const clueEl = document.getElementById(`cwclue-${wordId}`);
+            if (clueEl) { clueEl.classList.add('active'); clueEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+        }
+
+        function focusCwWord(wordId) {
+            highlightCwWord(wordId);
+            const word = CW_WORDS.find(w => w.id === wordId);
+            if (!word) return;
+            let cx = word.x, cy = word.y, target = null;
+            for (let i = 0; i < word.answer.length; i++) {
+                const input = cwGrid[cy][cx].domInput;
+                if (input && input.value === "") { target = input; break; }
+                if (word.dir === 1) cx++; else cy++;
+            }
+            if (!target) target = cwGrid[word.y][word.x].domInput;
+            if (target) setTimeout(() => target.focus(), 50);
+        }
+
+        function handleCwInput(e, x, y) {
+            const input = e.target;
+            if (!/^[a-zA-Z]$/.test(input.value)) { input.value = ""; return; }
+            input.value = input.value.toUpperCase();
+            cwGrid[y][x].userChar = input.value;
+            playCwSound('type');
+            moveCwNext(x, y, 1);
+        }
+
+        function handleCwKeydown(e, x, y) {
+            if (e.key === 'Backspace' && e.target.value === "") { e.preventDefault(); moveCwNext(x, y, -1); }
+            else if (['ArrowRight','ArrowDown'].includes(e.key)) moveCwNext(x, y, 1);
+            else if (['ArrowLeft','ArrowUp'].includes(e.key)) moveCwNext(x, y, -1);
+        }
+
+        function moveCwNext(x, y, step) {
+            if (!cwActiveWordId) return;
+            const word = CW_WORDS.find(w => w.id === cwActiveWordId);
+            if (!word) return;
+            let currIdx = word.dir === 1 ? x - word.x : y - word.y;
+            let nextIdx = currIdx + step;
+            if (nextIdx >= 0 && nextIdx < word.answer.length) {
+                let nx = word.x + (word.dir === 1 ? nextIdx : 0);
+                let ny = word.y + (word.dir === 0 ? nextIdx : 0);
+                const nInput = cwGrid[ny][nx].domInput;
+                if (nInput && !nInput.parentElement.classList.contains('correct')) {
+                    nInput.focus(); if(step === -1) setTimeout(()=>nInput.select(),10);
+                } else if(nInput) moveCwNext(nx, ny, step);
+            }
+        }
+
+        function renderCwClues() {
+            const across = document.getElementById('acrossClues'), down = document.getElementById('downClues');
+            across.innerHTML = ''; down.innerHTML = '';
+            CW_WORDS.forEach(word => {
+                const li = document.createElement('li');
+                li.className = 'cw-clue-item'; li.id = `cwclue-${word.id}`;
+                li.innerHTML = `<strong>${word.num}.</strong> ${word.clue}`;
+                li.addEventListener('click', () => { playCwSound('click'); focusCwWord(word.id); });
+                if (word.dir === 1 && word.id !== 90 && word.id < 20) across.appendChild(li);
+                else down.appendChild(li);
+                if(word.id === 90) down.appendChild(li);
+            });
+        }
+
+        function updateCwScore(pts) {
+            cwScore = Math.max(0, cwScore + pts);
+            document.getElementById('cw-scoreDisplay').innerText = cwScore;
+        }
+
+        function useCwHint() {
+            if (cwHintLeft <= 0) return;
+            playCwSound('click');
+            let emptyCells = [];
+            for(let y=0; y<CW_GRID_SIZE; y++) for(let x=0; x<CW_GRID_SIZE; x++) {
+                const c = cwGrid[y][x];
+                if(c && c.isActive && !c.domInput.parentElement.classList.contains('correct')) emptyCells.push(c);
+            }
+            if (!emptyCells.length) return;
+            const rCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+            rCell.domInput.value = rCell.correctChar; rCell.userChar = rCell.correctChar;
+            cwHintLeft--; document.getElementById('cw-hintCount').innerText = cwHintLeft; updateCwScore(-2);
+            if(cwHintLeft === 0) {
+                let btn = document.getElementById('btnHint'); btn.style.opacity = '0.5'; btn.style.cursor = 'not-allowed';
+            }
+            rCell.domInput.parentElement.style.backgroundColor = '#fde68a';
+            setTimeout(() => { rCell.domInput.parentElement.style.backgroundColor = ''; }, 500);
+        }
+
+        function checkCwAnswers() {
+            playCwSound('click');
+            let anyCorrect = false, allCorrect = true, wrongExists = false;
+            CW_WORDS.forEach(word => {
+                let wCorrect = true, wFilled = true, cx = word.x, cy = word.y, cells = [];
+                for (let i = 0; i < word.answer.length; i++) {
+                    const c = cwGrid[cy][cx]; cells.push(c);
+                    if (c.domInput.value.toUpperCase() !== c.correctChar) wCorrect = false;
+                    if (c.domInput.value === "") wFilled = false;
+                    if (word.dir === 1) cx++; else cy++;
+                }
+                const clueEl = document.getElementById(`cwclue-${word.id}`);
+                if (wCorrect) {
+                    if (!clueEl.classList.contains('solved')) {
+                        anyCorrect = true; clueEl.classList.add('solved'); cwSolvedWords++; updateCwScore(10);
+                        cells.forEach(c => c.domInput.parentElement.classList.add('correct'));
+                    }
+                } else { allCorrect = false; if (wFilled) wrongExists = true; }
+            });
+            updateCwProgress();
+            if (allCorrect) {
+                playCwSound('win'); document.getElementById('cw-modal-correct').classList.add('active');
+            } else if (wrongExists && !anyCorrect) {
+                playCwSound('wrong'); document.getElementById('cw-modal-incorrect').classList.add('active');
+            } else if (anyCorrect) playCwSound('correct');
+        }
+
+        function updateCwProgress() {
+            const pct = Math.round((cwSolvedWords / cwTotalWords) * 100);
+            document.getElementById('cw-progressBar').style.width = pct + '%';
+            document.getElementById('cw-progressText').innerText = pct + '%';
+        }
+
+        function formatCwTime(sec) { return `${Math.floor(sec/60).toString().padStart(2,'0')}:${(sec%60).toString().padStart(2,'0')}`; }
+
+        function startCwTimer() {
+            cwTimerInterval = setInterval(() => {
+                cwTimeLeft--; document.getElementById('cw-timerDisplay').innerText = formatCwTime(cwTimeLeft);
+                if (cwTimeLeft <= 0) { clearInterval(cwTimerInterval); checkCwAnswers(); setTimeout(finishCwGame, 2000); }
+            }, 1000);
+        }
+
+        function showCwPage(pageId) {
+            document.querySelectorAll('.cw-page').forEach(el => el.classList.remove('active'));
+            setTimeout(() => document.getElementById(pageId).classList.add('active'), 50);
+        }
+
+        function closeCwModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        function startCwGame() {
+            initCwAudio().then(() => {
+                playCwSound('click');
+                showCwPage('cw-page-game');
+                
+                // Eksekusi render jika belum digenerate
+                if (cwGrid.length === 0) {
+                    initCwGridData(); renderCwBoard(); renderCwClues(); createCwFloatingBeans();
+                }
+                
+                startCwTimer(); setTimeout(() => focusCwWord(2), 500);
+            });
+        }
+
+        function resetCwBoard() { playCwSound('click'); document.getElementById('cw-modal-reset').classList.add('active'); }
+        
+        function executeCwReset() {
+            for(let y=0; y<CW_GRID_SIZE; y++) for(let x=0; x<CW_GRID_SIZE; x++) {
+                const c = cwGrid[y][x];
+                if(c && c.isActive) { c.domInput.value = ""; c.userChar = ""; c.domInput.parentElement.classList.remove('correct','highlighted'); }
+            }
+            document.querySelectorAll('.cw-clue-item.solved').forEach(el => el.classList.remove('solved'));
+            cwScore = 0; cwSolvedWords = 0; updateCwScore(0); updateCwProgress();
+            cwHintLeft = 3; document.getElementById('cw-hintCount').innerText = cwHintLeft;
+            document.getElementById('btnHint').style.opacity = '1'; document.getElementById('btnHint').style.cursor = 'pointer';
+            clearInterval(cwTimerInterval); cwTimeLeft = 15 * 60; document.getElementById('cw-timerDisplay').innerText = formatCwTime(cwTimeLeft);
+            startCwTimer(); cwActiveWordId = null;
+            document.querySelectorAll('.cw-clue-item.active').forEach(el => el.classList.remove('active'));
+            setTimeout(() => focusCwWord(2), 100);
+        }
+
+        function finishCwGame() {
+            clearInterval(cwTimerInterval);
+            document.getElementById('cw-finalScore').innerText = cwScore;
+            document.getElementById('cw-finalTime').innerText = formatCwTime(15 * 60 - Math.max(0, cwTimeLeft));
+            showCwPage('cw-page-result');
+            const end = Date.now() + 3000;
+            (function frame() {
+                if(typeof confetti === 'function'){
+                    confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#2563eb', '#10b981', '#f59e0b'] });
+                    confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#2563eb', '#10b981', '#f59e0b'] });
+                }
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        }
+
+        function createCwFloatingBeans() {
+            const bg = document.getElementById('cw-floating-bg');
+            if(!bg) return;
+            const icons = ['fa-seedling', 'fa-leaf', 'fa-mug-hot'];
+            for(let i=0; i<15; i++) {
+                const bean = document.createElement('i');
+                bean.className = `fa-solid ${icons[Math.floor(Math.random() * icons.length)]} floating-bean`;
+                bean.style.left = `${Math.random() * 100}%`;
+                bean.style.animationDuration = `${10 + Math.random() * 20}s`;
+                bean.style.animationDelay = `-${Math.random() * 10}s`;
+                bg.appendChild(bean);
             }
         }
 
