@@ -3023,28 +3023,64 @@
             input.value = input.value.toUpperCase();
             cwGrid[y][x].userChar = input.value;
             playCwSound('type');
-            moveCwNext(x, y, 1);
+            
+            // Tambahkan flag 'true' untuk ngasih tau sistem kalau user lagi ngetik
+            moveCwNext(x, y, 1, true); 
         }
 
         function handleCwKeydown(e, x, y) {
-            if (e.key === 'Backspace' && e.target.value === "") { e.preventDefault(); moveCwNext(x, y, -1); }
-            else if (['ArrowRight','ArrowDown'].includes(e.key)) moveCwNext(x, y, 1);
-            else if (['ArrowLeft','ArrowUp'].includes(e.key)) moveCwNext(x, y, -1);
+            if (e.key === 'Backspace' && e.target.value === "") { 
+                e.preventDefault(); 
+                moveCwNext(x, y, -1, true); 
+            }
+            else if (['ArrowRight','ArrowDown'].includes(e.key)) {
+                e.preventDefault();
+                // Flag 'false' karena pakai panah manual, bukan ngetik
+                moveCwNext(x, y, 1, false);
+            }
+            else if (['ArrowLeft','ArrowUp'].includes(e.key)) {
+                e.preventDefault();
+                moveCwNext(x, y, -1, false);
+            }
         }
 
-        function moveCwNext(x, y, step) {
+        function moveCwNext(x, y, step, isTyping = false) {
             if (!cwActiveWordId) return;
             const word = CW_WORDS.find(w => w.id === cwActiveWordId);
             if (!word) return;
+            
             let currIdx = word.dir === 1 ? x - word.x : y - word.y;
             let nextIdx = currIdx + step;
-            if (nextIdx >= 0 && nextIdx < word.answer.length) {
+
+            // Loop untuk mencari kotak valid berikutnya
+            while (nextIdx >= 0 && nextIdx < word.answer.length) {
                 let nx = word.x + (word.dir === 1 ? nextIdx : 0);
                 let ny = word.y + (word.dir === 0 ? nextIdx : 0);
                 const nInput = cwGrid[ny][nx].domInput;
-                if (nInput && !nInput.parentElement.classList.contains('correct')) {
-                    nInput.focus(); if(step === -1) setTimeout(()=>nInput.select(),10);
-                } else if(nInput) moveCwNext(nx, ny, step);
+                
+                if (nInput) {
+                    // 1. Selalu skip jika kotak sudah berstatus 'correct' (hijau)
+                    if (nInput.parentElement.classList.contains('correct')) {
+                        nextIdx += step;
+                        continue;
+                    }
+                    
+                    // 2. LOGIKA BARU: Jika sedang maju ngetik, skip kotak yang bersinggungan (sudah ada hurufnya)
+                    if (isTyping && step === 1 && nInput.value !== "") {
+                        nextIdx += step;
+                        continue;
+                    }
+
+                    // Fokus ke kotak yang tepat jika lolos filter di atas
+                    nInput.focus();
+                    
+                    // Jika mundur atau pakai panah, block hurufnya biar gampang ditimpa
+                    if (step === -1 || !isTyping) {
+                        setTimeout(() => nInput.select(), 10);
+                    }
+                    return;
+                }
+                nextIdx += step;
             }
         }
 
