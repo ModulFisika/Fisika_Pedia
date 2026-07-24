@@ -752,6 +752,29 @@
                         <p class="text-indigo-800 m-0 text-sm sm:text-base leading-relaxed relative z-10">
                             Mengapa benda yang suhunya lebih tinggi terasa lebih panas? Hal ini karena <strong>partikel-partikel penyusun benda</strong>, seperti atom dan molekul, bergerak lebih cepat. Semakin tinggi suhu suatu benda, semakin besar energi yang dimiliki partikel-partikelnya sehingga gerak partikel menjadi semakin cepat. Sebaliknya, pada suhu yang lebih rendah, partikel bergerak lebih lambat.
                         </p>
+                        
+                        <!-- Simulasi Interaktif Partikel -->
+                        <div class="mt-6 bg-white p-4 sm:p-5 rounded-xl shadow-inner border border-indigo-200 relative z-10">
+                            <h5 class="font-black text-indigo-900 mb-3 text-center text-sm uppercase tracking-widest"><i class="fas fa-play-circle text-indigo-500 mr-1"></i> Simulasi Teori Kinetik</h5>
+                            
+                            <!-- Layar Animasi -->
+                            <div class="w-full h-48 sm:h-56 bg-slate-900 rounded-lg mb-5 overflow-hidden shadow-inner border-2 border-slate-700">
+                                <canvas id="particle-canvas" class="w-full h-full"></canvas>
+                            </div>
+                            
+                            <!-- Kontrol Slider -->
+                            <div class="flex items-center gap-3 px-2 mb-2">
+                                <span class="text-blue-500 font-bold text-xl drop-shadow-sm">❄️</span>
+                                <input type="range" id="temp-slider" min="0" max="100" value="20" class="w-full h-2.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600 shadow-inner">
+                                <span class="text-red-500 font-bold text-xl drop-shadow-sm">🔥</span>
+                            </div>
+                            
+                            <!-- Tampilan Angka -->
+                            <p class="text-center font-mono font-bold text-indigo-900 text-lg m-0 bg-indigo-50 py-1.5 rounded-lg border border-indigo-100">
+                                Suhu: <span id="temp-display" class="text-2xl text-indigo-600">20</span>°C
+                            </p>
+                        </div>
+                        
                     </div>
 
                     <div class="bg-amber-50 border border-amber-200 p-6 rounded-2xl shadow-sm relative group hover:shadow-md transition-all">
@@ -3249,7 +3272,101 @@
             }
         }
 
-    
+    // --- LOGIKA SIMULASI PARTIKEL (PADA PENGERTIAN SUHU) ---
+        const particleCanvas = document.getElementById('particle-canvas');
+        if (particleCanvas) {
+            const ctx = particleCanvas.getContext('2d');
+            const tempSlider = document.getElementById('temp-slider');
+            const tempDisplay = document.getElementById('temp-display');
+
+            // Sesuaikan resolusi kanvas dengan ukuran aslinya di layar
+            function resizeCanvas() {
+                particleCanvas.width = particleCanvas.offsetWidth;
+                particleCanvas.height = particleCanvas.offsetHeight;
+            }
+            
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            const particles = [];
+            const numParticles = 60; // Jumlah partikel yang akan ditampilkan
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * particleCanvas.width;
+                    this.y = Math.random() * particleCanvas.height;
+                    // Kecepatan dasar random antara -1.5 hingga 1.5
+                    this.vx = (Math.random() - 0.5) * 3;
+                    this.vy = (Math.random() - 0.5) * 3;
+                    this.radius = 3; // Ukuran partikel
+                }
+                
+                update(speedMultiplier) {
+                    this.x += this.vx * speedMultiplier;
+                    this.y += this.vy * speedMultiplier;
+
+                    // Efek memantul jika menabrak dinding kanvas
+                    if (this.x - this.radius < 0 || this.x + this.radius > particleCanvas.width) {
+                        this.vx *= -1;
+                        this.x = Math.max(this.radius, Math.min(this.x, particleCanvas.width - this.radius));
+                    }
+                    if (this.y - this.radius < 0 || this.y + this.radius > particleCanvas.height) {
+                        this.vy *= -1;
+                        this.y = Math.max(this.radius, Math.min(this.y, particleCanvas.height - this.radius));
+                    }
+                }
+                
+                draw(color) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = color;
+                    ctx.fill();
+                    
+                    // Efek cahaya (Glow) pada partikel
+                    ctx.shadowBlur = 5;
+                    ctx.shadowColor = color;
+                }
+            }
+
+            // Membangkitkan partikel-partikel
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
+            }
+
+            // Fungsi mengubah warna berdasarkan suhu (0-100)
+            function getParticleColor(temp) {
+                // Suhu 0 = Biru (0, 150, 255)
+                // Suhu 100 = Merah (255, 50, 0)
+                const r = Math.floor((temp / 100) * 255);
+                const b = Math.floor(((100 - temp) / 100) * 255);
+                return `rgb(${r}, 100, ${b})`;
+            }
+
+            // Loop Animasi Utama
+            function animateParticles() {
+                // Menghapus frame sebelumnya (membuat efek jejak bayangan tipis)
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.3)';
+                ctx.fillRect(0, 0, particleCanvas.width, particleCanvas.height);
+                
+                const currentTemp = parseInt(tempSlider.value);
+                tempDisplay.innerText = currentTemp;
+                
+                // Menghitung multiplier kecepatan. Suhu 0 = kecepatan sangat pelan (0.2x). Suhu 100 = kecepatan tinggi (5x).
+                const speedMultiplier = (currentTemp / 20) + 0.2; 
+                const particleColor = getParticleColor(currentTemp);
+
+                particles.forEach(p => {
+                    p.update(speedMultiplier);
+                    p.draw(particleColor);
+                });
+
+                requestAnimationFrame(animateParticles);
+            }
+
+            // Mulai animasi
+            animateParticles();
+        }
+        
         // --- 4. LOGIKA EVALUASI AKHIR (20 SOAL & TAKSONOMI BLOOM) ---
         const evalData = [
             // --- 5 SOAL KONSEP DASAR (C1-C2) ---
