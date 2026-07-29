@@ -10,6 +10,16 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <!-- FontAwesome untuk Icon -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Konfigurasi MathJax agar mengenali tanda $ -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <!-- Canvas Confetti untuk animasi sukses -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -547,6 +557,47 @@
                             position: absolute; box-shadow: 0 0 8px rgba(255,255,255,0.8);
                             animation: jiggle linear infinite;
                         }
+    /* ========================================== */
+        /* CSS KHUSUS LATIHAN SOAL / MINI GAMES       */
+        /* ========================================== */
+        .btn-ls-opt {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 0 #cbd5e1; /* Efek 3D */
+        }
+        .btn-ls-opt:hover:not(:disabled) {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #94a3b8;
+        }
+        .btn-ls-opt.correct-opt {
+            background-color: #f0fdf4 !important;
+            border-color: #22c55e !important;
+            color: #166534 !important;
+            box-shadow: 0 0 0 transparent !important;
+            transform: translateY(6px) !important;
+        }
+        .btn-ls-opt.correct-opt .opt-letter-box {
+            background-color: #22c55e !important;
+            color: white !important;
+            border-color: #16a34a !important;
+        }
+        .btn-ls-opt.wrong-opt {
+            background-color: #fef2f2 !important;
+            border-color: #ef4444 !important;
+            color: #991b1b !important;
+            box-shadow: 0 0 0 transparent !important;
+            transform: translateY(6px) !important;
+        }
+        .btn-ls-opt.wrong-opt .opt-letter-box {
+            background-color: #ef4444 !important;
+            color: white !important;
+            border-color: #dc2626 !important;
+        }
+        .btn-ls-opt:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+            transform: translateY(6px) !important;
+            box-shadow: 0 0 0 transparent !important;
+        }                    
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col pt-16">
@@ -3264,58 +3315,76 @@
 </div>
 </section>
 
-        <!-- ========================================== -->
-        <!-- FITUR LATIHAN SOAL (DARI SUB HALAMAN)      -->
+       <!-- ========================================== -->
+        <!-- FITUR LATIHAN SOAL (DESAIN MINI GAMES)     -->
         <!-- ========================================== -->
         <section id="latihan-soal" class="page-section">
-            <div class="w-full min-h-[85vh] flex flex-col items-center justify-center p-4 sm:p-8 rounded-3xl overflow-x-hidden bg-slate-50 shadow-inner border border-slate-200 relative">
+            <div class="w-full min-h-[85vh] flex flex-col items-center justify-center p-4 sm:p-8 rounded-3xl overflow-x-hidden bg-gradient-to-br from-indigo-50 via-white to-purple-50 shadow-inner border border-slate-200 relative">
+                
+                <!-- Elemen Dekoratif Background -->
+                <div class="absolute top-10 left-10 text-6xl opacity-10 animate-pulse pointer-events-none">🎮</div>
+                <div class="absolute bottom-10 right-10 text-6xl opacity-10 animate-bounce pointer-events-none">🎯</div>
                 
                 <div id="ls-active-screen" class="w-full max-w-4xl flex-col items-center z-10 anim-pop">
+                    
                     <!-- Header -->
-                    <header class="w-full flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 bg-white/95 p-4 rounded-2xl shadow-md border-b-4 border-slate-200">
-                        <button onclick="closeLatihanSoal()" class="bg-slate-100 text-slate-700 font-black px-4 py-2 rounded-xl shadow-sm border border-slate-200 hover:bg-slate-200 transition-colors text-sm flex items-center gap-2">
-                            <i class="fas fa-arrow-left text-slate-500"></i> KEMBALI
+                    <header class="w-full flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 bg-white/90 backdrop-blur-md p-5 rounded-3xl shadow-lg border border-white/50">
+                        <button onclick="closeLatihanSoal()" class="bg-rose-50 text-rose-600 font-black px-5 py-2.5 rounded-xl shadow-sm border border-rose-200 hover:bg-rose-100 hover:scale-105 transition-all text-sm flex items-center gap-2">
+                            <i class="fas fa-sign-out-alt"></i> KELUAR
                         </button>
                         
-                        <h1 class="text-xl sm:text-2xl font-black text-slate-800 flex items-center gap-3">
-                            <span id="ls-title-icon" class="text-3xl">📝</span> 
-                            <span id="ls-title-text">Topik Soal</span>
+                        <h1 class="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 flex items-center gap-3 drop-shadow-sm text-center">
+                            <span id="ls-title-icon" class="text-3xl sm:text-4xl filter drop-shadow-md">🕹️</span> 
+                            <span id="ls-title-text">Tantangan Mini Games</span>
                         </h1>
 
-                        <div class="bg-blue-50 text-blue-700 font-black px-5 py-2 rounded-xl shadow-sm border border-blue-200 text-sm">
-                            SOAL <span id="ls-progress">1 / 5</span>
+                        <div class="flex flex-col items-center sm:items-end w-full sm:w-auto">
+                            <div class="text-[10px] font-black text-slate-400 mb-1 tracking-widest uppercase">Progress Misi</div>
+                            <div class="flex items-center gap-3 w-full sm:w-48">
+                                <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden shadow-inner border border-slate-200">
+                                    <div id="ls-progress-bar" class="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                                </div>
+                                <span id="ls-progress-text" class="text-sm font-black text-blue-700 whitespace-nowrap bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100">1 / 5</span>
+                            </div>
                         </div>
                     </header>
 
                     <!-- Area Soal & Pilihan -->
-                    <div class="bg-white rounded-3xl shadow-xl w-full border border-slate-200 overflow-hidden flex flex-col">
-                        <!-- Pertanyaan -->
-                        <div class="p-6 sm:p-10 bg-slate-50 border-b border-slate-200">
-                            <h3 id="ls-question-text" class="text-xl sm:text-2xl font-bold text-slate-800 leading-relaxed text-center">
-                                Teks Pertanyaan
-                            </h3>
+                    <div class="bg-white rounded-[2rem] shadow-2xl w-full border border-slate-100 overflow-hidden flex flex-col transform transition-all">
+                        
+                        <!-- Pertanyaan (Dark Mode Style) -->
+                        <div class="p-8 sm:p-12 bg-gradient-to-br from-slate-800 to-slate-900 border-b-4 border-blue-500 relative overflow-hidden">
+                            <div class="absolute -right-8 -top-8 w-40 h-40 bg-blue-500 rounded-full opacity-20 blur-3xl"></div>
+                            <div class="absolute -left-8 -bottom-8 w-40 h-40 bg-purple-500 rounded-full opacity-20 blur-3xl"></div>
+                            
+                            <div class="flex items-start gap-4 sm:gap-6 relative z-10">
+                                <div class="w-12 h-12 sm:w-16 sm:h-16 bg-white/10 text-white rounded-2xl flex items-center justify-center text-2xl sm:text-3xl shrink-0 font-black border border-white/20 shadow-inner">Q</div>
+                                <h3 id="ls-question-text" class="text-xl sm:text-2xl font-bold text-white leading-relaxed mt-1 sm:mt-2">
+                                    Teks Pertanyaan
+                                </h3>
+                            </div>
                         </div>
 
                         <!-- Pilihan Ganda -->
-                        <div class="p-6 sm:p-10 bg-white">
-                            <div class="grid grid-cols-1 gap-4" id="ls-choices-container">
+                        <div class="p-6 sm:p-10 bg-slate-50/50">
+                            <div class="grid grid-cols-1 gap-5" id="ls-choices-container">
                                 <!-- Choices injected by JS -->
                             </div>
                         </div>
 
-                        <!-- Evaluasi / Pembahasan Box (Awalnya Sembunyi) -->
-                        <div id="ls-eval-box" class="hidden p-6 sm:p-8 bg-gray-50 border-t border-slate-200">
+                        <!-- Evaluasi / Pembahasan Box -->
+                        <div id="ls-eval-box" class="hidden p-6 sm:p-8 bg-gradient-to-b from-white to-slate-50 border-t-2 border-dashed border-slate-200">
                             <div class="flex items-start gap-4">
-                                <div id="ls-eval-icon" class="text-4xl mt-1 shrink-0">✅</div>
+                                <div id="ls-eval-icon" class="text-4xl sm:text-5xl mt-1 shrink-0 filter drop-shadow-sm">✅</div>
                                 <div>
-                                    <h4 id="ls-eval-title" class="font-black text-xl mb-2 text-green-700">Tepat Sekali!</h4>
-                                    <p class="font-bold text-slate-700 mb-1">Pembahasan:</p>
-                                    <p id="ls-eval-desc" class="text-slate-600 leading-relaxed text-sm bg-white p-4 rounded-xl border border-slate-200 shadow-sm"></p>
+                                    <h4 id="ls-eval-title" class="font-black text-2xl mb-2 text-green-700">Tepat Sekali!</h4>
+                                    <p class="font-bold text-slate-700 mb-2 text-sm uppercase tracking-wider flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Pembahasan Misi:</p>
+                                    <p id="ls-eval-desc" class="text-slate-700 leading-relaxed text-sm sm:text-base bg-white p-5 rounded-2xl border border-slate-200 shadow-sm font-medium"></p>
                                 </div>
                             </div>
-                            <div class="mt-6 flex justify-end">
-                                <button id="ls-next-btn" onclick="nextLatihanSoalQuestion()" class="bg-blue-600 hover:bg-blue-700 text-white font-black py-3 px-8 rounded-xl shadow-md transition-transform transform hover:-translate-y-1">
-                                    Lanjut Soal Berikutnya <i class="fas fa-arrow-right ml-2"></i>
+                            <div class="mt-8 flex justify-end">
+                                <button id="ls-next-btn" onclick="nextLatihanSoalQuestion()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black py-4 px-8 rounded-xl shadow-lg shadow-blue-500/30 transition-transform transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2">
+                                    Lanjut Misi Berikutnya <i class="fas fa-arrow-right"></i>
                                 </button>
                             </div>
                         </div>
@@ -3323,21 +3392,23 @@
                 </div>
 
                 <!-- Hasil Akhir Latihan Soal -->
-                <div id="ls-result-screen" class="hidden w-full max-w-2xl bg-white rounded-3xl p-10 text-center shadow-2xl border border-slate-200 anim-pop z-10">
-                    <div class="text-7xl mb-4">🎉</div>
-                    <h2 class="text-3xl font-black text-slate-800 mb-2">Latihan Selesai!</h2>
-                    <p class="text-slate-500 font-bold mb-8">Kamu telah menyelesaikan semua soal untuk topik ini.</p>
+                <div id="ls-result-screen" class="hidden w-full max-w-2xl bg-white rounded-[2.5rem] p-10 sm:p-14 text-center shadow-2xl border border-slate-100 anim-pop z-10 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500"></div>
+                    <div class="text-7xl sm:text-8xl mb-6 filter drop-shadow-lg">🎉</div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-800 mb-3 tracking-tight">Misi Selesai!</h2>
+                    <p class="text-slate-500 font-medium mb-10 text-lg">Kamu telah menyelesaikan semua tantangan untuk materi ini.</p>
                     
-                    <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-6 mb-8 inline-block w-full max-w-sm">
-                        <span class="block text-sm font-bold text-blue-600 uppercase tracking-widest mb-2">Skor Akhir</span>
-                        <div id="ls-final-score" class="text-6xl font-black text-blue-800">100</div>
+                    <div class="bg-gradient-to-b from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-3xl p-8 mb-10 inline-block w-full max-w-xs shadow-inner">
+                        <span class="block text-sm font-black text-blue-500 uppercase tracking-widest mb-3">Skor Akhir</span>
+                        <div id="ls-final-score" class="text-7xl font-black text-blue-800 drop-shadow-sm">100</div>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <button onclick="closeLatihanSoal()" class="bg-slate-800 hover:bg-slate-900 text-white font-black py-4 px-8 rounded-xl shadow-md transition">Kembali ke Materi</button>
+                    <div class="flex justify-center">
+                        <button onclick="closeLatihanSoal()" class="bg-slate-800 hover:bg-slate-900 text-white font-black py-4 px-10 rounded-2xl shadow-lg shadow-slate-900/20 transition-transform transform hover:-translate-y-1 hover:scale-105 flex items-center gap-3 text-lg">
+                            <i class="fas fa-check-circle"></i> Selesai
+                        </button>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -3919,13 +3990,13 @@
         }
 
         // --- 2. LOGIKA LATIHAN SOAL (DARI SUB HALAMAN) ---
-        const latihanSoalDB = {
+       const latihanSoalDB = {
              suhu: [
                 {
                     q: "Berdasarkan teori kinetik, suhu mutlak gas ideal berbanding lurus dengan parameter mikroskopis yaitu...",
                     opts: ["Massa total gas", "Volume ruang wadah", "Energi kinetik rata-rata translasi", "Gaya gravitasi antar partikel"],
                     ans: 2,
-                    exp: "Secara fisis, besaran makroskopis Suhu ($T$) merepresentasikan rata-rata energi kinetik pergerakan atom/molekul ($E_k = \frac{3}{2} kT$)."
+                    exp: "Secara fisis, besaran makroskopis Suhu (\\(T\\)) merepresentasikan rata-rata energi kinetik pergerakan atom/molekul (\\(E_k = \\frac{3}{2} kT\\))."
                 },
                 {
                     q: "Apa prinsip termodinamika yang menjelaskan tangan terasa dingin saat menggenggam segelas cold brew coffee bersuhu 5°C?",
@@ -3937,13 +4008,13 @@
                     q: "Sebuah termometer custom berskala Z menetapkan titik beku air di 10°Z dan titik didih di 130°Z. Jika suhu hamparan kopi tercatat 40°C, termometer Z akan menunjuk angka...",
                     opts: ["48°Z", "58°Z", "68°Z", "78°Z"],
                     ans: 1,
-                    exp: "Gunakan interpolasi: $(Z - 10) / (130 - 10) = 40 / 100 \implies (Z - 10)/120 = 0,4 \implies Z = 48 + 10 = 58^\circ Z$."
+                    exp: "Gunakan interpolasi: \\( \\frac{Z - 10}{130 - 10} = \\frac{40}{100} \\implies \\frac{Z - 10}{120} = 0,4 \\implies Z = 48 + 10 = 58^\\circ\\text{Z} \\)."
                 },
                 {
                     q: "Berapa kenaikan suhu dalam kelvin jika dipanaskan dari 30°C hingga 80°C?",
                     opts: ["50 K", "323 K", "353 K", "273 K"],
                     ans: 0,
-                    exp: "Rentang/selisih suhu ($\Delta T$) pada skala Celcius sama persis dengan skala Kelvin. Kenaikan 50°C setara dengan kenaikan 50 Kelvin."
+                    exp: "Rentang/selisih suhu (\\(\\Delta T\\)) pada skala Celcius sama persis dengan skala Kelvin. Kenaikan 50°C setara dengan kenaikan 50 Kelvin."
                 },
                 {
                     q: "Termokopel adalah sensor alat ukur suhu yang banyak dipakai di industri sangrai kopi modern. Sifat termometrik termokopel didasarkan pada...",
@@ -3969,55 +4040,55 @@
                     q: "Sepotong baja panas dimasukkan ke dalam air bermassa sama namun bersuhu dingin dalam sistem terisolasi kalorimeter. Pernyataan sesuai Asas Black:",
                     opts: ["Air mencapai suhu lebih rendah dari baja pada akhirnya", "Air akan mendidih seluruhnya dan baja mendingin", "Baja menerima energi kinetik dari air", "Energi (kalor) yang dilepas baja bernilai mutlak sama dengan yang diserap air"],
                     ans: 3,
-                    exp: "Asas Black adalah prinsip kekekalan energi untuk kalor: Kalor yang dilepas ($Q_{out}$) sistem yang suhunya tinggi = kalor yang diserap ($Q_{in}$) sistem bersuhu rendah."
+                    exp: "Asas Black adalah prinsip kekekalan energi untuk kalor: Kalor yang dilepas (\\(Q_{\\text{lepas}}\\)) sistem yang suhunya tinggi = kalor yang diserap (\\(Q_{\\text{terima}}\\)) sistem bersuhu rendah."
                 },
                 {
                     q: "Air 0,2 kg (c = 4200 J/kg°C) di 20°C dipanaskan menjadi 60°C. Daya kompor yang memanaskannya 280 Watt. Asumsikan efisiensi 100%, butuh waktu berapa lama?",
                     opts: ["60 detik", "120 detik", "180 detik", "240 detik"],
                     ans: 1,
-                    exp: "$Q = mc\Delta T = 0,2 \times 4200 \times 40 = 33.600$ J. Waktu $t = Q / \text{Daya} = 33.600 / 280 = 120$ detik."
+                    exp: "\\(Q = m c \\Delta T = 0,2 \\times 4200 \\times 40 = 33.600\\) Joule. Waktu \\(t = \\frac{Q}{\\text{Daya}} = \\frac{33.600}{280} = 120\\) detik."
                 },
                 {
                     q: "Kopi susu dibuat dengan mencampur air kopi 100g (90°C) dan susu 50g (30°C). Asumsi kalor jenis keduanya sama. Suhu akhir campuran adalah...",
                     opts: ["50°C", "60°C", "70°C", "80°C"],
                     ans: 2,
-                    exp: "$m_{\text{kopi}}(90-T_c) = m_{\text{susu}}(T_c-30) \implies 100(90-T_c) = 50(T_c-30) \implies 180 - 2T_c = T_c - 30 \implies 210 = 3T_c \implies T_c = 70^\circ C$."
+                    exp: "\\(m_{\\text{kopi}} (90-T_c) = m_{\\text{susu}} (T_c-30) \\implies 100(90-T_c) = 50(T_c-30) \\implies 180 - 2T_c = T_c - 30 \\implies 210 = 3T_c \\implies T_c = 70^\\circ \\text{C}\\)."
                 },
                 {
                     q: "Massa jenis kopi yang dijemur akan mengecil sering berjalannya waktu. Ke mana perginya massa tersebut secara fisis?",
                     opts: ["Mencair lalu meresap ke dalam lantai jemur", "Menerima Kalor Laten Uap lalu terlepas dari biji kopi ke udara sebagai gas (evaporasi)", "Memuai akibat konduksi lantai panas", "Termusnahkan oleh tingginya paparan sinar radiasi matahari"],
                     ans: 1,
-                    exp: "Proses evaporasi terjadi saat partikel air dalam kopi menyerap kalor uap ($Q=mU$) sehingga cukup energi untuk memutus ikatan fasa cair dan lepas sebagai gas."
+                    exp: "Proses evaporasi terjadi saat partikel air dalam kopi menyerap kalor uap (\\(Q = m U\\)) sehingga cukup energi untuk memutus ikatan fasa cair dan lepas sebagai gas."
                 },
                 {
                     q: "Grafik pemanasan zat dari padat ke gas menunjukkan dua buah garis lurus horizontal searah sumbu waktu. Garis horizontal ini menandakan...",
                     opts: ["Penurunan suhu lingkungan", "Suhu konstan selama energi difokuskan untuk memutus ikatan partikel (Perubahan wujud)", "Kapasitas kalor menurun pada wujud gas", "Tidak ada kalor yang masuk pada waktu tersebut"],
                     ans: 1,
-                    exp: "Garis horizontal mencerminkan Kalor Laten ($L/U$). Seluruh kalor masuk dipakai merubah wujud fasa zat, sehingga suhu statis/konstan."
+                    exp: "Garis horizontal mencerminkan Kalor Laten (\\(L/U\\)). Seluruh kalor masuk dipakai merubah wujud fasa zat, sehingga suhu statis/konstan."
                 },
                 {
                     q: "Pada percobaan laboratorium, sebuah tabung reaksi Pyrex disiram air panas tidak retak, namun botol kaca minuman biasa retak. Hal ini dikarenakan Pyrex memiliki...",
                     opts: ["Koefisien konduktivitas tinggi", "Kalor lebur tinggi", "Koefisien muai panjang sangat kecil", "Kapasitas kalor mendekati nol"],
                     ans: 2,
-                    exp: "Pemuaian yang terjadi mendadak dan berbeda antar dinding akan meretakkan material. Pyrex dirancang dengan koefisien muai $\alpha$ sangat rendah sehingga relatif tidak memuai walau suhunya berubah tajam."
+                    exp: "Pemuaian yang terjadi mendadak dan berbeda antar dinding akan meretakkan material. Pyrex dirancang dengan koefisien muai (\\(\\alpha\\)) sangat rendah sehingga relatif tidak memuai walau suhunya berubah tajam."
                 },
                 {
-                    q: "Pelat tembaga segi empat dengan panjang 40 cm dan lebar 25 cm memuai setelah suhunya naik 50°C. ($\alpha = 1,7 \times 10^{-5} /^\circ C$). Berapa penambahan luas pelat tersebut?",
+                    q: "Pelat tembaga segi empat dengan panjang 40 cm dan lebar 25 cm memuai setelah suhunya naik 50°C. (\\(\\alpha = 1,7 \\times 10^{-5} /^\\circ\\text{C}\\)). Berapa penambahan luas pelat tersebut?",
                     opts: ["0,00017 m²", "0,017 m²", "0,17 m²", "1,7 m²"],
                     ans: 0,
-                    exp: "Luas awal $A_0 = 0,4 \times 0,25 = 0,1$ m². Koef muai luas $\beta = 2\alpha = 3,4 \times 10^{-5}$. $\Delta A = 0,1 \times (3,4 \times 10^{-5}) \times 50 = 1,7 \times 10^{-4}$ m² atau $0,00017$ m²." // Wait, let's make the answer option match exactly.
+                    exp: "Luas awal \\(A_0 = 0,4 \\times 0,25 = 0,1\\) m². Koef muai luas \\(\\beta = 2\\alpha = 3,4 \\times 10^{-5}\\). \\(\\Delta A = 0,1 \\times (3,4 \\times 10^{-5}) \\times 50 = 1,7 \\times 10^{-4}\\) m² atau \\(0,00017\\) m²."
                 },
                 {
                     q: "Hukum radiasi termal Stefan-Boltzmann menyatakan bahwa energi pancaran per detik sebanding dengan...",
-                    opts: ["Invers suhu ruang", "Luas penampang dan pangkat 4 suhu mutlak ($T^4$)", "Kapasitas kalor spesifik benda", "Ketebalan lapisan atmosfer"],
+                    opts: ["Invers suhu ruang", "Luas penampang dan pangkat 4 suhu mutlak (\\(T^4\\))", "Kapasitas kalor spesifik benda", "Ketebalan lapisan atmosfer"],
                     ans: 1,
-                    exp: "Daya radiasi ($P = e\sigma A T^4$) bergantung pada emisivitas benda, luas permukaan penampang ($A$), dan suhu mutlak yang dipangkatkan 4."
+                    exp: "Daya radiasi (\\(P = e \\sigma A T^4\\)) bergantung pada emisivitas benda, luas permukaan penampang (\\(A\\)), dan suhu mutlak yang dipangkatkan 4."
                 },
                 {
                     q: "Agar aliran konveksi di rumah pengering kopi (greenhouse) maksimal sehingga udara lembap terdorong keluar, petani mendesain ventilasi pembuangan atap di posisi paling tinggi. Mengapa?",
                     opts: ["Udara lembap dan panas memiliki massa jenis (kerapatan) lebih rendah sehingga bergerak naik", "Udara panas akan membeku di bagian bawah", "Mencegah energi kalor radiasi masuk", "Konduktivitas atap sangat kecil terhadap angin luar"],
                     ans: 0,
-                    exp: "Konveksi berjalan murni karena perbedaan massa jenis fluida. Udara panas memiliki kerapatan ($ρ$) lebih renggang sehingga selalu terdorong naik ke atas atap."
+                    exp: "Konveksi berjalan murni karena perbedaan massa jenis fluida. Udara panas memiliki kerapatan (\\(\\rho\\)) lebih renggang sehingga selalu terdorong naik ke atas atap."
                 }
             ]
         };
@@ -4036,9 +4107,9 @@
             lsCorrectCount = 0;
             
             // Set Titles
-            let icon = '📝', text = 'Latihan Soal';
-            if(topic === 'suhu') { icon = '🌡️'; text = 'Latihan Soal: Suhu'; }
-            if(topic === 'kalor') { icon = '🔥'; text = 'Latihan Soal: Kalor'; }
+            let icon = '📝', text = 'Tantangan Mini Games';
+            if(topic === 'suhu') { icon = '🌡️'; text = 'Misi: Konsep Suhu'; }
+            if(topic === 'kalor') { icon = '🔥'; text = 'Misi: Energi Kalor'; }
             
             document.getElementById('ls-title-icon').innerText = icon;
             document.getElementById('ls-title-text').innerText = text;
@@ -4062,15 +4133,22 @@
             lsHasAnswered = false;
             let currentQ = lsQuestions[lsCurrentIndex];
             
-            document.getElementById('ls-progress').innerText = `${lsCurrentIndex + 1} / ${lsQuestions.length}`;
+            // Update Progress
+            document.getElementById('ls-progress-text').innerText = `${lsCurrentIndex + 1} / ${lsQuestions.length}`;
+            let progressPct = ((lsCurrentIndex) / lsQuestions.length) * 100;
+            if (lsCurrentIndex === 0) progressPct = 5; // Minimal lebar bar terlihat di awal
+            document.getElementById('ls-progress-bar').style.width = `${progressPct}%`;
+
             document.getElementById('ls-question-text').innerText = currentQ.q;
             
             let choicesHtml = '';
             let letters = ['A', 'B', 'C', 'D'];
+            let colors = ['text-blue-500', 'text-emerald-500', 'text-amber-500', 'text-purple-500'];
+            
             currentQ.opts.forEach((opt, i) => {
                 choicesHtml += `
-                    <button id="ls-opt-btn-${i}" onclick="checkLSAnswer(${i})" class="btn-3d w-full text-left bg-white border-2 border-slate-200 text-slate-700 font-bold text-lg p-4 rounded-2xl shadow-[0_4px_0_rgb(203,213,225)] hover:bg-slate-50 hover:border-blue-400 flex items-center gap-4 transition-all">
-                        <span class="bg-slate-100 text-slate-500 w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border border-slate-200 font-black">${letters[i]}</span>
+                    <button id="ls-opt-btn-${i}" onclick="checkLSAnswer(${i})" class="btn-ls-opt w-full text-left bg-white border-2 border-slate-200 text-slate-700 font-bold text-base sm:text-lg p-4 sm:p-5 rounded-2xl flex items-center gap-4 focus:outline-none">
+                        <span class="opt-letter-box w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border-2 border-slate-100 bg-slate-50 font-black text-xl ${colors[i]} transition-colors">${letters[i]}</span>
                         <span class="leading-snug">${opt}</span>
                     </button>
                 `;
@@ -4091,15 +4169,19 @@
             
             if(isCorrect) lsCorrectCount++;
 
+            // Update Progress Bar ke tahap penuh untuk soal ini
+            let progressPct = ((lsCurrentIndex + 1) / lsQuestions.length) * 100;
+            document.getElementById('ls-progress-bar').style.width = `${progressPct}%`;
+
             currentQ.opts.forEach((opt, i) => {
                 let btn = document.getElementById(`ls-opt-btn-${i}`);
-                btn.classList.add('disabled-opt'); 
                 
                 if(i === currentQ.ans) {
                     btn.classList.add('correct-opt');
-                    btn.classList.remove('disabled-opt');
                 } else if(i === selectedIndex && !isCorrect) {
                     btn.classList.add('wrong-opt');
+                } else {
+                    btn.disabled = true; // Nonaktifkan sisa tombol
                 }
             });
 
@@ -4112,26 +4194,39 @@
             evalBox.classList.remove('hidden');
             evalBox.classList.add('anim-pop');
 
-            evalDesc.innerText = currentQ.exp;
+            evalDesc.innerHTML = currentQ.exp; 
+
+            // --- TRIGGGER MATHJAX SECARA PAKSA (GLOBAL) ---
+            if (window.MathJax) {
+                MathJax.typesetClear();
+                MathJax.typesetPromise().catch(function (err) {
+                    console.log('MathJax error: ', err.message);
+                });
+            }
 
             if(isCorrect) {
-                evalIcon.innerText = "✅";
+                evalIcon.innerText = "🌟";
                 evalTitle.innerText = "Jawaban Tepat!";
-                evalTitle.className = "font-black text-xl mb-2 text-green-700";
+                evalTitle.className = "font-black text-2xl mb-2 text-green-600";
                 if(typeof confetti === 'function') confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
             } else {
-                evalIcon.innerText = "❌";
+                evalIcon.innerText = "💥";
                 evalTitle.innerText = "Kurang Tepat!";
-                evalTitle.className = "font-black text-xl mb-2 text-red-600";
+                evalTitle.className = "font-black text-2xl mb-2 text-red-600";
             }
 
             if(lsCurrentIndex === lsQuestions.length - 1) {
-                nextBtn.innerHTML = `Lihat Skor Akhir <i class="fas fa-check ml-2"></i>`;
-                nextBtn.className = "bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3 px-8 rounded-xl shadow-md transition-transform transform hover:-translate-y-1";
+                nextBtn.innerHTML = `Lihat Laporan Misi <i class="fas fa-flag-checkered ml-2"></i>`;
+                nextBtn.className = "bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-black py-4 px-8 rounded-xl shadow-lg shadow-emerald-500/30 transition-transform transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2";
             } else {
-                nextBtn.innerHTML = `Lanjut Soal Berikutnya <i class="fas fa-arrow-right ml-2"></i>`;
-                nextBtn.className = "bg-blue-600 hover:bg-blue-700 text-white font-black py-3 px-8 rounded-xl shadow-md transition-transform transform hover:-translate-y-1";
+                nextBtn.innerHTML = `Lanjut Misi Berikutnya <i class="fas fa-arrow-right ml-2"></i>`;
+                nextBtn.className = "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black py-4 px-8 rounded-xl shadow-lg shadow-blue-500/30 transition-transform transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2";
             }
+            
+            // Auto scroll perlahan ke bagian penjelasan
+            setTimeout(() => {
+                evalBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
         }
 
         function nextLatihanSoalQuestion() {
