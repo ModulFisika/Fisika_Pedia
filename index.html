@@ -597,7 +597,18 @@
             opacity: 0.7;
             transform: translateY(6px) !important;
             box-shadow: 0 0 0 transparent !important;
-        }                    
+        }
+        /* Animasi Tambahan untuk Evaluasi */
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+.anim-float { animation: floatIcon 3s ease-in-out infinite; }
+.hover-scale-shadow:hover {
+    transform: scale(1.02) translateY(-5px);
+    box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1);
+}
+.progress-bar-eval { transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }                    
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col pt-16">
@@ -840,75 +851,94 @@
                     <p class="text-slate-500 max-w-2xl mx-auto text-lg">Peta konsep di bawah ini menunjukkan alur dan hubungan antar materi yang akan kamu pelajari.</p>
                 </div>
 
-                <div class="relative z-10 overflow-x-auto pb-8 pt-4 custom-scrollbar">
-                    <div class="min-w-[900px] flex flex-col items-center font-sans mx-auto pb-4">
-                        <div class="border-2 border-blue-500 bg-blue-50 text-blue-800 font-bold px-8 py-3 rounded-xl shadow-md z-10 text-xl tracking-wide uppercase text-center cursor-pointer hover:bg-blue-100 transition-colors" onclick="navigateTo('materi')">Modul Fisika: Suhu & Kalor</div>
-                        <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-slate-50 px-2 py-0.5 text-xs text-slate-600 italic font-medium rounded-full border border-slate-200">membahas</span></div>
-                        <div class="w-[800px] border-t-2 border-slate-400 relative">
-                            <div class="absolute left-0 w-0.5 h-10 bg-slate-400"></div>
-                            <div class="absolute left-1/2 w-0.5 h-10 bg-slate-400 transform -translate-x-1/2"></div>
-                            <div class="absolute right-0 w-0.5 h-10 bg-slate-400"></div>
+                <!-- PETA KONSEP VERSI RESPONSIF -->
+                <div class="relative z-10 flex flex-col items-center font-sans mx-auto pb-4 w-full">
+                    
+                    <!-- Root Node -->
+                    <div class="border-2 border-blue-500 bg-blue-50 text-blue-800 font-bold px-6 sm:px-8 py-3 rounded-xl shadow-md z-10 text-base sm:text-xl tracking-wide uppercase text-center cursor-pointer hover:bg-blue-100 transition-colors" onclick="navigateTo('materi')">Modul Fisika: Suhu & Kalor</div>
+                    
+                    <div class="w-0.5 h-8 sm:h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] sm:text-xs text-slate-600 italic font-medium rounded-full border border-slate-200 shadow-sm">membahas</span></div>
+                    
+                    <!-- Garis Horizontal (Hanya muncul di Layar Besar/Desktop) -->
+                    <div class="hidden lg:block w-full max-w-[900px] border-t-2 border-slate-400 relative">
+                        <div class="absolute left-0 w-0.5 h-10 bg-slate-400"></div>
+                        <div class="absolute left-1/2 w-0.5 h-10 bg-slate-400 transform -translate-x-1/2"></div>
+                        <div class="absolute right-0 w-0.5 h-10 bg-slate-400"></div>
+                    </div>
+
+                    <!-- Container 3 Kolom Topik -->
+                    <div class="flex flex-col lg:flex-row justify-between w-full max-w-[900px] gap-8 lg:gap-6 mt-0 lg:mt-10 relative">
+                        
+                        <!-- Garis Vertikal (Hanya muncul di HP) -->
+                        <div class="block lg:hidden w-0.5 h-6 bg-slate-400 mx-auto -mt-8"></div>
+
+                        <!-- KOLOM 1: SUHU -->
+                        <div class="flex flex-col items-center w-full lg:w-1/3">
+                            <div class="border-2 border-red-500 bg-red-50 text-red-700 font-bold px-4 py-2 rounded-lg shadow-sm z-10 w-full max-w-[280px] text-center uppercase tracking-wide cursor-pointer hover:bg-red-100 transition-colors" onclick="navigateTo('sub-suhu')">Suhu</div>
+                            
+                            <div class="w-0.5 h-8 sm:h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">berkaitan dengan</span></div>
+                            <div class="border-2 border-slate-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full max-w-[280px] text-center text-sm font-semibold hover:border-red-300 transition-colors cursor-pointer" onclick="navigateTo('suhu-pengertian')">Pengertian & Energi Kinetik</div>
+
+                            <div class="w-0.5 h-8 sm:h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">diukur dengan</span></div>
+                            <div class="border-2 border-slate-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full max-w-[280px] text-center text-sm font-semibold hover:border-red-300 transition-colors cursor-pointer" onclick="navigateTo('suhu-alat')">Alat Ukur (Termometer)</div>
+                            
+                            <div class="w-0.5 h-8 sm:h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dinyatakan dalam</span></div>
+                            <div class="border-2 border-slate-300 bg-white text-slate-700 p-4 rounded-lg shadow-sm z-10 w-full max-w-[280px] text-left text-sm hover:border-red-300 transition-colors cursor-pointer" onclick="navigateTo('suhu-skala')">
+                                <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-red-600">Skala Pengukuran</span>
+                                <ul class="list-disc pl-5 text-xs space-y-1.5 font-medium text-slate-600">
+                                    <li>Celcius (°C)</li><li>Reamur (°R)</li><li>Fahrenheit (°F)</li><li>Kelvin (K) <span class="text-[9px] text-blue-500 font-bold">(SI)</span></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="flex justify-between w-[800px] gap-6 mt-10">
-                            <div class="flex flex-col items-center w-1/3">
-                                <div class="border-2 border-red-500 bg-red-50 text-red-700 font-bold px-4 py-2 rounded-lg shadow-sm z-10 w-full text-center uppercase tracking-wide cursor-pointer hover:bg-red-100 transition-colors" onclick="navigateTo('sub-suhu')">Suhu</div>
-                                
-                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">berkaitan dengan</span></div>
-                                <div class="border-2 border-slate-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full text-center text-sm font-semibold hover:border-red-300 transition-colors cursor-pointer" onclick="navigateTo('suhu-pengertian')">Pengertian & Energi Kinetik</div>
 
-                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">diukur dengan</span></div>
-                                <div class="border-2 border-slate-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full text-center text-sm font-semibold hover:border-red-300 transition-colors cursor-pointer" onclick="navigateTo('suhu-alat')">Alat Ukur (Termometer)</div>
-                                
-                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dinyatakan dalam</span></div>
-                                <div class="border-2 border-slate-300 bg-white text-slate-700 p-4 rounded-lg shadow-sm z-10 w-full text-left text-sm hover:border-red-300 transition-colors cursor-pointer" onclick="navigateTo('suhu-skala')">
-                                    <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-red-600">Skala Pengukuran</span>
-                                    <ul class="list-disc pl-5 text-xs space-y-1.5 font-medium text-slate-600">
-                                        <li>Celcius (°C)</li><li>Reamur (°R)</li><li>Fahrenheit (°F)</li><li>Kelvin (K) <span class="text-[9px] text-blue-500 font-bold">(SI)</span></li>
-                                    </ul>
-                                </div>
+                        <!-- Garis Penghubung antar bagian di Mobile (Suhu -> Kalor) -->
+                        <div class="block lg:hidden w-0.5 h-10 bg-slate-400 mx-auto"></div>
+
+                        <!-- KOLOM 2: KALOR -->
+                        <div class="flex flex-col items-center w-full lg:w-1/3">
+                            <div class="border-2 border-orange-500 bg-orange-50 text-orange-700 font-bold px-4 py-2 rounded-lg shadow-sm z-10 w-full max-w-[280px] text-center uppercase tracking-wide cursor-pointer hover:bg-orange-100 transition-colors" onclick="navigateTo('sub-kalor')">Kalor</div>
+                            
+                            <div class="w-0.5 h-8 sm:h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dijelaskan oleh</span></div>
+                            <div class="border-2 border-slate-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full max-w-[280px] text-center text-sm font-semibold hover:border-orange-300 transition-colors cursor-pointer" onclick="navigateTo('kalor-pengertian')">Pengertian & Asas Black</div>
+
+                            <div class="w-0.5 h-8 sm:h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">menyebabkan</span></div>
+                            <div class="border-2 border-slate-300 bg-white text-slate-700 p-4 rounded-lg shadow-sm z-10 w-full max-w-[280px] text-left text-sm hover:border-orange-300 transition-colors cursor-pointer" onclick="navigateTo('kalor-suhu')">
+                                <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-orange-600">Pengaruh pada Zat</span>
+                                <ul class="list-disc pl-5 text-xs space-y-1.5 font-medium text-slate-600">
+                                    <li>Perubahan Suhu <br><span class="text-[9px] text-slate-400 font-mono">Q = m.c.ΔT</span></li>
+                                    <li>Perubahan Wujud <br><span class="text-[9px] text-slate-400 font-mono">Q = m.L / m.U</span></li>
+                                    <li>Pemuaian Zat</li>
+                                </ul>
                             </div>
-
-                            <div class="flex flex-col items-center w-1/3">
-                                <div class="border-2 border-orange-500 bg-orange-50 text-orange-700 font-bold px-4 py-2 rounded-lg shadow-sm z-10 w-full text-center uppercase tracking-wide cursor-pointer hover:bg-orange-100 transition-colors" onclick="navigateTo('sub-kalor')">Kalor</div>
-                                
-                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dijelaskan oleh</span></div>
-                                <div class="border-2 border-slate-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full text-center text-sm font-semibold hover:border-orange-300 transition-colors cursor-pointer" onclick="navigateTo('kalor-pengertian')">Pengertian & Asas Black</div>
-
-                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">menyebabkan</span></div>
-                                <div class="border-2 border-slate-300 bg-white text-slate-700 p-4 rounded-lg shadow-sm z-10 w-full text-left text-sm hover:border-orange-300 transition-colors cursor-pointer" onclick="navigateTo('kalor-suhu')">
-                                    <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-orange-600">Pengaruh pada Zat</span>
-                                    <ul class="list-disc pl-5 text-xs space-y-1.5 font-medium text-slate-600">
-                                        <li>Perubahan Suhu <br><span class="text-[9px] text-slate-400 font-mono">Q = m.c.ΔT</span></li>
-                                        <li>Perubahan Wujud <br><span class="text-[9px] text-slate-400 font-mono">Q = m.L / m.U</span></li>
-                                        <li>Pemuaian Zat</li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dapat mengalami</span></div>
-                                <div class="border-2 border-slate-300 bg-white text-slate-700 p-4 rounded-lg shadow-sm z-10 w-full text-left text-sm hover:border-orange-300 transition-colors cursor-pointer" onclick="navigateTo('kalor-perpindahan')">
-                                    <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-orange-600">Perpindahan</span>
-                                    <ul class="list-disc pl-5 text-xs space-y-1.5 font-medium text-slate-600">
-                                        <li>Konduksi (Zat Padat)</li><li>Konveksi (Fluida)</li><li>Radiasi (Pancaran)</li>
-                                    </ul>
-                                </div>
+                            
+                            <div class="w-0.5 h-8 sm:h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dapat mengalami</span></div>
+                            <div class="border-2 border-slate-300 bg-white text-slate-700 p-4 rounded-lg shadow-sm z-10 w-full max-w-[280px] text-left text-sm hover:border-orange-300 transition-colors cursor-pointer" onclick="navigateTo('kalor-perpindahan')">
+                                <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-orange-600">Perpindahan</span>
+                                <ul class="list-disc pl-5 text-xs space-y-1.5 font-medium text-slate-600">
+                                    <li>Konduksi (Zat Padat)</li><li>Konveksi (Fluida)</li><li>Radiasi (Pancaran)</li>
+                                </ul>
                             </div>
+                        </div>
 
-                            <div class="flex flex-col items-center w-1/3">
-                                <div class="border-2 border-amber-600 bg-amber-50 text-amber-800 font-bold px-4 py-2 rounded-lg shadow-sm z-10 w-full text-center uppercase tracking-wide cursor-pointer hover:bg-amber-100 transition-colors" onclick="navigateTo('sub-kopi')">Penerapan</div>
-                                
-                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dalam kasus</span></div>
-                                <div class="border-2 border-amber-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full text-center text-sm font-bold text-amber-900 hover:border-amber-500 transition-colors cursor-pointer" onclick="navigateTo('sub-kopi')">Pengeringan Kopi</div>
+                        <!-- Garis Penghubung antar bagian di Mobile (Kalor -> Penerapan) -->
+                        <div class="block lg:hidden w-0.5 h-10 bg-slate-400 mx-auto"></div>
 
-                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">terdiri atas</span></div>
-                                <div class="border-2 border-slate-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full text-center text-sm font-semibold hover:border-amber-400 transition-colors cursor-pointer" onclick="navigateTo('kopi-proses')">Proses Pasca Panen</div>
-                                
-                                <div class="w-0.5 h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">melibatkan</span></div>
-                                <div class="border-2 border-slate-300 bg-white text-slate-700 p-4 rounded-lg shadow-sm z-10 w-full text-left text-sm hover:border-amber-400 transition-colors cursor-pointer" onclick="navigateTo('kopi-pengaruh')">
-                                    <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-amber-700">Peran Suhu & Kalor</span>
-                                    <ul class="list-disc pl-5 text-xs space-y-1.5 font-medium text-slate-600">
-                                        <li>Radiasi panas matahari</li><li>Konduksi panas lantai</li><li>Evaporasi (uap air)</li><li>Konveksi udara sekitar</li>
-                                    </ul>
-                                </div>
+                        <!-- KOLOM 3: PENERAPAN -->
+                        <div class="flex flex-col items-center w-full lg:w-1/3">
+                            <div class="border-2 border-amber-600 bg-amber-50 text-amber-800 font-bold px-4 py-2 rounded-lg shadow-sm z-10 w-full max-w-[280px] text-center uppercase tracking-wide cursor-pointer hover:bg-amber-100 transition-colors" onclick="navigateTo('sub-kopi')">Penerapan</div>
+                            
+                            <div class="w-0.5 h-8 sm:h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">dalam kasus</span></div>
+                            <div class="border-2 border-amber-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full max-w-[280px] text-center text-sm font-bold text-amber-900 hover:border-amber-500 transition-colors cursor-pointer" onclick="navigateTo('sub-kopi')">Pengeringan Kopi</div>
+
+                            <div class="w-0.5 h-8 sm:h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">terdiri atas</span></div>
+                            <div class="border-2 border-slate-300 bg-white text-slate-700 px-4 py-3 rounded-lg shadow-sm z-10 w-full max-w-[280px] text-center text-sm font-semibold hover:border-amber-400 transition-colors cursor-pointer" onclick="navigateTo('kopi-proses')">Proses Pasca Panen</div>
+                            
+                            <div class="w-0.5 h-8 sm:h-10 bg-slate-400 relative"><span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-2 py-0.5 text-[10px] text-slate-500 italic rounded-full border border-slate-200 whitespace-nowrap">melibatkan</span></div>
+                            <div class="border-2 border-slate-300 bg-white text-slate-700 p-4 rounded-lg shadow-sm z-10 w-full max-w-[280px] text-left text-sm hover:border-amber-400 transition-colors cursor-pointer" onclick="navigateTo('kopi-pengaruh')">
+                                <span class="font-bold block border-b border-slate-200 pb-1 mb-2 text-center text-amber-700">Peran Suhu & Kalor</span>
+                                <ul class="list-disc pl-5 text-xs space-y-1.5 font-medium text-slate-600">
+                                    <li>Radiasi panas matahari</li><li>Konduksi panas lantai</li><li>Evaporasi (uap air)</li><li>Konveksi udara sekitar</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -999,7 +1029,7 @@
                 <div class="flex items-center mb-6 border-b-2 border-red-100 pb-6">
                     <div class="w-16 h-16 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-3xl mr-5 shadow-inner">🌡️</div>
                     <div>
-                        <span class="text-sm font-bold text-red-500 uppercase tracking-wider">Materi Pembelajaran Bab 1</span>
+                        <span class="text-sm font-bold text-red-500 uppercase tracking-wider">Materi Pembelajaran</span>
                         <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-1">Eksplorasi Suhu</h2>
                     </div>
                 </div>
@@ -1069,7 +1099,39 @@
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali ke Halaman Utama Materi
             </button>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+           <div class="bg-white rounded-3xl shadow-sm p-6 sm:p-10 border border-gray-100 mb-6">
+    <!-- Header Materi Kalor -->
+    <div class="flex items-center mb-6 border-b-2 border-orange-100 pb-6">
+        <div class="w-16 h-16 bg-orange-100 text-orange-600 rounded-2xl flex items-center justify-center text-3xl mr-5 shadow-inner">🔥</div>
+        <div>
+            <span class="text-sm font-bold text-orange-500 uppercase tracking-wider">Materi Pembelajaran</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-1">Eksplorasi Kalor</h2>
+        </div>
+    </div>
+
+    <!-- Tujuan Pembelajaran Kalor -->
+    <div class="bg-gradient-to-r from-orange-50 to-white border-l-4 border-orange-500 p-6 rounded-2xl mb-8 shadow-sm">
+        <h3 class="text-lg font-extrabold text-orange-900 mb-3 flex items-center">
+            <i class="fas fa-bullseye text-orange-500 mr-3 text-xl"></i> Tujuan Pembelajaran
+        </h3>
+        <ul class="space-y-2 text-gray-700 text-sm sm:text-base font-medium">
+            <li class="flex items-start">
+                <span class="text-orange-500 mr-3 mt-0.5"><i class="fas fa-check-circle"></i></span>
+                <span>Menganalisis konsep kalor, kapasitas kalor, dan kalor jenis kaitannya dengan peristiwa perubahan suhu benda.</span>
+            </li>
+            <li class="flex items-start">
+                <span class="text-orange-500 mr-3 mt-0.5"><i class="fas fa-check-circle"></i></span>
+                <span>Menganalisis proses perubahan wujud zat dan mekanisme perpindahan kalor dalam kehidupan sehari-hari.</span>
+            </li>
+            <li class="flex items-start">
+                <span class="text-orange-500 mr-3 mt-0.5"><i class="fas fa-check-circle"></i></span>
+                <span>Menerapkan Hukum Kekekalan Energi (Asas Black) dalam menyelesaikan masalah keseimbangan termal.</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Grid Menu Kalor -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
     <!-- 1. Pengertian Kalor -->
     <button onclick="navigateTo('kalor-pengertian')" class="flex flex-col text-left p-5 border border-gray-200 rounded-2xl hover:border-orange-400 hover:shadow-lg transition-all bg-white group h-full">
         <div class="w-10 h-10 bg-orange-50 text-orange-500 rounded-full flex items-center justify-center text-lg mb-3 group-hover:bg-orange-500 group-hover:text-white transition-colors">1</div>
@@ -1138,7 +1200,39 @@
                 Kembali ke Halaman Utama Materi
             </button>
           <!-- KARTU MENU MATERI KOPI (DITENGAHKAN) -->
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+<div class="bg-white rounded-3xl shadow-sm p-6 sm:p-10 border border-gray-100 mb-6">
+    <!-- Header Materi Kopi -->
+    <div class="flex items-center mb-6 border-b-2 border-amber-100 pb-6">
+        <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-3xl mr-5 shadow-inner">☕</div>
+        <div>
+            <span class="text-sm font-bold text-amber-500 uppercase tracking-wider">Penerapan Kontekstual</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-1">Fisika Pengeringan Kopi</h2>
+        </div>
+    </div>
+
+    <!-- Tujuan Pembelajaran Kopi -->
+    <div class="bg-gradient-to-r from-amber-50 to-white border-l-4 border-amber-500 p-6 rounded-2xl mb-8 shadow-sm">
+        <h3 class="text-lg font-extrabold text-amber-900 mb-3 flex items-center">
+            <i class="fas fa-bullseye text-amber-500 mr-3 text-xl"></i> Tujuan Pembelajaran
+        </h3>
+        <ul class="space-y-2 text-gray-700 text-sm sm:text-base font-medium">
+            <li class="flex items-start">
+                <span class="text-amber-500 mr-3 mt-0.5"><i class="fas fa-check-circle"></i></span>
+                <span>Mengidentifikasi penerapan konsep perpindahan kalor (radiasi, konveksi, konduksi) secara spesifik pada proses penjemuran biji kopi nusantara.</span>
+            </li>
+            <li class="flex items-start">
+                <span class="text-amber-500 mr-3 mt-0.5"><i class="fas fa-check-circle"></i></span>
+                <span>Menganalisis faktor-faktor fisis yang mempengaruhi laju penguapan air (evaporasi) pada pengolahan pasca panen kopi.</span>
+            </li>
+            <li class="flex items-start">
+                <span class="text-amber-500 mr-3 mt-0.5"><i class="fas fa-check-circle"></i></span>
+                <span>Menyimpulkan kaitan antara teori kalor laten dan sifat termometrik benda terhadap metode optimalisasi pengeringan kopi.</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Grid Menu Kopi -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
     <button onclick="navigateTo('kopi-proses')" class="flex flex-col text-left p-6 border border-gray-200 rounded-2xl hover:border-amber-400 hover:shadow-lg transition-all bg-white group h-full">
         <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center text-xl mb-4 group-hover:bg-amber-500 group-hover:text-white transition-colors">🌱</div>
         <h4 class="font-bold text-gray-800 text-lg mb-2">Proses Pasca Panen</h4>
@@ -1306,6 +1400,14 @@
                                 <p class="text-sm sm:text-base text-amber-800 leading-relaxed m-0 font-medium">Jika suhu naik berarti partikel bergerak cepat, bagaimana jika suhu diturunkan hingga sangat dingin? Menurut Fisika, ada titik di mana partikel zat <strong>berhenti bergerak sepenuhnya</strong>. Titik ini disebut <strong>Suhu Nol Mutlak</strong> (0 Kelvin), yang setara dengan suhu ekstrem <strong>-273,15 °C!</strong></p>
                             </div>
                         </div>
+                        <!-- FAKTA PENGGERINGAN KOPI (SUHU IDEAL) -->
+<div class="bg-gradient-to-br from-emerald-50 to-teal-50 border-l-[6px] border-emerald-500 p-6 sm:p-8 rounded-3xl mb-12 shadow-sm flex flex-col sm:flex-row items-center sm:items-start gap-6 hover:shadow-md transition-shadow">
+    <div class="bg-white w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-inner shrink-0 border border-emerald-100">🌡️</div>
+    <div class="text-center sm:text-left">
+        <h4 class="font-black text-emerald-900 text-xl mt-0 mb-2">Suhu Ideal Pengeringan Kopi</h4>
+        <p class="text-sm sm:text-base text-emerald-800 leading-relaxed m-0 font-medium">Dalam proses pengeringan kopi, suhu penjemuran yang ideal berada di kisaran <strong>40°C hingga 50°C</strong>. Jika suhu terlalu tinggi (lebih dari 50°C), partikel-partikel pembentuk senyawa rasa dan aroma di dalam biji kopi akan bergerak sangat cepat karena kelebihan energi kinetik, yang pada akhirnya bisa merusak kualitas rasanya. Inilah alasan mengapa petani sering membolak-balik hamparan kopi agar suhunya tetap stabil!</p>
+    </div>
+</div>
 
                         <!-- 9. MINI QUIZ -->
                         <div class="bg-white p-6 sm:p-8 rounded-[2rem] border-[3px] border-purple-100 shadow-sm mb-12">
@@ -1342,14 +1444,6 @@
                             <div id="miniquiz-result-suhu" class="hidden mt-6 p-5 rounded-2xl border-2"></div>
                         </div>
 
-<!-- FAKTA PENGGERINGAN KOPI (SUHU IDEAL) -->
-<div class="bg-gradient-to-br from-emerald-50 to-teal-50 border-l-[6px] border-emerald-500 p-6 sm:p-8 rounded-3xl mb-12 shadow-sm flex flex-col sm:flex-row items-center sm:items-start gap-6 hover:shadow-md transition-shadow">
-    <div class="bg-white w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-inner shrink-0 border border-emerald-100">🌡️</div>
-    <div class="text-center sm:text-left">
-        <h4 class="font-black text-emerald-900 text-xl mt-0 mb-2">Suhu Ideal Pengeringan Kopi</h4>
-        <p class="text-sm sm:text-base text-emerald-800 leading-relaxed m-0 font-medium">Dalam proses pengeringan kopi, suhu penjemuran yang ideal berada di kisaran <strong>40°C hingga 50°C</strong>. Jika suhu terlalu tinggi (lebih dari 50°C), partikel-partikel pembentuk senyawa rasa dan aroma di dalam biji kopi akan bergerak sangat cepat karena kelebihan energi kinetik, yang pada akhirnya bisa merusak kualitas rasanya. Inilah alasan mengapa petani sering membolak-balik hamparan kopi agar suhunya tetap stabil!</p>
-    </div>
-</div>
                         <!-- 10. NAVIGASI -->
                         <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6">
                             <button onclick="navigateTo('sub-suhu')" class="w-full sm:w-auto bg-white hover:bg-slate-50 text-slate-700 font-bold py-4 px-8 rounded-2xl border-2 border-slate-200 transition-colors shadow-sm flex items-center justify-center gap-3">
@@ -1375,23 +1469,26 @@
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali ke Menu Suhu
             </button>
-            <!-- 1. HEADER MATERI -->
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-5 mb-8 flex flex-col sm:flex-row justify-between items-center gap-4 fade-in-up">
-                <h2 class="text-xl sm:text-2xl font-black text-slate-800 m-0 flex items-center gap-3">
-                    <span class="bg-red-100 text-red-600 w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-inner">📏</span>
-                    Skala Pengukuran & Konversi
-                </h2>
-                <div class="flex flex-wrap gap-3">
-                    <span class="bg-slate-50 text-slate-600 font-bold px-4 py-2 rounded-xl border border-slate-200 text-sm flex items-center gap-2">
-                        <i class="fas fa-clock text-blue-500"></i> 15 Menit
-                    </span>
-                    <span class="flex items-center gap-2 text-sm text-slate-600 font-bold w-full sm:w-auto flex-1 max-w-[150px]">
-                        <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden shadow-inner"><div class="bg-blue-500 h-full w-[40%] rounded-full"></div></div>
-                        <span>40%</span>
-                    </span>
-                    <span class="bg-slate-50 text-slate-600 font-bold px-4 py-2 rounded-xl border border-slate-200 text-sm flex items-center gap-2">
-                        <i class="fas fa-star text-yellow-500"></i> Sedang
-                    </span>
+            <!-- 1. HEADER MATERI & PROGRESS BAR -->
+            <div class="flex items-center mb-6 fade-in-up">
+                <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-3xl mr-4 shadow-inner">📏</div>
+                <div>
+                    <span class="text-sm font-bold text-red-500 uppercase tracking-wider">Materi Pembelajaran Bab 1</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 m-0">Skala Pengukuran & Konversi</h2>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-between items-center bg-white p-5 rounded-3xl shadow-sm border border-red-100 mb-8 gap-4 fade-in-up">
+                <div class="flex items-center gap-2 text-sm text-slate-600 font-bold bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+                    <i class="fas fa-clock text-red-500"></i> Waktu belajar: 15 menit
+                </div>
+                <div class="flex items-center gap-3 text-sm text-slate-600 font-bold w-full sm:w-auto flex-1 max-w-xs">
+                    <span class="whitespace-nowrap">Progress:</span>
+                    <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden shadow-inner"><div class="bg-red-500 h-full w-[50%] rounded-full"></div></div>
+                    <span>50%</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm text-slate-600 font-bold bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+                    <i class="fas fa-star text-yellow-500"></i> Tingkat: Sedang
                 </div>
             </div>
 
@@ -1709,23 +1806,26 @@
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali ke Menu Suhu
             </button>
-            <!-- 1. HEADER MATERI -->
-            <div class="bg-white rounded-3xl shadow-sm border border-slate-200 p-5 mb-8 flex flex-col sm:flex-row justify-between items-center gap-4 fade-in-up">
-                <h2 class="text-xl sm:text-2xl font-black text-slate-800 m-0 flex items-center gap-3">
-                    <span class="bg-red-100 text-red-600 w-12 h-12 rounded-xl flex items-center justify-center text-2xl shadow-inner">🩺</span>
-                    Alat Ukur Suhu
-                </h2>
-                <div class="flex flex-wrap gap-3">
-                    <span class="bg-slate-50 text-slate-600 font-bold px-4 py-2 rounded-xl border border-slate-200 text-sm flex items-center gap-2">
-                        <i class="fas fa-clock text-blue-500"></i> 10 Menit
-                    </span>
-                    <span class="flex items-center gap-2 text-sm text-slate-600 font-bold w-full sm:w-auto flex-1 max-w-[150px]">
-                        <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden shadow-inner"><div class="bg-blue-500 h-full w-[60%] rounded-full"></div></div>
-                        <span>60%</span>
-                    </span>
-                    <span class="bg-slate-50 text-slate-600 font-bold px-4 py-2 rounded-xl border border-slate-200 text-sm flex items-center gap-2">
-                        <i class="fas fa-star text-yellow-500"></i> Mudah
-                    </span>
+            <!-- 1. HEADER MATERI & PROGRESS BAR -->
+            <div class="flex items-center mb-6 fade-in-up">
+                <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-3xl mr-4 shadow-inner">🩺</div>
+                <div>
+                    <span class="text-sm font-bold text-red-500 uppercase tracking-wider">Materi Pembelajaran Bab 1</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 m-0">Alat Ukur Suhu</h2>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-between items-center bg-white p-5 rounded-3xl shadow-sm border border-red-100 mb-8 gap-4 fade-in-up">
+                <div class="flex items-center gap-2 text-sm text-slate-600 font-bold bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+                    <i class="fas fa-clock text-red-500"></i> Waktu belajar: 10 menit
+                </div>
+                <div class="flex items-center gap-3 text-sm text-slate-600 font-bold w-full sm:w-auto flex-1 max-w-xs">
+                    <span class="whitespace-nowrap">Progress:</span>
+                    <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden shadow-inner"><div class="bg-red-500 h-full w-[80%] rounded-full"></div></div>
+                    <span>80%</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm text-slate-600 font-bold bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+                    <i class="fas fa-star text-yellow-500"></i> Tingkat: Mudah
                 </div>
             </div>
 
@@ -2574,11 +2674,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="my-6 p-8 border-2 border-dashed border-slate-300 rounded-2xl bg-slate-50 flex flex-col items-center justify-center text-center text-slate-400">
-                        <i class="fas fa-chart-line text-4xl mb-2 text-cyan-400"></i>
-                        <p class="font-bold text-slate-700 text-sm">[KOTAK MEDIA: GRAFIK PEMANASAN SUHU VS WAKTU KALOR LATEN]</p>
-                        <p class="text-xs text-slate-500 max-w-md mt-1">Disarankan memasukkan diagram grafik kurva $Q = mc\Delta T$ (garis miring naik) dan kurva kalor laten $Q=mL$ / $Q=mU$ (garis mendatar datar) untuk memperkuat pemahaman fisis siswa kelas XI mengenai proses perubahan wujud zat.</p>
-                    </div>
+                   
                     <div class="flex flex-col md:flex-row gap-6">
                         <div class="flex-1 bg-cyan-50 border border-cyan-200 p-6 rounded-2xl text-center shadow-sm">
                             <h3 class="font-bold text-cyan-900 mt-0 mb-2">Kalor Lebur / Beku (<i>L</i>)</h3>
@@ -3241,56 +3337,104 @@
                             </div>
                         </div>
                     </div>
-<!-- Fitur 16: Visual Pendukung Layout Modern -->
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-    <div class="rounded-xl overflow-hidden border-2 border-slate-100 shadow-sm relative group">
-        <img src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?w=300&q=80" alt="Penjemuran Kopi" class="w-full h-24 object-cover">
-        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><span class="text-white text-xs font-bold">Penjemuran</span></div>
-    </div>
-    <div class="rounded-xl overflow-hidden border-2 border-slate-100 shadow-sm relative group">
-        <img src="https://images.unsplash.com/photo-1584744982491-665216d95f8b?w=300&q=80" alt="Moisture Meter" class="w-full h-24 object-cover">
-        <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"><span class="text-white text-xs font-bold">Pengukur Kelembapan</span></div>
-    </div>
-</div>
+
 
 <!-- Fitur 6: Simulasi Interaktif -->
-<div class="bg-slate-800 rounded-3xl p-6 sm:p-8 mb-8 text-white shadow-xl border border-slate-700">
-    <h3 class="font-black text-xl mb-6 flex items-center text-emerald-400"><i class="fas fa-sliders-h mr-3"></i> Panel Kendali Pengeringan</h3>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="space-y-6">
-            <div>
-                <label class="text-sm font-bold text-slate-300 flex justify-between">Intensitas Matahari <span id="val-sun" class="text-amber-400">50%</span></label>
-                <input type="range" id="sim-sun" min="0" max="100" value="50" oninput="updateSim()" class="w-full h-2 bg-slate-600 rounded-lg appearance-none accent-amber-500">
-            </div>
-            <div>
-                <label class="text-sm font-bold text-slate-300 flex justify-between">Kecepatan Angin <span id="val-wind" class="text-blue-400">50%</span></label>
-                <input type="range" id="sim-wind" min="0" max="100" value="50" oninput="updateSim()" class="w-full h-2 bg-slate-600 rounded-lg appearance-none accent-blue-500">
-            </div>
-            <div>
-                <label class="text-sm font-bold text-slate-300 flex justify-between">Suhu Udara Sekitar <span id="val-temp" class="text-red-400">25°C</span></label>
-                <input type="range" id="sim-temp" min="20" max="40" value="25" oninput="updateSim()" class="w-full h-2 bg-slate-600 rounded-lg appearance-none accent-red-500">
-            </div>
-        </div>
+<div class="bg-slate-10 rounded-3xl p-6 sm:p-8 mb-8 text-slate-300 shadow-xl border border-slate-700 relative overflow-hidden">
+    <!-- Dekorasi Background -->
+    <div class="absolute -right-10 -top-10 text-9xl opacity-5 transform rotate-12 pointer-events-none">⚙️</div>
 
-        <div class="bg-slate-900 rounded-2xl p-6 border border-slate-700 flex items-end justify-around h-48 relative">
-            <!-- Suhu Kopi -->
-            <div class="flex flex-col items-center justify-end h-full w-1/3">
-                <span id="res-temp" class="text-xs font-bold text-red-400 mb-2">25°C</span>
-                <div id="bar-temp" class="w-8 bg-red-500 rounded-t-md sim-bar" style="height: 25%;"></div>
-                <span class="text-[10px] text-slate-400 mt-2 text-center">Suhu Kopi</span>
+    <div class="relative z-10">
+        <h3 class="font-black text-2xl mb-4 flex items-center text-emerald-400">
+            <i class="fas fa-sliders-h mr-3"></i> Simulasi: Panel Kendali Pengeringan
+        </h3>
+        
+        <!-- Keterangan Tujuan Simulasi -->
+        <div class="bg-slate-700/60 border-l-4 border-emerald-500 p-5 rounded-r-xl mb-8 shadow-inner">
+            <h4 class="text-white font-bold mb-2 flex items-center gap-2"><i class="fas fa-bullseye text-emerald-400"></i> Tujuan Misi:</h4>
+            <p class="text-sm sm:text-base leading-relaxed text-slate-300 m-0">
+                Bantu petani mengeringkan biji kopi dari keadaan sangat basah (Kadar Air 60%) menuju batas aman (<span class="text-emerald-400 font-bold">12% - 15%</span>). Atur kondisi cuaca di bawah ini dan perhatikan bagaimana kombinasi energi panas dan hembusan angin mempengaruhi <strong>Suhu Kopi</strong> dan <strong>Laju Keringnya</strong>!
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Kolom Slider (Kiri) -->
+            <div class="lg:col-span-5 space-y-6 bg-slate-900/50 p-6 rounded-2xl border border-slate-700 shadow-inner">
+                <h4 class="font-bold text-white mb-4 border-b border-slate-600 pb-3 flex justify-between items-center">
+                    <span class="flex items-center gap-2"><i class="fas fa-cloud-sun text-amber-400"></i> Atur Cuaca</span>
+                </h4>
+                
+                <div>
+                    <label class="text-sm font-bold text-white flex justify-between mb-1">
+                        Intensitas Matahari <span id="val-sun" class="text-amber-400 font-black text-base">50%</span>
+                    </label>
+                    <p class="text-[10px] text-slate-400 mb-3 leading-tight">Penentu utama panas radiasi yang diserap biji kopi. Semakin tinggi, kalor yang masuk semakin besar.</p>
+                    <input type="range" id="sim-sun" min="0" max="100" value="50" oninput="updateSim()" class="w-full h-2.5 bg-slate-600 rounded-lg appearance-none accent-amber-500 cursor-pointer">
+                </div>
+                
+                <div>
+                    <label class="text-sm font-bold text-white flex justify-between mb-1">
+                        Kecepatan Angin <span id="val-wind" class="text-blue-400 font-black text-base">50%</span>
+                    </label>
+                    <p class="text-[10px] text-slate-400 mb-3 leading-tight">Sirkulasi udara (konveksi). Membantu membuang uap air ke udara bebas agar kopi lebih cepat kering.</p>
+                    <input type="range" id="sim-wind" min="0" max="100" value="50" oninput="updateSim()" class="w-full h-2.5 bg-slate-600 rounded-lg appearance-none accent-blue-500 cursor-pointer">
+                </div>
+                
+                <div>
+                    <label class="text-sm font-bold text-white flex justify-between mb-1">
+                        Suhu Udara Sekitar <span id="val-temp" class="text-red-400 font-black text-base">25°C</span>
+                    </label>
+                    <p class="text-[10px] text-slate-400 mb-3 leading-tight">Suhu lingkungan alam yang menjadi suhu awal dari hamparan kopi sebelum dijemur.</p>
+                    <input type="range" id="sim-temp" min="20" max="40" value="25" oninput="updateSim()" class="w-full h-2.5 bg-slate-600 rounded-lg appearance-none accent-red-500 cursor-pointer">
+                </div>
             </div>
-            <!-- Laju Pengeringan -->
-            <div class="flex flex-col items-center justify-end h-full w-1/3">
-                <span id="res-rate" class="text-xs font-bold text-amber-400 mb-2">Sedang</span>
-                <div id="bar-rate" class="w-8 bg-amber-500 rounded-t-md sim-bar" style="height: 50%;"></div>
-                <span class="text-[10px] text-slate-400 mt-2 text-center">Laju Kering</span>
-            </div>
-            <!-- Kadar Air -->
-            <div class="flex flex-col items-center justify-end h-full w-1/3">
-                <span id="res-moist" class="text-xs font-bold text-blue-400 mb-2">60%</span>
-                <div id="bar-moist" class="w-8 bg-blue-500 rounded-t-md sim-bar" style="height: 60%;"></div>
-                <span class="text-[10px] text-slate-400 mt-2 text-center">Kadar Air</span>
+
+            <!-- Kolom Grafik (Kanan) -->
+            <div class="lg:col-span-7 flex flex-col gap-4">
+                <h4 class="font-bold text-white border-b border-slate-600 pb-3 flex justify-between items-center px-2">
+                    <span class="flex items-center gap-2"><i class="fas fa-chart-bar text-emerald-400"></i> Hasil Simulasi (Setelah 1 Hari)</span>
+                </h4>
+                
+                <div class="bg-slate-900 rounded-2xl p-6 border border-slate-700 flex items-end justify-around h-56 relative shadow-inner">
+                    <!-- Garis Batas Aman -->
+                    <div class="absolute top-[80%] left-0 w-full border-t border-dashed border-emerald-500/50 z-0"></div>
+                    <span class="absolute top-[80%] right-3 -mt-4 text-[10px] text-emerald-400 font-bold z-0 bg-slate-900 px-2 rounded-full">Target (12%)</span>
+
+                    <!-- Suhu Kopi -->
+                    <div class="flex flex-col items-center justify-end h-full w-1/3 relative z-10">
+                        <span id="res-temp" class="text-sm font-black text-red-400 mb-2 transition-colors">25°C</span>
+                        <div id="bar-temp" class="w-10 bg-red-500 rounded-t-md sim-bar shadow-[0_0_15px_rgba(239,68,68,0.2)] transition-all" style="height: 25%;"></div>
+                        <span class="text-xs font-bold text-white mt-3 text-center">Suhu Kopi</span>
+                    </div>
+                    <!-- Laju Pengeringan -->
+                    <div class="flex flex-col items-center justify-end h-full w-1/3 relative z-10">
+                        <span id="res-rate" class="text-sm font-black text-amber-400 mb-2 transition-colors">Sedang</span>
+                        <div id="bar-rate" class="w-10 bg-amber-500 rounded-t-md sim-bar shadow-[0_0_15px_rgba(245,158,11,0.2)] transition-all" style="height: 50%;"></div>
+                        <span class="text-xs font-bold text-white mt-3 text-center">Laju Kering</span>
+                    </div>
+                    <!-- Kadar Air -->
+                    <div class="flex flex-col items-center justify-end h-full w-1/3 relative z-10">
+                        <span id="res-moist" class="text-sm font-black text-blue-400 mb-2 transition-colors">60%</span>
+                        <div id="bar-moist" class="w-10 bg-blue-500 rounded-t-md sim-bar shadow-[0_0_15px_rgba(59,130,246,0.2)] transition-all" style="height: 60%;"></div>
+                        <span class="text-xs font-bold text-white mt-3 text-center">Kadar Air</span>
+                    </div>
+                </div>
+                
+                <!-- Kotak Keterangan Bacaan Grafik -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-2">
+                    <div class="bg-slate-700/40 border border-slate-600 p-3 rounded-xl text-center">
+                        <span class="block font-bold text-white text-xs mb-1">💡 Ideal: 40-50°C</span>
+                        <span class="text-[10px] text-slate-300">Jika suhu lebih dari 50°C, kopi bisa kepanasan (gosong) dan merusak rasa.</span>
+                    </div>
+                    <div class="bg-slate-700/40 border border-slate-600 p-3 rounded-xl text-center">
+                        <span class="block font-bold text-white text-xs mb-1">💨 Makin Cepat, Makin Baik</span>
+                        <span class="text-[10px] text-slate-300">Dibutuhkan panas untuk menguapkan air, dan angin untuk membuang uapnya.</span>
+                    </div>
+                    <div class="bg-slate-700/40 border border-slate-600 p-3 rounded-xl text-center">
+                        <span class="block font-bold text-emerald-400 text-xs mb-1">🎯 Target: ≤ 15%</span>
+                        <span class="text-[10px] text-slate-300">Bar berubah hijau jika kopi sudah kering sempurna dan aman disimpan.</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -3560,6 +3704,10 @@
                             <button onclick="navigateTo('materi')" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-8 rounded-full transition-colors flex items-center justify-center gap-2">
                                 <i class="fas fa-book"></i> Kembali ke Materi
                             </button>
+                            <!-- Tombol navigasi baru ke evaluasi -->
+                            <button onclick="navigateTo('evaluasi')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-full transition-colors flex items-center justify-center gap-2 shadow-md">
+                                Lanjut ke Evaluasi <i class="fas fa-check-circle"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -3599,112 +3747,169 @@
         </section>
         
         <!-- ================================== -->
-        <!-- HALAMAN EVALUASI (DESAIN BARU)     -->
-        <!-- ================================== -->
-        <section id="evaluasi" class="page-section">
-            <div class="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 sm:p-12 max-w-5xl mx-auto relative overflow-hidden">
-                <!-- Dekorasi Latar -->
-                <div class="absolute top-0 right-0 w-full h-3 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600"></div>
-                <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-emerald-50 rounded-full opacity-50 blur-3xl -z-10"></div>
-                <div class="absolute top-20 right-[-10%] w-64 h-64 bg-blue-50 rounded-full opacity-40 blur-3xl -z-10"></div>
-                
-                <!-- Layar Awal -->
-                <div id="eval-start-area" class="relative z-10 text-center py-12 sm:py-16">
-                    <div class="w-32 h-32 bg-gradient-to-br from-emerald-100 to-teal-100 text-emerald-600 rounded-[2.5rem] flex items-center justify-center text-6xl mx-auto mb-8 shadow-[inset_0_4px_10px_rgba(255,255,255,0.7)] border border-emerald-200 transform rotate-3 hover:rotate-6 transition-transform">🎓</div>
-                    <h2 class="text-4xl sm:text-5xl font-black text-slate-800 mb-6 tracking-tight">Uji Kompetensi Akhir</h2>
-                    <p class="text-slate-500 font-medium text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
-                        Evaluasi pemahaman komprehensifmu tentang materi Suhu, Kalor, dan penerapannya. Terdapat <strong class="text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">20 soal pilihan ganda</strong> yang harus diselesaikan.
-                    </p>
-                    
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12">
-                        <div class="bg-white border-2 border-blue-100 rounded-2xl p-5 shadow-sm hover:-translate-y-1 transition-transform"><div class="text-3xl mb-2">🧠</div><div class="font-black text-sm text-blue-800 uppercase tracking-wide">5 Konsep Dasar</div></div>
-                        <div class="bg-white border-2 border-purple-100 rounded-2xl p-5 shadow-sm hover:-translate-y-1 transition-transform"><div class="text-3xl mb-2">⚙️</div><div class="font-black text-sm text-purple-800 uppercase tracking-wide">5 Analisis Lanjut</div></div>
-                        <div class="bg-white border-2 border-orange-100 rounded-2xl p-5 shadow-sm hover:-translate-y-1 transition-transform"><div class="text-3xl mb-2">🌍</div><div class="font-black text-sm text-orange-800 uppercase tracking-wide">2 Kehidupan Nyata</div></div>
-                        <div class="bg-white border-2 border-amber-100 rounded-2xl p-5 shadow-sm hover:-translate-y-1 transition-transform"><div class="text-3xl mb-2">☕</div><div class="font-black text-sm text-amber-800 uppercase tracking-wide">8 Kasus Kopi</div></div>
-                    </div>
-
-                    <button onclick="startEvaluasi()" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black py-4 px-12 rounded-full text-xl shadow-[0_10px_25px_rgba(16,185,129,0.4)] transform transition-all hover:-translate-y-2 hover:scale-105 active:scale-95 flex items-center justify-center mx-auto gap-3">
-                        MULAI UJIAN <i class="fas fa-rocket"></i>
-                    </button>
+<!-- HALAMAN EVALUASI (DESAIN MODERN)   -->
+<!-- ================================== -->
+<section id="evaluasi" class="page-section">
+    <div class="bg-slate-50/50 rounded-3xl shadow-xl border border-slate-200 p-4 sm:p-10 max-w-6xl mx-auto relative overflow-hidden">
+        <!-- Dekorasi Latar -->
+        <div class="absolute top-0 right-0 w-full h-3 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600"></div>
+        
+        <!-- ========================================== -->
+        <!-- 1. LAYAR AWAL (START SCREEN)               -->
+        <!-- ========================================== -->
+        <div id="eval-start-area" class="relative z-10 py-6 fade-in-up">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-emerald-100 to-teal-100 text-emerald-600 rounded-3xl mb-4 shadow-inner border border-emerald-200 anim-float text-4xl">
+                    📝
                 </div>
-
-                <!-- Layar Ujian Aktif -->
-                <div id="eval-active-area" class="hidden relative z-10">
-                    
-                    <!-- Panel Navigator Sticky -->
-                    <div class="sticky top-16 z-50 bg-white/90 backdrop-blur-xl p-5 sm:p-6 rounded-3xl shadow-lg border border-slate-200 mb-8 transition-all">
-                        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                            <!-- Judul & Progress Bar -->
-                            <div class="w-full md:w-1/3 text-center md:text-left">
-                                <h3 class="text-xl font-black text-slate-800 flex items-center justify-center md:justify-start gap-2 mb-1">
-                                    <i class="fas fa-tasks text-emerald-500"></i> Lembar Jawaban
-                                </h3>
-                                <div class="flex items-center gap-3">
-                                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden border border-slate-200 shadow-inner flex-1">
-                                        <div id="eval-progress-bar" class="bg-emerald-500 h-full rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
-                                    </div>
-                                    <span class="text-sm font-black text-slate-600 whitespace-nowrap"><span id="eval-progress-text" class="text-emerald-600">0</span> / 20</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Grid Navigator Angka -->
-                            <div class="w-full md:w-2/3">
-                                <div class="text-xs font-bold text-slate-400 text-center md:text-right mb-2 uppercase tracking-widest">Navigator Soal</div>
-                                <div id="eval-nav-grid" class="flex flex-wrap gap-2 justify-center md:justify-end">
-                                    <!-- Navigator Dinamis Injected by JS -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Container Soal -->
-                    <div id="eval-questions-container" class="space-y-8 mb-12">
-                        <!-- Soal Injected by JS -->
-                    </div>
-
-                    <!-- Area Kumpulkan -->
-                    <div id="eval-submit-container" class="bg-gradient-to-br from-slate-50 to-emerald-50 border-2 border-emerald-100 rounded-3xl p-8 text-center flex flex-col items-center justify-center shadow-inner relative overflow-hidden">
-                        <div class="absolute -right-10 -top-10 text-8xl opacity-10 transform -rotate-12">📝</div>
-                        <p id="eval-submit-msg" class="text-emerald-800 font-bold mb-6 text-lg relative z-10">Cek kembali Navigator Soal di atas. Pastikan semua kotak berwarna hijau (sudah dijawab)!</p>
-                        
-                        <button id="eval-submit-btn" onclick="submitEvaluasi()" class="relative z-10 bg-slate-800 hover:bg-slate-900 text-white font-black py-4 px-12 rounded-full shadow-lg shadow-slate-900/30 transition transform hover:-translate-y-1 w-full sm:w-auto text-xl flex items-center justify-center gap-3">
-                            KUMPULKAN JAWABAN <i class="fas fa-paper-plane"></i>
-                        </button>
-                        
-                        <button id="eval-back-to-score-btn" onclick="backToEvalResult()" class="hidden relative z-10 bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 px-12 rounded-full shadow-lg shadow-emerald-600/30 transition transform hover:-translate-y-1 w-full sm:w-auto text-xl flex items-center justify-center gap-3">
-                            <i class="fas fa-arrow-left"></i> KEMBALI KE HASIL
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Layar Hasil -->
-                <div id="eval-result-area" class="hidden relative z-10 text-center py-10 anim-pop">
-                    <div id="eval-status-icon" class="text-[7rem] mb-2 drop-shadow-xl animate-bounce">🏆</div>
-                    <h2 id="eval-status-title" class="text-4xl sm:text-5xl font-black text-slate-800 mb-3 tracking-tight">Ujian Selesai!</h2>
-                    <p class="text-slate-500 font-medium text-lg mb-10">Laporan evaluasi penguasaan materimu telah terbit.</p>
-                    
-                    <div class="bg-white border-8 border-slate-50 rounded-[3rem] p-10 max-w-sm mx-auto shadow-2xl relative mb-12 transform transition-transform hover:scale-105">
-                        <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white font-black px-6 py-2 rounded-full shadow-lg tracking-widest text-sm uppercase">
-                            NILAI AKHIR
-                        </div>
-                        <div id="eval-final-score" class="text-[7rem] font-black leading-none my-2 drop-shadow-sm">0</div>
-                        <div class="bg-slate-100 rounded-xl p-3 border border-slate-200 mt-4">
-                            <p id="eval-score-text" class="text-sm font-bold text-slate-600"><i class="fas fa-check text-emerald-500 mr-1"></i> Menjawab benar 0 dari 20 soal</p>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <button onclick="showEvalReview()" class="w-full sm:w-auto bg-blue-50 border-2 border-blue-200 hover:bg-blue-100 text-blue-700 font-black py-4 px-8 rounded-2xl shadow-sm transition transform hover:-translate-y-1 text-lg flex items-center justify-center gap-2">
-                            <i class="fas fa-search"></i> CEK PEMBAHASAN
-                        </button>
-                        <button onclick="retryEvaluasi()" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-900 text-white font-black py-4 px-8 rounded-2xl shadow-lg shadow-slate-900/20 transition transform hover:-translate-y-1 text-lg flex items-center justify-center gap-2">
-                            <i class="fas fa-redo"></i> ULANGI UJIAN
-                        </button>
-                    </div>
-                </div>
-
+                <h2 class="text-3xl sm:text-4xl font-black text-slate-800 mb-3 tracking-tight">Evaluasi Akhir</h2>
+                <p class="text-slate-600 font-medium text-base max-w-2xl mx-auto leading-relaxed">
+                    Uji pemahamanmu mengenai materi Suhu dan Kalor dalam konteks <strong class="text-emerald-700">Pengeringan Kopi</strong> secara menyeluruh.
+                </p>
             </div>
-        </section>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+                <div class="bg-white border-2 border-slate-100 rounded-3xl p-6 shadow-sm">
+                    <h3 class="font-black text-slate-800 text-base mb-4 border-b-2 border-slate-100 pb-2 flex items-center gap-2"><i class="fas fa-info-circle text-blue-500"></i> Informasi Evaluasi</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold shrink-0"><i class="fas fa-list-ol"></i></div>
+                            <div><p class="text-[10px] text-slate-400 font-bold uppercase">Format Soal</p><p class="font-bold text-slate-700">20 Pilihan Ganda</p></div>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold shrink-0"><i class="fas fa-stopwatch"></i></div>
+                            <div><p class="text-[10px] text-slate-400 font-bold uppercase">Estimasi Waktu</p><p class="font-bold text-slate-700">±30 Menit</p></div>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold shrink-0"><i class="fas fa-robot"></i></div>
+                            <div><p class="text-[10px] text-slate-400 font-bold uppercase">Sistem Penilaian</p><p class="font-bold text-slate-700">Otomatis & Pembahasan</p></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white border-2 border-slate-100 rounded-3xl p-6 shadow-sm">
+                    <h3 class="font-black text-slate-800 text-base mb-4 border-b-2 border-slate-100 pb-2 flex items-center gap-2"><i class="fas fa-book-open text-teal-500"></i> Petunjuk Pengerjaan</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start gap-2.5">
+                            <div class="mt-0.5 text-teal-500"><i class="fas fa-check-square"></i></div>
+                            <p class="text-slate-600 font-medium">Setiap soal hanya memiliki <strong>satu jawaban benar</strong>.</p>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <div class="mt-0.5 text-teal-500"><i class="fas fa-check-square"></i></div>
+                            <p class="text-slate-600 font-medium">Gunakan navigator nomor soal di atas untuk berpindah cepat.</p>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <div class="mt-0.5 text-teal-500"><i class="fas fa-check-square"></i></div>
+                            <p class="text-slate-600 font-medium">Klik <strong>Kumpulkan Jawaban</strong> untuk melihat nilai dan pembahasan lengkap.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-slate-800 rounded-3xl p-6 text-center shadow-sm relative overflow-hidden flex flex-col justify-center">
+                    <div class="absolute top-0 right-0 text-6xl opacity-10 mt-2 mr-2">🎯</div>
+                    <h3 class="font-bold text-slate-300 text-xs uppercase tracking-widest mb-2 relative z-10">Target Kelulusan</h3>
+                    <div class="text-5xl font-black text-emerald-400 relative z-10 flex items-center justify-center gap-2">
+                        80 <span class="text-xl text-slate-300">/ 100</span>
+                    </div>
+                    <div class="mt-4 w-full bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div class="bg-emerald-400 h-full w-[80%]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button onclick="startEvaluasi()" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-black py-4 px-12 rounded-full text-lg shadow-[0_10px_25px_rgba(16,185,129,0.4)] transform transition-all hover:-translate-y-1 active:scale-95 flex items-center justify-center mx-auto gap-3">
+                    🚀 MULAI EVALUASI SEKARANG
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 2. LAYAR PENGERJAAN SOAL (TAMPILAN SESUAI SCREENSHOT) -->
+        <!-- ========================================== -->
+        <div id="eval-active-area" class="hidden relative z-10">
+            <!-- Navigator Panel Sticky -->
+            <div class="sticky top-16 z-40 bg-white/95 backdrop-blur-md p-5 rounded-3xl shadow-md border border-slate-200 mb-8 transition-all flex flex-col md:flex-row gap-4 justify-between items-center">
+                <div class="w-full md:w-1/3">
+                    <div class="flex justify-between items-end mb-1.5">
+                        <span id="eval-progress-status" class="text-xs font-bold text-slate-500 uppercase tracking-wider"><i class="fas fa-pencil-alt text-emerald-500 mr-1"></i> Terjawab 0 dari 20</span>
+                        <span id="eval-progress-pct" class="text-sm font-black text-emerald-600">0%</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden border border-slate-200 shadow-inner">
+                        <div id="eval-progress-bar" class="bg-emerald-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-2/3">
+                    <div id="eval-nav-grid" class="flex flex-wrap gap-1.5 justify-center md:justify-end">
+                        <!-- Navigator Injected by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Container Soal Bergaya Kartu Screenshot -->
+            <div id="eval-questions-container" class="space-y-8 mb-10">
+                <!-- Soal Injected by JS -->
+            </div>
+
+            <!-- Area Kumpulkan -->
+            <div class="bg-white border-2 border-slate-200 rounded-3xl p-8 text-center flex flex-col items-center shadow-sm relative overflow-hidden">
+                <p id="eval-submit-msg" class="text-slate-600 font-bold mb-6 text-base relative z-10">Pastikan seluruh soal pada navigator telah berubah menjadi hijau sebelum mengumpulkan.</p>
+                <button id="eval-submit-btn" onclick="submitEvaluasi()" class="relative z-10 bg-slate-800 hover:bg-slate-900 text-white font-black py-4 px-12 rounded-full shadow-lg shadow-slate-900/20 transition transform hover:-translate-y-1 text-lg flex items-center justify-center gap-3">
+                    KUMPULKAN JAWABAN <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- 3. LAYAR HASIL & PEMBAHASAN LENGKAP         -->
+        <!-- ========================================== -->
+        <div id="eval-result-area" class="hidden relative z-10 py-6 anim-pop">
+            <div class="text-center mb-8">
+                <div id="eval-status-icon" class="text-[5rem] mb-2 drop-shadow-xl animate-bounce">🏆</div>
+                <h2 id="eval-status-title" class="text-3xl sm:text-4xl font-black text-slate-800 mb-2 tracking-tight">Evaluasi Selesai!</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-10">
+                <div class="bg-white border-4 border-slate-100 rounded-[2.5rem] p-8 shadow-xl relative flex flex-col items-center justify-center transform transition-transform hover:scale-105">
+                    <div class="absolute -top-4 bg-slate-800 text-white font-black px-5 py-1.5 rounded-full shadow-lg tracking-widest text-xs uppercase">NILAI AKHIR</div>
+                    <div id="eval-final-score" class="text-[6rem] font-black leading-none my-4 drop-shadow-sm text-slate-800">0</div>
+                    
+                    <div class="w-full border-t-2 border-slate-100 pt-4 mt-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-bold text-slate-500 uppercase">Status Kelulusan</span>
+                            <div id="res-status" class="text-sm"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                        <h4 class="font-black text-slate-700 mb-3 uppercase tracking-wider text-xs border-b border-slate-200 pb-2">Rincian Hasil</h4>
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 shadow-sm">
+                                <span class="block text-3xl font-black text-emerald-600" id="res-benar">0</span>
+                                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Benar</span>
+                            </div>
+                            <div class="bg-rose-50 p-4 rounded-2xl border border-rose-100 shadow-sm">
+                                <span class="block text-3xl font-black text-rose-500" id="res-salah">0</span>
+                                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Salah</span>
+                            </div>
+                        </div>
+                    </div>
+             
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4 border-t-2 border-slate-200 pt-8 max-w-4xl mx-auto">
+                <button onclick="retryEvaluasi()" class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-700 font-black py-4 px-8 rounded-2xl shadow-sm transition transform hover:-translate-y-1 flex items-center justify-center gap-2 border border-slate-300">
+                    <i class="fas fa-redo"></i> Ulangi Evaluasi
+                </button>
+                <button onclick="navigateTo('materi')" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-black py-4 px-8 rounded-2xl shadow-lg shadow-blue-500/20 transition transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                    <i class="fas fa-book"></i> Kembali Belajar
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
             
         <!-- ================================== -->
         <!-- HALAMAN REFERENSI                   -->
@@ -4633,285 +4838,403 @@
 
 
         // --- 4. LOGIKA EVALUASI AKHIR (20 SOAL & TAKSONOMI BLOOM) ---
-        const evalData = [
-            // --- 5 SOAL KONSEP DASAR (C1-C2) ---
-            { q: "Suhu merupakan besaran fisis yang menyatakan derajat panas atau dinginnya suatu benda. Secara mikroskopis, naiknya suhu suatu benda mengindikasikan bahwa...", opts: ["Partikel penyusun benda terdiam", "Energi kinetik rata-rata partikel bertambah", "Jarak antar partikel menyusut", "Massa total partikel bertambah besar"], ans: 1, exp: "Suhu berbanding lurus dengan energi kinetik. Jika suhu naik, partikel bergerak/bergetar lebih cepat sehingga energi kinetiknya bertambah." },
-            { q: "Energi yang berpindah dari benda bersuhu lebih tinggi ke benda bersuhu lebih rendah ketika keduanya bersentuhan secara alami disebut...", opts: ["Suhu", "Kapasitas Panas", "Kalor", "Kalor Jenis"], ans: 2, exp: "Kalor adalah bentuk energi panas yang berpindah secara dinamis akibat adanya perbedaan suhu." },
-            { q: "Ketika bongkahan es dipanaskan hingga mencair seluruhnya menjadi air, kalor yang diserap tidak digunakan untuk menaikkan suhu, melainkan digunakan untuk...", opts: ["Menaikkan titik didih air", "Mengubah kalor jenis es", "Memutuskan ikatan partikel agar wujud berubah", "Memperkecil volume zat"], ans: 2, exp: "Kalor yang diserap tanpa mengubah suhu disebut kalor laten. Energi ini dihabiskan murni untuk memutus ikatan antar partikel (mengubah wujud dari padat ke cair)." },
-            { q: "Perpindahan kalor dari satu tempat ke tempat lain yang disertai dengan pergerakan partikel-partikel medium perantaranya dinamakan...", opts: ["Konduksi", "Konveksi", "Radiasi", "Kondensasi"], ans: 1, exp: "Konveksi terjadi pada fluida (cair/gas). Partikel yang panas menjadi lebih ringan (massa jenis turun) sehingga bergerak naik memindahkan panas." },
-            { q: "Rumus matematis Q = m × c × ΔT digunakan secara spesifik untuk menghitung besar energi kalor yang diperlukan dalam proses...", opts: ["Memuaikan panjang logam", "Menaikkan atau menurunkan suhu suatu benda", "Mengubah wujud benda (misal melebur)", "Memancarkan radiasi termal"], ans: 1, exp: "Rumus ini digunakan khusus jika kalor yang diberikan/dilepas mengakibatkan perubahan suhu benda (ΔT)." },
-            
-            // --- 5 SOAL KONSEP AGAK SULIT (C3-C4) ---
-            { q: "Termometer Reamur pada suatu ruangan menunjukkan angka 60°R. Jika ruangan tersebut diukur menggunakan skala Fahrenheit, maka suhunya setara dengan...", opts: ["167°F", "135°F", "140°F", "104°F"], ans: 0, exp: "Rumus: F = (9/4 × R) + 32 = (9/4 × 60) + 32 = 135 + 32 = 167°F." },
-            { q: "Dua benda A dan B memiliki massa sama, namun kalor jenis benda A dua kali lipat benda B (c_A = 2c_B). Jika keduanya diberikan kalor yang sama besar, perbandingan kenaikan suhu (ΔT_A : ΔT_B) adalah...", opts: ["1 : 1", "1 : 2", "2 : 1", "4 : 1"], ans: 1, exp: "Karena Q dan m konstan, maka ΔT berbanding terbalik dengan c. Jika c_A dua kali lipat, maka naiknya suhu A lebih lambat setengahnya dibanding B (1 : 2)." },
-            { q: "Bimetal terdiri dari kuningan (koefisien muai panjang besar) dan besi (koefisien muai panjang kecil). Jika logam bimetal tersebut didinginkan (suhu diturunkan), yang akan terjadi adalah...", opts: ["Melengkung ke arah kuningan", "Melengkung ke arah besi", "Bertambah panjang dan lurus rata", "Patah menjadi dua bagian"], ans: 0, exp: "Saat didinginkan, logam yang koefisiennya besar (kuningan) akan menyusut lebih banyak (memendek lebih cepat). Sehingga bimetal akan melengkung ke sisi kuningan." },
-            { q: "Sebongkah es 200 gram bersuhu 0°C dipanaskan hingga melebur seluruhnya menjadi air bersuhu 0°C. Jika kalor lebur es 336.000 J/kg, energi kalor total yang dibutuhkan adalah...", opts: ["67.200 J", "33.600 J", "672.000 J", "1.680 J"], ans: 0, exp: "Massa (m) = 200 g = 0,2 kg. Karena hanya mengubah wujud di suhu 0°C, maka gunakan rumus Kalor Laten: Q = m × L = 0,2 × 336.000 = 67.200 Joule." },
-            { q: "Berdasarkan Asas Black, pada pencampuran benda bersuhu tinggi dan bersuhu rendah di ruang terisolasi sempurna, suhu akhir campuran akan lebih dominan mendekati suhu awal benda yang memiliki...", opts: ["Massa paling kecil", "Suhu awal paling tinggi", "Kalor jenis paling kecil", "Kapasitas kalor paling besar"], ans: 3, exp: "Kapasitas kalor (C = m×c) adalah kelembaman termal zat. Benda dengan kapasitas kalor besar sangat sulit/lambat untuk diubah suhunya, sehingga menarik suhu akhir mendekatinya." },
+     const evalData = [
+    // --- 5 SOAL KONSEP DASAR (C1-C2) ---
+    { 
+        tag: "KONSEP SUHU",
+        q: "Suhu merupakan besaran fisis yang menyatakan derajat panas atau dinginnya suatu benda. Secara mikroskopis, naiknya suhu suatu benda mengindikasikan bahwa...", 
+        opts: ["Partikel penyusun benda terdiam", "Energi kinetik rata-rata partikel bertambah", "Jarak antar partikel menyusut", "Massa total partikel bertambah besar"], 
+        ans: 1,
+        exp: "Suhu berbanding lurus dengan energi kinetik translasi rata-rata partikel ($E_k = \\frac{3}{2} kT$). Jika suhu naik, partikel bergerak lebih cepat."
+    },
+    { 
+        tag: "KONSEP KALOR",
+        q: "Energi yang berpindah dari benda bersuhu lebih tinggi ke benda bersuhu lebih rendah ketika keduanya bersentuhan secara alami disebut...", 
+        opts: ["Suhu", "Kapasitas Panas", "Kalor", "Kalor Jenis"], 
+        ans: 2,
+        exp: "Kalor adalah bentuk energi panas yang mengalir secara dinamis akibat adanya perbedaan suhu antar dua benda."
+    },
+    { 
+        tag: "PERUBAHAN WUJUD",
+        q: "Ketika bongkahan es dipanaskan hingga mencair seluruhnya menjadi air, kalor yang diserap tidak digunakan untuk menaikkan suhu, melainkan digunakan untuk...", 
+        opts: ["Menaikkan titik didih air", "Mengubah kalor jenis es", "Memutuskan ikatan partikel agar wujud berubah", "Memperkecil volume zat"], 
+        ans: 2,
+        exp: "Kalor laten diserap murni untuk merenggangkan/memutus ikatan antar partikel zat padat menjadi zat cair tanpa menaikkan suhunya."
+    },
+    { 
+        tag: "PERPINDAHAN KALOR",
+        q: "Perpindahan kalor dari satu tempat ke tempat lain yang disertai dengan pergerakan partikel-partikel medium perantaranya dinamakan...", 
+        opts: ["Konduksi", "Konveksi", "Radiasi", "Kondensasi"], 
+        ans: 1,
+        exp: "Konveksi adalah aliran panas pada fluida (cair/gas) yang disertai oleh perpindahan molekul-molekul perantaranya."
+    },
+    { 
+        tag: "RUMUS KALOR",
+        q: "Rumus matematis $Q = m \\times c \\times \\Delta T$ digunakan secara spesifik untuk menghitung besar energi kalor yang diperlukan dalam proses...", 
+        opts: ["Memuaikan panjang logam", "Menaikkan atau menurunkan suhu suatu benda", "Mengubah wujud benda (misal melebur)", "Memancarkan radiasi termal"], 
+        ans: 1,
+        exp: "Persamaan $Q = m \\cdot c \\cdot \\Delta T$ digunakan saat kalor yang mengalir mengakibatkan perubahan suhu ($\\Delta T$)."
+    },
 
-            // --- 2 SOAL PENERAPAN SEHARI-HARI (C3-C4) ---
-            { q: "Mengapa gelas kaca yang sangat tebal justru lebih mudah retak saat dituang air mendidih secara mendadak dibandingkan gelas kaca tipis?", opts: ["Karena gelas tebal menahan panas secara penuh", "Karena bagian dalam gelas sudah memuai sementara bagian luarnya belum", "Karena kalor lebur kaca tebal lebih rendah", "Karena gelas tipis adalah isolator sempurna"], ans: 1, exp: "Kaca adalah isolator panas yang buruk. Saat dituang air mendidih, dinding bagian dalam tebal memuai dengan cepat, sedangkan panas belum merambat ke dinding luar. Perbedaan muai ini menyebabkan retak/pecah." },
-            { q: "Mengenakan pakaian berwarna hitam di siang hari yang terik akan terasa lebih panas dibanding pakaian berwarna putih. Hal ini terjadi karena warna hitam merupakan...", opts: ["Konektor panas yang buruk", "Pemantul kalor radiasi yang sangat baik", "Penyerap kalor radiasi yang sangat baik", "Isolator kalor yang sempurna"], ans: 2, exp: "Warna gelap/hitam memiliki emisivitas yang mendekati 1, sehingga ia adalah penyerap (absorber) gelombang radiasi matahari paling kuat." },
+    // --- 5 SOAL KONSEP AGAK SULIT (C3-C4) ---
+    { 
+        tag: "KONVERSI SKALA",
+        q: "Termometer Reamur pada suatu ruangan menunjukkan angka 60°R. Jika ruangan tersebut diukur menggunakan skala Fahrenheit, maka suhunya setara dengan...", 
+        opts: ["167°F", "135°F", "140°F", "104°F"], 
+        ans: 0,
+        exp: "Konversi: $F = (\\frac{9}{4} \\times R) + 32 = (\\frac{9}{4} \\times 60) + 32 = 135 + 32 = 167^\\circ\\text{F}$."
+    },
+    { 
+        tag: "ANALISIS LANJUT",
+        q: "Dua benda A dan B memiliki massa sama, namun kalor jenis benda A dua kali lipat benda B ($c_A = 2c_B$). Jika keduanya diberikan kalor yang sama besar, perbandingan kenaikan suhu ($\\Delta T_A : \\Delta T_B$) adalah...", 
+        opts: ["1 : 1", "1 : 2", "2 : 1", "4 : 1"], 
+        ans: 1,
+        exp: "Dari $Q = m \\cdot c \\cdot \\Delta T$, karena $Q$ dan $m$ sama maka $\\Delta T = \\frac{Q}{m \\cdot c}$ (berbanding terbalik dengan $c$). Karena $c_A = 2c_B$, maka $\\Delta T_A : \\Delta T_B = 1 : 2$."
+    },
+    { 
+        tag: "PEMUAIAN ZAT",
+        q: "Bimetal terdiri dari kuningan (koefisien muai panjang besar) dan besi (koefisien muai panjang kecil). Jika logam bimetal tersebut didinginkan (suhu diturunkan), yang akan terjadi adalah...", 
+        opts: ["Melengkung ke arah kuningan", "Melengkung ke arah besi", "Bertambah panjang dan lurus rata", "Patah menjadi dua bagian"], 
+        ans: 0,
+        exp: "Saat didinginkan, logam dengan koefisien muai lebih besar (kuningan) akan menyusut lebih banyak/pendek, sehingga bimetal melengkung ke sisi kuningan."
+    },
+    { 
+        tag: "KALOR LATEN",
+        q: "Sebongkah es 200 gram bersuhu 0°C dipanaskan hingga melebur seluruhnya menjadi air bersuhu 0°C. Jika kalor lebur es 336.000 J/kg, energi kalor total yang dibutuhkan adalah...", 
+        opts: ["67.200 J", "33.600 J", "672.000 J", "1.680 J"], 
+        ans: 0,
+        exp: "Massa $m = 200\\text{ g} = 0,2\\text{ kg}$. Gunakan $Q = m \\times L = 0,2 \\times 336.000 = 67.200\\text{ Joule}$."
+    },
+    { 
+        tag: "ASAS BLACK",
+        q: "Berdasarkan Asas Black, pada pencampuran benda bersuhu tinggi dan bersuhu rendah di ruang terisolasi sempurna, suhu akhir campuran akan lebih dominan mendekati suhu awal benda yang memiliki...", 
+        opts: ["Massa paling kecil", "Suhu awal paling tinggi", "Kalor jenis paling kecil", "Kapasitas kalor paling besar"], 
+        ans: 3,
+        exp: "Kapasitas kalor ($C = m \\cdot c$) menentukan seberapa tahan benda terhadap perubahan suhu. Kapasitas besar akan dominan menentukan suhu akhir."
+    },
 
-            // --- 8 SOAL KONTEKS PENGERINGAN KOPI (C3-C4) ---
-            { q: "Pada proses pengeringan kopi di pelataran terbuka yang terik, hamparan biji kopi menerima energi panas langsung dari cahaya matahari yang melewati luar angkasa tanpa medium. Proses ini disebut...", opts: ["Evaporasi", "Radiasi", "Konduksi", "Konveksi"], ans: 1, exp: "Pancaran panas matahari yang sampai ke hamparan biji kopi tanpa memerlukan medium (menembus ruang hampa/udara bebas) adalah fenomena radiasi elektromagnetik." },
-            { q: "Saat dijemur di pelataran semen, bagian bawah lapisan biji kopi mendapatkan aliran panas langsung akibat bersentuhan dengan semen yang ikut memanas. Rambatan kalor melalui persentuhan langsung benda padat ini disebut...", opts: ["Konduksi", "Konveksi", "Radiasi", "Sublimasi"], ans: 0, exp: "Terjadi kontak langsung/persentuhan fisik antara lantai semen padat dengan biji kopi padat di atasnya. Panas merambat secara konduksi." },
-            { q: "Selama penjemuran, hembusan angin sangat membantu pergerakan partikel udara untuk membuang uap air panas dan menggantinya dengan udara kering. Mekanisme sirkulasi kalor oleh hembusan udara ini dinamakan...", opts: ["Radiasi termal", "Konveksi mekanis", "Konduksi partikel", "Isolasi termal"], ans: 1, exp: "Aliran massa udara (fluida gas) yang bergerak memindahkan kalor beserta uap panas menjauh dari area penjemuran adalah peristiwa konveksi." },
-            { q: "Tujuan ilmiah secara termodinamika petani sering mengorak-arik (membolak-balik) hamparan kopi basah secara rutin di bawah sinar matahari adalah...", opts: ["Memperkecil luas penampang biji", "Memperluas area paparan agar transfer kalor dan laju penguapan (evaporasi) merata", "Menaikkan titik didih biji kopi hingga 100°C", "Mencegah terjadinya pemuaian biji kopi"], ans: 1, exp: "Mengorak-arik kopi mencegah kopi bagian atas gosong (overheating) dan menaikkan kopi bagian bawah agar merata terkena radiasi dan sirkulasi angin (konveksi), sehingga laju penguapan air konsisten." },
-            { q: "Biji kopi segar (*cherry*) kandungan airnya ±60%. Energi kalor dari matahari yang digunakan untuk mengubah kadar air tersebut menjadi gas/uap air, tanpa menaikkan suhunya lebih lanjut, disebut energi...", opts: ["Kalor Jenis (c)", "Kapasitas Kalor (C)", "Kalor Laten Uap (U)", "Kalor Laten Lebur (L)"], ans: 2, exp: "Energi kalor yang difokuskan murni untuk memutus ikatan zat cair (air) menjadi uap/gas tanpa perubahan suhu benda disebut Kalor Laten Uap." },
-            { q: "Pabrik kopi modern terkadang menggunakan *Drying Machine* yang mengalirkan arus udara panas menembus biji kopi. Berdasarkan hukum kekekalan energi (Asas Black), hal yang terjadi di dalam mesin tersebut adalah...", opts: ["Udara panas melepas kalor, dan kalor tersebut diserap oleh air dalam kopi untuk menguap", "Udara panas menyerap dinginnya kopi sehingga mesin membeku", "Suhu udara memanas tanpa henti di dalam drum", "Kalor jenis biji kopi meningkat seiring menurunya kadar air"], ans: 0, exp: "Berdasarkan Asas Black (Q lepas = Q terima), udara panas dari mesin melepas energi kalornya yang kemudian diserap oleh partikel air pada biji kopi basah untuk melakukan proses penguapan." },
-            { q: "Seiring mengeringnya biji kopi, nilai kalor jenis rata-rata biji tersebut semakin menurun. Dampak fisiologisnya, jika hamparan kopi yang sudah setengah kering disinari intensitas matahari yang sama dengan kopi basah, maka...", opts: ["Suhunya akan lebih lambat naik dibanding kopi basah", "Suhunya akan lebih cepat naik dibanding kopi basah", "Tidak ada perubahan suhu sama sekali", "Kopi akan memuai secara ekstrem dan meledak"], ans: 1, exp: "Air memiliki kalor jenis paling tinggi. Jika air dalam biji kopi hilang, kalor jenis biji kopi mengecil. Benda dengan kalor jenis kecil menjadi lebih sensitif, suhunya jauh lebih cepat naik (rentan gosong)." },
-            { q: "Pada malam hari, petani sering membungkus tumpukan kopi yang dijemur dengan terpal tebal. Secara prinsip termodinamika, fungsi utama terpal tersebut adalah...", opts: ["Menjadi isolator termal yang mencegah pelepasan panas kopi (konduksi) ke udara dingin", "Membuka pori-pori terpal untuk percepatan radiasi bulan", "Menaikkan tekanan konveksi udara di sekitar lantai", "Mempercepat pendinginan biji kopi secara drastis"], ans: 0, exp: "Terpal tebal bertindak sebagai benda isolator. Ia menghambat terjadinya perpindahan panas secara konduksi dari tumpukan kopi yang hangat ke udara malam yang dingin dan mencegah paparan embun basah." }
-        ];
+    // --- 2 SOAL PENERAPAN SEHARI-HARI (C3-C4) ---
+    { 
+        tag: "PENERAPAN PEMUAIAN",
+        q: "Mengapa gelas kaca yang sangat tebal justru lebih mudah retak saat dituang air mendidih secara mendadak dibandingkan gelas kaca tipis?", 
+        opts: ["Karena gelas tebal menahan panas secara penuh", "Karena bagian dalam gelas memuai sementara bagian luarnya belum", "Karena kalor lebur kaca tebal lebih rendah", "Karena gelas tipis adalah isolator sempurna"], 
+        ans: 1,
+        exp: "Kaca buruk menghantar panas. Bagian dalam gelas tebal langsung memuai, sementara bagian luar masih dingin/belum memuai. Perbedaan muai ini meretakkan kaca."
+    },
+    { 
+        tag: "RADIASI TERMAL",
+        q: "Mengenakan pakaian berwarna hitam di siang hari yang terik akan terasa lebih panas dibanding pakaian berwarna putih. Hal ini terjadi karena warna hitam merupakan...", 
+        opts: ["Konektor panas yang buruk", "Pemantul kalor radiasi yang sangat baik", "Penyerap kalor radiasi yang sangat baik", "Isolator kalor yang sempurna"], 
+        ans: 2,
+        exp: "Warna gelap/hitam memiliki nilai emisivitas $e \\approx 1$, sehingga menyerap kalor radiasi termal jauh lebih cepat dari lingkungan."
+    },
+
+    // --- 8 SOAL KONTEKS PENGERINGAN KOPI (C3-C4) ---
+    { 
+        tag: "PENGERINGAN KOPI",
+        q: "Pada proses pengeringan kopi di pelataran terbuka yang terik, hamparan biji kopi menerima energi panas langsung dari cahaya matahari yang melewati luar angkasa tanpa medium. Proses ini disebut...", 
+        opts: ["Evaporasi", "Radiasi", "Konduksi", "Konveksi"], 
+        ans: 1,
+        exp: "Radiasi adalah perpindahan energi panas melalui gelombang elektromagnetik tanpa memerlukan zat perantara."
+    },
+    { 
+        tag: "PENGERINGAN KOPI",
+        q: "Saat dijemur di pelataran semen, bagian bawah lapisan biji kopi mendapatkan aliran panas langsung akibat bersentuhan dengan semen yang ikut memanas. Rambatan kalor melalui persentuhan langsung benda padat ini disebut...", 
+        opts: ["Konduksi", "Konveksi", "Radiasi", "Sublimasi"], 
+        ans: 0,
+        exp: "Konduksi adalah hantaran panas antar zat padat yang saling bersentuhan tanpa perpindahan massa."
+    },
+    { 
+        tag: "PENGERINGAN KOPI",
+        q: "Selama penjemuran, hembusan angin sangat membantu pergerakan partikel udara untuk membuang uap air panas dan menggantinya dengan udara kering. Mekanisme sirkulasi kalor oleh hembusan udara ini dinamakan...", 
+        opts: ["Radiasi termal", "Konveksi mekanis", "Konduksi partikel", "Isolasi termal"], 
+        ans: 1,
+        exp: "Konveksi mekanis adalah perpindahan panas yang dibantu oleh aliran fluida (angin) yang bergerak mengusung uap air keluar."
+    },
+    { 
+        tag: "TEKNIK PENGERINGAN",
+        q: "Tujuan ilmiah secara termodinamika petani sering membolak-balik hamparan kopi basah secara rutin di bawah sinar matahari adalah...", 
+        opts: ["Memperkecil luas penampang biji", "Memperluas area paparan agar laju penguapan (evaporasi) merata", "Menaikkan titik didih biji kopi hingga 100°C", "Mencegah terjadinya pemuaian biji kopi"], 
+        ans: 1,
+        exp: "Membolak-balik kopi meratakan penerimaan radiasi & konduksi lantai, serta mengoptimalkan luas permukaan kontak uap air ke udara."
+    },
+    { 
+        tag: "EVAPORASI KOPI",
+        q: "Biji kopi segar (cherry) kandungan airnya ±60%. Energi kalor dari matahari yang digunakan untuk mengubah kadar air tersebut menjadi gas/uap air tanpa menaikkan suhu benda, disebut energi...", 
+        opts: ["Kalor Jenis ($c$)", "Kapasitas Kalor ($C$)", "Kalor Laten Uap ($U$)", "Kalor Laten Lebur ($L$)"], 
+        ans: 2,
+        exp: "Kalor Laten Uap ($U$) adalah energi yang diserap zat cair untuk merubah wujudnya menjadi fase gas/uap."
+    },
+    { 
+        tag: "MESIN PENGERING",
+        q: "Pabrik kopi modern terkadang menggunakan Drying Machine yang mengalirkan arus udara panas menembus biji kopi. Berdasarkan hukum kekekalan energi (Asas Black), hal yang terjadi di dalam mesin tersebut adalah...", 
+        opts: ["Udara panas melepas kalor, dan kalor tersebut diserap seluruhnya oleh biji kopi basah", "Udara panas menyerap energi dari biji kopi", "Suhu akhir udara dan biji kopi menjadi 0°C", "Tidak ada perpindahan kalor yang terjadi"], 
+        ans: 0,
+        exp: "Sesuai $Q_{\\text{lepas}} = Q_{\\text{terima}}$, udara panas bersuhu tinggi melepaskan kalor yang kemudian diserap oleh biji kopi basah."
+    },
+    { 
+        tag: "KELEMBAPAN UDARA",
+        q: "Jika suhu udara di sekitar penjemuran kopi sangat lembap (kadar air tinggi), yang akan terjadi pada laju penguapan (evaporasi) air dari dalam biji kopi adalah...", 
+        opts: ["Sangat cepat karena udara membantu menarik air", "Melambat karena udara sekitar sudah hampir jenuh oleh uap air", "Tidak terpengaruh sama sekali", "Kopi akan langsung membeku"], 
+        ans: 1,
+        exp: "Udara lembap memiliki kelembapan relatif tinggi (jenuh uap air), sehingga tekanan parsialnya menghambat air dari biji kopi untuk menguap."
+    },
+    { 
+        tag: "INSTRUMEN UKUR",
+        q: "Alat yang tepat untuk mengukur kadar air di dalam biji kopi setelah proses pengeringan kopi selesai agar dipastikan mencapai target 12% adalah...", 
+        opts: ["Termometer Bimetal", "Higrometer Udara", "Moisture Meter", "Anemometer"], 
+        ans: 2,
+        exp: "Moisture Meter adalah alat ukur kadar air khusus biji-bijian berbasis hambatan konduktivitas listrik."
+    }
+];
 
         let evalAnswers = new Array(evalData.length).fill(null);
 
-        function initQuiz() {
-            const container = document.getElementById('eval-questions-container');
-            const navGrid = document.getElementById('eval-nav-grid');
-            container.innerHTML = '';
-            navGrid.innerHTML = '';
+        function startEvaluasi() {
+            document.getElementById('eval-start-area').classList.add('hidden');
+            document.getElementById('eval-active-area').classList.remove('hidden');
+            document.getElementById('eval-result-area').classList.add('hidden');
             
-            evalData.forEach((item, idx) => {
-                
-                // Menentukan Kategori & Badge visual
-                let catBg, catText, catIcon, catLabel;
-                if(idx < 5) {
-                    catBg = "bg-blue-100"; catText = "text-blue-700"; catIcon = "🧠"; catLabel = "Konsep Dasar";
-                } else if(idx < 10) {
-                    catBg = "bg-purple-100"; catText = "text-purple-700"; catIcon = "⚙️"; catLabel = "Analisis Lanjut";
-                } else if(idx < 12) {
-                    catBg = "bg-orange-100"; catText = "text-orange-700"; catIcon = "🌍"; catLabel = "Studi Sehari-hari";
-                } else {
-                    catBg = "bg-amber-100"; catText = "text-amber-800"; catIcon = "☕"; catLabel = "Pengeringan Kopi";
-                }
+            evalAnswers = new Array(evalData.length).fill(null);
+            renderEvaluasiNav();
+            renderEvaluasiQuestions();
+            updateEvalProgress();
+            
+            window.scrollTo({ top: document.getElementById('eval-active-area').offsetTop - 80, behavior: 'smooth' });
+        }
 
-                // --- Generate HTML Kotak Navigator ---
-                navGrid.innerHTML += `
-                    <button id="nav-btn-${idx}" onclick="scrollToEvalQuestion(${idx})" class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg text-xs sm:text-sm font-black border-2 border-slate-200 bg-white text-slate-400 hover:border-slate-400 transition-colors shadow-sm flex items-center justify-center">
-                        ${idx + 1}
-                    </button>
-                `;
+        function renderEvaluasiNav() {
+            const navContainer = document.getElementById('eval-nav-grid');
+            navContainer.innerHTML = '';
+            for (let i = 0; i < evalData.length; i++) {
+                const btn = document.createElement('button');
+                btn.id = `nav-btn-${i}`;
+                btn.className = 'w-9 h-9 rounded-xl font-extrabold text-xs bg-white border-2 border-slate-200 text-slate-500 hover:border-emerald-400 hover:text-emerald-600 transition-colors focus:outline-none';
+                btn.innerText = i + 1;
+                btn.onclick = () => {
+                    document.getElementById(`eval-q-${i}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+                };
+                navContainer.appendChild(btn);
+            }
+        }
 
-                // --- Generate HTML Kartu Soal ---
-                let html = `
-                    <div class="bg-white p-6 sm:p-8 rounded-3xl border-2 border-slate-100 shadow-sm mb-8 eval-card transition-all duration-300 relative overflow-hidden group scroll-mt-28" id="eval-card-${idx}">
-                        <div id="eval-indicator-${idx}" class="absolute top-0 left-0 w-2 h-full bg-slate-200 transition-colors"></div>
-                        
-                        <div class="pl-4">
-                            <div class="flex flex-wrap items-center gap-3 mb-5">
-                                <span class="bg-slate-800 text-white font-black px-3 py-1.5 rounded-lg text-sm shrink-0 shadow-sm">Soal ${idx+1}</span>
-                                <span class="${catBg} ${catText} font-bold px-3 py-1.5 rounded-lg text-xs uppercase tracking-wider flex items-center shadow-sm">
-                                    <span class="mr-1.5 text-base leading-none">${catIcon}</span> ${catLabel}
-                                </span>
-                            </div>
-                            <h4 class="font-bold text-slate-800 text-lg sm:text-xl leading-relaxed mb-6">${item.q}</h4>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                `;
-                
-                let letters = ['A','B','C','D'];
-                item.opts.forEach((opt, oIdx) => {
-                    html += `
-                                <label class="relative cursor-pointer w-full h-full">
-                                    <input type="radio" name="e${idx}" value="${oIdx}" onchange="markEval(${idx})" class="peer sr-only">
-                                    <div class="opt-wrapper p-4 sm:p-5 rounded-2xl border-2 border-slate-200 bg-white peer-checked:border-emerald-500 peer-checked:bg-emerald-50 transition-all flex items-start sm:items-center h-full shadow-sm hover:shadow-md peer-checked:shadow-inner group-hover:border-slate-300">
-                                        <div class="opt-letter w-10 h-10 rounded-xl border-2 border-slate-200 bg-slate-50 text-slate-500 font-black flex items-center justify-center mr-4 peer-checked:border-emerald-500 peer-checked:bg-emerald-500 peer-checked:text-white transition-all shrink-0 mt-0.5 sm:mt-0">
-                                            ${letters[oIdx]}
-                                        </div>
-                                        <span class="text-slate-700 font-semibold leading-snug pt-1 sm:pt-0">${opt}</span>
-                                    </div>
-                                </label>
+        function renderEvaluasiQuestions() {
+            const container = document.getElementById('eval-questions-container');
+            container.innerHTML = '';
+            
+            const letters = ['A', 'B', 'C', 'D'];
+            
+            evalData.forEach((item, index) => {
+                let optionsHtml = '';
+                item.opts.forEach((opt, optIdx) => {
+                    optionsHtml += `
+                        <button type="button" id="eval_opt_btn_${index}_${optIdx}" onclick="answerEval(${index}, ${optIdx})" class="p-4 border-2 border-slate-200 rounded-2xl flex items-center gap-4 bg-white text-left font-bold text-slate-700 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all focus:outline-none">
+                            <span id="eval_opt_letter_${index}_${optIdx}" class="w-10 h-10 rounded-xl bg-slate-100 text-slate-500 font-extrabold flex items-center justify-center border border-slate-200 shrink-0 transition-colors">${letters[optIdx]}</span>
+                            <span class="text-base font-bold leading-relaxed">${opt}</span>
+                        </button>
                     `;
                 });
-                
-                html += `
-                            </div>
-                            
-                            <!-- Area Pembahasan (Muncul saat reviu) -->
-                            <div id="eval-rev-${idx}" class="hidden mt-8 pt-8 border-t-2 border-slate-100">
-                                <div class="flex flex-col md:flex-row items-start gap-4">
-                                    <div id="eval-stamp-${idx}" class="shrink-0 flex items-center justify-center border-[3px] rounded-2xl font-black text-xl px-5 py-3 tracking-widest transform -rotate-3">
-                                        <!-- Stamp Status Injected by JS -->
-                                    </div>
-                                    <div class="bg-blue-50/50 w-full p-5 sm:p-6 rounded-2xl border border-blue-100 shadow-inner">
-                                        <p class="text-emerald-700 font-bold mb-3 text-sm sm:text-base border-b border-blue-100/50 pb-3 flex items-start gap-2">
-                                            <i class="fas fa-check-circle mt-1 text-emerald-500"></i>
-                                            <span>Kunci: <strong>${letters[item.ans]}. ${item.opts[item.ans]}</strong></span>
-                                        </p>
-                                        <p class="text-slate-700 leading-relaxed text-sm sm:text-base font-medium flex items-start gap-2">
-                                            <i class="fas fa-lightbulb text-amber-500 mt-1"></i>
-                                            <span>${item.exp}</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+
+                // KARTU SOAL DENGAN LAYOUT PERSIS SCREENSHOT (Badges + Grid Options 2 Kolom)
+                const qHtml = `
+                    <div id="eval-q-${index}" class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-sm transition-all hover:shadow-md">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="bg-slate-800 text-white text-xs font-extrabold px-3.5 py-1.5 rounded-lg shadow-sm">Soal ${index + 1}</span>
+                            <span class="bg-purple-50 text-purple-600 border border-purple-100 text-[11px] font-black tracking-wider uppercase px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+                                <i class="fas fa-cog text-[10px]"></i> ${item.tag || 'ANALISIS LANJUT'}
+                            </span>
+                        </div>
+                        
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-800 leading-relaxed mb-8">
+                            ${item.q}
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            ${optionsHtml}
                         </div>
                     </div>
                 `;
-                container.innerHTML += html;
+                container.innerHTML += qHtml;
             });
-            updateProgressUI();
-        }
 
-        function scrollToEvalQuestion(idx) {
-            const el = document.getElementById(`eval-card-${idx}`);
-            if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-
-        function markEval(idx) {
-            evalAnswers[idx] = parseInt(document.querySelector(`input[name="e${idx}"]:checked`).value);
-            
-            // Ubah warna navigator grid
-            const navBtn = document.getElementById(`nav-btn-${idx}`);
-            navBtn.classList.remove('bg-white', 'text-slate-400', 'border-slate-200');
-            navBtn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
-            
-            updateProgressUI();
-        }
-
-        function updateProgressUI() {
-            let answered = evalAnswers.filter(a => a !== null).length;
-            let total = evalData.length;
-            let pct = (answered / total) * 100;
-            
-            document.getElementById('eval-progress-text').innerText = answered;
-            document.getElementById('eval-progress-bar').style.width = `${pct}%`;
-
-            if(pct === 100) {
-                document.getElementById('eval-progress-bar').classList.remove('bg-emerald-500');
-                document.getElementById('eval-progress-bar').classList.add('bg-blue-500');
+            if (window.MathJax) {
+                MathJax.typesetPromise();
             }
         }
 
-        function startEvaluasi() {
-            document.getElementById('eval-start-area').classList.add('hidden');
-            document.getElementById('eval-result-area').classList.add('hidden');
-            document.getElementById('eval-active-area').classList.remove('hidden');
+        function answerEval(qIndex, optIndex) {
+            evalAnswers[qIndex] = optIndex;
             
-            // Tampilan Kumpulkan
-            document.getElementById('eval-submit-btn').classList.remove('hidden');
-            document.getElementById('eval-submit-msg').classList.remove('hidden');
-            document.getElementById('eval-back-to-score-btn').classList.add('hidden');
+            // Reset styles
+            for (let i = 0; i < evalData[qIndex].opts.length; i++) {
+                const btn = document.getElementById(`eval_opt_btn_${qIndex}_${i}`);
+                const letter = document.getElementById(`eval_opt_letter_${qIndex}_${i}`);
+                
+                btn.className = "p-4 border-2 border-slate-200 rounded-2xl flex items-center gap-4 bg-white text-left font-bold text-slate-700 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all focus:outline-none";
+                letter.className = "w-10 h-10 rounded-xl bg-slate-100 text-slate-500 font-extrabold flex items-center justify-center border border-slate-200 shrink-0 transition-colors";
+            }
             
-            // Reset state
-            evalAnswers.fill(null);
-            document.getElementById('eval-progress-bar').classList.remove('bg-blue-500');
-            document.getElementById('eval-progress-bar').classList.add('bg-emerald-500');
+            // Selected Style
+            const selBtn = document.getElementById(`eval_opt_btn_${qIndex}_${optIndex}`);
+            const selLetter = document.getElementById(`eval_opt_letter_${qIndex}_${optIndex}`);
             
-            initQuiz();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            selBtn.className = "p-4 border-2 border-emerald-500 rounded-2xl flex items-center gap-4 bg-emerald-50/30 text-left font-bold text-emerald-900 shadow-sm transition-all focus:outline-none";
+            selLetter.className = "w-10 h-10 rounded-xl bg-emerald-500 text-white font-extrabold flex items-center justify-center border border-emerald-600 shrink-0 transition-colors";
+            
+            updateEvalProgress();
+        }
+
+        function updateEvalProgress() {
+            const answeredCount = evalAnswers.filter(a => a !== null).length;
+            const total = evalData.length;
+            const pct = Math.round((answeredCount / total) * 100);
+            
+            document.getElementById('eval-progress-pct').innerText = `${pct}%`;
+            document.getElementById('eval-progress-bar').style.width = `${pct}%`;
+            document.getElementById('eval-progress-status').innerHTML = `<i class="fas fa-pencil-alt text-emerald-500 mr-1"></i> Terjawab ${answeredCount} dari ${total}`;
+            
+            for (let i = 0; i < total; i++) {
+                const btn = document.getElementById(`nav-btn-${i}`);
+                if (evalAnswers[i] !== null) {
+                    btn.className = 'w-9 h-9 rounded-xl font-extrabold text-xs bg-emerald-500 border-2 border-emerald-600 text-white shadow-md transition-colors focus:outline-none';
+                } else {
+                    btn.className = 'w-9 h-9 rounded-xl font-extrabold text-xs bg-white border-2 border-slate-200 text-slate-500 hover:border-emerald-400 hover:text-emerald-600 transition-colors focus:outline-none';
+                }
+            }
         }
 
         function submitEvaluasi() {
-            let totalSoal = evalData.length;
-            let answered = evalAnswers.filter(a => a !== null).length;
-            
-            if(answered < totalSoal) { 
-                alert(`Masih ada soal yang terlewat! Kamu baru menjawab ${answered} dari ${totalSoal} soal. Cek kotak navigator di bagian atas.`); 
-                return; 
+            const unanswered = evalAnswers.filter(a => a === null).length;
+            if (unanswered > 0) {
+                alert(`Masih ada ${unanswered} soal yang belum dijawab. Mohon lengkapi terlebih dahulu!`);
+                const firstUnansweredIndex = evalAnswers.findIndex(a => a === null);
+                if (firstUnansweredIndex !== -1) {
+                    document.getElementById(`eval-q-${firstUnansweredIndex}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                return;
             }
-            
-            let s = 0; 
-            evalAnswers.forEach((a,i) => { if(a === evalData[i].ans) s++; });
-            
-            let finalScore = Math.round((s / totalSoal) * 100);
 
+            let correct = 0;
+            evalAnswers.forEach((ans, idx) => {
+                if (ans === evalData[idx].ans) correct++;
+            });
+
+            const score = Math.round((correct / evalData.length) * 100);
+            
             document.getElementById('eval-active-area').classList.add('hidden');
             document.getElementById('eval-result-area').classList.remove('hidden');
             
-            let scoreEl = document.getElementById('eval-final-score');
-            scoreEl.innerText = finalScore;
-            document.getElementById('eval-score-text').innerHTML = `<i class="fas fa-check text-emerald-500 mr-1"></i> Menjawab benar ${s} dari ${totalSoal} soal`;
+            const scoreEl = document.getElementById('eval-final-score');
+            const iconEl = document.getElementById('eval-status-icon');
+            const titleEl = document.getElementById('eval-status-title');
+            const statusBadge = document.getElementById('res-status');
+            const saranEl = document.getElementById('res-saran');
+            
+            let currScore = 0;
+            const scoreInterval = setInterval(() => {
+                if (currScore >= score) {
+                    clearInterval(scoreInterval);
+                    scoreEl.innerText = score;
+                } else {
+                    currScore++;
+                    scoreEl.innerText = currScore;
+                }
+            }, 15);
 
-            let iconEl = document.getElementById('eval-status-icon');
-            let titleEl = document.getElementById('eval-status-title');
+            document.getElementById('res-benar').innerText = correct;
+            document.getElementById('res-salah').innerText = evalData.length - correct;
 
-            if(finalScore >= 80) {
-                iconEl.innerText = "🌟"; titleEl.innerText = "Luar Biasa!";
-                scoreEl.className = "text-[7rem] font-black text-emerald-500 leading-none my-2 drop-shadow-sm";
-                if(typeof confetti === 'function') confetti({ particleCount: 300, spread: 120, origin: {y:0.3} });
-            } else if(finalScore >= 60) {
-                iconEl.innerText = "👍"; titleEl.innerText = "Cukup Baik!";
-                scoreEl.className = "text-[7rem] font-black text-amber-500 leading-none my-2 drop-shadow-sm";
+            if (score >= 80) {
+                scoreEl.className = "text-[7rem] font-black leading-none my-4 drop-shadow-sm text-emerald-500";
+                iconEl.innerText = "🌟";
+                titleEl.innerText = "Luar Biasa!";
+                statusBadge.innerHTML = `<span class="bg-emerald-100 text-emerald-700 font-black px-4 py-1.5 rounded-lg border border-emerald-200 shadow-sm">LULUS / TUNTAS</span>`;
+                saranEl.innerHTML = `
+                    <div class="bg-gradient-to-r from-emerald-50 to-teal-50 border-l-4 border-emerald-500 p-5 rounded-r-2xl shadow-sm">
+                        <h4 class="font-bold text-emerald-900 text-base mb-1">Tingkat Penguasaan Sangat Baik</h4>
+                        <p class="text-xs text-emerald-800 m-0 leading-relaxed">Kamu telah memahami konsep suhu dan kalor beserta penerapannya pada pengeringan kopi nusantara dengan sempurna.</p>
+                    </div>`;
+                if(typeof confetti === 'function') confetti({ particleCount: 150, spread: 80, origin: { y: 0.3 } });
             } else {
-                iconEl.innerText = "💪"; titleEl.innerText = "Tetap Semangat!";
-                scoreEl.className = "text-[7rem] font-black text-red-500 leading-none my-2 drop-shadow-sm";
+                scoreEl.className = "text-[7rem] font-black leading-none my-4 drop-shadow-sm text-amber-500";
+                iconEl.innerText = "💪";
+                titleEl.innerText = "Terus Berlatih!";
+                statusBadge.innerHTML = `<span class="bg-amber-100 text-amber-700 font-black px-4 py-1.5 rounded-lg border border-amber-200 shadow-sm">BELUM TUNTAS</span>`;
+                saranEl.innerHTML = `
+                    <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-500 p-5 rounded-r-2xl shadow-sm">
+                        <h4 class="font-bold text-amber-900 text-base mb-1">Pelajari Pembahasan Soal</h4>
+                        <p class="text-xs text-amber-800 m-0 leading-relaxed">Simak pembahasan jawaban lengkap di bawah ini untuk memahami soal-soal yang belum tepat.</p>
+                    </div>`;
             }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // RENDER PEMBAHASAN LENGKAP
+            renderDiscussion();
+
+            window.scrollTo({ top: document.getElementById('eval-result-area').offsetTop - 50, behavior: 'smooth' });
         }
 
-        function showEvalReview() {
-            document.getElementById('eval-result-area').classList.add('hidden');
-            document.getElementById('eval-active-area').classList.remove('hidden');
-            
-            // Header Action adjustments
-            document.getElementById('eval-submit-btn').classList.add('hidden');
-            document.getElementById('eval-submit-msg').classList.add('hidden');
-            document.getElementById('eval-back-to-score-btn').classList.remove('hidden');
+        function renderDiscussion() {
+            const discContainer = document.getElementById('eval-discussion-container');
+            discContainer.innerHTML = '';
+            const letters = ['A', 'B', 'C', 'D'];
 
-            evalData.forEach((item, idx) => {
-                let isCorrect = evalAnswers[idx] === item.ans;
-                let card = document.getElementById(`eval-card-${idx}`);
-                let revBox = document.getElementById(`eval-rev-${idx}`);
-                let indicator = document.getElementById(`eval-indicator-${idx}`);
-                let stamp = document.getElementById(`eval-stamp-${idx}`);
-                let navBtn = document.getElementById(`nav-btn-${idx}`);
+            evalData.forEach((item, index) => {
+                const userAns = evalAnswers[index];
+                const isCorrect = userAns === item.ans;
 
-                // Update Grid Navigator Colors
-                navBtn.classList.remove('bg-emerald-500', 'border-emerald-600', 'bg-white');
-                if(isCorrect) {
-                    navBtn.classList.add('bg-green-500', 'text-white', 'border-green-600');
-                    indicator.classList.replace('bg-slate-200', 'bg-green-500');
-                    stamp.className = "shrink-0 flex items-center justify-center border-4 border-green-500 text-green-600 rounded-xl font-black text-xl px-5 py-3 tracking-widest transform -rotate-6 shadow-sm bg-green-50";
-                    stamp.innerHTML = "<i class='fas fa-check-circle mr-2'></i> BENAR";
-                } else {
-                    navBtn.classList.add('bg-red-500', 'text-white', 'border-red-600');
-                    indicator.classList.replace('bg-slate-200', 'bg-red-500');
-                    stamp.className = "shrink-0 flex items-center justify-center border-4 border-red-500 text-red-600 rounded-xl font-black text-xl px-5 py-3 tracking-widest transform rotate-6 shadow-sm bg-red-50";
-                    stamp.innerHTML = "<i class='fas fa-times-circle mr-2'></i> SALAH";
-                }
+                let optionsDisc = '';
+                item.opts.forEach((opt, optIdx) => {
+                    let optStyle = "bg-white border-slate-200 text-slate-600";
+                    let badge = "";
 
-                // Update Radio UI Styles
-                let radios = document.querySelectorAll(`input[name="e${idx}"]`);
-                radios.forEach((r, oIdx) => {
-                    r.disabled = true; // Disable input
-                    let wrapper = r.nextElementSibling; 
-                    let letter = wrapper.querySelector('.opt-letter');
-                    
-                    // Reset peer classes
-                    wrapper.className = "opt-wrapper p-4 sm:p-5 rounded-2xl border-2 bg-white flex items-start sm:items-center h-full transition-all";
-                    letter.className = "opt-letter w-10 h-10 rounded-xl border-2 font-black flex items-center justify-center mr-4 shrink-0 mt-0.5 sm:mt-0";
-
-                    if(oIdx === item.ans) {
-                        // Kunci Jawaban (Selalu Hijau)
-                        wrapper.classList.add('border-green-500', 'bg-green-50', 'shadow-inner');
-                        letter.classList.add('bg-green-500', 'border-green-500', 'text-white');
-                    } else if(oIdx === evalAnswers[idx] && !isCorrect) {
-                        // Jawaban User yg Salah (Merah)
-                        wrapper.classList.add('border-red-400', 'bg-red-50');
-                        letter.classList.add('bg-red-500', 'border-red-500', 'text-white');
-                    } else {
-                        // Opsi Lainnya (Dimmed/Abu-abu)
-                        wrapper.classList.add('border-slate-100', 'opacity-50');
-                        letter.classList.add('bg-slate-50', 'border-slate-200', 'text-slate-400');
+                    if (optIdx === item.ans) {
+                        optStyle = "bg-emerald-50 border-emerald-400 text-emerald-900 font-bold";
+                        badge = `<span class="ml-auto text-xs bg-emerald-500 text-white font-black px-2.5 py-0.5 rounded-md">Kunci Jawaban</span>`;
+                    } else if (optIdx === userAns && !isCorrect) {
+                        optStyle = "bg-rose-50 border-rose-300 text-rose-900 line-through opacity-80";
+                        badge = `<span class="ml-auto text-xs bg-rose-500 text-white font-black px-2.5 py-0.5 rounded-md">Jawabanmu</span>`;
                     }
+
+                    optionsDisc += `
+                        <div class="p-3.5 border-2 rounded-xl flex items-center gap-3 ${optStyle}">
+                            <span class="w-7 h-7 rounded-lg bg-slate-100 text-slate-600 font-bold flex items-center justify-center text-xs border shrink-0">${letters[optIdx]}</span>
+                            <span class="text-sm">${opt}</span>
+                            ${badge}
+                        </div>
+                    `;
                 });
 
-                // Tampilkan Pembahasan
-                revBox.classList.remove('hidden');
-                revBox.classList.add('anim-pop');
+                const discHtml = `
+                    <div class="bg-white rounded-3xl border-2 ${isCorrect ? 'border-emerald-200' : 'border-rose-200'} p-6 shadow-sm">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="bg-slate-800 text-white text-xs font-black px-3 py-1 rounded-lg">Soal ${index + 1}</span>
+                            <span class="text-xs font-black px-3 py-1 rounded-lg ${isCorrect ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}">
+                                ${isCorrect ? '✅ Benar (+5)' : '❌ Salah'}
+                            </span>
+                        </div>
+
+                        <h4 class="text-base font-bold text-slate-800 mb-4 leading-relaxed">${item.q}</h4>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-5">
+                            ${optionsDisc}
+                        </div>
+
+                        <div class="bg-slate-50 border-l-4 border-indigo-500 p-4 rounded-r-xl">
+                            <p class="text-xs font-black text-indigo-900 uppercase tracking-wider mb-1 flex items-center gap-1.5"><i class="fas fa-lightbulb text-amber-500"></i> Pembahasan Soal:</p>
+                            <p class="text-xs text-slate-600 leading-relaxed font-medium m-0">${item.exp}</p>
+                        </div>
+                    </div>
+                `;
+                discContainer.innerHTML += discHtml;
             });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
         }
 
-        function backToEvalResult() {
-            document.getElementById('eval-active-area').classList.add('hidden');
-            document.getElementById('eval-result-area').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function retryEvaluasi() { 
-            startEvaluasi(); 
+        function retryEvaluasi() {
+            startEvaluasi();
         }
 
      
@@ -5524,32 +5847,91 @@ function scrollToTop() {
 }
 
 
-// 6. Logika Simulasi Interaktif
 function updateSim() {
-    const sun = parseInt(document.getElementById('sim-sun').value);
-    const wind = parseInt(document.getElementById('sim-wind').value);
-    const temp = parseInt(document.getElementById('sim-temp').value);
+    // 1. Ambil nilai dari masing-masing slider
+    let sun = parseInt(document.getElementById('sim-sun').value);
+    let wind = parseInt(document.getElementById('sim-wind').value);
+    let airTemp = parseInt(document.getElementById('sim-temp').value);
 
+    // Update teks angka di sebelah slider
     document.getElementById('val-sun').innerText = sun + '%';
     document.getElementById('val-wind').innerText = wind + '%';
-    document.getElementById('val-temp').innerText = temp + '°C';
+    document.getElementById('val-temp').innerText = airTemp + '°C';
 
-    // Kalkulasi Fisika Sederhana
-    const calcTemp = temp + (sun * 0.2); 
-    const calcRate = (sun * 0.5) + (wind * 0.3) + (temp * 0.2);
-    const calcMoist = 100 - calcRate;
+    // ==========================================
+    // 2. LOGIKA FISIKA (Sudah Diperbaiki)
+    // ==========================================
+    
+    // A. Hitung Suhu Kopi
+    // Radiasi matahari menambah panas dengan cepat. 
+    // Angin (konveksi) membantu mendinginkan permukaan kopi agar tidak gosong.
+    let coffeeTemp = airTemp + (sun * 0.35) - (wind * 0.15);
+    coffeeTemp = Math.max(airTemp, Math.min(coffeeTemp, 60)); // Batasi maksimal 60°C
+    
+    // B. Hitung Laju Kering (Skala 0 - 100%)
+    // Angin sangat dominan untuk mengusir uap air dari sekitar biji kopi
+    let dryingRate = (sun * 0.45) + (wind * 0.45) + ((airTemp - 20) * 1);
+    dryingRate = Math.max(0, Math.min(dryingRate, 100));
+    
+    // C. Estimasi Kadar Air (Setelah 1 Hari Penjemuran)
+    // Pengali dinaikkan menjadi 0.6 agar target aman bisa tercapai tanpa harus membakar kopi.
+    let moisture = 60 - (dryingRate * 0.6); 
+    moisture = Math.max(12, Math.min(moisture, 60));
 
-    // Update UI Bar
-    document.getElementById('res-temp').innerText = Math.round(calcTemp) + '°C';
-    document.getElementById('bar-temp').style.height = Math.min(calcTemp * 2, 100) + '%';
 
-    let rateText = calcRate > 70 ? 'Cepat' : (calcRate > 40 ? 'Sedang' : 'Lambat');
-    document.getElementById('res-rate').innerText = rateText;
-    document.getElementById('bar-rate').style.height = calcRate + '%';
+    // ==========================================
+    // 3. UPDATE TAMPILAN GRAFIK (BAR)
+    // ==========================================
+    
+    // --- Update Bar Suhu Kopi ---
+    let tempBarHeight = (coffeeTemp / 60) * 100; // Skala maksimal bar adalah 60°C
+    document.getElementById('res-temp').innerText = coffeeTemp.toFixed(1) + '°C';
+    let barTemp = document.getElementById('bar-temp');
+    barTemp.style.height = tempBarHeight + '%';
+    
+    // Ubah warna indikator suhu kopi
+    if (coffeeTemp > 50) {
+        barTemp.className = "w-8 rounded-t-md sim-bar bg-red-600"; // Terlalu Panas (Awas Gosong)
+        document.getElementById('res-temp').style.color = "#dc2626";
+    } else if (coffeeTemp >= 40) {
+        barTemp.className = "w-8 rounded-t-md sim-bar bg-emerald-500"; // Suhu Ideal Pengeringan
+        document.getElementById('res-temp').style.color = "#10b981";
+    } else {
+        barTemp.className = "w-8 rounded-t-md sim-bar bg-amber-400"; // Kurang Panas
+        document.getElementById('res-temp').style.color = "#fbbf24";
+    }
 
-    document.getElementById('res-moist').innerText = Math.max(Math.round(calcMoist), 12) + '%';
-    document.getElementById('bar-moist').style.height = Math.max(calcMoist, 12) + '%';
+    // --- Update Bar Laju Kering ---
+    document.getElementById('bar-rate').style.height = dryingRate + '%';
+    let rateLabel = "Lambat";
+    let rateColor = "#ef4444"; // Merah
+    if (dryingRate > 75) { rateLabel = "Cepat"; rateColor = "#10b981"; } // Hijau
+    else if (dryingRate > 40) { rateLabel = "Sedang"; rateColor = "#f59e0b"; } // Kuning/Amber
+    
+    document.getElementById('res-rate').innerText = rateLabel;
+    document.getElementById('res-rate').style.color = rateColor;
+    document.getElementById('bar-rate').style.backgroundColor = rateColor;
+
+    // --- Update Bar Kadar Air ---
+    document.getElementById('bar-moist').style.height = moisture + '%';
+    document.getElementById('res-moist').innerText = moisture.toFixed(1) + '%';
+    
+    // Ubah warna jika sudah mencapai target aman (di bawah 15%)
+    if (moisture <= 15) {
+        document.getElementById('bar-moist').style.backgroundColor = "#10b981"; // Hijau (Aman/Kering)
+        document.getElementById('res-moist').style.color = "#10b981";
+    } else {
+        document.getElementById('bar-moist').style.backgroundColor = "#3b82f6"; // Biru (Masih Basah)
+        document.getElementById('res-moist').style.color = "#3b82f6";
+    }
 }
+
+// Menjalankan simulasi satu kali saat halaman pertama kali dibuka
+document.addEventListener('DOMContentLoaded', function() {
+    if(document.getElementById('sim-sun')) {
+        updateSim();
+    }
+});
 // Fungsi Lanjut Belajar (Submateri Pengertian Kalor)
 function lanjutBelajarKalorPengertian() {
     const predInput = document.querySelector('input[name="prediksi-kalor-pengertian"]:checked');
@@ -5638,6 +6020,95 @@ function lanjutBelajarKalorPerpindahan() {
     mainSection.classList.remove('hidden');
     setTimeout(() => { mainSection.style.opacity = '1'; mainSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
 }
+// ==========================================
+// SIMULASI GERAK PARTIKEL (SUHU & ENERGI KINETIK)
+// ==========================================
+document.addEventListener('DOMContentLoaded', function() {
+    const canvasSuhu = document.getElementById('particle-canvas-suhu');
+    if (canvasSuhu) {
+        const ctxSuhu = canvasSuhu.getContext('2d');
+        let particlesSuhu = [];
+        const numParticles = 60; // Jumlah partikel
+        let speedMultiplier = 1;
+
+        // Fungsi untuk menyesuaikan ukuran canvas dengan container-nya
+        function resizeCanvas() {
+            canvasSuhu.width = canvasSuhu.parentElement.clientWidth;
+            canvasSuhu.height = canvasSuhu.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Inisialisasi partikel awal
+        for (let i = 0; i < numParticles; i++) {
+            particlesSuhu.push({
+                x: Math.random() * canvasSuhu.width,
+                y: Math.random() * canvasSuhu.height,
+                // Kecepatan arah x dan y secara acak
+                vx: (Math.random() - 0.5) * 2, 
+                vy: (Math.random() - 0.5) * 2,
+                radius: 3 + Math.random() * 3 // Ukuran partikel bervariasi
+            });
+        }
+
+        // Loop Animasi untuk menggerakkan partikel
+        function animateParticles() {
+            // Bersihkan kanvas setiap frame
+            ctxSuhu.clearRect(0, 0, canvasSuhu.width, canvasSuhu.height);
+            
+            particlesSuhu.forEach(p => {
+                // Perbarui posisi partikel berdasarkan kecepatan dan multiplier suhu
+                p.x += p.vx * speedMultiplier;
+                p.y += p.vy * speedMultiplier;
+
+                // Pantulkan partikel jika menabrak dinding kanvas
+                if (p.x - p.radius < 0 || p.x + p.radius > canvasSuhu.width) p.vx *= -1;
+                if (p.y - p.radius < 0 || p.y + p.radius > canvasSuhu.height) p.vy *= -1;
+
+                // Gambar partikel (berbentuk lingkaran bercahaya)
+                ctxSuhu.beginPath();
+                ctxSuhu.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctxSuhu.fillStyle = 'rgba(99, 102, 241, 0.8)'; // Warna Indigo yang selaras dengan tema
+                ctxSuhu.shadowBlur = 10;
+                ctxSuhu.shadowColor = 'rgba(99, 102, 241, 0.5)';
+                ctxSuhu.fill();
+                ctxSuhu.closePath();
+            });
+
+            // Jalankan frame berikutnya
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // Hubungkan Slider dengan kecepatan partikel
+        const tempSlider = document.getElementById('temp-slider-suhu');
+        const tempDisplay = document.getElementById('temp-display-suhu');
+        
+        if (tempSlider && tempDisplay) {
+            tempSlider.addEventListener('input', function() {
+                const temp = parseInt(this.value);
+                tempDisplay.innerText = temp;
+                
+                // Rumus kecepatan: Suhu 0°C (hampir diam) ke Suhu 100°C (bergerak cepat)
+                speedMultiplier = 0.1 + (temp / 100) * 6; 
+                
+                // Ubah warna partikel berdasarkan suhu (Dingin = Biru, Panas = Merah)
+                if (temp > 70) {
+                    ctxSuhu.fillStyle = 'rgba(239, 68, 68, 0.8)'; // Merah
+                    ctxSuhu.shadowColor = 'rgba(239, 68, 68, 0.5)';
+                } else if (temp < 30) {
+                    ctxSuhu.fillStyle = 'rgba(59, 130, 246, 0.8)'; // Biru
+                    ctxSuhu.shadowColor = 'rgba(59, 130, 246, 0.5)';
+                } else {
+                    ctxSuhu.fillStyle = 'rgba(99, 102, 241, 0.8)'; // Indigo (Sedang)
+                    ctxSuhu.shadowColor = 'rgba(99, 102, 241, 0.5)';
+                }
+            });
+            // Jalankan satu kali di awal agar nilainya sinkron
+            tempSlider.dispatchEvent(new Event('input'));
+        }
+    }
+});
     </script>
 </body>
 </html>
