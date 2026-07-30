@@ -6030,57 +6030,73 @@ document.addEventListener('DOMContentLoaded', function() {
         let particlesSuhu = [];
         const numParticles = 60; // Jumlah partikel
         let speedMultiplier = 1;
+        
+        // Variabel penyimpan warna yang bisa berubah
+        let particleColor = 'rgba(99, 102, 241, 0.8)'; 
+        let shadowColor = 'rgba(99, 102, 241, 0.5)';
 
-        // Fungsi untuk menyesuaikan ukuran canvas dengan container-nya
+        // Fungsi mengatur ukuran canvas
         function resizeCanvas() {
-            canvasSuhu.width = canvasSuhu.parentElement.clientWidth;
-            canvasSuhu.height = canvasSuhu.parentElement.clientHeight;
+            const parent = canvasSuhu.parentElement;
+            // Hanya atur ukuran JIKA elemen sedang terlihat di layar
+            if (parent.clientWidth > 0 && parent.clientHeight > 0) {
+                canvasSuhu.width = parent.clientWidth;
+                canvasSuhu.height = parent.clientHeight;
+            }
         }
         window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
 
-        // Inisialisasi partikel awal
+        // Inisialisasi partikel (diberi nilai sebaran awal 500x300 agar aman)
         for (let i = 0; i < numParticles; i++) {
             particlesSuhu.push({
-                x: Math.random() * canvasSuhu.width,
-                y: Math.random() * canvasSuhu.height,
-                // Kecepatan arah x dan y secara acak
+                x: Math.random() * 500,
+                y: Math.random() * 300,
                 vx: (Math.random() - 0.5) * 2, 
                 vy: (Math.random() - 0.5) * 2,
-                radius: 3 + Math.random() * 3 // Ukuran partikel bervariasi
+                radius: 3 + Math.random() * 3 
             });
         }
 
-        // Loop Animasi untuk menggerakkan partikel
+        // Loop Animasi
         function animateParticles() {
-            // Bersihkan kanvas setiap frame
+            // Cek terus menerus: Jika kanvas masih 0 (karena hidden), coba resize saat halamannya dibuka
+            if (canvasSuhu.width === 0 || canvasSuhu.height === 0 || canvasSuhu.width === 300) {
+                resizeCanvas();
+            }
+
             ctxSuhu.clearRect(0, 0, canvasSuhu.width, canvasSuhu.height);
             
             particlesSuhu.forEach(p => {
-                // Perbarui posisi partikel berdasarkan kecepatan dan multiplier suhu
                 p.x += p.vx * speedMultiplier;
                 p.y += p.vy * speedMultiplier;
 
-                // Pantulkan partikel jika menabrak dinding kanvas
-                if (p.x - p.radius < 0 || p.x + p.radius > canvasSuhu.width) p.vx *= -1;
-                if (p.y - p.radius < 0 || p.y + p.radius > canvasSuhu.height) p.vy *= -1;
+                // Pantulan partikel agar tidak tembus dinding (aman dari bug resize)
+                if (p.x < 0) { p.x = 0; p.vx *= -1; }
+                if (p.x > canvasSuhu.width && canvasSuhu.width > 0) { p.x = canvasSuhu.width; p.vx *= -1; }
+                if (p.y < 0) { p.y = 0; p.vy *= -1; }
+                if (p.y > canvasSuhu.height && canvasSuhu.height > 0) { p.y = canvasSuhu.height; p.vy *= -1; }
 
-                // Gambar partikel (berbentuk lingkaran bercahaya)
                 ctxSuhu.beginPath();
                 ctxSuhu.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctxSuhu.fillStyle = 'rgba(99, 102, 241, 0.8)'; // Warna Indigo yang selaras dengan tema
+                ctxSuhu.fillStyle = particleColor;
                 ctxSuhu.shadowBlur = 10;
-                ctxSuhu.shadowColor = 'rgba(99, 102, 241, 0.5)';
+                ctxSuhu.shadowColor = shadowColor;
                 ctxSuhu.fill();
                 ctxSuhu.closePath();
             });
 
-            // Jalankan frame berikutnya
             requestAnimationFrame(animateParticles);
         }
+        
+        // Pancing ukuran pertama kali
+        resizeCanvas();
+        // Beri ukuran cadangan sementara agar partikel tidak eror saat pertama kali load
+        if (canvasSuhu.width === 0) canvasSuhu.width = 500;
+        if (canvasSuhu.height === 0) canvasSuhu.height = 300;
+        
         animateParticles();
 
-        // Hubungkan Slider dengan kecepatan partikel
+        // Hubungkan Slider dengan kecepatan dan warna
         const tempSlider = document.getElementById('temp-slider-suhu');
         const tempDisplay = document.getElementById('temp-display-suhu');
         
@@ -6089,22 +6105,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 const temp = parseInt(this.value);
                 tempDisplay.innerText = temp;
                 
-                // Rumus kecepatan: Suhu 0°C (hampir diam) ke Suhu 100°C (bergerak cepat)
                 speedMultiplier = 0.1 + (temp / 100) * 6; 
                 
-                // Ubah warna partikel berdasarkan suhu (Dingin = Biru, Panas = Merah)
+                // Ganti warna secara dinamis
                 if (temp > 70) {
-                    ctxSuhu.fillStyle = 'rgba(239, 68, 68, 0.8)'; // Merah
-                    ctxSuhu.shadowColor = 'rgba(239, 68, 68, 0.5)';
+                    particleColor = 'rgba(239, 68, 68, 0.8)'; // Merah
+                    shadowColor = 'rgba(239, 68, 68, 0.5)';
                 } else if (temp < 30) {
-                    ctxSuhu.fillStyle = 'rgba(59, 130, 246, 0.8)'; // Biru
-                    ctxSuhu.shadowColor = 'rgba(59, 130, 246, 0.5)';
+                    particleColor = 'rgba(59, 130, 246, 0.8)'; // Biru
+                    shadowColor = 'rgba(59, 130, 246, 0.5)';
                 } else {
-                    ctxSuhu.fillStyle = 'rgba(99, 102, 241, 0.8)'; // Indigo (Sedang)
-                    ctxSuhu.shadowColor = 'rgba(99, 102, 241, 0.5)';
+                    particleColor = 'rgba(99, 102, 241, 0.8)'; // Indigo
+                    shadowColor = 'rgba(99, 102, 241, 0.5)';
                 }
             });
-            // Jalankan satu kali di awal agar nilainya sinkron
             tempSlider.dispatchEvent(new Event('input'));
         }
     }
