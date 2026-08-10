@@ -1525,7 +1525,7 @@
                     </label>
                     <label class="flex items-center gap-3 p-4 border-2 border-slate-100 rounded-xl cursor-pointer hover:bg-slate-50 hover:border-red-200 transition-colors group">
                         <input type="radio" name="prediksi-skala" class="w-5 h-5 text-red-500 accent-red-500"> 
-                        <span class="text-sm font-bold text-slate-600 group-hover:text-slate-800">Alat termometer Pak Tono rusak karena terkena terik matahari.</span>
+                        <span class="text-sm font-bold text-slate-600 group-hover:text-slate-800">Alat termometer Pak Jember rusak karena terkena terik matahari.</span>
                     </label>
                 </div>
                 <button onclick="lanjutBelajarSkala()" class="bg-slate-800 hover:bg-slate-900 text-white font-black py-3.5 px-8 rounded-xl shadow-md transition-transform hover:-translate-y-1 w-full sm:w-auto">
@@ -3762,7 +3762,7 @@
             </div>
         </div>
 
-        <!-- ========================================== -->
+       <!-- ========================================== -->
         <!-- 3. LAYAR HASIL & PEMBAHASAN LENGKAP         -->
         <!-- ========================================== -->
         <div id="eval-result-area" class="hidden relative z-10 py-6 anim-pop">
@@ -3772,6 +3772,7 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-10">
+                <!-- Kolom Kiri: Skor Akhir -->
                 <div class="bg-white border-4 border-slate-100 rounded-[2.5rem] p-8 shadow-xl relative flex flex-col items-center justify-center transform transition-transform hover:scale-105">
                     <div class="absolute -top-4 bg-slate-800 text-white font-black px-5 py-1.5 rounded-full shadow-lg tracking-widest text-xs uppercase">NILAI AKHIR</div>
                     <div id="eval-final-score" class="text-[6rem] font-black leading-none my-4 drop-shadow-sm text-slate-800">0</div>
@@ -3784,6 +3785,7 @@
                     </div>
                 </div>
 
+                <!-- Kolom Kanan: Rincian Hasil -->
                 <div class="flex flex-col gap-4">
                     <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
                         <h4 class="font-black text-slate-700 mb-3 uppercase tracking-wider text-xs border-b border-slate-200 pb-2">Rincian Hasil</h4>
@@ -3798,8 +3800,17 @@
                             </div>
                         </div>
                     </div>
-             
+                </div> <!-- PENUTUP KOLOM KANAN -->
+            </div> <!-- PENUTUP GRID -->
 
+            <!-- ========================================== -->
+            <!-- WADAH PEMBAHASAN (Posisinya sekarang aman di luar grid) -->
+            <!-- ========================================== -->
+            <div id="eval-pembahasan-container" class="max-w-4xl mx-auto mb-10 space-y-6 text-left">
+                <!-- Konten pembahasan akan dimuat oleh JavaScript -->
+            </div>
+
+            <!-- Tombol Bawah -->
             <div class="flex flex-col sm:flex-row justify-center gap-4 border-t-2 border-slate-200 pt-8 max-w-4xl mx-auto">
                 <button onclick="retryEvaluasi()" class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-700 font-black py-4 px-8 rounded-2xl shadow-sm transition transform hover:-translate-y-1 flex items-center justify-center gap-2 border border-slate-300">
                     <i class="fas fa-redo"></i> Ulangi Evaluasi
@@ -3809,8 +3820,6 @@
                 </button>
             </div>
         </div>
-    </div>
-</section>
             
         <!-- ================================== -->
         <!-- HALAMAN REFERENSI                   -->
@@ -5015,63 +5024,88 @@
                 return;
             }
 
-            let correct = 0;
-            evalAnswers.forEach((ans, idx) => {
-                if (ans === evalData[idx].ans) correct++;
+            let benar = 0;
+            const letters = ['A', 'B', 'C', 'D'];
+            let pembahasanHtml = '<h3 class="text-2xl font-black text-slate-800 mb-6 border-b-2 border-slate-200 pb-3"><i class="fas fa-list-check text-emerald-500 mr-2"></i> Kunci Jawaban & Pembahasan</h3>';
+
+            // Hitung nilai dan buat elemen HTML pembahasan
+            evalData.forEach((item, index) => {
+                const userAnswer = evalAnswers[index];
+                const isCorrect = (userAnswer === item.ans);
+                if (isCorrect) benar++;
+
+                const statusIcon = isCorrect ? '<i class="fas fa-check-circle text-emerald-500 text-2xl"></i>' : '<i class="fas fa-times-circle text-rose-500 text-2xl"></i>';
+                const borderColor = isCorrect ? 'border-emerald-300' : 'border-rose-300';
+                
+                pembahasanHtml += `
+                    <div class="bg-white rounded-3xl border-2 ${borderColor} p-6 sm:p-8 shadow-sm">
+                        <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-4">
+                            <span class="bg-slate-800 text-white text-xs font-extrabold px-3.5 py-1.5 rounded-lg shadow-sm">Soal ${index + 1}</span>
+                            ${statusIcon}
+                        </div>
+                        <h4 class="text-base sm:text-lg font-bold text-slate-800 leading-relaxed mb-6">${item.q}</h4>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <div class="p-4 rounded-2xl border ${isCorrect ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-rose-50 border-rose-200 text-rose-900'}">
+                                <span class="text-[10px] font-black uppercase tracking-widest block mb-1 opacity-70">Jawaban Kamu:</span>
+                                <span class="font-bold text-sm sm:text-base">${letters[userAnswer]}. ${item.opts[userAnswer]}</span>
+                            </div>
+                            <div class="p-4 rounded-2xl border bg-blue-50 border-blue-200 text-blue-900">
+                                <span class="text-[10px] font-black uppercase tracking-widest block mb-1 opacity-70">Kunci Jawaban:</span>
+                                <span class="font-bold text-sm sm:text-base">${letters[item.ans]}. ${item.opts[item.ans]}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+                            <span class="text-xs font-black text-slate-500 uppercase tracking-widest block mb-2 flex items-center gap-2"><i class="fas fa-lightbulb text-amber-500"></i> Pembahasan:</span>
+                            <p class="text-sm text-slate-700 leading-relaxed m-0 font-medium">${item.exp}</p>
+                        </div>
+                    </div>
+                `;
             });
 
-            const score = Math.round((correct / evalData.length) * 100);
-            
+            const total = evalData.length;
+            const salah = total - benar;
+            const score = Math.round((benar / total) * 100);
+
+            // Perbarui UI layar hasil
             document.getElementById('eval-active-area').classList.add('hidden');
             document.getElementById('eval-result-area').classList.remove('hidden');
             
-            const scoreEl = document.getElementById('eval-final-score');
+            document.getElementById('eval-final-score').innerText = score;
+            document.getElementById('res-benar').innerText = benar;
+            document.getElementById('res-salah').innerText = salah;
+            
+            const statusEl = document.getElementById('res-status');
             const iconEl = document.getElementById('eval-status-icon');
             const titleEl = document.getElementById('eval-status-title');
-            const statusBadge = document.getElementById('res-status');
-            const saranEl = document.getElementById('res-saran');
-            
-            let currScore = 0;
-            const scoreInterval = setInterval(() => {
-                if (currScore >= score) {
-                    clearInterval(scoreInterval);
-                    scoreEl.innerText = score;
-                } else {
-                    currScore++;
-                    scoreEl.innerText = currScore;
-                }
-            }, 15);
-
-            document.getElementById('res-benar').innerText = correct;
-            document.getElementById('res-salah').innerText = evalData.length - correct;
 
             if (score >= 80) {
-                scoreEl.className = "text-[7rem] font-black leading-none my-4 drop-shadow-sm text-emerald-500";
-                iconEl.innerText = "🌟";
+                statusEl.innerHTML = '<span class="bg-emerald-100 text-emerald-700 font-black px-4 py-1.5 rounded-full border border-emerald-200">LULUS SANGAT BAIK</span>';
+                iconEl.innerText = "🏆";
                 titleEl.innerText = "Luar Biasa!";
-                statusBadge.innerHTML = `<span class="bg-emerald-100 text-emerald-700 font-black px-4 py-1.5 rounded-lg border border-emerald-200 shadow-sm">LULUS / TUNTAS</span>`;
-                saranEl.innerHTML = `
-                    <div class="bg-gradient-to-r from-emerald-50 to-teal-50 border-l-4 border-emerald-500 p-5 rounded-r-2xl shadow-sm">
-                        <h4 class="font-bold text-emerald-900 text-base mb-1">Tingkat Penguasaan Sangat Baik</h4>
-                        <p class="text-xs text-emerald-800 m-0 leading-relaxed">Kamu telah memahami konsep suhu dan kalor beserta penerapannya pada pengeringan kopi nusantara dengan sempurna.</p>
-                    </div>`;
                 if(typeof confetti === 'function') confetti({ particleCount: 150, spread: 80, origin: { y: 0.3 } });
+            } else if (score >= 60) {
+                statusEl.innerHTML = '<span class="bg-blue-100 text-blue-700 font-black px-4 py-1.5 rounded-full border border-blue-200">LULUS</span>';
+                iconEl.innerText = "⭐";
+                titleEl.innerText = "Kerja Bagus!";
+                if(typeof confetti === 'function') confetti({ particleCount: 50, spread: 50, origin: { y: 0.3 } });
             } else {
-                scoreEl.className = "text-[7rem] font-black leading-none my-4 drop-shadow-sm text-amber-500";
-                iconEl.innerText = "💪";
-                titleEl.innerText = "Terus Berlatih!";
-                statusBadge.innerHTML = `<span class="bg-amber-100 text-amber-700 font-black px-4 py-1.5 rounded-lg border border-amber-200 shadow-sm">BELUM TUNTAS</span>`;
-                saranEl.innerHTML = `
-                    <div class="bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-amber-500 p-5 rounded-r-2xl shadow-sm">
-                        <h4 class="font-bold text-amber-900 text-base mb-1">Pelajari Pembahasan Soal</h4>
-                        <p class="text-xs text-amber-800 m-0 leading-relaxed">Simak pembahasan jawaban lengkap di bawah ini untuk memahami soal-soal yang belum tepat.</p>
-                    </div>`;
+                statusEl.innerHTML = '<span class="bg-rose-100 text-rose-700 font-black px-4 py-1.5 rounded-full border border-rose-200">BELUM LULUS</span>';
+                iconEl.innerText = "📚";
+                titleEl.innerText = "Tetap Semangat!";
             }
 
-            // RENDER PEMBAHASAN LENGKAP
-            renderDiscussion();
+            // Tampilkan UI Pembahasan
+            document.getElementById('eval-pembahasan-container').innerHTML = pembahasanHtml;
+            
+            // Format ulang MathJax untuk pembahasan jika tersedia
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
 
-            window.scrollTo({ top: document.getElementById('eval-result-area').offsetTop - 50, behavior: 'smooth' });
+            // Scroll ke hasil atas
+            window.scrollTo({ top: document.getElementById('eval-result-area').offsetTop - 80, behavior: 'smooth' });
         }
 
         function renderDiscussion() {
