@@ -2185,7 +2185,7 @@ main, .page-section, #evaluasi {
     
     <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="bg-gradient-to-r from-green-500 to-emerald-600 px-6 sm:px-8 py-6 text-white relative overflow-hidden">
-            <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0 relative z-10"><span class="text-3xl sm:text-4xl mr-3">📌</span> Rangkuman Komprehensif Suhu</h2>
+            <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0 relative z-10"><span class="text-3xl sm:text-4xl mr-3">📌</span> Rangkuman</h2>
         </div>
         
         <div class="p-6 sm:p-8">
@@ -2523,37 +2523,42 @@ main, .page-section, #evaluasi {
                                 </div>
 
                                 <div class="flex flex-col gap-6 mb-8">
-                                    <div class="bg-gray-50 border border-gray-200 p-6 rounded-2xl">
-                                        <h3 class="font-bold text-gray-800 mt-0 mb-2">Apa itu Kalor Jenis (\(c\))?</h3>
-                                        <p class="text-sm text-gray-600 leading-relaxed m-0">
-                                            <strong>Kalor jenis</strong> adalah karakteristik fisis unik tiap zat. Ini menunjukkan berapa banyak energi yang dibutuhkan untuk menaikkan suhu \( 1\text{ kg} \) zat tersebut sebesar \( 1^\circ\text{C} \). Air memiliki kalor jenis yang sangat tinggi (\( 4.200 \text{ J/kg}^\circ\text{C} \)), artinya air butuh banyak panas untuk menjadi panas, dan lambat untuk menjadi dingin.
-                                        </p>
-                                    </div>
-                                    <div class="bg-gray-50 border border-gray-200 p-6 rounded-2xl flex flex-col">
-                                        <h3 class="font-bold text-gray-800 mt-0 mb-2">Kapasitas Kalor (\(C\))</h3>
-                                        <p class="text-sm text-gray-600 leading-relaxed mb-4">
-                                            Berbeda dengan kalor jenis, <strong>kapasitas kalor</strong> menyatakan total energi yang dibutuhkan oleh <em>seluruh benda tersebut</em> untuk menaikkan suhunya sebesar \( 1^\circ\text{C} \).
-                                        </p>
-                                        
-                                        <!-- Kotak rumus diperbesar -->
-                                        <div class="bg-white p-3 rounded-xl border border-gray-200 text-center shadow-sm mb-4">
-                                            <div class="font-mono text-lg font-bold text-blue-700">
-                                                $$ C = m \cdot c $$
-                                            </div>
-                                            <div class="text-xs text-gray-400 my-1 font-bold italic">sehingga</div>
-                                            <div class="font-mono text-lg font-bold text-red-600">
-                                                $$ Q = C \cdot \Delta T $$
-                                            </div>
-                                        </div>
-                                        
-                                        <!-- Keterangan simbol ditambahkan di bawahnya -->
-                                        <ul class="text-xs text-gray-600 space-y-1.5 list-none p-0 m-0">
-                                            <li><strong>\( C \)</strong> = kapasitas kalor (\(\text{J/}^\circ\text{C}\))</li>
-                                            <li><strong>\( Q \)</strong> = energi kalor (\(\text{J}\))</li>
-                                            <li><strong>\( \Delta T \)</strong> = perubahan suhu (\(^\circ\text{C}\))</li>
-                                        </ul>
-                                    </div>
-                                </div>
+    <!-- Bagian Apa itu Kalor Jenis -->
+    <div class="bg-gray-50 border border-gray-200 p-6 md:p-8 rounded-2xl">
+        <h3 class="text-lg md:text-xl font-bold text-gray-800 mt-0 mb-3">Apa itu Kalor Jenis (\(c\))?</h3>
+        <p class="text-base md:text-lg text-gray-700 leading-relaxed m-0">
+            <strong>Kalor jenis</strong> adalah karakteristik fisis unik tiap zat. Ini menunjukkan berapa banyak energi yang dibutuhkan untuk menaikkan suhu \( 1\text{ kg} \) zat tersebut sebesar \( 1^\circ\text{C} \). Air memiliki kalor jenis yang sangat tinggi (\( 4.200 \text{ J/kg}^\circ\text{C} \)), artinya air butuh banyak panas untuk menjadi panas, dan lambat untuk menjadi dingin.
+        </p>
+    </div>
+
+    <!-- Bagian Kapasitas Kalor -->
+    <div class="bg-gray-50 border border-gray-200 p-6 md:p-8 rounded-2xl flex flex-col">
+        <h3 class="text-lg md:text-xl font-bold text-gray-800 mt-0 mb-3">Kapasitas Kalor (\(C\))</h3>
+        <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-5">
+            Berbeda dengan kalor jenis, <strong>kapasitas kalor</strong> menyatakan total energi yang dibutuhkan oleh <em>seluruh benda tersebut</em> untuk menaikkan suhunya sebesar \( 1^\circ\text{C} \).
+        </p>
+        
+        <!-- Kotak rumus diperbesar -->
+        <div class="bg-white p-5 rounded-xl border border-gray-200 text-center shadow-sm mb-5">
+            <div class="font-mono text-xl md:text-2xl font-bold text-blue-700">
+                $$ C = m \cdot c $$
+            </div>
+            <div class="text-sm text-gray-500 my-2 font-bold italic">sehingga</div>
+            <div class="font-mono text-xl md:text-2xl font-bold text-red-600">
+                $$ Q = C \cdot \Delta T $$
+            </div>
+        </div>
+        
+        <!-- Keterangan simbol diperbesar -->
+        <ul class="text-base md:text-lg text-gray-700 space-y-2 list-none p-0 m-0">
+            <li><strong>\( C \)</strong> = kapasitas kalor (\(\text{J/}^\circ\text{C}\))</li>
+            <li><strong>\( Q \)</strong> = energi kalor (\(\text{J}\))</li>
+            <li><strong>\( \Delta T \)</strong> = perubahan suhu (\(^\circ\text{C}\))</li>
+            <li><strong>\( m \)</strong> = massa benda (\(\text{kg}\))</li>
+            <li><strong>\( c \)</strong> = kalor jenis zat (\(\text{J/kg}^\circ\text{C}\))</li>
+        </ul>
+    </div>
+</div>
 
                                 <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-orange-200 p-6 sm:p-8 rounded-3xl shadow-sm relative overflow-hidden mb-10">
                                     <div class="absolute -right-6 -bottom-6 text-7xl opacity-10">💧</div>
@@ -3585,9 +3590,19 @@ main, .page-section, #evaluasi {
                             <div class="p-6 flex-1 relative overflow-x-auto">
                                 <h4 class="font-bold text-gray-800 mt-0 mb-2">Hantaran pada Zat Padat</h4>
                                 <p class="text-sm text-gray-600 leading-relaxed mb-4">Perpindahan panas melalui bahan zat padat <strong>tanpa disertai perpindahan partikel-partikel</strong> zat penyusunnya. Partikel hanya bergetar dan menumbuk tetangganya untuk menyalurkan panas.</p>
-                                <div class="w-full max-w-full overflow-x-auto bg-white px-4 py-3 rounded-xl border border-gray-200 text-sm font-mono text-red-600 text-center font-bold">
+                               <div class="w-full max-w-full overflow-x-auto bg-white px-4 py-3 rounded-xl border border-gray-200 text-sm font-mono text-red-600 text-center font-bold">
                                     $$ H = \frac{Q}{t} = \frac{k \cdot A \cdot \Delta T}{L} $$
                                 </div>
+
+                                <!-- Tambahan Keterangan Simbol -->
+                                <ul class="text-sm text-gray-600 space-y-1 mt-3 pl-4 list-disc">
+                                    <li><strong>\(H\)</strong> = laju perpindahan kalor (\(\text{J/s}\) atau \(\text{Watt}\))</li>
+                                    <li><strong>\(k\)</strong> = konduktivitas termal bahan (\(\text{W/m}\cdot^\circ\text{C}\))</li>
+                                    <li><strong>\(A\)</strong> = luas penampang (\(\text{m}^2\))</li>
+                                    <li><strong>\(\Delta T\)</strong> = perubahan suhu (\(^\circ\text{C}\))</li>
+                                    <li><strong>\(L\)</strong> = tebal atau panjang penghantar (\(\text{m}\))</li>
+                                </ul>
+
                                 <p class="text-xs text-gray-400 italic mt-3 mb-0">Contoh: Memanaskan ujung besi, panas merambat ke tangan kita. Atau wajan alat sangrai kopi yang menghantarkan panas api ke biji kopi.</p>
                             </div>
                         </div>
@@ -3603,6 +3618,15 @@ main, .page-section, #evaluasi {
                                 <div class="w-full max-w-full overflow-x-auto bg-white px-4 py-3 rounded-xl border border-gray-200 text-sm font-mono text-blue-600 text-center font-bold">
                                     $$ H = \frac{Q}{t} = h \cdot A \cdot \Delta T $$
                                 </div>
+
+                                <!-- Tambahan Keterangan Simbol -->
+                                <ul class="text-sm text-gray-600 space-y-1 mt-3 pl-4 list-disc">
+                                    <li><strong>\(H\)</strong> = laju perpindahan kalor (\(\text{J/s}\) atau \(\text{Watt}\))</li>
+                                    <li><strong>\(h\)</strong> = koefisien konveksi termal fluida (\(\text{W/m}^2\cdot^\circ\text{C}\))</li>
+                                    <li><strong>\(A\)</strong> = luas permukaan kontak (\(\text{m}^2\))</li>
+                                    <li><strong>\(\Delta T\)</strong> = perbedaan suhu (\(^\circ\text{C}\))</li>
+                                </ul>
+
                                 <p class="text-xs text-gray-400 italic mt-3 mb-0">Contoh: Air mendidih yang berputar dalam panci, terjadinya angin darat & laut, aliran udara panas dalam mesin pengering kopi.</p>
                             </div>
                         </div>
@@ -3615,11 +3639,20 @@ main, .page-section, #evaluasi {
                             <div class="p-6 flex-1 relative overflow-x-auto">
                                 <h4 class="font-bold text-gray-800 mt-0 mb-2">Pancaran (Tanpa Medium)</h4>
                                 <p class="text-sm text-gray-600 leading-relaxed mb-4">Perpindahan panas melalui gelombang elektromagnetik <strong>tanpa memerlukan zat perantara (medium)</strong> sama sekali, bahkan bisa menembus ruang hampa udara.</p>
-                                <div class="w-full max-w-full overflow-x-auto bg-white px-4 py-3 rounded-xl border border-gray-200 text-sm font-mono text-amber-600 text-center font-bold">
-    $$ P = \frac{Q}{t} = e \cdot \sigma \cdot A \cdot T^4 $$
-</div>
+                               <div class="w-full max-w-full overflow-x-auto bg-white px-4 py-3 rounded-xl border border-gray-200 text-sm font-mono text-amber-600 text-center font-bold">
+                                    $$ P = \frac{Q}{t} = e \cdot \sigma \cdot A \cdot T^4 $$
+                                </div>
+
+                                <!-- Tambahan Keterangan Simbol -->
+                                <ul class="text-sm text-gray-600 space-y-1 mt-3 pl-4 list-disc">
+                                    <li><strong>\(P\)</strong> = daya radiasi atau laju kalor (\(\text{J/s}\) atau \(\text{Watt}\))</li>
+                                    <li><strong>\(e\)</strong> = emisivitas permukaan benda (nilai \(0 \leq e \leq 1\))</li>
+                                    <li><strong>\(\sigma\)</strong> = konstanta Stefan-Boltzmann (\(5,67 \times 10^{-8} \text{ W/m}^2\text{K}^4\))</li>
+                                    <li><strong>\(A\)</strong> = luas permukaan benda (\(\text{m}^2\))</li>
+                                    <li><strong>\(T\)</strong> = suhu mutlak benda (\(\text{K}\))</li>
+                                </ul>
+
                                 <p class="text-xs text-gray-400 italic mt-3 mb-0">Contoh: Panas sinar matahari sampai ke bumi untuk menjemur kopi, atau tubuh terasa hangat saat berada di dekat api unggun.</p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -3662,7 +3695,7 @@ main, .page-section, #evaluasi {
                                 \( \Delta T \) = perbedaan suhu (\(^\circ\text{C}\))<br>
                                 \( L \) = panjang lintasan perpindahan kalor (\(\text{m}\))</p>
                                 <p class="mb-2">Logam memiliki nilai \(k\) yang besar sehingga kalor dapat berpindah dengan cepat dari bagian yang panas menuju bagian lainnya.</p>
-                                <p class="mb-0">Sebaliknya, plastik, kayu, dan ebonit memiliki nilai \(k\) yang kecil sehingga bertindak sebagai isolator termal. Bahan tersebut menghambat laju perpindahan kalor dari bagian logam yang panas menuju tangan.</p>
+                                <p class="mb-0">Sebaliknya, plastik, kayu, dan ebonit memiliki nilai \(k\) yang kecil sehingga bertindak sebagai isolator termal. Bahan tersebut menghambat Hantaran pada Zat Padat dari bagian logam yang panas menuju tangan.</p>
                             </div>
                             <div class="mt-4 pt-3 border-t border-gray-200">
                                 <span class="font-bold text-gray-900">Kesimpulan:</span><br>
@@ -3795,7 +3828,7 @@ main, .page-section, #evaluasi {
 
     <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="bg-gradient-to-r from-orange-500 to-orange-600 px-6 sm:px-8 py-6 text-white relative overflow-hidden">
-            <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0 relative z-10"><span class="text-3xl sm:text-4xl mr-3">📌</span> Rangkuman Komprehensif Kalor</h2>
+            <h2 class="text-2xl sm:text-3xl font-extrabold flex items-center m-0 relative z-10"><span class="text-3xl sm:text-4xl mr-3">📌</span> Rangkuman</h2>
         </div>
         
         <div class="p-6 sm:p-8 space-y-6">
